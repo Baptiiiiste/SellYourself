@@ -20,6 +20,7 @@ npm i
 ```
 
 - Configurer le .env
+
 Créer un fichier .env dans `/src/` avec dedans 
 ```
 DATABASE_URI=**votre lien vers votre bdd mongoDB**
