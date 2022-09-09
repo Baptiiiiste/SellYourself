@@ -10,17 +10,18 @@ function App() {
       setTimeout(() => {
           setLoader(false)
       },1250);
-  })
+  }, [])
 
-  return (
-    loader 
-    ? 
+  return loader ? 
+    (
     <Loader/> 
+    )
     :
+    (    
     <div className="App">
       <h1>SELL YOURSELF IS COMING SOON</h1>
-    </div>
-  );
+     </div>
+    )
 }
 
 export default App;
