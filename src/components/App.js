@@ -1,23 +1,24 @@
-import logo from '../assets/logo.svg';
 import '../styles/App.css';
+import Loader from './Loader.js'
+import React, {useState, useEffect} from 'react';
 
 function App() {
+
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+      setTimeout(() => {
+          setLoader(false)
+      },1250);
+  })
+
   return (
+    loader 
+    ? 
+    <Loader/> 
+    :
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>SELL YOURSELF IS COMING SOON</h1>
     </div>
   );
 }
