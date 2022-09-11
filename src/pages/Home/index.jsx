@@ -1,8 +1,8 @@
-import '../styles/App.css';
-import Loader from './Loader.js'
+import '../../styles/Home.css';
+import Loader from '../../components/Loader/index'
 import React, {useState, useEffect} from 'react';
 
-function App() {
+function Home() {
 
   const [loader, setLoader] = useState(true);
 
@@ -24,4 +24,4 @@ function App() {
     )
 }
 
-export default App;
+export default Home;
