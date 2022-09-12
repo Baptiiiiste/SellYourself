@@ -1,4 +1,4 @@
-import '../../styles/Home.css';
+import './Home.css';
 import Loader from '../../components/Loader/index'
 import React, {useState, useEffect} from 'react';
 
