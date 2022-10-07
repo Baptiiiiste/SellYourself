@@ -1,0 +1,12 @@
+title{
+    display: flex;
+    flex-direction: row;
+}
+
+domaine{
+    color: #D48002;
+}
+
+extension{
+    color: #D48002;
+}
