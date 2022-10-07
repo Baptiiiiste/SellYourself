@@ -1,6 +1,7 @@
 import './Home.css';
 import Loader from '../../components/Loader/index'
 import React, {useState, useEffect} from 'react';
+import HeaderCustom from '../../components/HeaderCustom';
 
 function Home() {
 
@@ -19,8 +20,8 @@ function Home() {
     :
     (    
     <div className="App">
-      <h1>SELL YOURSELF IS COMING SOON</h1>
-     </div>
+      <HeaderCustom/>
+    </div>
     )
 }
 

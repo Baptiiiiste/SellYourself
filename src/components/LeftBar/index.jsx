@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Leftbar() {
   return (
     <div>
         <Link to="/">Home</Link>
@@ -9,4 +9,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Leftbar;
