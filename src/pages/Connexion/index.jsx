@@ -10,7 +10,9 @@ function Connexion() {
       <div className='Connexion-bas'>
         <FormulaireConnexion className="Connexion-form"/>
         <div className="Connexion-entrediv"></div>
-        <div className="Connexion-image"></div>
+        <div className="Connexion-image">
+          <img src={require('../../assets/login.png')} alt=""/>
+        </div>
       </div>
       
     </div>
