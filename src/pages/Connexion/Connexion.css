@@ -1,0 +1,25 @@
+.Connexion-image{
+    background-color: aqua;
+    width: 40%;
+}
+
+.Connexion-form{
+    flex: 40%;
+}
+
+.Connexion-bas{
+    display: flex;
+    flex-direction: row;
+}
+
+.Connexion-entrediv{
+    width: 1px;
+    height: 100vh;
+    background-color: black;
+}
+
+.Connexion{
+    display: flex;
+    flex-direction: column;
+}
+

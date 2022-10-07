@@ -16,13 +16,6 @@ form {
     height: 400px;
 }
 
-.entrediv{
-    width: 2px;
-    height: 80%;
-    background-color:#D48002; 
-}
-
-
 .input{
     display: flex;
     flex-direction: column;
