@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderCustom from '../../components/HeaderCustom';
 
-function Home() {
+function Connexion() {
   return(
     <div className="App">
       <HeaderCustom title="logForm"/>
@@ -9,4 +9,4 @@ function Home() {
     )
 }
 
-export default Home;
+export default Connexion;

@@ -23,7 +23,7 @@ function Home() {
     :
     (    
     <div className="App">
-      <Header_Inscription_Connexion/>
+      <HeaderCustom title="Test"/>
     </div>
     )
 }
