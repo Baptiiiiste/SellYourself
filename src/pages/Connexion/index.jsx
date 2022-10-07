@@ -1,10 +1,11 @@
 import React from 'react';
 import FormulaireConnexion from '../../components/FormulaireConnexion';
+import HeaderCustom from '../../components/HeaderCustom';
 
 function Connexion() {
   return(
     <div className="App">
-      <FormulaireConnexion />
+      <HeaderCustom title="logForm" />
     </div>
     )
 }

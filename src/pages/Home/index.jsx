@@ -21,8 +21,8 @@ function Home() {
     )
     :
     (    
-    <div className="App">
-      <Leftbar/>
+    <div className="Home">
+      <HeaderCustom title="homePage"/>
     </div>
     )
 }
