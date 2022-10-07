@@ -31,7 +31,7 @@ form {
     width: 120%;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
     width: 120%;
     margin: 10px 0;
     border: none;
@@ -56,12 +56,12 @@ input[type=submit]{
     margin: 15px;
 }
 
-.signup-div{
+.signin-div{
     display: flex;
     flex-direction: row;
 }
 
-.signup{
+.signin{
     text-decoration: none;
     color: #D48002;
     margin-left: 10px;
