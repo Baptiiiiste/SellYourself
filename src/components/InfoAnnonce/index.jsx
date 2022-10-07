@@ -1,4 +1,4 @@
-import { link } from 'react-router-dom';
+import { Link, link } from 'react-router-dom';
 import './infoAnnonce.css'
 
 function InfoAnnonce() {
@@ -29,7 +29,7 @@ function InfoAnnonce() {
                 </div>
                 <div className='InfoAnnonceBoutons'>
                     <div className='InfoAnnonceBoutonAchat'>
-                        <p>Acheter</p>
+                        <input type="buy" name="buy" value="S'INSCRIRE"/>
                     </div>
                     <div className='InfoAnnonceBoutonMessage'>
                         <p>Ou Contacter</p>
