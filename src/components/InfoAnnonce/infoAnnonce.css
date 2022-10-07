@@ -1,0 +1,15 @@
+.InfoAnnonce{
+    display:flex;
+    flex-direction: column;
+}
+
+.InfoAnnonceHaut{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.InfoAnnonceInfoEtPhotoVendeur{
+    display: flex;
+    flex-direction: row;
+}
