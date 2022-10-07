@@ -5,6 +5,7 @@ import Home from './pages/Home/index';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Connexion from './pages/Connexion';
 import Annonce from './pages/Annonce';
+import Inscription from './pages/Inscription';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<Home/>} />
         <Route path="/connexion" element={<Connexion/>} />
         <Route path="/annonce" element={<Annonce/>} />
+        <Route path="/inscription" element={<Inscription/>} />
         <Route path="/*" element={<p> 404 </p>} />
       </Routes>
 
