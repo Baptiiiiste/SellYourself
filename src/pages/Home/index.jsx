@@ -19,8 +19,8 @@ function Home() {
     )
     :
     (    
-    <div className="App">
-      <HeaderCustom title="Test"/>
+    <div className="Home">
+      <HeaderCustom title="homePage"/>
     </div>
     )
 }
