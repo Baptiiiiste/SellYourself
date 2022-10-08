@@ -1,0 +1,45 @@
+.InfoAnnonce{
+    display:flex;
+    flex-direction: column;
+    margin-top: 1%;
+}
+
+.InfoAnnonceHaut{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.InfoAnnonceInfoEtPhotoVendeur{
+    display: flex;
+    flex-direction: row;
+}
+
+.InfoAnnoncePhotoVendeur{
+    border-radius: 100%;
+    height: 180px;
+    width: 180px;
+}
+
+.InfoAnnonceInfoVendeur{
+    margin-left: 1%;
+}
+
+.InfoAnnoncePhotosAnnonce{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+input[type=buy]{
+    border: 0px;
+    border-radius: 15px;
+    width: 150px;
+    height: 40px;
+    background-color: #D48002;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
