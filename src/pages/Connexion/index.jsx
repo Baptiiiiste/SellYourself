@@ -6,15 +6,14 @@ import HeaderCustom from '../../components/HeaderCustom';
 function Connexion() {
   return(
     <div className="Connexion">
-      <HeaderCustom title="logForm"/>
+      <HeaderCustom title="logForm" className="Connexion-header"/>
       <div className='Connexion-bas'>
         <FormulaireConnexion className="Connexion-form"/>
         <div className="Connexion-entrediv"></div>
         <div className="Connexion-image">
-          <img src={require('../../assets/login.png')} alt=""/>
+          <img className="Connexion-img-login" src={require('../../assets/login.png')} alt=""/>
         </div>
       </div>
-      
     </div>
   )
 }

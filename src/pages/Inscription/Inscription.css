@@ -1,4 +1,4 @@
-.Connexion-image{
+.Inscription-image{
     display: flex;
     flex: 0%;
     justify-content: center;
@@ -6,23 +6,22 @@
     
 }
 
-.Connexion-img-login{
+.Inscription-img-login{
     height: 80%;
 }
 
-.Connexion-bas{
+.Inscription-bas{
     display: flex;
     flex-direction: row;
     height: 90vh;
 }
 
-.Connexion-entrediv{
+.Inscription-entrediv{
     width: 1px;
     background-color: black;
 }
 
-.Connexion{
+.Inscription{
     display: flex;
     flex-direction: column;
 }
-
