@@ -3,7 +3,7 @@ import './headerCustom.css'
 
 function HeaderCustom({title}) {
 
-  if(title == "logForm") return(
+  if(title === "logForm") return(
     <header>
       <div className="headercustom-logo2">
         <img src={require('../../assets/Logo.png')} alt=""/>
@@ -17,9 +17,9 @@ function HeaderCustom({title}) {
     </header>
   )
 
-  if(title == "homePage") return(
+  if(title === "homePage") return(
     <header>
-      <div className="headercustom-logo">
+      <div className="headercustom-logo3">
         <img src={require('../../assets/Logo.png')} alt=""/>
         <h1>SellYourself</h1>
         <h1 className='headercustom-point'>.</h1>
