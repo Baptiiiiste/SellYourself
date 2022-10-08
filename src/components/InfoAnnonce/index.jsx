@@ -1,4 +1,3 @@
-import { Link, link } from 'react-router-dom';
 import './infoAnnonce.css'
 
 function InfoAnnonce() {
@@ -7,7 +6,7 @@ function InfoAnnonce() {
             <div className='InfoAnnonceHaut'>
                 <div className='InfoAnnonceInfoEtPhotoVendeur'>
                     <div>
-                        <img src={require('../../assets/DefaultPP.jpeg')} className='InfoAnnoncePhotoVendeur'/>
+                        <img src={require('../../assets/DefaultPP.jpeg')} className='InfoAnnoncePhotoVendeur' alt=""/>
                     </div>
                     <div className='InfoAnnonceInfoVendeur'>
                         <div className='InfoAnnonceNomVendeur'>
