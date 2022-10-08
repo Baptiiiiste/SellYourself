@@ -6,6 +6,13 @@
     
 }
 
+.Inscription-formulaire{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+}
+
 .Inscription-img-login{
     height: 80%;
 }
@@ -18,6 +25,7 @@
 
 .Inscription-entrediv{
     width: 1px;
+    height: 100%;
     background-color: black;
 }
 
@@ -25,3 +33,4 @@
     display: flex;
     flex-direction: column;
 }
+
