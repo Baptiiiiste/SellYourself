@@ -1,5 +1,5 @@
 .allLeftBar{
-    max-width: 250px;
+    width: 250px;
     background-color: lightgray;
     display: flex;
     height: 100vh;
