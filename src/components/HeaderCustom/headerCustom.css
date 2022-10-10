@@ -106,3 +106,21 @@ header{
     border: none;
     font-size: 20px;
 }
+
+/* ----------------------------------- */
+
+
+
+
+.headercustom-bar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: 1px solid black;
+    font-size: 0.8em;
+    height: 70px
+}
+
+.headercustom-global{
+    width: 100%;
+}
