@@ -16,6 +16,9 @@ function Leftbar() {
           <p>
             Utilisateur
           </p>
+          <p className='LeftBar-Note'>
+            Note : 3.78
+          </p>
         </div>
       </div>
       <div className='LeftBar-menu'>

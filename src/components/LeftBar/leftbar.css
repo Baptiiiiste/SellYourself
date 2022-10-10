@@ -31,6 +31,8 @@
 .LeftBar-username{
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     font-size: 20px;
     font-weight: bold;
 }
@@ -84,4 +86,12 @@
     margin: 10px;
     align-items: center;
     flex: 0.2
+}
+
+.LeftBar-Note{
+    display: flex;
+    justify-content: center;
+    color :#d48002;
+    margin: -10px;
+    font-size: medium;
 }
