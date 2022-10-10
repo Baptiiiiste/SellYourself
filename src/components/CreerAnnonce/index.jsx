@@ -16,7 +16,9 @@ function CreerAnnonce() {
                     <option value="5">Catégorie 5</option>
                     <option value="6">Catégorie 6</option>
                 </select>
-                {/* Mettre Les images ajoutés */}
+                <div className="ImageAnnonce">
+
+                </div>
                 <input type="file" placeholder='Ajouter une photo' id="CreerAnnonce-Image" required name="Image" accept="image/png, image/jpeg image/jpg" multiple/>
 
                 <p>Format .png .jpeg et .jpg uniquement</p> 

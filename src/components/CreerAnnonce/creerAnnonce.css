@@ -13,11 +13,12 @@
     bottom: 100px;
 }
 
+
 #CreerAnnonce-Titre, #CreerAnnonce-Description, #CreerAnnonce-Prix, #CreerAnnonce-Categorie {
     border: 0;
     height: 30px;
-    width: 300px;
-    max-width: 300px;
+    width: 400px;
+    max-width: 400px;
     resize: none;
     border-bottom: solid 2px grey;
     margin-top: 5px;

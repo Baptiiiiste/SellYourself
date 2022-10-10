@@ -1,0 +1,8 @@
+.Publier{
+    display: flex;
+    flex-direction: row;
+}
+.Publier-center {
+    display: flex;
+    flex-direction: column;
+}
