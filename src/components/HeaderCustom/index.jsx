@@ -18,27 +18,29 @@ function HeaderCustom({title}) {
   )
 
   if(title === "homePage") return(
-    <header>
-      <div className="headercustom-logo3">
-        <img src={require('../../assets/Logo.png')} alt=""/>
-        <h1>SellYourself</h1>
-        <h1 className='headercustom-point'>.</h1>
-        <h1>fr</h1>
+    <div className='headercustom-global'>
+      <div className='headercustom-bar'>
+        <div className="headercustom-logo3">
+          <img src={require('../../assets/Logo.png')} alt=""/>
+          <h1>SellYourself</h1>
+          <h1 className='headercustom-point'>.</h1>
+          <h1>fr</h1>
+        </div>
+        <div className='headercustom-input'>
+          <input placeholder='Rechercher'/>
+        </div>
+        <div className="headercustom-filter">
+          <select name="activite" id="activite">
+            <option value="default">Filtrer</option>
+            <option value="Cat1">Categorie 1</option>
+            <option value="Cat2">Categorie 2</option>
+            <option value="Cat3">Categorie 3</option>
+            <option value="Cat4">Categorie 4</option>
+          </select>
+        </div>
       </div>
-      <div className='headercustom-input'>
-        <input placeholder='Rechercher'/>
-      </div>
-      <div className="headercustom-filter">
-        <select name="activite" id="activite">
-          <option value="default">Filtrer</option>
-          <option value="Cat1">Categorie 1</option>
-          <option value="Cat2">Categorie 2</option>
-          <option value="Cat3">Categorie 3</option>
-          <option value="Cat4">Categorie 4</option>
-        </select>
-      </div>
-
-    </header>
+     
+    </div>
   )
 
   return (
