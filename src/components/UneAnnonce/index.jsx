@@ -24,7 +24,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div>
-                <img className='Contenu-logo' src={require('../../assets/addLogo.png')} alt=""/>
+                {/* <img className='Contenu-logo' src={require('../../assets/addLogo.png')} alt=""/> */}
                 <p className='Contenu-prix'>{prix} €</p>
             </div>
         </div>

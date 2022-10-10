@@ -4,7 +4,7 @@
     margin-top: 1%;
 }
 
-.InfoAnnonceHaut{
+.InfoAnnonce-Haut{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -12,22 +12,24 @@
     margin-right: 2%;
 }
 
-.InfoAnnonceInfoEtPhotoVendeur{
+.InfoAnnonce-InfoEtPhotoVendeur{
     display: flex;
     flex-direction: row;
+    justify-content: baseline;
+    width: 75%;
 }
 
-.InfoAnnoncePhotoVendeur{
+.InfoAnnonce-PhotoVendeur{
     border-radius: 100%;
     height: 180px;
     width: 180px;
 }
 
-.InfoAnnonceInfoVendeur{
+.InfoAnnonce-InfoVendeur{
     margin-left: 1%;
 }
 
-.InfoAnnoncePhotosAnnonce{
+.InfoAnnonce-PhotosAnnonce{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
