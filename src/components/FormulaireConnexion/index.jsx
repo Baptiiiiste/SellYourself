@@ -3,22 +3,22 @@ import { Link } from 'react-router-dom';
 
 function FormulaireConnexion() {
     return (
-        <div className="form">
+        <div className="FormulaireConnexion-form">
             <h1>CONNEXION</h1>
-            <form method="post">
-                <div className="input">
+            <form method="FormulaireConnexion-post">
+                <div className="FormulaireConnexion-input">
                     <input type="text" name="login" placeholder="IDENTIFIANT" required/>
                     <input type="password" name="password" placeholder="MOT DE PASSE" required/>
                 </div>
-                <div className="buttons">
-                    <div className="other">
+                <div className="FormulaireConnexion-buttons">
+                    <div className="FormulaireConnexion-other">
                         <input type="submit" name="submit" value="SE CONNECTER"/>
                     </div>
                 </div>
             </form>
-            <div className="signup-div">
+            <div className="FormulaireConnexion-signup-div">
                 Pas encore inscrit ?
-                <Link className="signup" to="/inscription">S'inscrire</Link>
+                <Link className="FormulaireConnexion-signup" to="/inscription">S'inscrire</Link>
             </div>
         </div>
     );

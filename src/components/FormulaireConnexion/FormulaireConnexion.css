@@ -1,4 +1,4 @@
-form {
+.FormulaireConnexion-form form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,7 +6,7 @@ form {
     margin-bottom: -35px;
 }
 
-.form {
+.FormulaireConnexion-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -16,7 +16,7 @@ form {
     height: 400px;
 }
 
-.input{
+.FormulaireConnexion-input{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,14 +24,14 @@ form {
     width: 120%;
 }
 
-input[type=text], input[type=password] {
+.FormulaireConnexion-input input[type=text], input[type=password] {
     width: 120%;
     margin: 10px 0;
     border: none;
     border-bottom: 2px solid #D48002;
 }
 
-input[type=submit]{
+.FormulaireConnexion-other input[type=submit]{
     border: 0px;
     border-radius: 15px;
     width: 150px;
@@ -41,7 +41,7 @@ input[type=submit]{
     font-weight: bold;
 }
 
-.buttons{
+.FormulaireConnexion-buttons{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,12 +49,12 @@ input[type=submit]{
     margin: 15px;
 }
 
-.signup-div{
+.FormulaireConnexion-signup-div{
     display: flex;
     flex-direction: row;
 }
 
-.signup{
+.FormulaireConnexion-signup{
     text-decoration: none;
     color: #D48002;
     margin-left: 10px;
