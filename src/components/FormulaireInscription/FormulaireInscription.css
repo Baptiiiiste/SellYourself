@@ -1,4 +1,4 @@
-form {
+.FormulaireInscription-form form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,7 +6,7 @@ form {
     margin-bottom: -35px;
 }
 
-.form {
+.FormulaireInscription-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -16,7 +16,7 @@ form {
     height: 400px;
 }
 
-.input{
+.FormulaireInscription-input{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,14 +24,14 @@ form {
     width: 120%;
 }
 
-input[type=text], input[type=password], input[type=email] {
+.FormulaireInscription-input input[type=text], input[type=password], input[type=email] {
     width: 120%;
     margin: 10px 0;
     border: none;
     border-bottom: 2px solid #D48002;
 }
 
-input[type=submit]{
+.FormulaireInscription-other input[type=submit]{
     border: 0px;
     border-radius: 15px;
     width: 150px;
@@ -41,7 +41,7 @@ input[type=submit]{
     font-weight: bold;
 }
 
-.buttons{
+.FormulaireInscription-buttons{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,12 +49,12 @@ input[type=submit]{
     margin: 15px;
 }
 
-.signin-div{
+.FormulaireInscription-signin-div{
     display: flex;
     flex-direction: row;
 }
 
-.signin{
+.FormulaireInscription-signin{
     text-decoration: none;
     color: #D48002;
     margin-left: 10px;
