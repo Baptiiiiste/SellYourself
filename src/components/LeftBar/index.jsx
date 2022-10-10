@@ -28,13 +28,13 @@ function Leftbar() {
             Publier
           </p>
         </Link>
-        <Link className='LeftBar-Link' to="/connexion">
+        <Link className='LeftBar-Link' to="/messages">
           <FontAwesomeIcon icon={faMessage} />
           <p className='LeftBar-textMenu'>
             Messages
           </p>
         </Link>
-        <Link className='LeftBar-Link' to="/connexion">
+        <Link className='LeftBar-Link' to="/notifications">
           <FontAwesomeIcon icon={faBell} />
           <p className='LeftBar-textMenu'>
             Notifications
@@ -46,7 +46,7 @@ function Leftbar() {
             Favoris
           </p>
         </Link>
-        <Link className='LeftBar-Link' to="/account">
+        <Link className='LeftBar-Link' to="/compte">
           <FontAwesomeIcon icon={faGear} />
           <p className='LeftBar-textMenu'>
             Mon Compte

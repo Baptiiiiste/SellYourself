@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
 }
-.Home-center {
-    display: flex;
+.Home-center{
     flex-direction: column;
 }

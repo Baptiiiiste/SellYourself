@@ -14,7 +14,7 @@ function Home() {
   useEffect(() => {
       setTimeout(() => {
           setLoader(false)
-      },1250);
+      },1000);
   }, [])
 
   return loader ? 

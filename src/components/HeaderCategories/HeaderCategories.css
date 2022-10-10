@@ -1,21 +1,22 @@
-.headercategorie-categorie{
+.headercategorie-container{
+    overflow-x: scroll;
+    white-space: nowrap;
+    height: 60px;
+    list-style-type: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     border-bottom: 1px solid black;
-    height: 60px;
-    overflow-x: scroll;
-    list-style-type: none;
-    width: 250px;
 }
 
-.headercategorie-cat-content{
+.headercategorie-content{
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
     padding: 5px 10px 5px 10px;
     border: 1px solid black;
     border-radius: 25px;
-    background-color: aliceblue;
-    display: flex;
-    /* margin: 0 10px 0 10px; */
-    
-}
+    background-color: rgb(201, 201, 201);
+    margin: 0 10px 0 10px;
+  }
