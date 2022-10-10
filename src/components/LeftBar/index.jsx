@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './leftbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 function Leftbar() {
@@ -19,7 +19,7 @@ function Leftbar() {
         </div>
       </div>
       <div className='LeftBar-menu'>
-        <Link className='LeftBar-Link' to="/connexion">
+        <Link className='LeftBar-Link' to="/publier">
           <FontAwesomeIcon icon={faPlus} />
           <p className='LeftBar-textMenu'>
             Publier
@@ -37,13 +37,13 @@ function Leftbar() {
             Notifications
           </p>
         </Link>
-        <Link className='LeftBar-Link' to="/connexion">
+        <Link className='LeftBar-Link' to="/favoris">
           <FontAwesomeIcon icon={faHeart} />
           <p className='LeftBar-textMenu'>
             Favoris
           </p>
         </Link>
-        <Link className='LeftBar-Link' to="/connexion">
+        <Link className='LeftBar-Link' to="/account">
           <FontAwesomeIcon icon={faGear} />
           <p className='LeftBar-textMenu'>
             Mon Compte
@@ -51,7 +51,7 @@ function Leftbar() {
         </Link>
       </div>
       <div className='LeftBar-logout'>
-          <Link className='LeftBar-Link' to="/connexion">
+          <Link className='LeftBar-Link' to="/logout">
             <FontAwesomeIcon icon={faRightFromBracket} />
             <p className='LeftBar-textMenu'>
               Déconnexion
@@ -62,9 +62,31 @@ function Leftbar() {
   )
   :
   (
-    <div>
-        <Link to="/">Home</Link>
-        <Link to="thisPageGoesNowhere">Erreur</Link>
+    <div className='allLeftBar'>
+      <div className='LeftBar-NameImg'>
+        <div className='LeftBar-ProfilePic'>
+          <img src={require('../../assets/logoutPP.png')} alt=""/>
+        </div>
+        <div className='LeftBar-username'>
+          <p>
+            Visiteur
+          </p>
+        </div>
+      </div>
+      <div className='LeftBar-menu'>
+        <Link className='LeftBar-Link' to="/inscription">
+          <FontAwesomeIcon icon={faLock} />
+          <p className='LeftBar-textMenu'>
+            Inscription
+          </p>
+        </Link>
+        <Link className='LeftBar-Link' to="/connexion">
+          <FontAwesomeIcon icon={faUser} />
+          <p className='LeftBar-textMenu'>
+            Connexion
+          </p>
+        </Link>
+        </div>
     </div>
   )
 }
