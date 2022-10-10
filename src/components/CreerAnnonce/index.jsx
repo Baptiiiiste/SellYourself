@@ -8,7 +8,7 @@ function CreerAnnonce() {
                 <textarea placeholder='Description' id="CreerAnnonce-Description" required name="Description" maxlength="50"/>
                 <input type="text" placeholder='Prix (en euros)' id="CreerAnnonce-Prix" required name="Prix" maxLength="7"/>
                 <select name="Categorie" id="CreerAnnonce-Categorie">
-                    <option value="">--Choisissez une catégorie--</option>
+                    <option value="">-- Choisissez une catégorie --</option>
                     <option value="1">Catégorie 1</option>
                     <option value="2">Catégorie 2</option>
                     <option value="3">Catégorie 3</option>
