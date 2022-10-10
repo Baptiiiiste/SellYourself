@@ -4,7 +4,8 @@ header{
     width: 100%;
     border-bottom: 1px solid black;
     font-size: 0.8em;
-    height: 70px
+    height: 70px;
+    
 }
 
 .headercustom-logo{
@@ -12,6 +13,8 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }
 
 .headercustom-point{
@@ -33,6 +36,8 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
+    color: black;
+    text-decoration: none;
 }
 
 .headercustom-logo2 img{
@@ -69,6 +74,9 @@ header{
     justify-content: flex-start;
     align-items: center;
     flex: 0.5;
+
+    text-decoration: none;
+    color: black;
 
 }
 
