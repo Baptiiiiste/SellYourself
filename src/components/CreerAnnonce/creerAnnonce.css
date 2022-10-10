@@ -1,18 +1,31 @@
-.principale {
+.CreerAnnonce-Input {
     display: flex;
     flex-direction: column;
     height: 100vh;
     justify-content: center;
     align-items: center;
+    font-size: 10px;
 }
 
-input, textarea {
+#CreerAnnonce-Titre, #CreerAnnonce-Description, #CreerAnnonce-Prix, #CreerAnnonce-Categorie {
     border: 0;
     height: 30px;
     width: 300px;
+    max-width: 300px;
     resize: none;
+    border-bottom: solid 2px grey;
+    margin-top: 5px;
 }
 
-textarea{
-    height: 80px;;
+
+#CreerAnnonce-Description{
+    height: 80px;
+}
+
+#CreerAnnonce-Image{
+    border: 0;
+    height: 30px;
+    width: 300px;
+    max-width: 300px;
+    margin-top: 5px;
 }
