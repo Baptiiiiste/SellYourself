@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import './leftbar.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+
 
 function Leftbar() {
   return true ?
@@ -17,25 +20,51 @@ function Leftbar() {
       </div>
       <div className='LeftBar-menu'>
         <Link className='LeftBar-Link' to="/connexion">
-          <img src={require('../../assets/addLogo.png')} alt="" className='LeftBar-menuImage'/>
+          <FontAwesomeIcon icon={faPlus} />
           <p className='LeftBar-textMenu'>
             Publier
           </p>
         </Link>
         <Link className='LeftBar-Link' to="/connexion">
-          <img src={require('../../assets/messageLogo.png')} alt="" className='LeftBar-menuImage'/>
+          <FontAwesomeIcon icon={faMessage} />
           <p className='LeftBar-textMenu'>
             Messages
           </p>
         </Link>
+        <Link className='LeftBar-Link' to="/connexion">
+          <FontAwesomeIcon icon={faBell} />
+          <p className='LeftBar-textMenu'>
+            Notifications
+          </p>
+        </Link>
+        <Link className='LeftBar-Link' to="/connexion">
+          <FontAwesomeIcon icon={faHeart} />
+          <p className='LeftBar-textMenu'>
+            Favoris
+          </p>
+        </Link>
+        <Link className='LeftBar-Link' to="/connexion">
+          <FontAwesomeIcon icon={faGear} />
+          <p className='LeftBar-textMenu'>
+            Mon Compte
+          </p>
+        </Link>
       </div>
+      <div className='LeftBar-logout'>
+          <Link className='LeftBar-Link' to="/connexion">
+            <FontAwesomeIcon icon={faRightFromBracket} />
+            <p className='LeftBar-textMenu'>
+              Déconnexion
+            </p>
+          </Link>
+        </div>
     </div>
   )
   :
   (
     <div>
         <Link to="/">Home</Link>
-        <Link to="thisPageGoesNowhere">erreur</Link>
+        <Link to="thisPageGoesNowhere">Erreur</Link>
     </div>
   )
 }
