@@ -1,0 +1,8 @@
+.TestAnnonce{
+    display: flex;
+    flex-direction: row;
+}
+.TestAnnonce-center {
+    display: flex;
+    flex-direction: column;
+}

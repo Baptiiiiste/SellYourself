@@ -7,6 +7,7 @@ import Connexion from './pages/Connexion';
 import Annonce from './pages/Annonce';
 import Inscription from './pages/Inscription';
 import Publier from './pages/Publier';
+import TestAnnonce from './pages/TestAnnonce';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +21,8 @@ root.render(
         <Route path="/annonce" element={<Annonce/>} />
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/publier" element={<Publier/>} />
+        <Route path="/test" element={<TestAnnonce/>} />
+
         <Route path="/*" element={<p> 404 </p>} />
       </Routes>
 
