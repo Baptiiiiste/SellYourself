@@ -19,12 +19,13 @@ function CreerAnnonce() {
                 {/* Mettre Les images ajoutés */}
                 <input type="file" placeholder='Ajouter une photo' id="CreerAnnonce-Image" required name="Image" accept="image/png, image/jpeg image/jpg" multiple/>
 
-                <p>Format .png .jpeg et .jpg uniquement</p>
+                <p>Format .png .jpeg et .jpg uniquement</p> 
+                <div className='CreerAnnonce-BoutonSubmit'>
+                    <input type='submit' value="Publier l'annonce" id="CreerAnnonce-Submit" />
+                </div>
             </div>
 
-            <div className='CreerAnnonce-BoutonSubmit'>
-                <input type='submit' value="Publier l'annonce" />
-            </div>
+           
         </div>
 
     )
