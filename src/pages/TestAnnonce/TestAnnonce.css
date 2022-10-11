@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
 }
-.TestAnnonce-center {
-    display: flex;
+.TestAnnonce-center{
     flex-direction: column;
 }

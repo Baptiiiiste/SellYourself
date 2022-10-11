@@ -90,8 +90,27 @@
 
 .LeftBar-Note{
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.LeftBar-Note p{
+    display: flex;
     justify-content: center;
     color :#d48002;
-    margin: -10px;
+    font-size: medium;
+}
+
+.LeftBar-Note:last-child{
+    display: flex;
+    justify-content: right;
+}
+
+
+.LeftBar-NoteStar{
+    display: flex;
+    justify-content: right;
+    color :#d48002;
+    margin-left: 5px;
     font-size: medium;
 }

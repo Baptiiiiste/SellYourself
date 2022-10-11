@@ -1,4 +1,11 @@
 .Home{
-    display: flexbox;
-    flex-direction: row;   
+    display: flex;
+    flex-direction: row;
+}
+.Home-center{
+    flex-direction: column;
+}
+
+textarea:focus,input:focus {
+    outline: 0;
 }
