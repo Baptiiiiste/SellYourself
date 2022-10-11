@@ -1,19 +1,23 @@
 import './UneAnnonce.css'
 import plusDivs from './function.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faHeart, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 
 
 function Vendeur({nom, prenom, photo, note}){
-    let x = document.getElementsByClassName("UneAnnonce-img-annonce");
-    console.log(x[0])
     return(
         <div className='Vendeur-all'>
-            <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
-            <div className='Vendeur-info'>
-                <p className='Vendeur-nom'>{prenom} {nom}</p>
-                <p className='Vendeur-note'>Note: {note}/5</p>
+            <div className='Vendeur-info-all'>
+                <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+                <div className='Vendeur-info'>
+                    <p className='Vendeur-nom'>{prenom} {nom}</p>
+                    <p className='Vendeur-note'>Note: {note}/5</p>
+                </div>
+            </div>
+            <div className="Vendeur-annonce-all">
+                <Link to="/annonce"><input type="submit" name="submit" value="VOIR L'ANNONCE"/></Link>
             </div>
         </div>
     )
@@ -39,12 +43,12 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt="" style={{display:'none'}}/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt="" style={{display:'none'}}/>
+                {/* <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt="" style={{display:'none'}}/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt="" style={{display:'none'}}/> */}
             </div>
             <div className='UneAnnonce-button'>
-                <button className='UneAnnonce-button-left' onClick={plusDivs(-1)}><FontAwesomeIcon icon={faChevronLeft} /></button>
-                <button className='UneAnnonce-button-right' onClick={plusDivs(1)}><FontAwesomeIcon icon={faChevronRight} /></button>
+                <button className='UneAnnonce-button-left' onClick={() => plusDivs(-1)}><FontAwesomeIcon icon={faChevronLeft} /></button>
+                <button className='UneAnnonce-button-right' onClick={() => plusDivs(1)}><FontAwesomeIcon icon={faChevronRight} /></button>
             </div>
             <div className='UneAnnonce-description'>
                 <div className='UneAnnoce-vendeur'>

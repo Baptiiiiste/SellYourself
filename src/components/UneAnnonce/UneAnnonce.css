@@ -1,9 +1,18 @@
 /* Vendeur */
+.Vendeur-info-all{
+    display: flex;
+    flex-direction: row;
+    max-height: 15%;
+    align-items: center;
+    width: 100%;
+}
+
 .Vendeur-all{
     display: flex;
     flex-direction: row;
     max-height: 15%;
     align-items: center;
+    justify-content: space-between;
 }
 
 .Vendeur-img{
@@ -25,6 +34,16 @@
     color: #d48002;
 }
 
+.Vendeur-annonce-all input[type=submit]{
+    border: 0px;
+    border-radius: 15px;
+    width: 150px;
+    height: 40px;
+    background-color: #D48002;
+    color: white;
+    font-weight: bold;
+}
+
 
 /* Contenu */
 .Contenu-other{
@@ -40,9 +59,11 @@
     margin-bottom: 0%;
     font-size: 20px;
     max-width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    overflow-wrap: break-word;
 }
 
 .Contenu-prix{
