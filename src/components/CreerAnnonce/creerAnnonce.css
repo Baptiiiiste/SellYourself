@@ -1,3 +1,8 @@
+.CreeAnnonce-principale {
+    display: flex;
+    justify-content: center;
+}
+
 .CreerAnnonce-Input {
     display: flex;
     flex-direction: column;
@@ -11,6 +16,15 @@
     position: absolute;
     right: 200px;
     bottom: 100px;
+}
+
+.CreerAnnonce-Radio {
+    display: flex;
+    font-size: 15px;
+    width: 400px;
+    justify-content: space-between;
+    margin-top: 5px;
+    color: grey;
 }
 
 
@@ -44,11 +58,12 @@
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
+    transition: 0.3s;
 }
 
 
 #CreerAnnonce-Submit:hover{
     background: #b96f20;
-    font-size: 20.2px;
-    transition: 500ms;
+    font-size: 21px;
+    transition: 0.3s;
 }

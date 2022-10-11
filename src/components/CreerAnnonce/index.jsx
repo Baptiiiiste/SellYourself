@@ -7,6 +7,16 @@ function CreerAnnonce() {
                 <input type="text" placeholder='Titre' id="CreerAnnonce-Titre" required name="Titre" maxlength="50"  />
                 <textarea placeholder='Description' id="CreerAnnonce-Description" required name="Description" maxlength="50"/>
                 <input type="text" placeholder='Prix (en euros)' id="CreerAnnonce-Prix" required name="Prix" maxLength="7"/>
+                <div className='CreerAnnonce-Radio'>
+                    <div>
+                        <input type="radio" id="Bien" name="ChoixType" value="Bien" checked/>
+                        <label for="Bien">Bien</label>
+                    </div>
+                    <div>
+                        <label for="Service">Service</label>
+                        <input type="radio" id="Service" name="ChoixType" value="Service"/>
+                    </div>
+                </div>
                 <select name="Categorie" id="CreerAnnonce-Categorie">
                     <option value="">-- Choisissez une catégorie --</option>
                     <option value="1">Catégorie 1</option>
