@@ -26,6 +26,6 @@
   text-decoration: none;
   color: black;
 }
-.HeaderCategories-card:hover{
+.HeaderCategories-link:hover{
   color: #d48002;
 }

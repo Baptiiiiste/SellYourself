@@ -97,6 +97,8 @@ header{
 .headercustom-input input{
     width: 500px;
     border: 1px solid black;
+    padding: 5px;
+
 }
 
 .headercustom-filter{

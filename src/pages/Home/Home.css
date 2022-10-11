@@ -4,6 +4,7 @@
 }
 .Home-center{
     flex-direction: column;
+    
 }
 
 textarea:focus,input:focus {
