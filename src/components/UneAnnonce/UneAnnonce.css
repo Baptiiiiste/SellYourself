@@ -1,0 +1,35 @@
+/* Vendeur */
+.Vendeur-all{
+    display: flex;
+    flex-direction: row;
+    max-height: 15%;
+}
+
+.Vendeur-img{
+    border-radius: 100%;
+    height: 60px;
+    width: 60px;
+}
+
+
+/* Contenu */
+
+
+
+/* Annonce */
+
+.UneAnnonce-all{
+    display: flex;
+    flex-direction: column;
+    max-width: 15%;
+    max-height: 20%;
+    margin: 2%;
+}
+
+.UneAnnonce-image{
+    max-height: 60%;
+}
+
+.UneAnnonce-img-annonce{
+    width: 100%;
+}

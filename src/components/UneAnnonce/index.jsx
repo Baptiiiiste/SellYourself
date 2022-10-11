@@ -1,13 +1,12 @@
 import './UneAnnonce.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faHeart} from '@fortawesome/free-solid-svg-icons'
 
 function Vendeur({nom, prenom, photo, note}){
-    const img = '../../assets/' + photo;
-    console.log(img)
-    let image = require('../../assets/' + photo);
 
     return(
         <div className='Vendeur-all'>
-            <img className='Vendeur-img' src={image.default} alt=""/>
+            <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
             <div className='Vendeur-info'>
                 <p className='Vendeur-nom'>{prenom} {nom}</p>
                 <p className='Vendeur-note'>Note: {note}/5</p>
@@ -24,7 +23,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div>
-                {/* <img className='Contenu-logo' src={require('../../assets/addLogo.png')} alt=""/> */}
+                <FontAwesomeIcon icon={faHeart} />
                 <p className='Contenu-prix'>{prix} €</p>
             </div>
         </div>
@@ -35,7 +34,7 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
     return (
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
-                <img className='UneAnnonce-img-annonce' src={'../../assets/DefaultPP.jpeg'} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
             </div>
             <div className='UneAnnonce-description'>
                 <div className='UneAnnoce-vendeur'>
