@@ -20,7 +20,7 @@ function TestAnnonce() {
                     nom='test nom' 
                     prenom='test prenom' 
                     img_profil='DefaultPP.jpeg' 
-                    note={45}/>
+                    note={4.5}/>
         </div>
     </div>
   )

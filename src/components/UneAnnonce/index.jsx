@@ -22,7 +22,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-titre'>{titre}</p>
                 <p className='Contenu-description'>{description}</p>
             </div>
-            <div>
+            <div className='Contenu-other'>
                 <FontAwesomeIcon icon={faHeart} />
                 <p className='Contenu-prix'>{prix} €</p>
             </div>
@@ -34,7 +34,7 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
     return (
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
             </div>
             <div className='UneAnnonce-description'>
                 <div className='UneAnnoce-vendeur'>
