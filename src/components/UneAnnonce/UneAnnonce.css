@@ -39,6 +39,10 @@
     margin-top: 2%;
     margin-bottom: 0%;
     font-size: 20px;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .Contenu-prix{
@@ -65,11 +69,10 @@
 .UneAnnonce-img-annonce{
     width: 450px;
     height: 380px;
-    display: none;
 }
 
 .UneAnnonce-description{
-    margin: 3%;
+    margin: 0 3% 3% 3%;
 }
 
 .UneAnnonce-description p{
@@ -83,10 +86,15 @@
 .UneAnnonce-button-left, .UneAnnonce-button-right{
     border: 0px;
     background-color: transparent;
-    margin: 2%;
+    margin: 0 3% 0 3%;
     padding: 2%;
 }
 
 .UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
     background-color: lightgray;
+}
+
+.UneAnnonce-button{
+    display: flex;
+    justify-content: center;
 }

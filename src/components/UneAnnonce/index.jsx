@@ -1,11 +1,13 @@
 import './UneAnnonce.css'
-import plusDivs from'./fonction.js'
+import plusDivs from './function.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faHeart, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 
 
 
 function Vendeur({nom, prenom, photo, note}){
+    let x = document.getElementsByClassName("UneAnnonce-img-annonce");
+    console.log(x[0])
     return(
         <div className='Vendeur-all'>
             <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
@@ -21,7 +23,7 @@ function Contenu({titre, description, prix}){
     return(
         <div className='Contenu-all'>
             <div className='Contenu-text'>
-                <p className='Contenu-titre'>{titre}</p>
+                <p className='Contenu-titre'>{titre} :</p>
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div className='Contenu-other'>
@@ -37,9 +39,10 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
-                
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt="" style={{display:'none'}}/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt="" style={{display:'none'}}/>
+            </div>
+            <div className='UneAnnonce-button'>
                 <button className='UneAnnonce-button-left' onClick={plusDivs(-1)}><FontAwesomeIcon icon={faChevronLeft} /></button>
                 <button className='UneAnnonce-button-right' onClick={plusDivs(1)}><FontAwesomeIcon icon={faChevronRight} /></button>
             </div>
