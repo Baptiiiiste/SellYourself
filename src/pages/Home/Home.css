@@ -1,7 +1,4 @@
 .Home{
-    display: flex;
-    flex-direction: row;
-}
-.Home-center{
-    flex-direction: column;
+    display: flexbox;
+    flex-direction: row;   
 }

@@ -1,28 +1,85 @@
-import { Link } from 'react-router-dom';
+import React from "react";
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import { LeftArrow, RightArrow } from "./arrows.jsx";
+import usePreventBodyScroll from "./usePreventBodyScroll.jsx";
+import { Card } from "./card.jsx";
 import './HeaderCategories.css';
+import HeaderCustom from "../HeaderCustom/index"
+
+
+
+const categories = [
+  
+  { name: "Graphisme"},
+  { name: "Musique"},
+  { name: "Programmation"},
+  { name: "Ecriture"},
+  { name: "Design UI/UX"},
+  { name: "Vidéo"},
+  { name: "Animation"},
+  { name: "Traduction"},
+  { name: "Immobilier"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+  { name: "Automobile"},
+]
+
 
 function HeaderCategories() {
-  return (
-    <div className='headercategorie-container'>
-        <li className='headercategorie-content'><Link to="/">Graphisme</Link></li>
-        <li className='headercategorie-content'><Link to="/">Musique</Link></li>
-        <li className='headercategorie-content'><Link to="/">Programmation</Link></li>
-        <li className='headercategorie-content'><Link to="/">Ecriture</Link></li>
-        <li className='headercategorie-content'><Link to="/">Litterature</Link></li>
-        <li className='headercategorie-content'><Link to="/">Design UI/UX</Link></li>
-        <li className='headercategorie-content'><Link to="/">Rédaction</Link></li>
-        <li className='headercategorie-content'><Link to="/">Vidéo</Link></li>
-        <li className='headercategorie-content'><Link to="/">Animation</Link></li>
-        <li className='headercategorie-content'><Link to="/">Marketing Digital</Link></li>
-        <li className='headercategorie-content'><Link to="/">Traduction</Link></li>
-        <li className='headercategorie-content'><Link to="/">Meuble</Link></li>
-        <li className='headercategorie-content'><Link to="/">Immobilier</Link></li>
-        <li className='headercategorie-content'><Link to="/"></Link></li>
-        <li className='headercategorie-content'><Link to="/">Technologie</Link></li>
-        <li className='headercategorie-content'><Link to="/">Technologie</Link></li>
-        <li className='headercategorie-content'><Link to="/">Technologie</Link></li>
-    </div>
-  );
-}
+  const { disableScroll, enableScroll } = usePreventBodyScroll();
 
-export default HeaderCategories;
+  return (
+    <div>
+
+    
+    <HeaderCustom title="homePage"/>
+      <div className="HeaderCategories-container">
+        <div onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
+          <ScrollMenu
+            LeftArrow={LeftArrow}
+            RightArrow={RightArrow}
+            onWheel={onWheel}
+          >
+            {categories.map(({ name }, index) => (
+              <Card
+                name={name}
+                key={index}
+              >
+              </Card>
+            ))}
+
+          </ScrollMenu>
+        </div>
+      </div>
+      </div>
+    );
+  }
+
+  function onWheel(apiObj, ev) {
+    const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
+  
+    if (isThouchpad) {
+      ev.stopPropagation();
+      return;
+    }
+  
+    if (ev.deltaY < 0) {
+      apiObj.scrollNext();
+    } else if (ev.deltaY > 0) {
+      apiObj.scrollPrev();
+    }
+  }
+
+  
+  export default HeaderCategories;
+  
