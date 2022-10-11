@@ -1,9 +1,11 @@
 import './UneAnnonce.css'
+import plusDivs from'./fonction.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faHeart} from '@fortawesome/free-solid-svg-icons'
+import {faHeart, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+
+
 
 function Vendeur({nom, prenom, photo, note}){
-
     return(
         <div className='Vendeur-all'>
             <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
@@ -35,6 +37,11 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
+                
+                <button className='UneAnnonce-button-left' onClick={plusDivs(-1)}><FontAwesomeIcon icon={faChevronLeft} /></button>
+                <button className='UneAnnonce-button-right' onClick={plusDivs(1)}><FontAwesomeIcon icon={faChevronRight} /></button>
             </div>
             <div className='UneAnnonce-description'>
                 <div className='UneAnnoce-vendeur'>

@@ -57,12 +57,15 @@
 }
 
 .UneAnnonce-image{
+    display: flex;
+    justify-content: center;
     max-height: 50%;
 }
 
 .UneAnnonce-img-annonce{
     width: 450px;
     height: 380px;
+    display: none;
 }
 
 .UneAnnonce-description{
@@ -75,4 +78,15 @@
 
 .UneAnnonce-img-annonce{
     width: 100%;
+}
+
+.UneAnnonce-button-left, .UneAnnonce-button-right{
+    border: 0px;
+    background-color: transparent;
+    margin: 2%;
+    padding: 2%;
+}
+
+.UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
+    background-color: lightgray;
 }
