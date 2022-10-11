@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './leftbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock, faUser, faStar } from '@fortawesome/free-solid-svg-icons'
 
 
 function Leftbar() {
@@ -16,9 +16,15 @@ function Leftbar() {
           <p>
             Utilisateur
           </p>
-          <p className='LeftBar-Note'>
-            Note : 3.78
-          </p>
+          <div className='LeftBar-Note'>
+            <p>
+              Note : 3.78
+            </p>
+            <div  className='LeftBar-NoteStar'>
+              <FontAwesomeIcon icon={faStar}/>
+            </div>
+          </div>
+
         </div>
       </div>
       <div className='LeftBar-menu'>

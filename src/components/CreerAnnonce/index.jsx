@@ -4,9 +4,9 @@ function CreerAnnonce() {
     return(
         <div className="CreerAnnonce-principale">
             <div className="CreerAnnonce-Input">
-                <input type="text" placeholder='Titre' id="CreerAnnonce-Titre" required name="Titre" maxlength="50"  />
-                <textarea placeholder='Description' id="CreerAnnonce-Description" required name="Description" maxlength="50"/>
-                <input type="text" placeholder='Prix (en euros)' id="CreerAnnonce-Prix" required name="Prix" maxLength="7"/>
+                <input type="text" placeholder='Titre' id="CreerAnnonce-Titre" required name="Titre" maxlength="50" class="question"  />
+                <textarea placeholder='Description' id="CreerAnnonce-Description" required name="Description" maxlength="50" class="question"/>
+                <input type="text" placeholder='Prix (en euros)' id="CreerAnnonce-Prix" required name="Prix" maxLength="7" class="question"/>
                 <div className='CreerAnnonce-Radio'>
                     <div>
                         <input type="radio" id="Bien" name="ChoixType" value="Bien" checked/>
@@ -26,6 +26,7 @@ function CreerAnnonce() {
                     <option value="5">Catégorie 5</option>
                     <option value="6">Catégorie 6</option>
                 </select>
+
                 <div className="ImageAnnonce">
 
                 </div>
