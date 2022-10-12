@@ -1,0 +1,47 @@
+.InfoAnnonce{
+    display:flex;
+    flex-direction: column;
+    margin-top: 1%;
+}
+
+.InfoAnnonce-Haut{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.InfoAnnonce-InfoEtPhotoVendeur{
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    width: 75%;
+}
+
+.InfoAnnonce-PhotoVendeur{
+    border-radius: 100%;
+    height: 180px;
+    width: 180px;
+}
+
+.InfoAnnonce-InfoVendeur{
+    margin-left: 1%;
+}
+
+.InfoAnnonce-PhotosAnnonce{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+input[type=buy]{
+    border: 0px;
+    border-radius: 15px;
+    width: 150px;
+    height: 40px;
+    background-color: #D48002;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}

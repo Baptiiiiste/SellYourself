@@ -1,33 +1,35 @@
-.Connexion-image{
+.Inscription-image{
     display: flex;
     justify-content: center;
     align-items: center;
     
 }
 
-.Connexion-formulaire{
+.Inscription-formulaire{
     display: flex;
     width: 40%;
     align-items: center;
     justify-content: center;
 }
 
-.Connexion-img-login{
+.Inscription-img-login{
     max-width: 1000px;
 }
 
-.Connexion-bas{
+.Inscription-bas{
     display: flex;
     flex-direction: row;
     height: 100%;
 }
-.Connexion-entrediv{
+
+.Inscription-entrediv{
     width: 1px;
     background-color: black;
 }
 
-.Connexion{
+.Inscription{
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
+

@@ -1,0 +1,31 @@
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.HeaderCategories-container {
+  border-bottom: 1px solid black;
+
+}
+
+.HeaderCategories-card {
+  padding: 5px 10px;
+  white-space: nowrap;
+  margin: 0 8px;
+}
+
+.HeaderCategories-link {
+  text-decoration: none;
+  color: black;
+}
+.HeaderCategories-link:hover{
+  color: #d48002;
+}

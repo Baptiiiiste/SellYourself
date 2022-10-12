@@ -1,10 +1,11 @@
 header{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: auto;
     border-bottom: 1px solid black;
     font-size: 0.8em;
-    height: 70px
+    height: 70px;
+    
 }
 
 .headercustom-logo{
@@ -12,14 +13,12 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.headercustom-logo h1{
-    color: #D48002;
+    text-decoration: none;
+    color: black;
 }
 
 .headercustom-point{
-    color: black;
+    color: #D48002;
 }
 
 .headercustom-logo img{
@@ -37,6 +36,8 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
+    color: black;
+    text-decoration: none;
 }
 
 .headercustom-logo2 img{
@@ -51,7 +52,7 @@ header{
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    width: 100%;
+    width: auto;
     margin: 0 50px;
     font-size: 1.2em;
 }
@@ -62,4 +63,74 @@ header{
     color: white;
     border-radius: 10px;
     text-decoration: none;
+    font-weight: bold;
+}
+
+/* --------------------------------- */
+
+.headercustom-logo3{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 0.5;
+
+    text-decoration: none;
+    color: black;
+
+}
+
+.headercustom-logo3 img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin: 0 20px 0 20px;
+}
+
+.headercustom-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0.5;
+}
+
+.headercustom-input input{
+    width: 500px;
+    border: 1px solid black;
+    padding: 5px;
+
+}
+
+.headercustom-filter{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 30px;
+    flex: 0.5;
+
+}
+
+
+.headercustom-filter select{
+    background-color: white;
+    border: none;
+    font-size: 20px;
+}
+
+/* ----------------------------------- */
+
+
+
+
+.headercustom-bar{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    border-bottom: 1px solid black;
+    font-size: 0.8em;
+    height: 70px
+}
+
+.headercustom-global{
+    width: auto;
 }

@@ -1,9 +1,11 @@
 .allLeftBar{
-    width: 250px;
-    border-right: 1px solid black;
+    background-color: white;
+    max-width: 250px;
+    min-width: 250px;
     display: flex;
     height: 100vh;
     flex-direction: column;
+    border-right: 2px solid #d48002;
 }
 
 .LeftBar-ProfilePic{
@@ -17,18 +19,21 @@
     border-radius: 100%;
     height: 180px;
     width: 180px;
-    margin-top: 35px;
+    margin-top: 20px;
 }
 
 .LeftBar-NameImg{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 0.4
 }
 
 .LeftBar-username{
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     font-size: 20px;
     font-weight: bold;
 }
@@ -46,6 +51,8 @@
     margin-top: 100px;
     flex-direction: column;
     margin: 10px;
+    align-items: center;
+    flex: 0.4
 }
 
 .LeftBar-menuImage{
@@ -60,5 +67,51 @@
     flex-direction: row;
     align-items: center;
     text-decoration: none;
+    justify-content: flex-start;
     color: black;
+    transition: 0.3s;
+}
+
+.LeftBar-Link:hover{
+    color: #d48002;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.LeftBar-logout{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    margin-top: 100px;
+    flex-direction: column;
+    margin: 10px;
+    align-items: center;
+    flex: 0.2
+}
+
+.LeftBar-Note{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.LeftBar-Note p{
+    display: flex;
+    justify-content: center;
+    color :#d48002;
+    font-size: medium;
+}
+
+.LeftBar-Note:last-child{
+    display: flex;
+    justify-content: right;
+}
+
+
+.LeftBar-NoteStar{
+    display: flex;
+    justify-content: right;
+    color :#d48002;
+    margin-left: 5px;
+    font-size: medium;
 }

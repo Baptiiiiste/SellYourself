@@ -1,8 +1,10 @@
 import './Home.css';
 import Loader from '../../components/Loader/index'
 import React, {useState, useEffect} from 'react';
-import HeaderCustom from '../../components/HeaderCustom';
-import Leftbar from '../../components/LeftBar';
+// import HeaderCustom from '../../components/HeaderCustom';
+import LeftBar from '../../components/LeftBar';
+import HeaderCategories from '../../components/HeaderCategories/index.jsx';
+
 
 
 function Home() {
@@ -12,7 +14,7 @@ function Home() {
   useEffect(() => {
       setTimeout(() => {
           setLoader(false)
-      },1250);
+      },1000);
   }, [])
 
   return loader ? 
@@ -22,8 +24,8 @@ function Home() {
     :
     (    
     <div className="Home">
-      <Leftbar/>
-      <HeaderCustom title="homePage"/>
+      <LeftBar/>
+      <HeaderCategories/>
     </div>
     )
 }

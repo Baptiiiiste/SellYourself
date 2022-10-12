@@ -1,12 +1,7 @@
-.Home{
+.TestAnnonce{
     display: flex;
     flex-direction: row;
 }
-.Home-center{
+.TestAnnonce-center{
     flex-direction: column;
-    
-}
-
-textarea:focus,input:focus {
-    outline: 0;
 }
