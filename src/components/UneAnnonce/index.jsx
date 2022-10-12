@@ -1,10 +1,34 @@
 import './UneAnnonce.css'
-import plusDivs from './function.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
+let index = 1;
+document.onload = showDivs(1);
 
+function plusDivs(n) {
+    showDivs(index += n);
+}
+
+function showDivs(n) {
+    console.log("oui");
+    let i;
+    let x = document.getElementsByClassName("UneAnnonce-img-annonce");
+    let l = x.length;
+
+    for (i = 0; i < l; i++) {
+        x[i].style.display = 'none';  
+    }
+
+    if (n > l) {
+        index = 1;
+    }
+    if (n < 1) {
+        index = l;
+    }
+
+    // x[index-1].style.display = 'block';
+}
 
 function Vendeur({nom, prenom, photo, note}){
     return(
@@ -43,8 +67,8 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
-                {/* <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt="" style={{display:'none'}}/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt="" style={{display:'none'}}/> */}
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
             </div>
             <div className='UneAnnonce-button'>
                 <button className='UneAnnonce-button-left' onClick={() => plusDivs(-1)}><FontAwesomeIcon icon={faChevronLeft} /></button>
