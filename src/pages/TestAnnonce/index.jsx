@@ -14,7 +14,7 @@ function TestAnnonce() {
         <HeaderCustom title="homePage"/>
         <HeaderCategories/>
         <UneAnnonce titre='test annonce titre' 
-                    description='oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo' 
+                    description='' 
                     prix={27} 
                     img_annonce='DefaultPP.jpeg' 
                     nom='test nom' 

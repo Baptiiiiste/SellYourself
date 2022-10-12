@@ -40,9 +40,6 @@ function HeaderCategories() {
 
   return (
     <div>
-
-    
-    <HeaderCustom title="homePage"/>
       <div className="HeaderCategories-container">
         <div onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
           <ScrollMenu
