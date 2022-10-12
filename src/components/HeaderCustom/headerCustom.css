@@ -1,7 +1,7 @@
 header{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: auto;
     border-bottom: 1px solid black;
     font-size: 0.8em;
     height: 70px;
@@ -52,7 +52,7 @@ header{
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    width: 100%;
+    width: auto;
     margin: 0 50px;
     font-size: 1.2em;
 }
@@ -97,6 +97,8 @@ header{
 .headercustom-input input{
     width: 500px;
     border: 1px solid black;
+    padding: 5px;
+
 }
 
 .headercustom-filter{
@@ -123,12 +125,12 @@ header{
 .headercustom-bar{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: auto;
     border-bottom: 1px solid black;
     font-size: 0.8em;
     height: 70px
 }
 
 .headercustom-global{
-    width: 100%;
+    width: auto;
 }

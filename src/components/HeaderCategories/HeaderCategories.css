@@ -1,22 +1,31 @@
-.headercategorie-container{
-    overflow-x: scroll;
-    white-space: nowrap;
-    height: 60px;
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid black;
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
-.headercategorie-content{
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px;
-    padding: 5px 10px 5px 10px;
-    border: 1px solid black;
-    border-radius: 25px;
-    background-color: rgb(201, 201, 201);
-    margin: 0 10px 0 10px;
-  }
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.HeaderCategories-container {
+  border-bottom: 1px solid black;
+
+}
+
+.HeaderCategories-card {
+  padding: 5px 10px;
+  white-space: nowrap;
+  margin: 0 8px;
+}
+
+.HeaderCategories-link {
+  text-decoration: none;
+  color: black;
+}
+.HeaderCategories-link:hover{
+  color: #d48002;
+}

@@ -1,9 +1,9 @@
 import './Home.css';
 import Loader from '../../components/Loader/index'
 import React, {useState, useEffect} from 'react';
-import HeaderCustom from '../../components/HeaderCustom';
+// import HeaderCustom from '../../components/HeaderCustom';
 import LeftBar from '../../components/LeftBar';
-import HeaderCategories from '../../components/HeaderCategories';
+import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 
 
 
@@ -25,11 +25,7 @@ function Home() {
     (    
     <div className="Home">
       <LeftBar/>
-      <div className='Home-center'>
-        <HeaderCustom title="homePage"/>
-        <HeaderCategories/>
-      </div>
-
+      <HeaderCategories/>
     </div>
     )
 }
