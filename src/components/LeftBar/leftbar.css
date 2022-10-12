@@ -1,6 +1,6 @@
 .allLeftBar{
-    max-width: 250px;
-    background-color: lightgray;
+    width: 250px;
+    border-right: 1px solid black;
     display: flex;
     height: 100vh;
     flex-direction: column;

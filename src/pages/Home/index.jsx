@@ -22,6 +22,7 @@ function Home() {
     :
     (    
     <div className="Home">
+      <Leftbar/>
       <HeaderCustom title="homePage"/>
     </div>
     )
