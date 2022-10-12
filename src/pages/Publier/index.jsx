@@ -8,11 +8,11 @@ import Leftbar from '../../components/LeftBar';
 function Publier() {
     return (
         <div className="Publier">
-        <Leftbar/>
-        <div className='Publier-center'>
-          <HeaderCustom title="Creer une annonce"/>
-          <CreerAnnonce/>
-        </div>
+          <Leftbar/>
+          <div className='Publier-center'>
+            <HeaderCustom title="Creer une annonce"/>
+            <CreerAnnonce/>
+          </div>
   
       </div>
     );

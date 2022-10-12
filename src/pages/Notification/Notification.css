@@ -1,0 +1,10 @@
+.Notification {
+    display: flex;
+    flex-direction: row;
+}
+
+.Notification-center {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
