@@ -10,6 +10,7 @@
     justify-content: space-between;
     margin-left: 2%;
     margin-right: 2%;
+    align-items: center;
 }
 
 .InfoAnnonce-InfoEtPhotoVendeur{
@@ -29,6 +30,12 @@
     flex-direction: column;
     justify-content: flex-start;
     margin-left: 1%;
+    padding-top: 5%;
+}
+
+.InfoAnnonce-InfosVendeur p {
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .InfoAnnonce-NomVendeur{
@@ -100,5 +107,8 @@
 }
 
 .InfoAnnonce-AjoutFav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-left: 2%;
 }
