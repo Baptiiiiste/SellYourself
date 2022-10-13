@@ -18,15 +18,17 @@ function Notification() {
         <div className='Notification-principale'>
             <ScrollMenu
             onWheel={onWheel}>
+              <div className='Notification-Notif'>
             {notifs.map(({ info,message,logo }, index) => (
-              <UneNotif
-                info={info}
-                message={message}
-                logo={logo}
-                key={index}
-              >
-              </UneNotif>
+                <UneNotif
+                  info={info}
+                  message={message}
+                  logo={logo}
+                  key={index}
+                >
+                </UneNotif>
             ))}
+            </div>
             </ScrollMenu>
 
         </div>

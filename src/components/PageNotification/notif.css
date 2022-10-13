@@ -27,7 +27,8 @@
     margin: 0px 10px 0px 25px;
 }
 
-.react-horizontal-scrolling-menu--scroll-container {
+.Notification-Notif {
+    display: flex;
     flex-direction: column;
 }
 
