@@ -1,5 +1,7 @@
 import './infoAnnonce.css'
 import { Link } from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faBookmark} from '@fortawesome/free-solid-svg-icons';
 
 function InfoAnnonce() {
     return (
@@ -7,7 +9,7 @@ function InfoAnnonce() {
             <div className='InfoAnnonce-Haut'>
                 <div className='InfoAnnonce-InfoEtPhotoVendeur'>
                     <div>
-                        <img src={require('../../assets/DefaultPP.jpeg')} className='InfoAnnonce-PhotoVendeur' alt=""/>
+                        <img src={require('../../assets/DefaultPP.jpeg')} className='InfoAnnonce-PhotoVendeur' />
                     </div>
                     <div className='InfoAnnonce-InfosVendeur'>
                             <p className='InfoAnnonce-NomVendeur'>Thomas Pasquet</p>
@@ -41,6 +43,7 @@ function InfoAnnonce() {
                 <p>photo 2</p>
             </div>
             <div className='InfoAnnonce-AjoutFav'>
+                <FontAwesomeIcon icon={faBookmark} />
                 <p>Ajout au favoris</p>
             </div>
         </div>

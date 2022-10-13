@@ -2,28 +2,33 @@ import './notif.css';
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { UneNotif } from "./UneNotif.jsx";
 
-// const notifs = [
+const notifs = [
   
-//     { name: "Graphisme"},
-//     { name: "Musique"},
+    { info: "Vous avez reçu un nouveau message.",message: "Cliquez sur “Messages” pour le consulter",logo: "faMessage"},
+    { info: "Vous avez reçu une nouvelle note.", message: "Vous avez reçu 4/5", logo: "faMessage"},
+    { info: "Vous avez un nouveau client.", message: "Cliquez sur “Messages” pour échanger avec lui.", logo: "faMessage"},
+    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: "faMessage"},
 
-// ]
+]
 
-function CreerAnnonce() {
+function Notification() {
     return(
         <div className='Notification-principale'>
             <ScrollMenu
             onWheel={onWheel}>
-
-                <div className='Notification-Bloc'>
-                    <FontAwesomeIcon icon={faMessage} className="Notification-Image" />
-                    <div className='Notification-Bloc2'>
-                        <p id="Notification-Texte1">Vous avez reçu un nouveau message</p>
-                        <p id="Notification-Texte2">Cliquez sur "Messages" pour le consulter</p>
-                    </div>
-                </div>
-
+              <div className='Notification-Notif'>
+            {notifs.map(({ info,message,logo }, index) => (
+                <UneNotif
+                  info={info}
+                  message={message}
+                  logo={logo}
+                  key={index}
+                >
+                </UneNotif>
+            ))}
+            </div>
             </ScrollMenu>
 
         </div>
@@ -50,4 +55,4 @@ function onWheel(apiObj, ev) {
   
 
 
-export default CreerAnnonce;
+export default Notification;
