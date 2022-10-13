@@ -5,7 +5,7 @@ function CreerAnnonce() {
         <div className="CreerAnnonce-principale">
             <div className="CreerAnnonce-Input">
                 <input type="text" placeholder='Titre' id="CreerAnnonce-Titre" required name="Titre" maxlength="50" class="question"  />
-                <textarea placeholder='Description' id="CreerAnnonce-Description" required name="Description" maxlength="50" class="question"/>
+                <textarea placeholder='Description' id="CreerAnnonce-Description" required name="Description" maxlength="500" class="question"/>
                 <input type="text" placeholder='Prix (en euros)' id="CreerAnnonce-Prix" required name="Prix" maxLength="7" class="question"/>
                 <div className='CreerAnnonce-Radio'>
                     <div>

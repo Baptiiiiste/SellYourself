@@ -1,13 +1,12 @@
-.Home{
+.Profil{
     display: flex;
     flex-direction: row;
 }
-.Home-center{
+.Profil-center{
     flex-direction: column;
     width: 100%;
-    
 }
 
-textarea:focus,input:focus {
-    outline: 0;
+.ProfilUtilisateur{
+    display: flex;
 }
