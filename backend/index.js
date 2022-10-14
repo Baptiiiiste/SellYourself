@@ -1,22 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
-const dotenv = require('dotenv');
-dotenv.config();
+require('./db/config');
+const User = require("./models/User");
 
-const connectDB = async () => {
-    mongoose.connect(process.env.DATABASE_URI, {
-        autoIndex: false,
-        maxPoolSize: 10,
-        serverSelectionTimeoutMS: 5000,
-        socketTimeoutMS: 45000,
-        family: 4
-    });
-    const annonceSchema = new mongoose.Schema({});
-    const annonces = mongoose.model("annonces", annonceSchema);
-    const data = await annonces.find();
-    console.warn(data);
-}
+app.use(express.json());
 
-connectDB();
+app.post("/inscription", async (req, resp) => {
+    let user = new User(req.body);
+    let result = await user.save();
+    resp.send(result);
+})
+
 app.listen(5000);
