@@ -66,9 +66,9 @@ function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_pro
     return (
         <div className='UneAnnonce-all'>
             <div className='UneAnnonce-image'>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
+                {/* <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt="" style={{display: "none"}}/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt="" style={{display: "none"}}/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt="" style={{display: "none"}}/> */}
             </div>
             <div className='UneAnnonce-button'>
                 <button className='UneAnnonce-button-left' onClick={() => plusDivs(-1)}><FontAwesomeIcon icon={faChevronLeft} /></button>

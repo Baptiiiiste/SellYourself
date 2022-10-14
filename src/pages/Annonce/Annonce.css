@@ -1,11 +1,15 @@
 .Annonce-GrosseBoite {
     display: flex;
     flex-direction: row;
-    width: 100vw;
 }
 
 .Annonce-PetiteBoite {
     display: flex;
     flex-direction: column;
     width: 85%;
+}
+
+.Annonce-lesAnnonces{
+    height: 85%;
+    overflow-y: scroll;
 }

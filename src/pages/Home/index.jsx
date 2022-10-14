@@ -27,8 +27,12 @@ function Home() {
     <div className="Home">
       <LeftBar/>
       <div className='Home-center'>
-        <HeaderCustom title="homePage"/>
+        <div className='Home-header'>
+          <HeaderCustom title="homePage"/>
           <HeaderCategories/>
+        </div>
+            
+        <div className='Home-lesAnnonces'>
           <UneAnnonce titre='test annonce titre' 
                       description='' 
                       prix={27} 
@@ -37,6 +41,64 @@ function Home() {
                       prenom='test prenom' 
                       img_profil='DefaultPP.jpeg' 
                       note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+          <UneAnnonce titre='test annonce titre' 
+                      description='' 
+                      prix={27} 
+                      img_annonce='DefaultPP.jpeg' 
+                      nom='test nom' 
+                      prenom='test prenom' 
+                      img_profil='DefaultPP.jpeg' 
+                      note={4.5}/>
+        </div>
+          
       </div>
       
     </div>

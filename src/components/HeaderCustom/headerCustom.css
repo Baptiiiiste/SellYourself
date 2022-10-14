@@ -5,7 +5,7 @@ header{
     border-bottom: 1px solid black;
     font-size: 0.8em;
     height: 70px;
-    
+    justify-content: space-between;
 }
 
 .headercustom-logo{

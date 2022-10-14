@@ -5,8 +5,21 @@
 .Home-center{
     flex-direction: column;
     width: 85%;
+    height: 100vh;
 }
 
 textarea:focus,input:focus {
     outline: 0;
+}
+
+.Home-lesAnnonces{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+    height: 85%;
+}
+
+.Home-header{
+    height: 15%;
 }
