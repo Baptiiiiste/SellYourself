@@ -1,7 +1,0 @@
-.TestAnnonce{
-    display: flex;
-    flex-direction: row;
-}
-.TestAnnonce-center{
-    flex-direction: column;
-}

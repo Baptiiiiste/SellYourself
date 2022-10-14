@@ -1,0 +1,12 @@
+.Profil{
+    display: flex;
+    flex-direction: row;
+}
+.Profil-center{
+    flex-direction: column;
+    width: 100%;
+}
+
+.ProfilUtilisateur{
+    display: flex;
+}

@@ -52,10 +52,10 @@ function Leftbar() {
             Favoris
           </p>
         </Link>
-        <Link className='LeftBar-Link' to="/compte">
+        <Link className='LeftBar-Link' to="/profil">
           <FontAwesomeIcon icon={faGear} />
           <p className='LeftBar-textMenu'>
-            Mon Compte
+            Mon Profil
           </p>
         </Link>
       </div>

@@ -10,12 +10,12 @@
     justify-content: space-between;
     margin-left: 2%;
     margin-right: 2%;
+    align-items: center;
 }
 
 .InfoAnnonce-InfoEtPhotoVendeur{
     display: flex;
     flex-direction: row;
-    justify-content: baseline;
     width: 75%;
 }
 
@@ -25,8 +25,35 @@
     width: 180px;
 }
 
-.InfoAnnonce-InfoVendeur{
+.InfoAnnonce-InfosVendeur{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     margin-left: 1%;
+    padding-top: 5%;
+}
+
+.InfoAnnonce-InfosVendeur p {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+.InfoAnnonce-NomVendeur{
+    font-weight: bold;
+    font-size: large;
+}
+
+.InfoAnnonce-NoteVendeur{
+    color: #D48002;
+    font-size: small;
+}
+
+.InfoAnnonce-DescriptionVendeur{
+    color: grey;
+}
+
+.InfoAnnonce-LocalisationVendeur{
+    color: gray;
 }
 
 .InfoAnnonce-PhotosAnnonce{
@@ -35,13 +62,53 @@
     justify-content: space-around;
 }
 
-input[type=buy]{
-    border: 0px;
-    border-radius: 15px;
-    width: 150px;
-    height: 40px;
-    background-color: #D48002;
-    color: white;
-    font-weight: bold;
-    text-align: center;
+.InfoAnnonce-DivBoutonAchat{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: auto;
+    font-size: 1.2em;
+}
+
+#InfoAnnonce-Achat{
+    font-size: 20px;
+    background: #d48002;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.3s;
+}
+
+#InfoAnnonce-Achat:hover{
+    background: #b96f20;
+    font-size: 21px;
+    transition: 0.3s;
+}
+
+.InfoAnnonce-BoutonMessage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.InfoAnnonce-NomAnnonce{
+    margin-left: 2%;
+}
+
+.InfoAnnonce-DescriptionAnnonce{
+    margin-left: 2%;
+}
+
+.InfoAnnonce-PhotosAnnonce{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.InfoAnnonce-AjoutFav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 2%;
 }

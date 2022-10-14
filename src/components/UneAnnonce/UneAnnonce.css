@@ -27,7 +27,7 @@
 
 .Vendeur-info p{
     margin: 0%;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .Vendeur-note{
@@ -37,11 +37,12 @@
 .Vendeur-annonce-all input[type=submit]{
     border: 0px;
     border-radius: 15px;
-    width: 150px;
-    height: 40px;
+    width: 100px;
+    height: 30px;
     background-color: #D48002;
     color: white;
     font-weight: bold;
+    font-size: 10px;
 }
 
 
@@ -57,7 +58,7 @@
 .Contenu-titre, .Contenu-description{
     margin-top: 2%;
     margin-bottom: 0%;
-    font-size: 20px;
+    font-size: 16px;
     max-width: 100%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -68,7 +69,7 @@
 
 .Contenu-prix{
     margin: 0%;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 /* Annonce */
@@ -76,20 +77,20 @@
 .UneAnnonce-all{
     display: flex;
     flex-direction: column;
-    max-width: 450px;
+    width: 300px;
     margin: 2%;
     border: 1px solid gray;
 }
 
 .UneAnnonce-image{
-    display: flex;
-    justify-content: center;
-    max-height: 50%;
+    height: 250px;
+    width: 300px;
 }
 
 .UneAnnonce-img-annonce{
-    width: 450px;
-    height: 380px;
+    object-fit: cover;
+    width: 300px;
+    height: 250px;
 }
 
 .UneAnnonce-description{
@@ -98,10 +99,6 @@
 
 .UneAnnonce-description p{
     font-weight: bold;
-}
-
-.UneAnnonce-img-annonce{
-    width: 100%;
 }
 
 .UneAnnonce-button-left, .UneAnnonce-button-right{
