@@ -1,18 +1,4 @@
-.InfoAnnonce{
-    display:flex;
-    flex-direction: column;
-    margin-top: 1%;
-}
-
-.InfoAnnonce-Haut{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: 2%;
-    margin-right: 2%;
-    align-items: center;
-}
-
+/* Utilisateur */
 .InfoAnnonce-InfoEtPhotoVendeur{
     display: flex;
     flex-direction: row;
@@ -40,38 +26,69 @@
 
 .InfoAnnonce-NomVendeur{
     font-weight: bold;
-    font-size: large;
+    font-size: 28px;
 }
 
 .InfoAnnonce-NoteVendeur{
     color: #D48002;
-    font-size: small;
+    font-size: 20px;
 }
 
 .InfoAnnonce-DescriptionVendeur{
     color: grey;
+    font-size: 20px;
 }
 
 .InfoAnnonce-LocalisationVendeur{
     color: gray;
+    font-size: 20px;
+}
+
+
+/* Annonce */
+.InfoAnnonce-Annonce p{
+    margin: 20px 0 0 0;
+    font-size: 20px;
+}
+
+.InfoAnnonce-DescriptionAnnonce{
+    width: 70%;
+    word-wrap: break-word;
 }
 
 .InfoAnnonce-PhotosAnnonce{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-top: 50px;
 }
 
-.InfoAnnonce-DivBoutonAchat{
-    display: flex;
+.InfoAnnonce-PhotosAnnonce img{
+    height: 250px;
+    width: 300px;
+}
+
+
+/* InfoAnnonce */
+.InfoAnnonce{
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.InfoAnnonce-Haut{
+    display:flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    width: auto;
-    font-size: 1.2em;
 }
 
-#InfoAnnonce-Achat{
+.InfoAnnonce-PrixAnnonce{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.InfoAnnonce-Achat{
     font-size: 20px;
     background: #d48002;
     color: #fff;
@@ -79,12 +96,11 @@
     border-radius: 5px;
     padding: 10px 15px;
     transition: 0.3s;
+    font-weight: bold;
 }
 
-#InfoAnnonce-Achat:hover{
-    background: #b96f20;
-    font-size: 21px;
-    transition: 0.3s;
+.InfoAnnonce-Achat:hover{
+    background-color:chocolate;
 }
 
 .InfoAnnonce-BoutonMessage{
@@ -93,22 +109,30 @@
     justify-content: center;
 }
 
-.InfoAnnonce-NomAnnonce{
-    margin-left: 2%;
-}
-
-.InfoAnnonce-DescriptionAnnonce{
-    margin-left: 2%;
-}
-
-.InfoAnnonce-PhotosAnnonce{
-    margin-left: 2%;
-    margin-right: 2%;
-}
-
 .InfoAnnonce-AjoutFav{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 2%;
+    margin-top: 50px;
+    width: max-content;
+    font-size: 20px;
+    background: #d48002;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.InfoAnnonce-AjoutFav:hover{
+    background-color:chocolate;
+}
+
+.InfoAnnonce-AjoutFav p{
+    margin: 0;
+}
+
+.InfoAnnonce-Icon {
+    margin-right: 10px;
 }

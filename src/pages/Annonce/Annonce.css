@@ -1,10 +1,11 @@
 .Annonce-GrosseBoite {
     display: flex;
     flex-direction: row;
+    width: 100vw;
 }
 
 .Annonce-PetiteBoite {
     display: flex;
-    width: 100%;
     flex-direction: column;
+    width: 85%;
 }

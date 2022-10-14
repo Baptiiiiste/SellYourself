@@ -3,49 +3,52 @@ import { Link } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBookmark} from '@fortawesome/free-solid-svg-icons';
 
-function InfoAnnonce() {
+function Utilisateur({nom, note, description, localisation, image}){
+    return(
+        <div className='InfoAnnonce-InfoEtPhotoVendeur'>
+            <img src={require('../../assets/DefaultPP.jpeg')}  className='InfoAnnonce-PhotoVendeur'/>
+            <div className='InfoAnnonce-InfosVendeur'>
+                    <p className='InfoAnnonce-NomVendeur'>{nom}</p>
+                    <p className='InfoAnnonce-NoteVendeur'>Note : {note}/5</p>
+                    <p className='InfoAnnonce-DescriptionVendeur'>{description}</p>
+                    <p className='InfoAnnonce-LocalisationVendeur'>{localisation}</p>
+            </div>
+        </div>
+    )
+}
+
+function Annonce({titre, description, photos}){
+    return(
+        <div className='InfoAnnonce-Annonce'>
+            <p className='InfoAnnonce-NomAnnonce'>{titre}</p>
+            <p className='InfoAnnonce-DescriptionAnnonce'>{description}</p>
+            <div className='InfoAnnonce-PhotosAnnonce'>
+                <img src={require('../../assets/annonce1.jpg')}/>
+                <img src={require('../../assets/annonce2.jpg')}/>
+                <img src={require('../../assets/annonce3.jpg')}/>
+            </div>
+        </div>
+    )
+}
+
+function InfoAnnonce({nom, note, descriptionVendeur, localisation, image, titre, descriptionAnnonce, photos, prix}) {
     return (
         <div className='InfoAnnonce'>
             <div className='InfoAnnonce-Haut'>
-                <div className='InfoAnnonce-InfoEtPhotoVendeur'>
-                    <div>
-                        <img src={require('../../assets/DefaultPP.jpeg')} className='InfoAnnonce-PhotoVendeur' />
-                    </div>
-                    <div className='InfoAnnonce-InfosVendeur'>
-                            <p className='InfoAnnonce-NomVendeur'>Thomas Pasquet</p>
-                            <p className='InfoAnnonce-NoteVendeur'>Note : 4.4/5</p>
-                            <p className='InfoAnnonce-DescriptionVendeur'>Description du vendeur</p>
-                            <p className='InfoAnnonce-LocalisationVendeur'>Ville du vendeur</p>
-                    </div>
-                </div>
-                <div className='InfoAnnonce-PrixAnnonce'>
-                    <p>XX.XX €</p>
-                </div>
+                <Utilisateur nom={nom} note={note} description={descriptionVendeur} localisation={localisation} image={image}/>
+                <p className='InfoAnnonce-PrixAnnonce'> {prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
-                    <div className='InfoAnnonce-DivBoutonAchat'>
-                        <input type='submit' value="Acheter" id="InfoAnnonce-Achat"/>
-                    </div>
-                    <div className='InfoAnnonce-BoutonMessage'>
-                        <Link to={'/message'}>
-                            <p>Contacter</p>
-                        </Link>
-                    </div>
+                    <input type='submit' value="Acheter" className="InfoAnnonce-Achat"/>
+                    <Link className='InfoAnnonce-BoutonMessage' to={'/message'}>
+                        <p>Contacter</p>
+                    </Link>
                 </div>
             </div>
-            <div className='InfoAnnonce-NomAnnonce'>
-                <p>Titre de l'annonce</p>
-            </div>
-            <div className='InfoAnnonce-DescriptionAnnonce'>
-                <p>Description de l'annonce</p>
-            </div>
-            <div className='InfoAnnonce-PhotosAnnonce'>
-                <p>photo 1</p>
-                <p>photo 2</p>
-            </div>
-            <div className='InfoAnnonce-AjoutFav'>
-                <FontAwesomeIcon icon={faBookmark} />
+            <Annonce titre={titre} description={descriptionAnnonce} photos={photos}/>
+            <button className='InfoAnnonce-AjoutFav'>
+                <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faBookmark} />
                 <p>Ajout au favoris</p>
-            </div>
+            </button>
         </div>
     )
 }
