@@ -22,6 +22,7 @@ root.render(
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/publier" element={<Publier/>} />
         <Route path="/test" element={<TestAnnonce/>} />
+        <Route path="/test2" element={<TestAnnonce/>} />
 
         <Route path="/*" element={<p> 404 </p>} />
       </Routes>
