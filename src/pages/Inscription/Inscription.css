@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .Inscription-formulaire{
@@ -13,7 +12,7 @@
 }
 
 .Inscription-img-login{
-    max-width: 1000px;
+    max-width: 90%;
 }
 
 .Inscription-bas{
@@ -32,4 +31,3 @@
     flex-direction: column;
     height: 100vh;
 }
-
