@@ -1,7 +1,7 @@
 .allLeftBar{
     background-color: white;
-    max-width: 250px;
-    min-width: 250px;
+    max-width: 15%;
+    min-width: 15%;
     display: flex;
     height: 100vh;
     flex-direction: column;

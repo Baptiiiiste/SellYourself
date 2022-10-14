@@ -4,8 +4,7 @@
 }
 .Home-center{
     flex-direction: column;
-    width: 100vw;
-    
+    width: 85%;
 }
 
 textarea:focus,input:focus {

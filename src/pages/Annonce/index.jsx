@@ -7,10 +7,18 @@ import LeftBar from "../../components/LeftBar";
 function Annonce() {
     return (
         <div className='Annonce-GrosseBoite'>
-            <LeftBar/>
+            <LeftBar className='Annonce-LeftBar'/>
             <div className='Annonce-PetiteBoite'>
                 <HeaderCustom title="Annonce"/>
-                <InfoAnnonce/>
+                <InfoAnnonce nom={"Thomas Pasquet"} 
+                            note={4.4} 
+                            descriptionVendeur={"Je suis une description vendeur"} 
+                            localisation={"Paris"} 
+                            image={"test"} 
+                            titre={"Titre de l'annonce ici"} 
+                            descriptionAnnonce={"Je suis une description annonce OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"} 
+                            photos={"test"} 
+                            prix={27.5}/>
             </div>
         </div>
     )
