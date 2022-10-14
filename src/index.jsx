@@ -9,6 +9,7 @@ import Inscription from './pages/Inscription';
 import Publier from './pages/Publier';
 import Notification from './pages/Notification';
 import Profil from './pages/Profil';
+import TestAnnonce from './pages/TestAnnonce'
 
 
 
