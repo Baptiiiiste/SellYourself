@@ -9,8 +9,7 @@ import Inscription from './pages/Inscription';
 import Publier from './pages/Publier';
 import Notification from './pages/Notification';
 import Profil from './pages/Profil';
-import TestAnnonce from './pages/TestAnnonce'
-
+import PrivateComponents from './components/PrivateComponents/index.jsx'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,17 +18,18 @@ root.render(
     <Router>
 
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/connexion" element={<Connexion/>} />
-        <Route path="/annonce" element={<Annonce/>} />
-        <Route path="/inscription" element={<Inscription/>} />
-        <Route path="/publier" element={<Publier/>} />
-        <Route path="/test" element={<TestAnnonce/>} />
-        <Route path="/test2" element={<TestAnnonce/>} />
-        <Route path="/notification" element={<Notification/>} />
-        <Route path="/profil" element={<Profil/>} />
+          <Route path="/" element={<Home/>} />
 
-        <Route path="/*" element={<p> 404 </p>} />
+        <Route element={<PrivateComponents />}>
+          <Route path="/annonce" element={<Annonce/>} />
+          <Route path="/publier" element={<Publier/>} />
+          <Route path="/notification" element={<Notification/>} />
+          <Route path="/profil" element={<Profil/>} />
+        </Route>
+        
+          <Route path="/inscription" element={<Inscription/>} />
+          <Route path="/connexion" element={<Connexion/>} />
+          <Route path="/*" element={<p> 404 </p>} />
       </Routes>
 
     </Router>

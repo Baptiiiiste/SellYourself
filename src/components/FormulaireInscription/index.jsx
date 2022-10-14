@@ -1,6 +1,6 @@
 import './FormulaireInscription.css'
 import { Link , useNavigate} from 'react-router-dom';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function FormulaireInscription() {
 
@@ -8,6 +8,12 @@ function FormulaireInscription() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const connectedUser = localStorage.getItem("user");
+        if(connectedUser) navigate("/");
+    },[])
+
     const collectData = async () => {
         let data = await fetch("http://localhost:5000/inscription", {
             method: 'post',
@@ -16,7 +22,8 @@ function FormulaireInscription() {
                 'Content-Type':'application/json'
             }
         });
-        data = await data.JSON;
+        data = await data.json();
+        localStorage.setItem("user", JSON.stringify(data));
         navigate("/");
     }
 
@@ -31,7 +38,7 @@ function FormulaireInscription() {
                 </div>
                 <div className="FormulaireInscription-buttons">
                     <div className="FormulaireInscription-other">
-                        <button className="FormulaireInscription-btn" onClick={collectData} className="FormulaireInscription-button" >S'INSCRIRE </button>
+                        <button className="FormulaireInscription-button" onClick={collectData} >S'INSCRIRE </button>
                     </div>
                 </div>
             </div>

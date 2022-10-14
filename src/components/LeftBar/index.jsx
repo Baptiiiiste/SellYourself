@@ -1,11 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './leftbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock, faUser, faStar } from '@fortawesome/free-solid-svg-icons'
 
 
 function Leftbar() {
-  return true ?
+
+  const connectedUser = localStorage.getItem('user');
+  const navigate = useNavigate();
+  
+  const logout = () => {
+    localStorage.clear();
+    navigate("/")
+  }
+
+  return connectedUser ?
   (
     <div className='allLeftBar'>
       <div className='LeftBar-NameImg'>
@@ -60,7 +69,7 @@ function Leftbar() {
         </Link>
       </div>
       <div className='LeftBar-logout'>
-          <Link className='LeftBar-Link' to="/">
+          <Link className='LeftBar-Link' to="/" onClick={logout}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             <p className='LeftBar-textMenu'>
               Déconnexion
