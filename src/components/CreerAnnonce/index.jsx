@@ -3,7 +3,7 @@ import './creerAnnonce.css';
 function CreerAnnonce() {
     return(
         <div className="CreerAnnonce-principale">
-            <div className="CreerAnnonce-Input">
+            <form className="CreerAnnonce-Input" method='post'>
                 <input type="text" id="CreerAnnonce-Titre" required name="Titre" maxlength="80" class="question"  />
                 <label for="Titre"><span>Titre</span></label>
                 <textarea id="CreerAnnonce-Description" required name="Description" maxlength="500" class="question"/>
@@ -39,9 +39,7 @@ function CreerAnnonce() {
                 <div className='CreerAnnonce-BoutonSubmit'>
                     <input type='submit' value="Publier l'annonce" id="CreerAnnonce-Submit" />
                 </div>
-            </div>
-
-           
+            </form>
         </div>
 
     )
