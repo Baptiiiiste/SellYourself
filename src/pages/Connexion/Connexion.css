@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .Connexion-formulaire{
@@ -13,7 +12,7 @@
 }
 
 .Connexion-img-login{
-    max-width: 1000px;
+    max-width: 90%;
 }
 
 .Connexion-bas{
@@ -21,6 +20,7 @@
     flex-direction: row;
     height: 100%;
 }
+
 .Connexion-entrediv{
     width: 1px;
     background-color: black;
