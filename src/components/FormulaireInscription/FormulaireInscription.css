@@ -31,7 +31,7 @@
     border-bottom: 2px solid #D48002;
 }
 
-.FormulaireInscription-other input[type=submit]{
+.FormulaireInscription-button{
     border: 0px;
     border-radius: 15px;
     width: 150px;
