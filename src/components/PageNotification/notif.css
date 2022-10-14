@@ -24,7 +24,8 @@
 .Notification-Image{
     height: 25px;
     width: auto;
-    margin: 0px 10px 0px 25px;
+    margin: 5px 10px 0px 15px;
+    padding: 5px;
 }
 
 .Notification-Notif {
