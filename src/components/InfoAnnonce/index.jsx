@@ -39,9 +39,7 @@ function InfoAnnonce({nom, note, descriptionVendeur, localisation, image, titre,
                 <p className='InfoAnnonce-PrixAnnonce'> {prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
                     <input type='submit' value="Acheter" className="InfoAnnonce-Achat"/>
-                    <Link className='InfoAnnonce-BoutonMessage' to={'/message'}>
-                        <p>Contacter</p>
-                    </Link>
+                    <Link className='InfoAnnonce-BoutonMessage' to={'/message'}>Contacter</Link>
                 </div>
             </div>
             <Annonce titre={titre} description={descriptionAnnonce} photos={photos}/>

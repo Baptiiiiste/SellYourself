@@ -75,6 +75,11 @@
     font-size: 20px;
 }
 
+.Contenu-bouton{
+    background-color: white;
+    border: 0;
+}
+
 /* Annonce */
 
 .UneAnnonce-all{

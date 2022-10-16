@@ -14,7 +14,7 @@ function Leftbar() {
     navigate("/")
   }
 
-  return connectedUser ?
+  return !connectedUser ?
   (
     <div className='allLeftBar'>
       <div className='LeftBar-NameImg'>
