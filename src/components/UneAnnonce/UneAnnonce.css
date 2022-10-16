@@ -44,6 +44,9 @@
     font-weight: bold;
     font-size: 10px;
 }
+.Vendeur-annonce-all input[type=submit]:hover{
+    background-color:chocolate;
+}
 
 
 /* Contenu */

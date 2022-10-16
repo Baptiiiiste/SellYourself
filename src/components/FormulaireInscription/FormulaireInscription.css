@@ -39,14 +39,11 @@
     background-color: #D48002;
     color: white;
     font-weight: bold;
+    margin: 15px;
 }
 
-.FormulaireInscription-buttons{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 15px;
+.FormulaireInscription-button:hover{
+    background-color:chocolate;
 }
 
 .FormulaireInscription-signin-div{

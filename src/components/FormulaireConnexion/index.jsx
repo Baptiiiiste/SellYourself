@@ -10,11 +10,7 @@ function FormulaireConnexion() {
                     <input type="text" name="login" placeholder="IDENTIFIANT" required/>
                     <input type="password" name="password" placeholder="MOT DE PASSE" required/>
                 </div>
-                <div className="FormulaireConnexion-buttons">
-                    <div className="FormulaireConnexion-other">
-                        <input type="submit" name="submit" value="SE CONNECTER"/>
-                    </div>
-                </div>
+                <button className="FormulaireConnexion-button">SE CONNECTER </button>
             </form>
             <div className="FormulaireConnexion-signup-div">
                 Pas encore inscrit ?

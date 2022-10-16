@@ -31,7 +31,7 @@
     border-bottom: 2px solid #D48002;
 }
 
-.FormulaireConnexion-other input[type=submit]{
+.FormulaireConnexion-button{
     border: 0px;
     border-radius: 15px;
     width: 150px;
@@ -39,14 +39,11 @@
     background-color: #D48002;
     color: white;
     font-weight: bold;
+    margin: 15px;
 }
 
-.FormulaireConnexion-buttons{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 15px;
+.FormulaireConnexion-button:hover{
+    background-color:chocolate;
 }
 
 .FormulaireConnexion-signup-div{

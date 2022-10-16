@@ -36,11 +36,7 @@ function FormulaireInscription() {
                     <input type="email" name="email" placeholder="E-MAIL" value={email} onChange={(ev) => {setEmail(ev.target.value)}} required/>
                     <input type="password" name="password" placeholder="MOT DE PASSE" value={password} onChange={(ev) => {setPassword(ev.target.value)}} required/>
                 </div>
-                <div className="FormulaireInscription-buttons">
-                    <div className="FormulaireInscription-other">
-                        <button className="FormulaireInscription-button" onClick={collectData} >S'INSCRIRE </button>
-                    </div>
-                </div>
+                <button className="FormulaireInscription-button" onClick={collectData} >S'INSCRIRE </button>
             </div>
             <div className="FormulaireInscription-signin-div">
                 Déja inscrit ?
