@@ -20,17 +20,6 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />} />
 
-<<<<<<< HEAD
-        {/* <Route element={<PrivateComponents />}> */}
-        <Route path="/annonce" element={<Annonce />} />
-        <Route path="/publier" element={<Publier />} />
-        <Route path="/notification" element={<Notification />} />
-        <Route path="/profil" element={<Profil />} />
-        {/* </Route> */}
-
-        <Route path="/inscription" element={<Inscription />} />
-        <Route path="/connexion" element={<Connexion />} />
-=======
         <Route element={<PrivateComponents />}>
           <Route path="/annonce" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
@@ -40,7 +29,6 @@ root.render(
         
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/connexion" element={<Connexion/>} />
->>>>>>> 8358bc41e5b4fc492c1a0d6e8f488ce1be8c6e42
         <Route path="/*" element={<p> 404 </p>} />
       </Routes>
 
