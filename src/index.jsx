@@ -19,7 +19,7 @@ root.render(
     <Router>
 
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
 
         <Route element={<PrivateComponents />}>
           <Route path="/annonce" element={<Annonce/>} />
@@ -35,6 +35,7 @@ root.render(
       </Routes>
 
     </Router>
+
   </React.StrictMode>
 );
 
