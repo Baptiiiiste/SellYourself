@@ -9,8 +9,12 @@ function Profil() {
         <div className='Profil'>
             <LeftBar/>
             <div className='Profil-center'>
-                <HeaderCustom title="Profil"/>
-                <ProfilUtilisateur className='ProfilUtilisateur'/>
+                <div className="Profil-header">
+                    <HeaderCustom title="Profil"/>
+                </div>
+                <div className="Profil-info">
+                    <ProfilUtilisateur/>
+                </div>
             </div>
         </div>
     )
