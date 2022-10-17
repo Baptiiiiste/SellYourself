@@ -4,7 +4,6 @@ import { LeftArrow, RightArrow } from "./arrows.jsx";
 import usePreventBodyScroll from "./usePreventBodyScroll.jsx";
 import { Card } from "./card.jsx";
 import './HeaderCategories.css';
-import HeaderCustom from "../HeaderCustom/index"
 import { categories } from "../../assets/data"
 
 

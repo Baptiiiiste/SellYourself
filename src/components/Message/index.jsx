@@ -7,7 +7,7 @@ function Message({ photo, nom, prenom, text }) {
     return(
         <div className='Message'>
             <div className='Message-vendeur'>
-                <img className='Message-photo' src={require("../../assets/DefaultPP.jpeg")}/>
+                <img className='Message-photo' src={require("../../assets/DefaultPP.jpeg")} alt=""/>
                 <p className='Message-prenom'>{prenom}</p>
                 <p className='Message-nom'>{init}.</p>
             </div>
