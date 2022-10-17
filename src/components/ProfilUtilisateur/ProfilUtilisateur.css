@@ -64,11 +64,78 @@
     background-color: #F87970;
 }
 
+.UneAnnonceProfil-delete:hover{
+    background-color: #f8594e;
+}
+
 .UneAnnonceProfil-icon{
     height: 30px;
     width: 30px;
     color: white;
 }
+
+/* INFO UTILISATEUR */
+
+.InfoUtilisateur-all{
+    display: flex;
+    flex-direction: row;
+}
+
+.InfoUtilisateur-save{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.InfoUtilisateur-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 20px;
+    width: 100%;
+}
+
+.InfoUtilisateur-info input{
+    width: 45%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #D48002;
+    font-size: 20px;
+}
+
+.InfoUtilisateur-photo{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.InfoUtilisateur-image{
+    border-radius: 100%;
+    height: 180px;
+    width: 180px;
+    margin-bottom: 10px;
+}
+
+.InfoUtilisateur-modif{
+    background-color: white;
+    border: 0;
+    font-size: 18px;
+}
+
+.InfoUtilisateur-button{
+    border: 0px;
+    border-radius: 15px;
+    width: 170px;
+    height: 50px;
+    background-color: #D48002;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.InfoUtilisateur-button:hover{
+    background-color:chocolate;
+}
+
+/* PROFIL */
 
 .ProfilUtilisateur{
     display: flex;
