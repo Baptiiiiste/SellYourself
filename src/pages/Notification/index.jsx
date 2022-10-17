@@ -25,6 +25,11 @@ function Notifications() {
                     <HeaderCustom title="Notifications"/>
                 </div>
                 <div className="Notifications-info">
+                    <div className='Notifications-deleteAllButton'>
+                        <button className='Notifications-deleteAll'>
+                            Supprimer tous !
+                        </button>
+                    </div>
                     {notifs.map(({ info,message,logo }, index) => (
                         <Notification
                             info={info}

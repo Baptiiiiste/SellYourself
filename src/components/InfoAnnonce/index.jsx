@@ -1,7 +1,7 @@
 import './infoAnnonce.css'
 import { Link } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faBookmark} from '@fortawesome/free-solid-svg-icons';
+import {faBookmark, faStar} from '@fortawesome/free-solid-svg-icons';
 
 function Utilisateur({nom, note, description, localisation, image}){
     return(
@@ -9,7 +9,10 @@ function Utilisateur({nom, note, description, localisation, image}){
             <img src={require('../../assets/DefaultPP.jpeg')}  className='InfoAnnonce-PhotoVendeur'/>
             <div className='InfoAnnonce-InfosVendeur'>
                     <p className='InfoAnnonce-NomVendeur'>{nom}</p>
-                    <p className='InfoAnnonce-NoteVendeur'>Note : {note}/5</p>
+                    <div className='InfoAnnonce-NoteVendeur'>
+                        <p className='InfoAnnonce-Note'>Note : {note}/5</p>
+                        <FontAwesomeIcon className='InfoAnnonce-Star' icon={faStar}/>
+                    </div>
                     <p className='InfoAnnonce-DescriptionVendeur'>{description}</p>
                     <p className='InfoAnnonce-LocalisationVendeur'>{localisation}</p>
             </div>
@@ -39,7 +42,7 @@ function InfoAnnonce({nom, note, descriptionVendeur, localisation, image, titre,
                 <p className='InfoAnnonce-PrixAnnonce'> {prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
                     <input type='submit' value="Acheter" className="InfoAnnonce-Achat"/>
-                    <Link className='InfoAnnonce-BoutonMessage' to={'/message'}>Contacter</Link>
+                    <Link className='InfoAnnonce-BoutonMessage' to={'/conversation'}>Contacter</Link>
                 </div>
             </div>
             <Annonce titre={titre} description={descriptionAnnonce} photos={photos}/>

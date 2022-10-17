@@ -10,9 +10,8 @@
 .Vendeur-all{
     display: flex;
     flex-direction: row;
-    max-height: 15%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .Vendeur-img{
@@ -32,20 +31,6 @@
 
 .Vendeur-note{
     color: #d48002;
-}
-
-.Vendeur-annonce-all input[type=submit]{
-    border: 0px;
-    border-radius: 15px;
-    width: 100px;
-    height: 30px;
-    background-color: #D48002;
-    color: white;
-    font-weight: bold;
-    font-size: 10px;
-}
-.Vendeur-annonce-all input[type=submit]:hover{
-    background-color:chocolate;
 }
 
 
@@ -96,9 +81,8 @@
 }
 
 .UneAnnonce-img-annonce{
-    object-fit: cover;
-    width: 300px;
     height: 250px;
+    width: 300px;
 }
 
 .UneAnnonce-description{

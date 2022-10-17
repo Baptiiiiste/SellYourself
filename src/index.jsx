@@ -11,6 +11,8 @@ import Notification from './pages/Notification';
 import Profil from './pages/Profil';
 import PrivateComponents from './components/PrivateComponents/index.jsx'
 import Messages from './pages/Messages';
+import Favoris from './pages/Favoris';
+import Conversation from './pages/Conversation';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,14 +21,16 @@ root.render(
     <Router>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home/>} />
 
-        <Route element={<PrivateComponents />}>
+        <Route element={<PrivateComponents/>}>
           <Route path="/annonce" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
           <Route path="/notifications" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />
           <Route path="/messages" element={<Messages/>} />
+          <Route path="/favoris" element={<Favoris/>} />
+          <Route path='/conversation' element={<Conversation/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />

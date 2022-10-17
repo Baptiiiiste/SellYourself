@@ -54,24 +54,3 @@
     width: 20px;
     color: white;
 }
-
-.Notification-deleteAll{
-    border: 0px;
-    border-radius: 15px;
-    width: 200px;
-    height: 50px;
-    background-color: #D48002;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.Notification-deleteAll:hover{
-    background-color: chocolate;
-}
-
-.Notification-deleteAllButton{
-    display: flex;
-    justify-content: end;
-    width: 100%;
-}

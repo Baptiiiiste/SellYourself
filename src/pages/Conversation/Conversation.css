@@ -1,19 +1,14 @@
-.Messages{
+.Conversation{
     display: flex;
     flex-direction: row;
 }
-.Messages-center{
+.Conversation-center{
     display: flex;
     flex-direction: column;
     width: 85%;
     height: 100vh;
 }
 
-.Messages-info{
+.Conversation-info{
     overflow-y: auto;
-    padding: 20px;
-}
-
-.Messages{
-    display: flex;
 }

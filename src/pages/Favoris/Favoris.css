@@ -1,19 +1,24 @@
-.Messages{
+.Favoris{
     display: flex;
     flex-direction: row;
 }
-.Messages-center{
+.Favoris-center{
     display: flex;
     flex-direction: column;
     width: 85%;
     height: 100vh;
 }
 
-.Messages-info{
+.Favoris-info{
     overflow-y: auto;
     padding: 20px;
 }
 
-.Messages{
+.Favoris{
     display: flex;
+}
+
+.Favoris-annonce{
+    text-decoration: none;
+    color: black;
 }

@@ -1,10 +1,10 @@
 import './Home.css';
-import Loader from '../../components/Loader/index'
+import Loader from '../../components/Loader/index';
 import React, {useState, useEffect} from 'react';
 import HeaderCustom from '../../components/HeaderCustom';
 import LeftBar from '../../components/LeftBar';
 import HeaderCategories from '../../components/HeaderCategories/index.jsx';
-import UneAnnonce from '../../components/UneAnnonce'
+import UneAnnonce from '../../components/UneAnnonce';
 
 const annonces = [
   {titre:'test annonce titre',

@@ -5,7 +5,27 @@ import Message from "../../components/Message";
 import LeftBar from "../../components/LeftBar";
 
 const messages = [
-    // img:
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
+    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
 ]
 
 function Messages() {
@@ -17,8 +37,13 @@ function Messages() {
                     <HeaderCustom title="Messages"/>
                 </div>
                 <div className="Messages-info">
-                    {messages.map(({ info,message }, index) => (
-                        <Message/>
+                    {messages.map(({ photo, nom, prenom, text }, index) => (
+                        <Message
+                            photo={photo}
+                            nom={nom}
+                            prenom={prenom}
+                            text={text}
+                            key={index}/>
                     ))}
                 </div>
             </div>

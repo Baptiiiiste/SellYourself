@@ -28,9 +28,20 @@
     font-size: 28px;
 }
 
-.InfoAnnonce-NoteVendeur{
+.InfoAnnonce-Note{
     color: #D48002;
     font-size: 20px;
+}
+
+.InfoAnnonce-NoteVendeur{
+    display: flex;
+    align-items: center;
+}
+
+.InfoAnnonce-Star{
+    color :#d48002;
+    margin-left: 5px;
+    font-size: medium;
 }
 
 .InfoAnnonce-DescriptionVendeur{
