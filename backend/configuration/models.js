@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
     prenom: {type: String, default: ""},
     nom: {type: String, default: ""},
-    // image: {type: String},
+    profilPic: {type: String, default: ""},
     paypal: {type: String, default: ""},
     note: {Type: Number},
-    noteList: {Type: Array, default: [] },
-    notifications: {Type: Array, default: [] },
-    annonces: {Type: Array, default: [] },
-    favoris: {Type: Array, default: [] },
+    noteList: [],
+    notifications: [],
+    annonces: [],
+    favoris: [],
 });
 
 const annonceSchema = new mongoose.Schema({
@@ -28,10 +28,14 @@ const noteSchema = new mongoose.Schema({
     note: {type: Number, required: true},
 });
 
-
+const notificationSchema = new mongoose.Schema({
+    type: {type: String, required: true},
+    content: {type: String, required: true}
+});
 
 module.exports = {
     User: mongoose.model("users", userSchema),
     Annonce: mongoose.model("annonces", annonceSchema),
-    Note: mongoose.model("notes", noteSchema)
+    Note: mongoose.model("notes", noteSchema),
+    Notification: mongoose.model("notifications", notificationSchema)
 }

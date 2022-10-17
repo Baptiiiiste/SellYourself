@@ -5,34 +5,7 @@ import usePreventBodyScroll from "./usePreventBodyScroll.jsx";
 import { Card } from "./card.jsx";
 import './HeaderCategories.css';
 import HeaderCustom from "../HeaderCustom/index"
-
-
-
-const categories = [
-  
-  { name: "Graphisme"},
-  { name: "Musique"},
-  { name: "Programmation"},
-  { name: "Ecriture"},
-  { name: "Design UI/UX"},
-  { name: "Vidéo"},
-  { name: "Animation"},
-  { name: "Traduction"},
-  { name: "Immobilier"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-  { name: "Automobile"},
-]
+import { categories } from "../../assets/data"
 
 
 function HeaderCategories() {

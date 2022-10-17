@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 require('./configuration/config');
 const cors = require('cors');
-const { User, Annonce, Note } = require("./configuration/models");
+const { User, Annonce, Note, Notification } = require("./configuration/models");
 
 app.use(express.json());
 app.use(cors());
