@@ -1,48 +1,77 @@
-.Notification-principale{
+.Notification{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: 20px;
 }
 
-.Notification-Bloc{
+.Notification-all{
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     margin-top: 20px;
-    height: auto;
     background-color: #D9D9D9;
     border-radius: 10px;
+    padding: 15px;
 }
 
-.Notification-Bloc2{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.Notification-text p{
+    margin: 0;
+}
+
+.Notification-text{
+    width: 90%;
 }
 
 .Notification-Image{
     height: 25px;
-    width: auto;
-    margin: 5px 10px 0px 15px;
-    padding: 5px;
+    margin-right: 15px;
 }
 
-.Notification-Notif {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 20px;
-}
-
-#Notification-Texte1{
+.Notification-info{
     font-weight: bold;
     font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 0px;
 }
 
-#Notification-Texte2{
-    margin-top: 0px;
+.Notification-message{
     font-size: 12px;
+}
+
+.Notification-button{
+    height: 40px;
+    width: 40px;
+    border: 0;
+    border-radius: 500px;
+    background-color: #F87970;
+}
+
+.Notification-button:hover{
+    background-color: #f8594e;
+}
+
+.Notification-delete{
+    height: 20px;
+    width: 20px;
+    color: white;
+}
+
+.Notification-deleteAll{
+    border: 0px;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+    background-color: #D48002;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.Notification-deleteAll:hover{
+    background-color: chocolate;
+}
+
+.Notification-deleteAllButton{
+    display: flex;
+    justify-content: end;
+    width: 100%;
 }

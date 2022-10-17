@@ -1,18 +1,18 @@
-.Notifications{
+.Messages{
     display: flex;
     flex-direction: row;
 }
-.Notifications-center{
+.Messages-center{
     display: flex;
     flex-direction: column;
     width: 85%;
     height: 100vh;
 }
 
-.Notifications-info{
+.Messages-info{
     overflow-y: auto;
 }
 
-.Notifications{
+.Messages{
     display: flex;
 }

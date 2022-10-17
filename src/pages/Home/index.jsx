@@ -6,7 +6,88 @@ import LeftBar from '../../components/LeftBar';
 import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce'
 
+const annonces = [
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
 
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+  
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+  
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+  
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+  
+  {titre:'test annonce titre',
+  description:'',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
+]
 
 function Home() {
 
@@ -33,74 +114,20 @@ function Home() {
         </div>
             
         <div className='Home-lesAnnonces'>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
-          <UneAnnonce titre='test annonce titre' 
-                      description='' 
-                      prix={27} 
-                      img_annonce='DefaultPP.jpeg' 
-                      nom='test nom' 
-                      prenom='test prenom' 
-                      img_profil='DefaultPP.jpeg' 
-                      note={4.5}/>
+          {annonces.map(({titre, description, prix, img_annonce, nom, prenom, img_profil, note}, index) => (
+            <UneAnnonce titre={titre}
+              description={description}
+              prix={prix}
+              img_annonce={img_annonce} 
+              nom={nom}
+              prenom={prenom} 
+              img_profil={img_profil} 
+              note={note}
+              key={index}
+            />
+          ))}
         </div>
-          
       </div>
-      
     </div>
     )
 }

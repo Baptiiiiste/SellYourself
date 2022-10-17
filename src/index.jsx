@@ -10,6 +10,7 @@ import Publier from './pages/Publier';
 import Notification from './pages/Notification';
 import Profil from './pages/Profil';
 import PrivateComponents from './components/PrivateComponents/index.jsx'
+import Messages from './pages/Messages';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,6 +26,7 @@ root.render(
           <Route path="/publier" element={<Publier/>} />
           <Route path="/notifications" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />
+          <Route path="/messages" element={<Messages/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />
