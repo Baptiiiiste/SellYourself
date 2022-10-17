@@ -23,7 +23,7 @@ root.render(
         <Route element={<PrivateComponents />}>
           <Route path="/annonce" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
-          <Route path="/notification" element={<Notification/>} />
+          <Route path="/notifications" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />
         </Route>
         

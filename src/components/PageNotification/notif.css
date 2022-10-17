@@ -8,7 +8,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 70vw;
+    width: 100%;
     margin-top: 20px;
     height: auto;
     background-color: #D9D9D9;
@@ -18,7 +18,7 @@
 .Notification-Bloc2{
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
 .Notification-Image{
@@ -31,6 +31,8 @@
 .Notification-Notif {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 20px;
 }
 
 #Notification-Texte1{
