@@ -18,21 +18,22 @@ root.render(
     <Router>
 
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
 
         {/* <Route element={<PrivateComponents />}> */}
-          <Route path="/annonce" element={<Annonce/>} />
-          <Route path="/publier" element={<Publier/>} />
-          <Route path="/notification" element={<Notification/>} />
-          <Route path="/profil" element={<Profil/>} />
+        <Route path="/annonce" element={<Annonce />} />
+        <Route path="/publier" element={<Publier />} />
+        <Route path="/notification" element={<Notification />} />
+        <Route path="/profil" element={<Profil />} />
         {/* </Route> */}
-        
-        <Route path="/inscription" element={<Inscription/>} />
-        <Route path="/connexion" element={<Connexion/>} />
+
+        <Route path="/inscription" element={<Inscription />} />
+        <Route path="/connexion" element={<Connexion />} />
         <Route path="/*" element={<p> 404 </p>} />
       </Routes>
 
     </Router>
+
   </React.StrictMode>
 );
 
