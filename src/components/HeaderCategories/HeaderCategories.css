@@ -35,7 +35,9 @@
 .HeaderCategories-link {
   text-decoration: none;
   color: black;
+  transition: 0.2s;
 }
 .HeaderCategories-link:hover{
   color: #d48002;
+  transition: 0.2s;
 }
