@@ -8,7 +8,7 @@ import UneAnnonce from '../../components/UneAnnonce';
 
 const annonces = [
   {titre:'test annonce titre',
-  description:'',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
   prix:27,
   img_annonce:'DefaultPP.jpeg',
   nom:'test nom',
@@ -17,7 +17,7 @@ const annonces = [
   note:4.5},
 
   {titre:'test annonce titre',
-  description:'',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
   prix:27,
   img_annonce:'DefaultPP.jpeg',
   nom:'test nom',
@@ -26,7 +26,7 @@ const annonces = [
   note:4.5},
 
   {titre:'test annonce titre',
-  description:'',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
   prix:27,
   img_annonce:'DefaultPP.jpeg',
   nom:'test nom',
@@ -35,7 +35,7 @@ const annonces = [
   note:4.5},
 
   {titre:'test annonce titre',
-  description:'',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
   prix:27,
   img_annonce:'DefaultPP.jpeg',
   nom:'test nom',
@@ -44,49 +44,14 @@ const annonces = [
   note:4.5},
 
   {titre:'test annonce titre',
-  description:'',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
   prix:27,
   img_annonce:'DefaultPP.jpeg',
   nom:'test nom',
   prenom:'test prenom', 
   img_profil:'DefaultPP.jpeg', 
   note:4.5},
-  
-  {titre:'test annonce titre',
-  description:'',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-  
-  {titre:'test annonce titre',
-  description:'',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-  
-  {titre:'test annonce titre',
-  description:'',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-  
-  {titre:'test annonce titre',
-  description:'',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
+
 ]
 
 function Home() {
@@ -112,21 +77,25 @@ function Home() {
           <HeaderCustom title="homePage"/>
           <HeaderCategories/>
         </div>
-            
-        <div className='Home-lesAnnonces'>
-          {annonces.map(({titre, description, prix, img_annonce, nom, prenom, img_profil, note}, index) => (
-            <UneAnnonce titre={titre}
-              description={description}
-              prix={prix}
-              img_annonce={img_annonce} 
-              nom={nom}
-              prenom={prenom} 
-              img_profil={img_profil} 
-              note={note}
-              key={index}
-            />
-          ))}
+        <div className='Home-all'>
+          <p className='Home-categorie'>Catégorie : </p>
+          <p className='Home-search'>Recherche : </p> 
+          <div className='Home-lesAnnonces'>
+            {annonces.map(({titre, description, prix, img_annonce, nom, prenom, img_profil, note}, index) => (
+              <UneAnnonce titre={titre}
+                description={description}
+                prix={prix}
+                img_annonce={img_annonce} 
+                nom={nom}
+                prenom={prenom} 
+                img_profil={img_profil} 
+                note={note}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
+        
       </div>
     </div>
     )

@@ -71,7 +71,7 @@
 .InfoAnnonce-PhotosAnnonce{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: stretch;
     margin-top: 50px;
     overflow-x: auto;
 }

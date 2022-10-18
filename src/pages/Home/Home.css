@@ -1,11 +1,13 @@
 .Home{
     display: flex;
     flex-direction: row;
+    height: 100vh;
 }
 .Home-center{
+    display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     width: 85%;
-    height: 100vh;
 }
 
 textarea:focus,input:focus {
@@ -16,10 +18,19 @@ textarea:focus,input:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    overflow-y: scroll;
-    height: 85%;
+}
+.Home-all{
+    overflow-y: auto;
+    height: 89%;
 }
 
-.Home-header{
-    height: 15%;
+.Home-categorie, .Home-search{
+    margin: 2px;
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.Home-categorie{
+    margin-top: 15px;
 }
