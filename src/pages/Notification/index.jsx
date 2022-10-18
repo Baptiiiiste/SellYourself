@@ -3,17 +3,12 @@ import React from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
 import Notification from "../../components/PageNotification";
 import LeftBar from "../../components/LeftBar";
-import { faMessage, faStar, faCommentDollar, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const notifs = [
-    { info: "Vous avez reçu un nouveau message.",message: "Cliquez sur “Messages” pour le consulter",logo: faMessage},
-    { info: "Vous avez reçu une nouvelle note.", message: "Vous avez reçu 4/5", logo: faStar},
-    { info: "Vous avez un nouveau client.", message: "Cliquez sur “Messages” pour échanger avec lui.", logo: faCommentDollar},
-    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: faHeart},
-    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: faHeart},
-    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: faHeart},
-    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: faHeart},
-    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: faHeart},
+    { type: "msg", info: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},
+    { type: "note", info: "4"},
+    { type: "client", info: "titre de l'annonce et nom de l'acheteur si renseigné"},
+    { type: "fav", info: "titre de l'annonce"},
 ]
 
 function Notifications() {
@@ -30,11 +25,10 @@ function Notifications() {
                             Supprimer tous !
                         </button>
                     </div>
-                    {notifs.map(({ info,message,logo }, index) => (
+                    {notifs.map(({ type, info}, index) => (
                         <Notification
+                            type={type}
                             info={info}
-                            message={message}
-                            logo={logo}
                             key={index}/>
                     ))}
                 </div>

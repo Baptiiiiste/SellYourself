@@ -73,11 +73,13 @@
     flex-direction: row;
     justify-content: space-around;
     margin-top: 50px;
+    overflow-x: auto;
 }
 
 .InfoAnnonce-PhotosAnnonce img{
     height: 250px;
     width: 300px;
+    margin: 0 15px;
 }
 
 

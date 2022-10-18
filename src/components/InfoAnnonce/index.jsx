@@ -29,6 +29,9 @@ function Annonce({titre, description, photos}){
                 <img src={require('../../assets/annonce1.jpg')} alt="" />
                 <img src={require('../../assets/annonce2.jpg')} alt="" />
                 <img src={require('../../assets/annonce3.jpg')} alt="" />
+                <img src={require('../../assets/annonce1.jpg')} alt="" />
+                <img src={require('../../assets/annonce2.jpg')} alt="" />
+                <img src={require('../../assets/annonce3.jpg')} alt="" />
             </div>
         </div>
     )

@@ -15,17 +15,26 @@
     padding: 15px;
 }
 
+.Notification-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+}
+
 .Notification-text p{
     margin: 0;
 }
 
 .Notification-text{
     width: 90%;
+    text-decoration: none;
+    color: black;
 }
 
 .Notification-Image{
     height: 25px;
-    margin-right: 15px;
+    margin: 0 15px;
 }
 
 .Notification-info{
@@ -35,6 +44,15 @@
 
 .Notification-message{
     font-size: 12px;
+}
+
+.Notification-messageText{
+    font-size: 12px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    overflow-wrap: break-word;
 }
 
 .Notification-button{
