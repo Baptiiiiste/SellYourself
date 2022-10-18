@@ -1,5 +1,6 @@
 import "./Messages.css";
 import React from 'react';
+import { Link } from "react-router-dom";
 import HeaderCustom from "../../components/HeaderCustom";
 import Message from "../../components/Message";
 import LeftBar from "../../components/LeftBar";
@@ -38,12 +39,14 @@ function Messages() {
                 </div>
                 <div className="Messages-info">
                     {messages.map(({ photo, nom, prenom, text }, index) => (
-                        <Message
-                            photo={photo}
-                            nom={nom}
-                            prenom={prenom}
-                            text={text}
-                            key={index}/>
+                        <Link className="Messages-all" to="/conversation">
+                            <Message
+                                photo={photo}
+                                nom={nom}
+                                prenom={prenom}
+                                text={text}
+                                key={index}/>
+                        </Link>
                     ))}
                 </div>
             </div>

@@ -14,7 +14,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin: 20px;
     width: 100%;
 }
 
@@ -29,7 +28,6 @@
 .InfoUtilisateur-photo{
     display: flex;
     flex-direction: column;
-    margin: 20px;
 }
 
 .InfoUtilisateur-image{
@@ -57,16 +55,4 @@
 }
 .InfoUtilisateur-button:hover{
     background-color:chocolate;
-}
-
-/* PROFIL */
-
-.ProfilUtilisateur{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.ProfilUtilisateur-annonce{
-    overflow-y: auto;
 }

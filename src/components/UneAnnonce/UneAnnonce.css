@@ -12,6 +12,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    text-decoration: none;
+    color: black;
 }
 
 .Vendeur-img{

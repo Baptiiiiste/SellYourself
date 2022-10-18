@@ -1,17 +1,18 @@
 import "./HeaderConversation.css"
 import React from 'react';
+import { Link } from "react-router-dom";
 
-function HeaderConversation() {
+function HeaderConversation({image, titre, description}) {
   return(
     <div className="HeaderConversation">
-        <img className="HeaderConversation-image" alt=""></img>
+      <div className="HeaderConversation-annonce">
+        <img className="HeaderConversation-image" src={require("../../assets/annonce1.jpg")} alt=""/>
         <div className="HeaderConversation-contenu">
-            <p className="HeaderConversation-titre"></p>
-            <p className="HeaderConversation-description"></p>
+            <p className="HeaderConversation-titre">{titre}</p>
+            <p className="HeaderConversation-description">{description}</p>
         </div>
-        <button className="HeaderConversation-button">
-            
-        </button>
+      </div>
+        <Link className="HeaderConversation-lien" to="/annonce">Voir l'annonce</Link>
     </div>
   )
 }

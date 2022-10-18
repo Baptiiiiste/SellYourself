@@ -11,7 +11,6 @@ function Connexion() {
         <div className='Connexion-formulaire'>
           <FormulaireConnexion className="Connexion-form"/>
         </div>
-        <div className="Connexion-entrediv"></div>
         <div className="Connexion-image">
           <img className="Connexion-img-login" src={require('../../assets/login.png')} alt=""/>
         </div>

@@ -5,7 +5,7 @@ import {faBookmark, faStar} from '@fortawesome/free-solid-svg-icons';
 
 function Utilisateur({nom, note, description, localisation, image}){
     return(
-        <div className='InfoAnnonce-InfoEtPhotoVendeur'>
+        <Link className='InfoAnnonce-InfoEtPhotoVendeur' to="/vendeur">
             <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/>
             <div className='InfoAnnonce-InfosVendeur'>
                     <p className='InfoAnnonce-NomVendeur'>{nom}</p>
@@ -16,7 +16,7 @@ function Utilisateur({nom, note, description, localisation, image}){
                     <p className='InfoAnnonce-DescriptionVendeur'>{description}</p>
                     <p className='InfoAnnonce-LocalisationVendeur'>{localisation}</p>
             </div>
-        </div>
+        </Link>
     )
 }
 

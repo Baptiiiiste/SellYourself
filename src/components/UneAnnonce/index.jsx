@@ -32,13 +32,13 @@ function showDivs(n) {
 
 function Vendeur({nom, prenom, photo, note}){
     return(
-        <div className='Vendeur-all'>
+        <Link className='Vendeur-all' to="/vendeur">
             <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
             <div className='Vendeur-info'>
                 <p className='Vendeur-nom'>{prenom} {nom}</p>
                 <p className='Vendeur-note'>Note: {note}/5</p>
             </div>
-        </div>
+        </Link>
     )
 }
 

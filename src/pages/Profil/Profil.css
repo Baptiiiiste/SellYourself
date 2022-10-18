@@ -11,8 +11,5 @@
 
 .Profil-info{
     overflow-y: auto;
-}
-
-.ProfilUtilisateur{
-    display: flex;
+    padding: 20px;
 }
