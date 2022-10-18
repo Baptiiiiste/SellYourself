@@ -51,7 +51,7 @@ function InfoAnnonce({nom, note, descriptionVendeur, localisation, image, titre,
             <Annonce titre={titre} description={descriptionAnnonce} photos={photos}/>
             <button className='InfoAnnonce-AjoutFav'>
                 <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faBookmark} />
-                <p>Ajout au favoris</p>
+                <p>Ajouter aux favoris</p>
             </button>
         </div>
     )
