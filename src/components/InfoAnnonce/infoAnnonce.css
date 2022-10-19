@@ -110,9 +110,10 @@
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     transition: 0.3s;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .InfoAnnonce-Achat:hover{
@@ -127,7 +128,7 @@
     justify-content: center;
     text-decoration: none;
     color: black;
-    margin: 10px;
+    margin: 20px;
     font-weight: bold;
 }
 

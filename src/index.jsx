@@ -14,7 +14,6 @@ import Messages from './pages/Messages';
 import Favoris from './pages/Favoris';
 import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
-
 import ValiderAchat from './pages/ValiderAchat';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
