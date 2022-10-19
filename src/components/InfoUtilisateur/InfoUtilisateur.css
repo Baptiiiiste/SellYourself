@@ -52,7 +52,10 @@
     color: white;
     font-weight: bold;
     font-size: 15px;
+    transition: 0.3s;
 }
 .InfoUtilisateur-button:hover{
-    background-color:chocolate;
+    background: #b96f20;
+    transition: 0.3s;
+    cursor: pointer;
 }

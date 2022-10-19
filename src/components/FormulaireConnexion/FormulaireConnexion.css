@@ -43,7 +43,8 @@
 }
 
 .FormulaireConnexion-button:hover{
-    background-color:chocolate;
+    background-color:#b96f20;
+    cursor: pointer;
 }
 
 .FormulaireConnexion-signup-div{
