@@ -1,0 +1,29 @@
+.Achat-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Achat-formulaire{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #9A9797;
+}
+
+.Achat-img-login{
+    max-width: 90%;
+}
+
+.Achat-bas{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.Achat{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}

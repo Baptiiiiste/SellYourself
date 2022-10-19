@@ -7,6 +7,7 @@ import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock,
 function Leftbar() {
 
   const connectedUser = localStorage.getItem('user');
+  console.log(connectedUser)
   const navigate = useNavigate();
   const note = 4.5;
   const nom = "Doe";
@@ -14,7 +15,7 @@ function Leftbar() {
   
   const logout = () => {
     localStorage.clear();
-    navigate("/")
+    navigate("/");
   }
 
   return connectedUser ?
@@ -28,6 +29,9 @@ function Leftbar() {
           <p>
             {prenom} {nom}
           </p>
+
+          {/* {connectedUser.split(",")} */}
+          
           <div className='LeftBar-Note'>
             <p>
               Note : {note}/5

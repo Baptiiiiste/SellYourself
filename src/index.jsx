@@ -15,6 +15,7 @@ import Favoris from './pages/Favoris';
 import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
 
+import ValiderAchat from './pages/ValiderAchat';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,6 +33,7 @@ root.render(
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
           <Route path='/conversation' element={<Conversation/>} />
+          <Route path='/validation' element={<ValiderAchat/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />
