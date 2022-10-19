@@ -26,7 +26,7 @@
     width: 400px;
     justify-content: space-between;
     margin-top: 5px;
-    color: grey;
+    color: var(--grisFoncé);
 }
 
 
@@ -55,7 +55,7 @@
 #CreerAnnonce-Submit{
     font-size: 20px;
     background: var(--orange);
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -96,7 +96,7 @@ textarea.question + label {
   padding: 0;
   margin: 20px;
   width: 30%;
-  border-top: 2px solid gray;
+  border-top: 2px solid var(--grisFoncé);
   -webkit-transition: width 0.4s ease;
   transition: width 0.4s ease;
   height: 0px;
@@ -113,7 +113,7 @@ textarea.question + label > span {
   font-weight: 300;
   margin: 0;
   position: absolute;
-  color: #8F8F8F;
+  color: var(--grisFoncé);
   font-size: 26px;
   top: -86px;
   left: 0px;

@@ -26,7 +26,7 @@
 
 .Conversation-bar{
     width: 85%;
-    background-color: #D9D9D9; 
+    background-color: var(--gris); 
     border: 0;
     border-radius: 40px;
     padding: 15px;
@@ -46,7 +46,7 @@
 }
 
 .Conversation-envoyer:hover{
-    background-color: lightgray;
+    background-color: var(--gris);
 }
 
 .Conversation-icon{

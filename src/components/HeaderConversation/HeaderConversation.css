@@ -6,7 +6,7 @@
     height: 120px;
     padding: 10px;
     width: 100%;
-    border-bottom: 1px solid #9A9797;
+    border-bottom: 1px solid var(--grisFoncé);
 }
 
 .HeaderConversation-annonce{
