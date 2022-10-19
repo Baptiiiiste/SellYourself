@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .InfoVendeur{
     display: flex;
     flex-direction: row;
