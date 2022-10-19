@@ -10,6 +10,7 @@
     width: 100%;
     justify-content: space-between;
     margin-top: 20px;
+    transition: 0.3s;
 }
 
 .UneAnnonceDetaillee-info{
@@ -64,10 +65,12 @@
     border: 0;
     border-radius: 500px;
     background-color:var(--rouge);
+    transition: 0.3s;
 }
 
 .UneAnnonceDetaillee-delete:hover{
     background-color:var(--rougeFoncé);
+    transition: 0.3s;
     cursor: pointer;
 }
 
@@ -75,4 +78,9 @@
     height: 30px;
     width: 30px;
     color: white;
+}
+
+.UneAnnonceDetaillee-all:hover{
+    background-color:var(--grisMoyen);
+    transition: 0.3s;
 }

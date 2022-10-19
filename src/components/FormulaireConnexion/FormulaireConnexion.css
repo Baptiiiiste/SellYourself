@@ -42,11 +42,13 @@
     color: white;
     font-weight: bold;
     margin: 15px;
+    transition: 0.2s;
 }
 
 .FormulaireConnexion-button:hover{
     background-color:var(--orangeFoncé);
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .FormulaireConnexion-signup-div{

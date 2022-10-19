@@ -42,11 +42,13 @@
     color: white;
     font-weight: bold;
     margin: 15px;
+    transition: 0.2s;
 }
 
 .FormulaireInscription-button:hover{
     background-color: var(--orangeFoncé);
-    cursor: pointer;    
+    cursor: pointer;
+    transition: 0.2s;  
 }
 
 .FormulaireInscription-signin-div{

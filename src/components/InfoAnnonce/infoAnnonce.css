@@ -115,6 +115,12 @@
     font-weight: bold;
 }
 
+.InfoAnnonce-Achat:hover{
+    background-color: var(--orangeFoncé);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
 .InfoAnnonce-BoutonMessage{
     display: flex;
     flex-direction: row;
@@ -139,6 +145,7 @@
     padding: 10px 15px;
     transition: 0.3s;
     font-weight: bold;
+    transition: 0.3s;
 }
 
 .InfoAnnonce-AjoutFav:hover, .InfoAnnonce-Achat:hover{

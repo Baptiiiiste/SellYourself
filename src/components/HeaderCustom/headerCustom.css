@@ -66,10 +66,12 @@ header{
     border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 .headercustom-lien:hover{
     background-color: var(--orangeFoncé);
+    transition: 0.2s;
     cursor: pointer;
 }
 
