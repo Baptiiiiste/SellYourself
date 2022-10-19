@@ -20,17 +20,17 @@ root.render(
       <Routes>
         <Route path="/" element={<Home/>} />
 
-        {/* <Route element={<PrivateComponents />}>
+        <Route element={<PrivateComponents />}>
           <Route path="/annonce" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
           <Route path="/notification" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />
-        </Route> */}
+        </Route>
 
-        <Route path="/annonce" element={<Annonce/>} />
+        {/* <Route path="/annonce" element={<Annonce/>} />
         <Route path="/publier" element={<Publier/>} />
         <Route path="/notification" element={<Notification/>} />
-        <Route path="/profil" element={<Profil/>} />
+        <Route path="/profil" element={<Profil/>} /> */}
         
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/connexion" element={<Connexion/>} />
