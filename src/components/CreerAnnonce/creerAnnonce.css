@@ -64,9 +64,7 @@
 
 
 #CreerAnnonce-Submit:hover{
-    background: #b96f20;
-    font-size: 21px;
-    transition: 0.3s;
+    background: var(--orangeFoncé);
     cursor: pointer;
 }
 
@@ -107,7 +105,7 @@ textarea.question + label {
 input.question:focus + label,
 textarea.question:focus + label {
   width: 50%;
-  border-color: #d48002;
+  border-color: var(--orange);
 }
 
 input.question + label > span,

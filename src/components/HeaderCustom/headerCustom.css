@@ -18,7 +18,7 @@ header{
 }
 
 .headercustom-point{
-    color: #D48002;
+    color: var(--orange);
 }
 
 .headercustom-logo img{
@@ -59,7 +59,7 @@ header{
 
 .headercustom-lien{
     padding: 10px 20px 10px 20px;
-    background-color: #D48002;
+    background-color: var(--orange);
     color: white;
     border-radius: 10px;
     text-decoration: none;
@@ -67,7 +67,7 @@ header{
 }
 
 .headercustom-lien:hover{
-    background-color:#b96f20;
+    background-color: var(--orangeFoncé);
 }
 
 /* --------------------------------- */
