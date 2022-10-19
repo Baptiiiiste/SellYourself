@@ -40,6 +40,6 @@
   transition: 0.2s;
 }
 .HeaderCategories-link:hover{
-  color: #d48002;
+  color: var(--orange);
   transition: 0.2s;
 }

@@ -25,7 +25,7 @@
     margin: 10px 0;
     padding-bottom: 15px;
     border: none;
-    border-bottom: 2px solid #D48002;
+    border-bottom: 2px solid var(--orange);
     font-size: 18px;
 }
 
@@ -63,12 +63,12 @@
 }
 
 .InfoVendeur-icon{
-    color: #D48002;
+    color: var(--orange);
     margin-left: 5px;
 }
 
 .InfoVendeur-note p{
-    color :#d48002;
+    color :var(--orange);
     font-weight: bold;
     margin: 0;
 }

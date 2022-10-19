@@ -7,7 +7,7 @@
     display: flex;
     height: 100vh;
     flex-direction: column;
-    border-right: 2px solid #d48002;
+    border-right: 2px solid var(--orange);
 }
 
 .LeftBar-ProfilePic{
@@ -75,7 +75,7 @@
 }
 
 .LeftBar-Link:hover{
-    color: #d48002;
+    color: var(--orange);
     font-size: 20px;
     transition: 0.3s;
 }
@@ -100,7 +100,7 @@
 .LeftBar-Note p{
     display: flex;
     justify-content: center;
-    color :#d48002;
+    color :var(--orange);
     font-size: medium;
 }
 
@@ -113,7 +113,7 @@
 .LeftBar-NoteStar{
     display: flex;
     justify-content: right;
-    color :#d48002;
+    color :var(--orange);
     margin-left: 5px;
     font-size: medium;
 }

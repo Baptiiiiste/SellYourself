@@ -34,7 +34,7 @@
 }
 
 .Vendeur-note{
-    color: #d48002;
+    color: var(--orange);
 }
 
 

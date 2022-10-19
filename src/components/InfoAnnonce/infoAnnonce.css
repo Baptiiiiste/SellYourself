@@ -33,7 +33,7 @@
 }
 
 .InfoAnnonce-Note{
-    color: #D48002;
+    color: var(--orange);
     font-size: 20px;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .InfoAnnonce-Star{
-    color :#d48002;
+    color :var(--orange);
     margin-left: 5px;
     font-size: medium;
 }
@@ -106,7 +106,7 @@
 
 .InfoAnnonce-Achat{
     font-size: 20px;
-    background: #d48002;
+    background: var(--orange);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -116,7 +116,7 @@
 }
 
 .InfoAnnonce-Achat:hover{
-    background-color:chocolate;
+    background-color: var(--orangeFoncé);
 }
 
 .InfoAnnonce-BoutonMessage{
@@ -136,7 +136,7 @@
     margin-top: 50px;
     width: max-content;
     font-size: 20px;
-    background: #d48002;
+    background: var(--orange);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -146,7 +146,7 @@
 }
 
 .InfoAnnonce-AjoutFav:hover{
-    background-color:chocolate;
+    background-color: var(--orangeFoncé);
 }
 
 .InfoAnnonce-AjoutFav p{
