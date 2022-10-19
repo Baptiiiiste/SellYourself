@@ -56,4 +56,5 @@
 
 .HeaderConversation-lien:hover{
     background-color: var(--orangeFoncé);
+    cursor: pointer;
 }

@@ -30,7 +30,7 @@ function HeaderCustom({title}) {
           <input placeholder='Rechercher'/>
         </div>
         <div className="headercustom-filter">
-          <select name="activite" id="activite">
+          <select name="activite" id="activite" className='headercustom-leFiltre'>
             <option value="default">Filtrer</option>
             <option value="Cat1">Categorie 1</option>
             <option value="Cat2">Categorie 2</option>

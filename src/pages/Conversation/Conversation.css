@@ -49,6 +49,7 @@
 
 .Conversation-envoyer:hover{
     background-color: var(--gris);
+    cursor: pointer;
 }
 
 .Conversation-icon{

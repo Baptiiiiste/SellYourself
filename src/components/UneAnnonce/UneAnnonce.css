@@ -111,6 +111,7 @@
 
 .UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
     background-color: var(--gris);
+    cursor: pointer;
 }
 
 .UneAnnonce-button{

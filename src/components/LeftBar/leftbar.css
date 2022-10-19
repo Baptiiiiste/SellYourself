@@ -78,6 +78,7 @@
     color: var(--orange);
     font-size: 20px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .LeftBar-logout{

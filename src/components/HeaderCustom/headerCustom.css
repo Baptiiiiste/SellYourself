@@ -70,6 +70,7 @@ header{
 
 .headercustom-lien:hover{
     background-color: var(--orangeFoncé);
+    cursor: pointer;
 }
 
 /* --------------------------------- */
@@ -113,7 +114,10 @@ header{
     align-items: center;
     margin-right: 30px;
     flex: 0.5;
+}
 
+.headercustom-leFiltre:hover{
+    cursor: pointer;
 }
 
 .headercustom-filter select{

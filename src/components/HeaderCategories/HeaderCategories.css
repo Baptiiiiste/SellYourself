@@ -41,5 +41,6 @@
 }
 .HeaderCategories-link:hover{
   color: var(--orange);
+  cursor: pointer;
   transition: 0.2s;
 }

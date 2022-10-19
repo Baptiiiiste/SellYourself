@@ -67,6 +67,7 @@
 
 .Notification-button:hover{
     background-color:var(--rougeFoncé);
+    cursor: pointer;
 }
 
 .Notification-delete{

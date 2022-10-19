@@ -115,10 +115,6 @@
     font-weight: bold;
 }
 
-.InfoAnnonce-Achat:hover{
-    background-color: var(--orangeFoncé);
-}
-
 .InfoAnnonce-BoutonMessage{
     display: flex;
     flex-direction: row;
@@ -145,8 +141,9 @@
     font-weight: bold;
 }
 
-.InfoAnnonce-AjoutFav:hover{
+.InfoAnnonce-AjoutFav:hover, .InfoAnnonce-Achat:hover{
     background-color: var(--orangeFoncé);
+    cursor: pointer;
 }
 
 .InfoAnnonce-AjoutFav p{

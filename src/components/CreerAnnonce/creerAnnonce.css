@@ -1,50 +1,59 @@
 @import "../../assets/variable.css";
 
-.CreeAnnonce-principale {
-    display: flex;
-    justify-content: center;
-}
-
 .CreerAnnonce-Input {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 10px;
-    margin-top: 10vh;
+    padding: 20px;
+    height: 100%;
 }
 
-.CreerAnnonce-BoutonSubmit {
-    position: absolute;
-    right: 200px;
-    bottom: 100px;
+.CreerAnnonce-Titre, .CreerAnnonce-Description, .CreerAnnonce-Prix, .CreerAnnonce-Categorie {
+    border: 0;
+    border-bottom: 1px solid var(--orange);
+    height: 30px;
+    width: 400px;
+    margin: 20px;
+    font-size: 20px;
+}
+
+.CreerAnnonce-Description{
+    height: 80px;
+}
+
+.CreerAnnonce-Categorie{
+    font-size: 16px;
+    border: 0;
 }
 
 .CreerAnnonce-Radio {
     display: flex;
-    font-size: 15px;
+    flex-direction: row;
+    justify-content: center;
     width: 400px;
-    justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 40px;
+}
+
+.CreeAnnonce-RadioBouton{
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    
     color: var(--grisFoncé);
 }
 
-
-#CreerAnnonce-Titre, #CreerAnnonce-Description, #CreerAnnonce-Prix, #CreerAnnonce-Categorie {
-    border: 0;
-    height: 30px;
-    width: 400px;
-    max-width: 400px;
-    resize: none;
-    margin-top: 0px;
+.CreerAnnonce-BoutonSubmit {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 100px;
 }
 
 
-#CreerAnnonce-Description{
-    height: 80px;
-}
 
-#CreerAnnonce-Image{
+.CreerAnnonce-Image{
     border: 0;
     height: 30px;
     width: 300px;
@@ -52,7 +61,7 @@
     margin-top: 5px;
 }
 
-#CreerAnnonce-Submit{
+.CreerAnnonce-Submit{
     font-size: 20px;
     background: var(--orange);
     color: white;
@@ -62,92 +71,7 @@
     transition: 0.3s;
 }
 
-
-#CreerAnnonce-Submit:hover{
+.CreerAnnonce-Submit:hover{
     background: var(--orangeFoncé);
     cursor: pointer;
 }
-
-input.question,
-textarea.question {
-  font-size: 20px;
-  font-weight: 300;
-  border-radius: 2px;
-  margin: 0;
-  border: none;
-  width: 80%;
-  background: rgba(0, 0, 0, 0);
-  transition: padding-top 0.2s ease, margin-top 0.2s ease;
-  overflow-x: hidden; /* Hack to make "rows" attribute apply in Firefox. */
-}
-
-textarea.question{
-    margin: 30px;
-}
-
-
-/* Underline and Placeholder */
-
-input.question + label,
-textarea.question + label {
-  display: block;
-  position: relative;
-  white-space: nowrap;
-  padding: 0;
-  margin: 20px;
-  width: 30%;
-  border-top: 2px solid var(--grisFoncé);
-  -webkit-transition: width 0.4s ease;
-  transition: width 0.4s ease;
-  height: 0px;
-}
-
-input.question:focus + label,
-textarea.question:focus + label {
-  width: 50%;
-  border-color: var(--orange);
-}
-
-input.question + label > span,
-textarea.question + label > span {
-  font-weight: 300;
-  margin: 0;
-  position: absolute;
-  color: var(--grisFoncé);
-  font-size: 26px;
-  top: -86px;
-  left: 0px;
-  z-index: -1;
-  -webkit-transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
-  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
-}
-
-textarea.question + label > span {
-    top: -156px;
-}
-
-label{
-    margin: 50px;
-}
-
-input#CreerAnnonce-Titre.question{
-    width: 30%;
-}
-
-textarea#CreerAnnonce-Description.question{
-    width: 30%;
-}
-
-input#CreerAnnonce-Prix.question{
-    width: 30%;
-}
-
-input#CreerAnnonce-Prix{
-    margin-top: 50px;
-}
-
-textarea#CreerAnnonce-Description{
-    margin: 20px;
-    padding-top: 10px;
-}
-

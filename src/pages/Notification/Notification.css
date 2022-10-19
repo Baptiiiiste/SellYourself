@@ -33,6 +33,7 @@
 
 .Notifications-deleteAll:hover{
     background-color: var(--orangeFoncé);
+    cursor: pointer;
 }
 
 .Notifications-deleteAllButton{

@@ -68,6 +68,7 @@
 
 .UneAnnonceDetaillee-delete:hover{
     background-color:var(--rougeFoncé);
+    cursor: pointer;
 }
 
 .UneAnnonceDetaillee-icon{
