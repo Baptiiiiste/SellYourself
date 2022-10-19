@@ -114,7 +114,9 @@
 }
 
 .InfoAnnonce-Achat:hover{
-    background-color:chocolate;
+    background: #b96f20;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .InfoAnnonce-BoutonMessage{
@@ -141,10 +143,13 @@
     padding: 10px 15px;
     transition: 0.3s;
     font-weight: bold;
+    transition: 0.3s;
 }
 
 .InfoAnnonce-AjoutFav:hover{
-    background-color:chocolate;
+    background: #b96f20;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .InfoAnnonce-AjoutFav p{

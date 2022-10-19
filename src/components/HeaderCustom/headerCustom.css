@@ -64,10 +64,12 @@ header{
     border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 .headercustom-lien:hover{
     background-color:#b96f20;
+    transition: 0.2s;
 }
 
 /* --------------------------------- */
