@@ -1,11 +1,11 @@
 import './infoAnnonce.css'
 import { Link } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faBookmark, faStar} from '@fortawesome/free-solid-svg-icons';
+import {faHeart, faStar} from '@fortawesome/free-solid-svg-icons';
 
 function Utilisateur({nom, note, description, localisation, image}){
     return(
-        <Link className='InfoAnnonce-InfoEtPhotoVendeur' to="/vendeur">
+        <div className='InfoAnnonce-InfoEtPhotoVendeur'>
             <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/>
             <div className='InfoAnnonce-InfosVendeur'>
                     <p className='InfoAnnonce-NomVendeur'>{nom}</p>
@@ -16,7 +16,7 @@ function Utilisateur({nom, note, description, localisation, image}){
                     <p className='InfoAnnonce-DescriptionVendeur'>{description}</p>
                     <p className='InfoAnnonce-LocalisationVendeur'>{localisation}</p>
             </div>
-        </Link>
+        </div>
     )
 }
 
@@ -50,7 +50,7 @@ function InfoAnnonce({nom, note, descriptionVendeur, localisation, image, titre,
             </div>
             <Annonce titre={titre} description={descriptionAnnonce} photos={photos}/>
             <button className='InfoAnnonce-AjoutFav'>
-                <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faBookmark} />
+                <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faHeart} />
                 <p>Ajouter aux favoris</p>
             </button>
         </div>

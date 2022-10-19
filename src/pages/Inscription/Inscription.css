@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .Inscription-image{
     display: flex;
     justify-content: center;
@@ -9,7 +11,7 @@
     width: 40%;
     align-items: center;
     justify-content: center;
-    border-right: 1px solid #9A9797;
+    border-right: 1px solid var(--grisFoncé);
 }
 
 .Inscription-img-login{

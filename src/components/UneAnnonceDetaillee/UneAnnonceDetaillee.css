@@ -1,8 +1,10 @@
+@import "../../assets/variable.css";
+
 /* ANNONCE */
 .UneAnnonceDetaillee-all{
     display: flex;
     flex-direction: row;
-    background-color: #D9D9D9;
+    background-color: var(--gris);
     border-radius: 15px;
     padding: 20px;
     width: 100%;
@@ -62,12 +64,12 @@
     width: 65px;
     border: 0;
     border-radius: 500px;
-    background-color: #F87970;
+    background-color:var(--rouge);
     transition: 0.3s;
 }
 
 .UneAnnonceDetaillee-delete:hover{
-    background-color: #f8594e;
+    background-color:var(--rougeFoncé);
     transition: 0.3s;
     cursor: pointer;
 }

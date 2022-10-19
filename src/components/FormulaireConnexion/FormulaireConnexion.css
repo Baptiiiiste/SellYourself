@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .FormulaireConnexion-form form {
     display: flex;
     flex-direction: column;
@@ -28,7 +30,7 @@
     width: 120%;
     margin: 10px 0;
     border: none;
-    border-bottom: 2px solid #D48002;
+    border-bottom: 2px solid var(--orange);
 }
 
 .FormulaireConnexion-button{
@@ -36,7 +38,7 @@
     border-radius: 15px;
     width: 150px;
     height: 40px;
-    background-color: #D48002;
+    background-color: var(--orange);
     color: white;
     font-weight: bold;
     margin: 15px;
@@ -44,7 +46,7 @@
 }
 
 .FormulaireConnexion-button:hover{
-    background-color:#b96f20;
+    background-color:var(--orangeFoncé);
     cursor: pointer;
     transition: 0.2s;
 }
@@ -56,6 +58,6 @@
 
 .FormulaireConnexion-signup{
     text-decoration: none;
-    color: #D48002;
+    color: var(--orange);
     margin-left: 10px;
 }

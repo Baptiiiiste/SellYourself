@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .CreeAnnonce-principale {
     display: flex;
     justify-content: center;
@@ -24,7 +26,7 @@
     width: 400px;
     justify-content: space-between;
     margin-top: 5px;
-    color: grey;
+    color: var(--grisFoncé);
 }
 
 
@@ -52,8 +54,8 @@
 
 #CreerAnnonce-Submit{
     font-size: 20px;
-    background: #d48002;
-    color: #fff;
+    background: var(--orange);
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -62,9 +64,7 @@
 
 
 #CreerAnnonce-Submit:hover{
-    background: #b96f20;
-    font-size: 21px;
-    transition: 0.3s;
+    background: var(--orangeFoncé);
     cursor: pointer;
 }
 
@@ -96,7 +96,7 @@ textarea.question + label {
   padding: 0;
   margin: 20px;
   width: 30%;
-  border-top: 2px solid gray;
+  border-top: 2px solid var(--grisFoncé);
   -webkit-transition: width 0.4s ease;
   transition: width 0.4s ease;
   height: 0px;
@@ -105,7 +105,7 @@ textarea.question + label {
 input.question:focus + label,
 textarea.question:focus + label {
   width: 50%;
-  border-color: #d48002;
+  border-color: var(--orange);
 }
 
 input.question + label > span,
@@ -113,7 +113,7 @@ textarea.question + label > span {
   font-weight: 300;
   margin: 0;
   position: absolute;
-  color: #8F8F8F;
+  color: var(--grisFoncé);
   font-size: 26px;
   top: -86px;
   left: 0px;

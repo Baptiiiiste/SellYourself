@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 /* Utilisateur */
 .InfoAnnonce-InfoEtPhotoVendeur{
     display: flex;
@@ -31,7 +33,7 @@
 }
 
 .InfoAnnonce-Note{
-    color: #D48002;
+    color: var(--orange);
     font-size: 20px;
 }
 
@@ -41,18 +43,18 @@
 }
 
 .InfoAnnonce-Star{
-    color :#d48002;
+    color :var(--orange);
     margin-left: 5px;
     font-size: medium;
 }
 
 .InfoAnnonce-DescriptionVendeur{
-    color: grey;
+    color: var(--grisFoncé);
     font-size: 20px;
 }
 
 .InfoAnnonce-LocalisationVendeur{
-    color: gray;
+    color: var(--grisFoncé);
     font-size: 20px;
 }
 
@@ -104,8 +106,8 @@
 
 .InfoAnnonce-Achat{
     font-size: 20px;
-    background: #d48002;
-    color: #fff;
+    background: var(--orange);
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -114,7 +116,7 @@
 }
 
 .InfoAnnonce-Achat:hover{
-    background: #b96f20;
+    background-color: var(--orangeFoncé);
     transition: 0.3s;
     cursor: pointer;
 }
@@ -136,8 +138,8 @@
     margin-top: 50px;
     width: max-content;
     font-size: 20px;
-    background: #d48002;
-    color: #fff;
+    background: var(--orange);
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -147,9 +149,7 @@
 }
 
 .InfoAnnonce-AjoutFav:hover{
-    background: #b96f20;
-    transition: 0.3s;
-    cursor: pointer;
+    background-color:chocolate;
 }
 
 .InfoAnnonce-AjoutFav p{

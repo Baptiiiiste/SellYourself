@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .HeaderConversation{
     display: flex;
     flex-direction: row;
@@ -6,7 +8,7 @@
     height: 120px;
     padding: 10px;
     width: 100%;
-    border-bottom: 1px solid #9A9797;
+    border-bottom: 1px solid var(--grisFoncé);
 }
 
 .HeaderConversation-annonce{
@@ -45,7 +47,7 @@
 
 .HeaderConversation-lien{
     padding: 10px 20px 10px 20px;
-    background-color: #D48002;
+    background-color: var(--orange);
     color: white;
     border-radius: 10px;
     text-decoration: none;
@@ -53,5 +55,5 @@
 }
 
 .HeaderConversation-lien:hover{
-    background-color:chocolate;
+    background-color: var(--orangeFoncé);
 }
