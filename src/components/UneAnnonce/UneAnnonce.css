@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 /* Vendeur */
 .Vendeur-info-all{
     display: flex;
@@ -32,7 +34,7 @@
 }
 
 .Vendeur-note{
-    color: #d48002;
+    color: var(--orange);
 }
 
 
@@ -57,6 +59,10 @@
     overflow-wrap: break-word;
 }
 
+.Contenu-description{
+    font-size: 12px;
+}
+
 .Contenu-prix{
     margin: 0%;
     font-size: 20px;
@@ -75,7 +81,7 @@
     width: 300px;
     height: 470px;
     margin: 2%;
-    border: 1px solid gray;
+    border: 1px solid var(--grisFoncé);
 }
 
 .UneAnnonce-image{
@@ -104,7 +110,8 @@
 }
 
 .UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
-    background-color: lightgray;
+    background-color: var(--gris);
+    cursor: pointer;
 }
 
 .UneAnnonce-button{

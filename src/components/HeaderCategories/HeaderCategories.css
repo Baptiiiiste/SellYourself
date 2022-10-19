@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
   display: none;
 }
@@ -14,7 +16,7 @@
 }
 
 .react-horizontal-scrolling-menu--arrow-left button:hover, .react-horizontal-scrolling-menu--arrow-right button:hover{
-  background-color: lightgray;
+  background-color: var(--gris);
 }
 
 * {
@@ -22,7 +24,7 @@
 }
 
 .HeaderCategories-container {
-  border-bottom: 1px solid #9A9797;
+  border-bottom: 1px solid var(--grisFoncé);
 
 }
 
@@ -38,6 +40,7 @@
   transition: 0.2s;
 }
 .HeaderCategories-link:hover{
-  color: #d48002;
+  color: var(--orange);
+  cursor: pointer;
   transition: 0.2s;
 }

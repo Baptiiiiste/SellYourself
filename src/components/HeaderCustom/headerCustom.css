@@ -1,8 +1,10 @@
+@import "../../assets/variable.css";
+
 header{
     display: flex;
     flex-direction: row;
     width: auto;
-    border-bottom: 1px solid #9A9797;
+    border-bottom: 1px solid var(--grisFoncé);
     font-size: 0.8em;
     height: 70px;
     justify-content: space-between;
@@ -18,7 +20,7 @@ header{
 }
 
 .headercustom-point{
-    color: #D48002;
+    color: var(--orange);
 }
 
 .headercustom-logo img{
@@ -59,15 +61,18 @@ header{
 
 .headercustom-lien{
     padding: 10px 20px 10px 20px;
-    background-color: #D48002;
+    background-color: var(--orange);
     color: white;
     border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 .headercustom-lien:hover{
-    background-color:chocolate;
+    background-color: var(--orangeFoncé);
+    transition: 0.2s;
+    cursor: pointer;
 }
 
 /* --------------------------------- */
@@ -100,7 +105,7 @@ header{
 
 .headercustom-input input{
     width: 500px;
-    border: 1px solid #9A9797;
+    border: 1px solid var(--grisFoncé);
     padding: 5px;
 
 }
@@ -111,7 +116,10 @@ header{
     align-items: center;
     margin-right: 30px;
     flex: 0.5;
+}
 
+.headercustom-leFiltre:hover{
+    cursor: pointer;
 }
 
 .headercustom-filter select{
@@ -129,7 +137,7 @@ header{
     display: flex;
     flex-direction: row;
     width: auto;
-    border-bottom: 1px solid #9A9797;
+    border-bottom: 1px solid var(--grisFoncé);
     font-size: 0.8em;
     height: 70px
 }

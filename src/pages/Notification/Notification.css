@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .Notifications{
     display: flex;
     flex-direction: row;
@@ -23,14 +25,15 @@
     border-radius: 15px;
     width: 200px;
     height: 50px;
-    background-color: #D48002;
+    background-color: var(--orange);
     color: white;
     font-weight: bold;
     font-size: 18px;
 }
 
 .Notifications-deleteAll:hover{
-    background-color: chocolate;
+    background-color: var(--orangeFoncé);
+    cursor: pointer;
 }
 
 .Notifications-deleteAllButton{

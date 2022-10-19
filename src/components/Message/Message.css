@@ -1,10 +1,12 @@
+@import "../../assets/variable.css";
+
 .Message{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
-    background-color: #D9D9D9;
+    background-color: var(--gris);
     border-radius: 10px;
     padding: 15px;
 }
@@ -49,11 +51,12 @@
     width: 40px;
     border: 0;
     border-radius: 500px;
-    background-color: #F87970;
+    background-color:var(--rouge);
 }
 
 .Message-button:hover{
-    background-color: #f8594e;
+    background-color:var(--rougeFoncé);
+    cursor: pointer;
 }
 
 .Message-delete{
