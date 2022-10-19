@@ -43,7 +43,8 @@
 }
 
 .FormulaireInscription-button:hover{
-    background-color:chocolate;
+    background-color:#b96f20;
+    cursor: pointer;    
 }
 
 .FormulaireInscription-signin-div{

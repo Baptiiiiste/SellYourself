@@ -65,6 +65,7 @@
     background: #b96f20;
     font-size: 21px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 input.question,
