@@ -1,0 +1,24 @@
+.Messages{
+    display: flex;
+    flex-direction: row;
+}
+.Messages-center{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Messages-info{
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.Messages{
+    display: flex;
+}
+
+.Messages-all{
+    text-decoration: none;
+    color: black;
+}

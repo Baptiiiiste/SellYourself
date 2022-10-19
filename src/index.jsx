@@ -10,6 +10,9 @@ import Publier from './pages/Publier';
 import Notification from './pages/Notification';
 import Profil from './pages/Profil';
 import PrivateComponents from './components/PrivateComponents/index.jsx'
+import Messages from './pages/Messages';
+import Favoris from './pages/Favoris';
+import Conversation from './pages/Conversation';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,17 +23,15 @@ root.render(
       <Routes>
         <Route path="/" element={<Home/>} />
 
-        <Route element={<PrivateComponents />}>
+        <Route element={<PrivateComponents/>}>
           <Route path="/annonce" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
-          <Route path="/notification" element={<Notification/>} />
+          <Route path="/notifications" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />
+          <Route path="/messages" element={<Messages/>} />
+          <Route path="/favoris" element={<Favoris/>} />
+          <Route path='/conversation' element={<Conversation/>} />
         </Route>
-
-        {/* <Route path="/annonce" element={<Annonce/>} />
-        <Route path="/publier" element={<Publier/>} />
-        <Route path="/notification" element={<Notification/>} />
-        <Route path="/profil" element={<Profil/>} /> */}
         
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/connexion" element={<Connexion/>} />
@@ -38,6 +39,7 @@ root.render(
       </Routes>
 
     </Router>
+
   </React.StrictMode>
 );
 

@@ -9,10 +9,10 @@ function FormulaireInscription() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect((navigate) => {
         const connectedUser = localStorage.getItem("user");
         if(connectedUser) navigate("/");
-    },[])
+    },[]);
 
     const collectData = async () => {
         let data = await fetch("http://localhost:5000/inscription", {
@@ -23,7 +23,7 @@ function FormulaireInscription() {
             }
         });
         data = await data.json();
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data._id));
         navigate("/");
     }
 

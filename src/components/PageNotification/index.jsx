@@ -1,58 +1,73 @@
 import './notif.css';
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { faMessage, faStar, faCommentDollar, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { UneNotif } from "./UneNotif.jsx";
+import { Link } from 'react-router-dom';
 
-const notifs = [
-  
-    { info: "Vous avez reçu un nouveau message.",message: "Cliquez sur “Messages” pour le consulter",logo: faMessage},
-    { info: "Vous avez reçu une nouvelle note.", message: "Vous avez reçu 4/5", logo: faStar},
-    { info: "Vous avez un nouveau client.", message: "Cliquez sur “Messages” pour échanger avec lui.", logo: faCommentDollar},
-    { info: "Une annonce que vous avez aimé a été modifié.", message: "Cliquez sur “Favoris” pour la voir.", logo: faHeart},
-
-]
-
-function Notification() {
-    return(
-        <div className='Notification-principale'>
-            <ScrollMenu
-            onWheel={onWheel}>
-            <div className='Notification-Notif'>
-              {notifs.map(({ info,message,logo }, index) => (
-                  <UneNotif
-                    info={info}
-                    message={message}
-                    logo={logo}
-                    key={index}
-                  >
-                  </UneNotif>
-              ))}
+function Notification({type, info}) {
+    if(type === "msg")
+        return (
+            <div className='Notification-all'>
+                <div className='Notification-right'>
+                    <FontAwesomeIcon icon={faMessage} className="Notification-Image" />
+                    <Link className='Notification-text' to="/conversation">
+                        <p className="Notification-info">Vous avez reçu un nouveau message.</p>
+                        <p className="Notification-messageText">{info}</p>
+                    </Link>
+                </div>
+                <button className='Notification-button'>
+                    <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
+                </button>
             </div>
-            </ScrollMenu>
+        );
+    
+    if(type === "fav")
+        return (
+            <div className='Notification-all'>
+                <div className='Notification-right'>
+                    <FontAwesomeIcon icon={faHeart} className="Notification-Image" />
+                    <div className='Notification-text'>
+                        <p className="Notification-info">Une annonce que vous avez aimé n'est plus disponible.</p>
+                        <p className="Notification-message">{info}</p>
+                    </div>
+                </div>
+                <button className='Notification-button'>
+                    <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
+                </button>
+            </div>
+        );
 
-        </div>
-    )
+    if(type === "client")
+        return (
+            <div className='Notification-all'>
+                <div className='Notification-right'>
+                    <FontAwesomeIcon icon={faCommentDollar} className="Notification-Image" />
+                    <div className='Notification-text'>
+                        <p className="Notification-info">Votre annonce est vendue.</p>
+                        <p className="Notification-message">{info}</p>
+                    </div>
+                </div>
+                <button className='Notification-button'>
+                    <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
+                </button>
+            </div>
+        );
+
+    if(type === "note")
+        return (
+            <div className='Notification-all'>
+                <div className='Notification-right'>
+                    <FontAwesomeIcon icon={faStar} className="Notification-Image" />
+                    <div className='Notification-text'>
+                        <p className="Notification-info">Vous avez reçu une nouvelle note.</p>
+                        <p className="Notification-message">Note : {info}/5</p>
+                    </div>
+                </div>
+                <button className='Notification-button'>
+                    <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
+                </button>
+            </div>
+        );
 }
-
-
-function onWheel(apiObj, ev) {
-    const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
-  
-    if (isThouchpad) {
-      ev.stopPropagation();
-      return;
-    }
-  
-    if (ev.deltaY < 0) {
-      apiObj.scrollNext();
-    } else if (ev.deltaY > 0) {
-      apiObj.scrollPrev();
-    }
-  }
-
-  
-  
-
 
 export default Notification;

@@ -1,0 +1,63 @@
+.Message{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.Message-photo{
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    margin-right: 20px;
+}
+
+.Message-text{
+    font-size: 18px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+.Message-contenu{
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}
+
+.Message-vendeur{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20%;
+}
+
+.Message-vendeur p{
+    margin: 5px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.Message-button{
+    height: 40px;
+    width: 40px;
+    border: 0;
+    border-radius: 500px;
+    background-color: #F87970;
+}
+
+.Message-button:hover{
+    background-color: #f8594e;
+}
+
+.Message-delete{
+    height: 20px;
+    width: 20px;
+    color: white;
+}

@@ -3,10 +3,13 @@
     flex-direction: row;
 }
 .Profil-center{
+    display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 85%;
+    height: 100vh;
 }
 
-.ProfilUtilisateur{
-    display: flex;
+.Profil-info{
+    overflow-y: auto;
+    padding: 20px;
 }

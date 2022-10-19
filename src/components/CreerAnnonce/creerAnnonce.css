@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .CreeAnnonce-principale {
     display: flex;
     justify-content: center;
@@ -34,7 +36,7 @@
     width: 400px;
     max-width: 400px;
     resize: none;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 
@@ -52,7 +54,7 @@
 
 #CreerAnnonce-Submit{
     font-size: 20px;
-    background: #d48002;
+    background: var(--orange);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -65,6 +67,7 @@
     background: #b96f20;
     font-size: 21px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 input.question,

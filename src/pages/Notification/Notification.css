@@ -1,10 +1,40 @@
-.Notification {
+.Notifications{
     display: flex;
     flex-direction: row;
 }
-
-.Notification-center {
+.Notifications-center{
     display: flex;
-    width: 100%;
     flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Notifications-info{
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.Notifications{
+    display: flex;
+}
+
+.Notifications-deleteAll{
+    border: 0px;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+    background-color: #D48002;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.Notifications-deleteAll:hover{
+    background-color: chocolate;
+}
+
+.Notifications-deleteAllButton{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }
