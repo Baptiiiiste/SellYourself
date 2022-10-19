@@ -30,7 +30,7 @@ function FormulaireInscription() {
                 }
             });
             data = await data.json();
-            localStorage.setItem("user", JSON.stringify(data._id));
+            localStorage.setItem("user", JSON.stringify(data));
             navigate("/");
         }
         

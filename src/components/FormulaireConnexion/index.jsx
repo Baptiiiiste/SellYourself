@@ -24,7 +24,7 @@ function FormulaireConnexion() {
         });
         result = await result.json();
         if(result.pseudo){
-            localStorage.setItem("user", JSON.stringify(result._id));
+            localStorage.setItem("user", JSON.stringify(result));
             navigate("/");
         }else{
             alert("Identifiant ou mot de passe incorrect");

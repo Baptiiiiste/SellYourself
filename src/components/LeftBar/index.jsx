@@ -7,11 +7,12 @@ import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock,
 function Leftbar() {
 
   const connectedUser = localStorage.getItem('user');
+  console.log(connectedUser)
   const navigate = useNavigate();
   
   const logout = () => {
     localStorage.clear();
-    navigate("/")
+    navigate("/");
   }
 
   return connectedUser ?
@@ -22,9 +23,9 @@ function Leftbar() {
           <img src={require('../../assets/DefaultPP.jpeg')} alt=""/>
         </div>
         <div className='LeftBar-username'>
-          <p>
-            Utilisateur
-          </p>
+
+          {/* {connectedUser.split(",")} */}
+          
           <div className='LeftBar-Note'>
             <p>
               Note : 3.78
