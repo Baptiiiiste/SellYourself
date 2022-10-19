@@ -13,7 +13,7 @@ import PrivateComponents from './components/PrivateComponents/index.jsx'
 import Messages from './pages/Messages';
 import Favoris from './pages/Favoris';
 import Conversation from './pages/Conversation';
-
+import ValiderAchat from './pages/ValiderAchat';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,6 +31,7 @@ root.render(
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
           <Route path='/conversation' element={<Conversation/>} />
+          <Route path='/validation' element={<ValiderAchat/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />
