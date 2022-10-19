@@ -8,6 +8,9 @@ function Leftbar() {
 
   const connectedUser = localStorage.getItem('user');
   const navigate = useNavigate();
+  const note = 4.5;
+  const nom = "Doe";
+  const prenom = "John";
   
   const logout = () => {
     localStorage.clear();
@@ -23,11 +26,11 @@ function Leftbar() {
         </div>
         <div className='LeftBar-username'>
           <p>
-            Utilisateur
+            {prenom} {nom}
           </p>
           <div className='LeftBar-Note'>
             <p>
-              Note : 3.78
+              Note : {note}/5
             </p>
             <div  className='LeftBar-NoteStar'>
               <FontAwesomeIcon icon={faStar}/>

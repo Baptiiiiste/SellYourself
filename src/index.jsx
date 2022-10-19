@@ -13,6 +13,7 @@ import PrivateComponents from './components/PrivateComponents/index.jsx'
 import Messages from './pages/Messages';
 import Favoris from './pages/Favoris';
 import Conversation from './pages/Conversation';
+import Erreur from './pages/404';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -35,7 +36,7 @@ root.render(
         
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/connexion" element={<Connexion/>} />
-        <Route path="/*" element={<p> 404 </p>} />
+        <Route path="/*" element={<Erreur/>} />
       </Routes>
 
     </Router>

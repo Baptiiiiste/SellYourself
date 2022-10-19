@@ -1,0 +1,31 @@
+@import "../../assets/variable.css";
+
+.Erreur{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #FCB82F;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Erreur-img{
+    height: 90%;
+}
+
+.Erreur-lien{
+    padding: 10px 20px 10px 20px;
+    background-color: var(--orange);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.Erreur-lien:hover{
+    background-color: var(--orangeFoncé);
+    transition: 0.2s;
+    cursor: pointer;
+}

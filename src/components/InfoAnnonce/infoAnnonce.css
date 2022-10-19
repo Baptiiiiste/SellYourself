@@ -145,7 +145,6 @@
     padding: 10px 15px;
     transition: 0.3s;
     font-weight: bold;
-    transition: 0.3s;
 }
 
 .InfoAnnonce-AjoutFav:hover, .InfoAnnonce-Achat:hover{
