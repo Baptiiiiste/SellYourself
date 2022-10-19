@@ -63,11 +63,11 @@
     width: 65px;
     border: 0;
     border-radius: 500px;
-    background-color: #F87970;
+    background-color:var(--rouge);
 }
 
 .UneAnnonceDetaillee-delete:hover{
-    background-color: #f8594e;
+    background-color:var(--rougeFoncé);
 }
 
 .UneAnnonceDetaillee-icon{

@@ -51,11 +51,11 @@
     width: 40px;
     border: 0;
     border-radius: 500px;
-    background-color: #F87970;
+    background-color:var(--rouge);
 }
 
 .Message-button:hover{
-    background-color: #f8594e;
+    background-color:var(--rougeFoncé);
 }
 
 .Message-delete{
