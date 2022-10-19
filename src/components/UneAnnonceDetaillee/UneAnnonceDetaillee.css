@@ -4,7 +4,7 @@
 .UneAnnonceDetaillee-all{
     display: flex;
     flex-direction: row;
-    background-color: #D9D9D9;
+    background-color: var(--gris);
     border-radius: 15px;
     padding: 20px;
     width: 100%;

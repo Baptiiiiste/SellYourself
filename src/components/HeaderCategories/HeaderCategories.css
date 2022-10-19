@@ -16,7 +16,7 @@
 }
 
 .react-horizontal-scrolling-menu--arrow-left button:hover, .react-horizontal-scrolling-menu--arrow-right button:hover{
-  background-color: lightgray;
+  background-color: var(--gris);
 }
 
 * {
@@ -24,7 +24,7 @@
 }
 
 .HeaderCategories-container {
-  border-bottom: 1px solid #9A9797;
+  border-bottom: 1px solid var(--grisFoncé);
 
 }
 

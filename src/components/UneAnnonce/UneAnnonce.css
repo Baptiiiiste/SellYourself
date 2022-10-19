@@ -81,7 +81,7 @@
     width: 300px;
     height: 470px;
     margin: 2%;
-    border: 1px solid gray;
+    border: 1px solid var(--grisFoncé);
 }
 
 .UneAnnonce-image{
@@ -110,7 +110,7 @@
 }
 
 .UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
-    background-color: lightgray;
+    background-color: var(--gris);
 }
 
 .UneAnnonce-button{

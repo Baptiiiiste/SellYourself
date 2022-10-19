@@ -49,12 +49,12 @@
 }
 
 .InfoAnnonce-DescriptionVendeur{
-    color: grey;
+    color: var(--grisFoncé);
     font-size: 20px;
 }
 
 .InfoAnnonce-LocalisationVendeur{
-    color: gray;
+    color: var(--grisFoncé);
     font-size: 20px;
 }
 
@@ -107,7 +107,7 @@
 .InfoAnnonce-Achat{
     font-size: 20px;
     background: var(--orange);
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -137,7 +137,7 @@
     width: max-content;
     font-size: 20px;
     background: var(--orange);
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
