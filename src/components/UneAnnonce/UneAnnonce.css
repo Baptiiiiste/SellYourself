@@ -57,6 +57,10 @@
     overflow-wrap: break-word;
 }
 
+.Contenu-description{
+    font-size: 12px;
+}
+
 .Contenu-prix{
     margin: 0%;
     font-size: 20px;

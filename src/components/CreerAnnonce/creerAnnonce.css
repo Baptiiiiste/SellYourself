@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .CreeAnnonce-principale {
     display: flex;
     justify-content: center;
@@ -52,7 +54,7 @@
 
 #CreerAnnonce-Submit{
     font-size: 20px;
-    background: #d48002;
+    background: var(--orange);
     color: #fff;
     border: none;
     border-radius: 5px;
