@@ -5,5 +5,10 @@
 .Publier-center {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 85%;
+    height: 100vh;
+}
+
+.Annonce-nouveau{
+    overflow-y: auto;
 }

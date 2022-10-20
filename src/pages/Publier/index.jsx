@@ -10,8 +10,12 @@ function Publier() {
         <div className="Publier">
           <Leftbar/>
           <div className='Publier-center'>
-            <HeaderCustom title="Creer une annonce"/>
-            <CreerAnnonce/>
+              <div className='Publier-header'>
+                <HeaderCustom title="Nouvelle annonce"/>
+              </div> 
+              <div className='Publier-nouveau'>
+                <CreerAnnonce/>
+              </div>
           </div>
   
       </div>

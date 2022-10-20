@@ -17,6 +17,7 @@ import Erreur from './pages/404';
 import ValiderAchat from './pages/ValiderAchat';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Router>
