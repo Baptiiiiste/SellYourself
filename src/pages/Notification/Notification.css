@@ -29,6 +29,7 @@
     color: white;
     font-weight: bold;
     font-size: 18px;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
 .Notifications-deleteAll:hover{
