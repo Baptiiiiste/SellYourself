@@ -67,6 +67,7 @@ header{
     text-decoration: none;
     font-weight: bold;
     transition: 0.2s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
 .headercustom-lien:hover{

@@ -82,6 +82,7 @@
     height: 470px;
     margin: 2%;
     border: 1px solid var(--grisFoncé);
+    box-sizing: content-box;
 }
 
 .UneAnnonce-image{

@@ -17,7 +17,6 @@ app.post("/inscription", async (req, resp) => {
 
 app.post("/connexion", async (req, resp) => {
     if(req.body.password && req.body.pseudo){
-        
         let user = await User.findOne({pseudo: req.body.pseudo});
         if(user){
             if(bcrypt.compareSync(req.body.password, user.password)){
@@ -32,5 +31,6 @@ app.post("/connexion", async (req, resp) => {
         resp.send({result:"No data found"})
     }
 })
+
 
 app.listen(5000);

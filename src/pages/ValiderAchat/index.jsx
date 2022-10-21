@@ -6,7 +6,7 @@ import HeaderCustom from '../../components/HeaderCustom';
 function ValiderAchat() {
   return(
     <div className="Achat">
-      <HeaderCustom title="logForm" className="Achat-header"/>
+      <HeaderCustom title="valid" className="Achat-header"/>
       <div className='Achat-bas'>
         <div className='Achat-formulaire'>
           <Validation className="Achat-form"/>

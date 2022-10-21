@@ -42,6 +42,7 @@
     background: var(--orange);
     color: #fff;
     border: none;
+    font-weight: bold;
     border-radius: 5px;
     padding: 10px 15px;
     transition: 0.3s;

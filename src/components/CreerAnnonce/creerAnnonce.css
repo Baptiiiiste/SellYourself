@@ -6,12 +6,11 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    height: 100%;
 }
 
 .CreerAnnonce-Titre, .CreerAnnonce-Description, .CreerAnnonce-Prix, .CreerAnnonce-Categorie {
     border: 0;
-    border-bottom: 1px solid var(--orange);
+    border-bottom: 2px solid var(--orange);
     height: 30px;
     width: 400px;
     margin: 20px;
@@ -24,7 +23,6 @@
 
 .CreerAnnonce-Categorie{
     font-size: 16px;
-    border: 0;
 }
 
 .CreerAnnonce-Radio {
@@ -32,15 +30,13 @@
     flex-direction: row;
     justify-content: center;
     width: 400px;
-    margin-top: 40px;
+    margin: 30px 0;
 }
 
 .CreeAnnonce-RadioBouton{
-    display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    
-    color: var(--grisFoncé);
+    padding: 20px 30px;
+    font-size: 18px;
+    border: 2px solid var(--orange);
 }
 
 .CreerAnnonce-BoutonSubmit {
@@ -51,14 +47,58 @@
     padding-right: 100px;
 }
 
+.CreerAnnonce-Bien, .CreerAnnonce-Service{
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--orange);
+    transition: 0.2s all linear;
+    margin-right: 10px;
+}
 
+.CreerAnnonce-Bien:checked, .CreerAnnonce-Service:checked {
+    border: 8px solid var(--orangeFoncé);
+  }
 
 .CreerAnnonce-Image{
-    border: 0;
-    height: 30px;
+    display: none;
+}
+
+.CreerAnnonce-LesImages{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.CreerAnnonce-LesImages img{
+    height: 250px;
     width: 300px;
-    max-width: 300px;
-    margin-top: 5px;
+    margin: 0 15px;
+}
+
+.CreerAnnonce-Label{
+    border-radius: 5px;
+    background-color: var(--orange);
+    height: 50px;
+    width: 250px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    padding-top: 10px;
+    transition: 0.3s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.CreerAnnonce-Label:hover{
+    background: var(--orangeFoncé);
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .CreerAnnonce-Submit{
@@ -69,9 +109,12 @@
     border-radius: 5px;
     padding: 10px 15px;
     transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
 .CreerAnnonce-Submit:hover{
     background: var(--orangeFoncé);
     cursor: pointer;
+    transition: 0.3s;
 }

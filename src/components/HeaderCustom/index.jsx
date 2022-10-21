@@ -17,6 +17,20 @@ function HeaderCustom({title}) {
     </header>
   )
 
+  if(title === "valid") return(
+    <header>
+      <Link to="/" className="headercustom-logo2">
+        <img src={require('../../assets/Logo.png')} alt=""/>
+        <h1>SellYourself</h1>
+        <h1 className='headercustom-point'>.</h1>
+        <h1>fr</h1>
+      </Link>
+      <div className='headercustom-link'>
+        <Link className="headercustom-lien" to="/annonce">Retour</Link>
+      </div>
+    </header>
+  )
+
   if(title === "homePage") return(
     <div className='headercustom-global'>
       <div className='headercustom-bar'>
