@@ -1,5 +1,6 @@
 import './creerAnnonce.css';
 import React, { useRef, useEffect } from 'react';
+import {categories} from '../../assets/data'
 
 function addImg(e) {
     const img = document.createElement('img');
@@ -40,12 +41,9 @@ function CreerAnnonce() {
 
             <select name="Categorie" className="CreerAnnonce-Categorie">
                 <option value="">-- Choisissez une catégorie --</option>
-                <option value="1">Catégorie 1</option>
-                <option value="2">Catégorie 2</option>
-                <option value="3">Catégorie 3</option>
-                <option value="4">Catégorie 4</option>
-                <option value="5">Catégorie 5</option>
-                <option value="6">Catégorie 6</option>
+                {categories.map(({ name }, index) => (
+                    <option value={name}>{name}</option>
+                ))}
             </select>
 
             <div className='CreerAnnonce-LesImages'>
