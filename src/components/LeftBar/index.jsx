@@ -9,9 +9,12 @@ function Leftbar() {
   const connectedUser = localStorage.getItem('user');
   console.log(connectedUser)
   const navigate = useNavigate();
+
+
+
+  const pseudo = "Pseudo";
   const note = 4.5;
-  const nom = "Doe";
-  const prenom = "John";
+
   
   const logout = () => {
     localStorage.clear();
@@ -27,7 +30,7 @@ function Leftbar() {
         </div>
         <div className='LeftBar-username'>
           <p>
-            {prenom} {nom}
+            {pseudo}
           </p>
 
           {/* {connectedUser.split(",")} */}

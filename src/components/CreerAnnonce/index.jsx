@@ -26,7 +26,7 @@ function CreerAnnonce() {
 
             <div className='CreerAnnonce-Radio'>
                 <fieldset className='CreeAnnonce-RadioBouton'>
-                    <legend> Type d'annonce proposé </legend>
+                    <legend> Type d'annonce proposée </legend>
                     <div>
                         <input type="radio" className="CreerAnnonce-Bien" id='Bien' name='Type' value="Bien" checked/>
                         <label for="Bien">Bien</label>

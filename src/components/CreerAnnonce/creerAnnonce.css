@@ -92,9 +92,12 @@
     font-size: 20px;
     color: white;
     padding-top: 10px;
+    transition: 0.3s;
 }
 
 .CreerAnnonce-Label:hover{
+    background: var(--orangeFoncé);
+    transition: 0.3s;
     cursor: pointer;
 }
 
@@ -112,4 +115,5 @@
 .CreerAnnonce-Submit:hover{
     background: var(--orangeFoncé);
     cursor: pointer;
+    transition: 0.3s;
 }
