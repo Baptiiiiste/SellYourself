@@ -31,10 +31,7 @@ function Leftbar() {
         <div className='LeftBar-username'>
           <p>
             {pseudo}
-          </p>
-
-          {/* {connectedUser.split(",")} */}
-          
+          </p>          
           <div className='LeftBar-Note'>
             <p>
               Note : {note}/5
