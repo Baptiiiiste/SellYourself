@@ -10,9 +10,12 @@ function Leftbar() {
   console.log(connectedUser)
   const navigate = useNavigate();
 
+  let pseudo = "";
 
+  if(connectedUser != null){
+    pseudo = JSON.parse(connectedUser).pseudo;
+  }
 
-  const pseudo = "Pseudo";
   const note = 4.5;
 
   
