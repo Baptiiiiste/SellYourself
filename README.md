@@ -1,6 +1,6 @@
 # 💫 Sell Yourself - En développement
-Projet de marketplace réalisé pour notre projet tutoré de l'IUT Informatique de Clermont-Ferrand
+Marketplace website made using MERN
 
-Preview disponible sur [sellyourself.vercel.app](https://sellyourself.vercel.app/) en attendant le nom de domaine [sellyourself.fr](https://sellyourself.fr/).
+Preview on [sellyourself.fr](https://sellyourself.fr/). 
 
-Réalisé avec React & mongoDB
+
