@@ -19,9 +19,10 @@ git clone https://github.com/Baptiiiiste/SellYourself.git
 npm i
 ```
 
-- Configurer le .env
+- Configurer le .env de l'API dans le nouveau repo SELLYOURSELF-API
 
 Créer un fichier .env dans `/src/` avec dedans 
 ```
 DATABASE_URI=**votre lien vers votre bdd mongoDB**
+JWTKEY=**VOTRECLEF**
 ```
