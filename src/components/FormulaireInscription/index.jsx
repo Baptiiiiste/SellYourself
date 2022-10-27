@@ -23,7 +23,7 @@ function FormulaireInscription() {
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
         }else if(email && passwd && pseudo){
             const password = bcrypt.hashSync(passwd,salt);
-            let data = await fetch(`http://localhost:5000/inscription`, {
+            let data = await fetch(`http://localhost:5000/api/inscription`, {
                 method: 'post',
                 body: JSON.stringify({pseudo, email, password }),
                 headers: {

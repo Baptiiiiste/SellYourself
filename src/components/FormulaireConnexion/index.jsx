@@ -10,7 +10,7 @@ function FormulaireConnexion() {
     const navigate = useNavigate();
 
     const login = async () => {
-        let result = await fetch("http://localhost:5000/connexion", {
+        let result = await fetch("http://localhost:5000/api/connexion", {
             method: 'post',
             body: JSON.stringify({pseudo, password}),
             headers: {
