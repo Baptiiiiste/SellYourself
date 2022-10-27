@@ -114,6 +114,7 @@
     transition: 0.3s;
     font-weight: bold;
     text-decoration: none;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
 .InfoAnnonce-Achat:hover{
@@ -130,6 +131,12 @@
     color: black;
     margin: 20px;
     font-weight: bold;
+    transition: 0.3s;
+}
+
+.InfoAnnonce-BoutonMessage:hover{
+    color: var(--orange);
+    transition: 0.3s;
 }
 
 .InfoAnnonce-AjoutFav{

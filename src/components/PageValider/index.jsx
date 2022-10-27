@@ -1,31 +1,6 @@
 import './PageValider.css'
-import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom'
-import { useState } from "react"
 
 function ValidationAchat() { 
-
-//     const [pseudo, setPseudo] = useState("");
-//     const [password, setPassword] = useState("");
-//     //const navigate = useNavigate();
-
-//     // useEffect((navigate) => {
-//     //     const connectedUser = localStorage.getItem("user");
-//     //     if(connectedUser) navigate("/");
-//     // },[]);
-
-//     // const collectData = async () => {
-//     //     let data = await fetch("http://localhost:5000/connexion", {
-//     //         method: 'post',
-//     //         body: JSON.stringify({pseudo, password}),
-//     //         headers: {
-//     //             'Content-Type':'application/json'
-//     //         }
-//     //     });
-//     //     data = await data.json();
-//     //     localStorage.setItem("user", JSON.stringify(data._id));
-//     //     navigate("/");
-//     // }
 
 
     return (

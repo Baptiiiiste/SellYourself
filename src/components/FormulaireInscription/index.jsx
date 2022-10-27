@@ -17,12 +17,13 @@ function FormulaireInscription() {
         const connectedUser = localStorage.getItem("user");
         if(connectedUser) navigate("/");
     },[]);
+
     const collectData = async () => {
         if(!passwd || !email || !pseudo){
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
         }else if(email && passwd && pseudo){
             const password = bcrypt.hashSync(passwd,salt);
-            let data = await fetch("http://localhost:5000/inscription", {
+            let data = await fetch(`http://localhost:5000/inscription`, {
                 method: 'post',
                 body: JSON.stringify({pseudo, email, password }),
                 headers: {
@@ -30,8 +31,14 @@ function FormulaireInscription() {
                 }
             });
             data = await data.json();
-            localStorage.setItem("user", JSON.stringify(data));
-            navigate("/");
+            if(data.authToken){
+                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("token", JSON.stringify(data.authToken));
+                navigate("/");
+            }else{
+                alert(data.result);
+            }
+            
         }
         
     }

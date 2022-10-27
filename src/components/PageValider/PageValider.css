@@ -47,6 +47,7 @@
     padding: 10px 15px;
     transition: 0.3s;
     padding: 15px;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
 

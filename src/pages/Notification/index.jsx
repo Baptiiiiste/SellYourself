@@ -22,7 +22,7 @@ function Notifications() {
                 <div className="Notifications-info">
                     <div className='Notifications-deleteAllButton'>
                         <button className='Notifications-deleteAll'>
-                            Supprimer tous !
+                            Tout supprimer !
                         </button>
                     </div>
                     {notifs.map(({ type, info}, index) => (

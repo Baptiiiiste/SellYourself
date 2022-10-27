@@ -10,9 +10,12 @@ function Leftbar() {
   console.log(connectedUser)
   const navigate = useNavigate();
 
+  let pseudo = "";
 
+  if(connectedUser != null){
+    pseudo = JSON.parse(connectedUser).pseudo;
+  }
 
-  const pseudo = "Pseudo";
   const note = 4.5;
 
   
@@ -31,10 +34,7 @@ function Leftbar() {
         <div className='LeftBar-username'>
           <p>
             {pseudo}
-          </p>
-
-          {/* {connectedUser.split(",")} */}
-          
+          </p>          
           <div className='LeftBar-Note'>
             <p>
               Note : {note}/5

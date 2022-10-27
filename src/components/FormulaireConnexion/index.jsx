@@ -9,11 +9,6 @@ function FormulaireConnexion() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    // useEffect((navigate) => {
-    //     const connectedUser = localStorage.getItem("user");
-    //     if(connectedUser) navigate("/");
-    // },[]);
-
     const login = async () => {
         let result = await fetch("http://localhost:5000/connexion", {
             method: 'post',
@@ -23,11 +18,12 @@ function FormulaireConnexion() {
             }
         });
         result = await result.json();
-        if(result.pseudo){
-            localStorage.setItem("user", JSON.stringify(result));
+        if(result.authToken){
+            localStorage.setItem("user", JSON.stringify(result.user));
+            localStorage.setItem("token", JSON.stringify(result.authToken));
             navigate("/");
         }else{
-            alert("Identifiant ou mot de passe incorrect");
+            alert(result.result);
         }
     }
 
