@@ -7,7 +7,6 @@ import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock,
 function Leftbar() {
 
   const connectedUser = localStorage.getItem('user');
-  console.log(connectedUser)
   const navigate = useNavigate();
 
   let pseudo = "";
