@@ -29,7 +29,7 @@ function Leftbar() {
     <div className='allLeftBar'>
       <div className='LeftBar-NameImg'>
         <div className='LeftBar-ProfilePic'>
-          <img src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+          <img className='Leftbar-ProfilImage' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
         </div>
         <div className='LeftBar-username'>
           <p>

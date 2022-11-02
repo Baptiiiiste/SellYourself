@@ -1,14 +1,19 @@
 import './creerAnnonce.css';
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {categories} from '../../assets/data'
 
 function addImg(e) {
-    const img = document.createElement('img');
+    
     const div = document.querySelector('.CreerAnnonce-LesImages');
-    img.src= "image/" + e.target.files[0].name;
-    img.className ='CreerAnnonce-img';
-    console.log(div);
-    div.appendChild(img);
+    const array = e.target.files;
+
+    for (let i = 0; i<array.length; i++){
+        const img = document.createElement('img');
+        img.src= "image/" + array[i].name;
+        img.className ='CreerAnnonce-img';
+        div.appendChild(img);
+    }
+    
 }
 
 function CreerAnnonce() {

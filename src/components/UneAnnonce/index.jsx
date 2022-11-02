@@ -2,7 +2,7 @@ import './UneAnnonce.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 function Vendeur({nom, prenom, photo, note}){
     return(
