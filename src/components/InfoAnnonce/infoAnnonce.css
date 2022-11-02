@@ -72,7 +72,7 @@
 
 .InfoAnnonce-PhotosAnnonce{
     display: flex;
-    flex-direction: row;
+    scroll-snap-type: x mandatory;
     justify-content: stretch;
     margin-top: 50px;
     overflow-x: auto;
@@ -82,6 +82,7 @@
     height: 250px;
     width: 300px;
     margin: 0 15px;
+    scroll-snap-align: start;
 }
 
 
