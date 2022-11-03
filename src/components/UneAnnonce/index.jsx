@@ -1,31 +1,8 @@
 import './UneAnnonce.css'
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-
-let index = 1;
-
-function plusDivs(n) {
-    showDivs(index += n);
-}
-
-function showDivs(n) {
-    let i;
-    let x = document.querySelectorAll(".UneAnnonce-img-annonce");
-    let l = x.length;
-
-    if (n > l) {
-        index = 1;
-    }
-    if (n < 1) {
-        index = l;
-    }
-    for (i = 0; i < l; i++) {
-        x[i].style.display = 'none';  
-    }
-    x[index-1].style.display = 'block';
-}
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 function Vendeur({nom, prenom, photo, note}){
     return(
@@ -57,36 +34,14 @@ function Contenu({titre, description, prix}){
 }
 
 function UneAnnonce({titre, description, prix, img_annonce, nom, prenom, img_profil, note}) {
-    const refLeft = React.createRef();
-    const refRight = React.createRef();
-    const refDiv = React.createRef();
-
-    useEffect(() => {
-        showDivs(1);
-        const buttonLeft = refLeft.current;
-        const buttonRight = refRight.current;
-
-        console.log(buttonLeft);
-
-        buttonLeft.onclick = console.log("oui");
-        // buttonRight.addEventListener('click', plusDivs(1));
-
-        
-    }, []);
 
     return (
         <div className='UneAnnonce-all'>
-            <div className='UneAnnonce-image' ref={refDiv}>
-                <Link to="/annonce">
-                    <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
-                    <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
-                    <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
-                </Link>
-            </div>
-            <div className='UneAnnonce-button'>
-                <button className='UneAnnonce-button-left' ref={refLeft}><FontAwesomeIcon icon={faChevronLeft} /></button>
-                <button className='UneAnnonce-button-right' ref={refRight}><FontAwesomeIcon icon={faChevronRight} /></button>
-            </div>
+            <Link to="/annonce" className='UneAnnonce-div-Image'>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
+                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
+            </Link>
             <div className='UneAnnonce-description'>
                 <Vendeur nom={nom} prenom={prenom} photo={img_profil} note={note}/>
                 <Contenu titre={titre} description={description} prix={prix}/>

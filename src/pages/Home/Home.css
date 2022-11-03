@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .Home{
     display: flex;
     flex-direction: row;
@@ -24,13 +26,30 @@ textarea:focus,input:focus {
     height: 89%;
 }
 
-.Home-categorie, .Home-search{
-    margin: 2px;
-    margin-left: 20px;
+.Home-categorie, .Home-search, .Home-display-categorie, .Home-display-search{
     font-size: 20px;
     font-weight: bold;
+    margin: 0;
 }
 
-.Home-categorie{
-    margin-top: 15px;
+.Home-display-categorie, .Home-display-search{
+    margin-left: 10px;
+    color: var(--orange);
+}
+
+.Home-categorie, .Home-search{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.Home-div-Categorie, .Home-div-search{
+    margin: 2px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.Home-div-Categorie{
+    margin-top: 40px;
 }

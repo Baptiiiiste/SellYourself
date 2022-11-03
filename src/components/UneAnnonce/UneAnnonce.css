@@ -85,14 +85,15 @@
     box-sizing: content-box;
 }
 
-.UneAnnonce-image{
-    height: 250px;
-    width: 300px;
+.UneAnnonce-div-Image{
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
 }
 
 .UneAnnonce-img-annonce{
-    height: 250px;
     width: 300px;
+    scroll-snap-align: start;
 }
 
 .UneAnnonce-description{

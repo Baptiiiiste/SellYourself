@@ -7,7 +7,6 @@ import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock,
 function Leftbar() {
 
   const connectedUser = sessionStorage.getItem('user');
-  console.log(connectedUser)
   const navigate = useNavigate();
 
   let pseudo = "";
@@ -29,7 +28,7 @@ function Leftbar() {
     <div className='allLeftBar'>
       <div className='LeftBar-NameImg'>
         <div className='LeftBar-ProfilePic'>
-          <img src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+          <img className='Leftbar-ProfilImage' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
         </div>
         <div className='LeftBar-username'>
           <p>

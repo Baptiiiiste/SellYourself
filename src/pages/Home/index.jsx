@@ -16,47 +16,49 @@ const annonces = [
   img_profil:'DefaultPP.jpeg', 
   note:4.5},
 
-  // {titre:'test annonce titre',
-  // description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  // prix:27,
-  // img_annonce:'DefaultPP.jpeg',
-  // nom:'test nom',
-  // prenom:'test prenom', 
-  // img_profil:'DefaultPP.jpeg', 
-  // note:4.5},
+  {titre:'test annonce titre',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
 
-  // {titre:'test annonce titre',
-  // description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  // prix:27,
-  // img_annonce:'DefaultPP.jpeg',
-  // nom:'test nom',
-  // prenom:'test prenom', 
-  // img_profil:'DefaultPP.jpeg', 
-  // note:4.5},
+  {titre:'test annonce titre',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
 
-  // {titre:'test annonce titre',
-  // description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  // prix:27,
-  // img_annonce:'DefaultPP.jpeg',
-  // nom:'test nom',
-  // prenom:'test prenom', 
-  // img_profil:'DefaultPP.jpeg', 
-  // note:4.5},
+  {titre:'test annonce titre',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5},
 
-  // {titre:'test annonce titre',
-  // description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  // prix:27,
-  // img_annonce:'DefaultPP.jpeg',
-  // nom:'test nom',
-  // prenom:'test prenom', 
-  // img_profil:'DefaultPP.jpeg', 
-  // note:4.5},
-
+  {titre:'test annonce titre',
+  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
+  prix:27,
+  img_annonce:'DefaultPP.jpeg',
+  nom:'test nom',
+  prenom:'test prenom', 
+  img_profil:'DefaultPP.jpeg', 
+  note:4.5}
 ]
 
 function Home() {
 
   const [loader, setLoader] = useState(true);
+
+  const categorie = 'Toutes les catégories';
+  const recherche = 'Toutes les annonces';
 
   useEffect(() => {
       setTimeout(() => {
@@ -78,8 +80,13 @@ function Home() {
           <HeaderCategories/>
         </div>
         <div className='Home-all'>
-          <p className='Home-categorie'>Catégorie : </p>
-          <p className='Home-search'>Recherche : </p> 
+          <div className='Home-div-Categorie'>
+            <p className='Home-categorie'>Catégorie : </p> <p className='Home-display-categorie'>{categorie}</p>
+          </div>
+          <div className='Home-div-search'>
+            <p className='Home-search'>Recherche : </p> <p className='Home-display-search'>{recherche}</p>
+          </div>
+          
           <div className='Home-lesAnnonces'>
             {annonces.map(({titre, description, prix, img_annonce, nom, prenom, img_profil, note}, index) => (
               <UneAnnonce titre={titre}
