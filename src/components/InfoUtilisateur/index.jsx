@@ -50,7 +50,7 @@ function InfoUtilisateur(){
                 <div className='InfoUtilisateur-photo'>
                     <img className="InfoUtilisateur-image" src={require("../../assets/DefaultPP.jpeg")} alt=""/>
                     <label for="image" className='InfoUtilisateur-Label'>Changer la photo</label>
-                    <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onInput={ChangeImg}></input>
+                    <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onChange={ChangeImg}></input>
                 </div>
                 <div className='InfoUtilisateur-info'>
                     <input type="text" name="nom" placeholder={actualNom} value={nom} onChange={e => setNom(e.target.value)}/>
