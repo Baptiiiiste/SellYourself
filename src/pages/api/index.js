@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 var bcrypt = require('bcryptjs');
-const { User } = require("./configuration/models");
+const { User, Annonce } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
 
 // Création de l'API
@@ -94,6 +94,13 @@ function verifyToken(req, resp, next) {
         resp.status(403).send({result: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
+
+// Requete new annonce
+app.post("/api/publier", async (req, resp) => {
+    let annonce = new Annonce(req.body);
+    let result = await annonce.save();
+    resp.send(result);
+})
 
 // Lancement de l'API
 app.listen(5000);

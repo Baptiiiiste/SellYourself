@@ -1,8 +1,16 @@
 import './creerAnnonce.css';
 import React from 'react';
 import {categories} from '../../assets/data'
+import { useState } from 'react';
 
 function CreerAnnonce() {
+
+    const [titre, setTitre] = useState("");
+    const [description, setDescription] = useState("");
+    const [prix, setPrix] = useState("");
+    const [categorie, setCategorie] = useState("");
+    const [type, setType] = useState("");
+    let photos = [];
 
     const image = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
@@ -17,21 +25,7 @@ function CreerAnnonce() {
     }
 
     const formulaire = async () => {
-        const titre = document.querySelector('.CreerAnnonce-Titre').value;
-        const description = document.querySelector('.CreerAnnonce-Description').value;
-        const prix = document.querySelector('.CreerAnnonce-Prix').value;
-        const bien = document.querySelector('CreerAnnonce-Bien');
-        const  service = document.querySelector('CreerAnnonce-Service');
-        let type;
-        if (bien.checked) {
-            type = bien.value;
-        }
-        else{
-            type = service.value;
-        }
-        const categorie = document.querySelector('.CreerAnnonce-Categorie');
-        const images = document.querySelectorAll('.CreerAnnonce-img'); 
-        let photos = [];
+        const images = document.querySelectorAll('.CreerAnnonce-img');
         for(let i = 0; i<images.length; i++){
             photos += images[i].value;
         }
@@ -39,25 +33,25 @@ function CreerAnnonce() {
 
     return(
         <form className="CreerAnnonce-Input">
-            <input type="text" placeholder='Titre' className="CreerAnnonce-Titre" maxlength="80" />
-            <textarea placeholder='Description' className="CreerAnnonce-Description" maxlength="500"/>
-            <input placeholder='Prix' type="number" min='0' max='99999' className="CreerAnnonce-Prix"/>
+            <input type="text" placeholder='Titre' className="CreerAnnonce-Titre" maxlength="80" onChange={(ev) => {setTitre(ev.target.value)}}/>
+            <textarea placeholder='Description' className="CreerAnnonce-Description" maxlength="500" onChange={(ev) => {setDescription(ev.target.value)}}/>
+            <input placeholder='Prix' type="number" min='0' max='99999' className="CreerAnnonce-Prix" onChange={(ev) => {setPrix(ev.target.value)}}/>
 
             <div className='CreerAnnonce-Radio'>
                 <fieldset className='CreeAnnonce-RadioBouton'>
                     <legend> Type d'annonce proposée </legend>
                     <div>
-                        <input type="radio" className="CreerAnnonce-Bien" id='Bien' name='Type' value="Bien" checked/>
+                        <input type="radio" className="CreerAnnonce-Bien" id='Bien' name='Type' value="Bien" checked onChange={(ev) => {setType(ev.target.value)}}/>
                         <label for="Bien">Bien</label>
                     </div>
                     <div>
-                        <input type="radio" className="CreerAnnonce-Service" id='Service' name='Type' value="Service"/>
+                        <input type="radio" className="CreerAnnonce-Service" id='Service' name='Type' value="Service" onChange={(ev) => {setType(ev.target.value)}}/>
                         <label for="Service">Service</label>
                     </div>
                 </fieldset>
             </div>
 
-            <select name="Categorie" className="CreerAnnonce-Categorie">
+            <select name="Categorie" className="CreerAnnonce-Categorie" onChange={(ev) => {setCategorie(ev.target.value)}}>
                 <option value="">-- Choisissez une catégorie --</option>
                 {categories.map(({ name }, index) => (
                     <option value={name}>{name}</option>
