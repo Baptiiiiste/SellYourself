@@ -14,11 +14,11 @@ function FormulaireInscription() {
     const navigate = useNavigate();
 
     useEffect((navigate) => {
-        const connectedUser = localStorage.getItem("user");
+        const connectedUser = sessionStorage.getItem("user");
         if(connectedUser) navigate("/");
     },[]);
 
-    const collectData = async () => {
+    const signIn = async () => {
         if(!passwd || !email || !pseudo){
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
         }else if(email && passwd && pseudo){
@@ -32,8 +32,8 @@ function FormulaireInscription() {
             });
             data = await data.json();
             if(data.authToken){
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("token", JSON.stringify(data.authToken));
+                sessionStorage.setItem("user", JSON.stringify(data.user));
+                sessionStorage.setItem("token", JSON.stringify(data.authToken));
                 navigate("/");
             }else{
                 alert(data.result);
@@ -53,7 +53,7 @@ function FormulaireInscription() {
                     <input type="password" name="passwd" placeholder="MOT DE PASSE" value={passwd} onChange={(ev) => {setPassword(ev.target.value)}}/>
 
                 </div>
-                <button className="FormulaireInscription-button" onClick={collectData} >S'INSCRIRE </button>
+                <button className="FormulaireInscription-button" onClick={signIn} >S'INSCRIRE </button>
             </div>
             <div className="FormulaireInscription-signin-div">
                 Déja inscrit ?

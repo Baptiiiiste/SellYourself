@@ -62,6 +62,22 @@ app.post("/api/connexion", async (req, resp) => {
     }
 })
 
+// Requete de modification des informations d'un utilisateur
+app.put("/api/utilisateur/:pseudo", async (req, resp) => {
+
+    let isEmailAlreadyTaken = await User.findOne({email: req.body.email});
+    if(!isEmailAlreadyTaken){
+        await User.updateOne(
+            { pseudo: req.params.pseudo  },
+            { $set: req.body }
+        )
+    
+        const newUser = await User.findOne({pseudo : req.params.pseudo})
+        resp.send({user: newUser});
+    }else{
+        resp.send({erreur:"Cette adresse e-mail est déjà prise"})
+    }    
+})
 
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];

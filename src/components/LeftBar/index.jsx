@@ -6,13 +6,13 @@ import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock,
 
 function Leftbar() {
 
-  const connectedUser = localStorage.getItem('user');
+  const connectedUser = sessionStorage.getItem('user');
   console.log(connectedUser)
   const navigate = useNavigate();
 
   let pseudo = "";
 
-  if(connectedUser != null){
+  if(connectedUser){
     pseudo = JSON.parse(connectedUser).pseudo;
   }
 
@@ -20,7 +20,7 @@ function Leftbar() {
 
   
   const logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/");
   }
 

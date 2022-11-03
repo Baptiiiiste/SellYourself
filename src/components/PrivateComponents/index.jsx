@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 function PrivateComponents() {
 
-  const connectedUser = localStorage.getItem("user");
+  const connectedUser = sessionStorage.getItem("user");
 
   return connectedUser ? <Outlet /> : <Navigate to="connexion" />
 }
