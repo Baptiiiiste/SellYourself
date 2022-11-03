@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require('cors');
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const { User, Annonce } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
+
+
 
 // Création de l'API
 const app = express();
@@ -63,7 +65,7 @@ app.post("/api/connexion", async (req, resp) => {
 })
 
 // Requete de modification des informations d'un utilisateur
-app.put("/api/utilisateur/:pseudo", async (req, resp) => {
+app.put("/api/utilisateur/updateUser/:pseudo", async (req, resp) => {
 
     let isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     if(!isEmailAlreadyTaken){
@@ -78,6 +80,29 @@ app.put("/api/utilisateur/:pseudo", async (req, resp) => {
         resp.send({erreur:"Cette adresse e-mail est déjà prise"})
     }    
 })
+
+
+
+
+
+// Requete de modification du mot de passe d'un utilisateur
+app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
+
+    const userToUpdate = await User.findOne({pseudo: req.params.pseudo});
+    if(bcrypt.compareSync(req.body.oldPassword, userToUpdate.password)){
+        await User.updateOne(
+            { pseudo: req.params.pseudo  },
+            { $set: {password: req.body.password} }
+        )
+        resp.send({result: "Mot de passe changé"});
+    }else{
+        resp.send({erreur: "Ancien mot de passe incorrect"});
+    }
+
+});
+
+
+
 
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {

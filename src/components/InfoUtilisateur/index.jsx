@@ -1,5 +1,9 @@
 import './InfoUtilisateur.css';
 import { useState } from 'react';
+import bcrypt from "bcryptjs"
+// Salt
+const salt = bcrypt.genSaltSync(10);
+
 
 function InfoUtilisateur(){
     
@@ -21,10 +25,10 @@ function InfoUtilisateur(){
     const [ville, setVille] = useState();
 
     const [oldPassword, setOldPassword] = useState();
-    const [password, setNewPassword] = useState();
+    const [newPassword, setNewPassword] = useState();
 
     const updateUser = async () => {
-        let result = await fetch(`http://localhost:5000/api/utilisateur/${JSON.parse(connectedUser).pseudo}`, {
+        let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser).pseudo}`, {
             method: "Put",
             body: JSON.stringify({nom, prenom, description, ville, paypal, email}),
             headers: {
@@ -37,14 +41,24 @@ function InfoUtilisateur(){
         }else{
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user", JSON.stringify(result.user));
-            // setNom()
-            // setPrenom()
-            // setPaypal()
-            // setDescription()
-            // setEMail()
-            // setVille()
         }
+    }
 
+    const updatePassword = async () => {
+        const password = bcrypt.hashSync(newPassword, salt);
+        let result = await fetch(`http://localhost:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser).pseudo}`, {
+            method: "Post",
+            body: JSON.stringify({oldPassword, password} ),
+            headers: {
+                'Content-Type': 'Application/json'
+            }
+        });
+        result = await result.json();
+        if(result.erreur){
+            alert(JSON.stringify(result.erreur));
+        }else if(result.result){
+            alert(JSON.stringify(result.result));
+        }
     }
 
     const ChangeImg = async () => {
@@ -68,11 +82,17 @@ function InfoUtilisateur(){
                     <input type="text" name="paypal" placeholder={actualPaypal} value={paypal} onChange={e => setPaypal(e.target.value)}/>
                     <input type="email" name="mail" placeholder={actualEmail} value={email} onChange={e => setEMail(e.target.value)}/>
                     <input type="text" name="ville" placeholder={actualVille} value={ville} onChange={e => setVille(e.target.value)}/>
+                    <fieldset className='InfoUtilisateur-mdp'>
+                        <legend> Changer de mot de passe </legend>
+                        <input type="password" placeholder="Ancien mot de passe" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
+                        <input type="password" placeholder="Nouveau mot de passe" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
+                        <button className='InfoUtilisateur-button' onClick={updatePassword}>
+                            Enregistrer le mot de passe
+                        </button>
+                    </fieldset>
                 </div>
             </div>
             <div className='InfoUtilisateur-save'>
-                <input type="text" placeholder="Ancien mot de passe" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
-                <input type="text" placeholder="Nouveau mot de passe" value={password} onChange={e => setNewPassword(e.target.value)}/>
                 <button className='InfoUtilisateur-button' onClick={updateUser}>
                     Enregistrer les modifications
                 </button>

@@ -26,13 +26,6 @@
     border-bottom: 2px solid var(--orange);
     font-size: 20px;
 }
-.InfoUtilisateur-save input{
-    width: 45%;
-    margin: 10px 0;
-    border: none;
-    border-bottom: 2px solid var(--orange);
-    font-size: 20px;
-}
 
 .InfoUtilisateur-photo{
     display: flex;
@@ -85,4 +78,17 @@
 
 .InfoUtilisateur-modif:hover{
     cursor: pointer;
+}
+
+.InfoUtilisateur-mdp{
+    width: 93.5%;
+    border: 2px solid var(--orange);
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.InfoUtilisateur-mdp input{
+    width: 30%;
+    margin-bottom: 5px;
 }
