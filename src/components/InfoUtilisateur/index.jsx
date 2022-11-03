@@ -1,18 +1,11 @@
 import './InfoUtilisateur.css';
-import React, { useEffect } from 'react';
-
-function ChangeImg(e) {
-    const imgProfil = document.querySelector('.InfoUtilisateur-image');
-    imgProfil.src= "image/" + e.target.files[0].name;
-}
+import React from 'react';
 
 function InfoUtilisateur({nom='Nom', prenom='Prénom', description='Description', paypal='PayPal.me', email='E-mail', ville='Ville'}){
-    const ref = React.createRef();
-
-    useEffect(() => {
-        const input = ref.current;
-        input.addEventListener('input', ChangeImg);
-    }, []);
+    const ChangeImg = async () => {
+        const imgProfil = document.querySelector('.InfoUtilisateur-image');
+        imgProfil.src= "image/" + document.querySelector('.InfoUtilisateur-modif').files[0].name;
+    }
 
     return(
         <div className='InfoUtilisateur'>
@@ -20,7 +13,7 @@ function InfoUtilisateur({nom='Nom', prenom='Prénom', description='Description'
                 <div className='InfoUtilisateur-photo'>
                     <img className="InfoUtilisateur-image" src={require("../../assets/DefaultPP.jpeg")} alt=""/>
                     <label for="image" className='InfoUtilisateur-Label'>Changer la photo</label>
-                    <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" ref={ref}></input>
+                    <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onInput={ChangeImg}></input>
                 </div>
                 <div className='InfoUtilisateur-info'>
                     <input type="text" name="nom" placeholder={nom}/>
