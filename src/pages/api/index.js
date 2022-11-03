@@ -79,6 +79,7 @@ app.put("/api/utilisateur/:pseudo", async (req, resp) => {
     }    
 })
 
+// Vérification du token utilisateur
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
     if(token){
@@ -90,7 +91,7 @@ function verifyToken(req, resp, next) {
         });
     
     }else{
-        resp.status(403).send({result: "Veuillez renseigner un token"});
+        resp.status(403).send({result: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
 

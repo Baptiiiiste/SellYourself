@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     prenom: {type: String, default: ""},
     description: {type: String, default: ""},
     nom: {type: String, default: ""},
+    ville: {type: String, default: ""},
     profilPic: {type: String, default: ""},
     paypal: {type: String, default: ""},
     note: {Type: Number},

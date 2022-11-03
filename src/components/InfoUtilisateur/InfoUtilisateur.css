@@ -26,6 +26,13 @@
     border-bottom: 2px solid var(--orange);
     font-size: 20px;
 }
+.InfoUtilisateur-save input{
+    width: 45%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid var(--orange);
+    font-size: 20px;
+}
 
 .InfoUtilisateur-photo{
     display: flex;

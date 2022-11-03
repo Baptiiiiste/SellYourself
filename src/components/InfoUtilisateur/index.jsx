@@ -5,12 +5,12 @@ function InfoUtilisateur(){
     
     const connectedUser = sessionStorage.getItem("user");
 
-    var actualNom = JSON.parse(connectedUser).nom ? JSON.parse(connectedUser).nom : "Nom";
-    var actualPrenom = JSON.parse(connectedUser).prenom ? JSON.parse(connectedUser).prenom : "Prénom";
-    var actualDescription = JSON.parse(connectedUser).description ? JSON.parse(connectedUser).description : "Description";
-    var actualPaypal = JSON.parse(connectedUser).paypal ? JSON.parse(connectedUser).paypal : "Paypal.me/moncompte";
-    var actualEmail = JSON.parse(connectedUser).email ? JSON.parse(connectedUser).email : "E-mail";
-    var actualVille = JSON.parse(connectedUser).ville ? JSON.parse(connectedUser).ville : "Ville";
+    var actualNom = JSON.parse(connectedUser).nom ? `Nom: ${JSON.parse(connectedUser).nom}`  : "Nom";
+    var actualPrenom =  JSON.parse(connectedUser).prenom ? `Prénom: ${JSON.parse(connectedUser).prenom}` : "Prénom";
+    var actualDescription =  JSON.parse(connectedUser).description ? `Description: ${JSON.parse(connectedUser).description}` : "Description";
+    var actualPaypal =  JSON.parse(connectedUser).paypal ? `Paypal: ${JSON.parse(connectedUser).paypal}` : "Paypal.me/moncompte";
+    var actualEmail =  JSON.parse(connectedUser).email ? `Email: ${JSON.parse(connectedUser).email}` : "E-mail";
+    var actualVille = JSON.parse(connectedUser).ville ? `Ville: ${JSON.parse(connectedUser).ville}` : "Ville";
 
     
     const [nom, setNom] = useState();
@@ -19,6 +19,9 @@ function InfoUtilisateur(){
     const [paypal, setPaypal] = useState();
     const [email, setEMail] = useState();
     const [ville, setVille] = useState();
+
+    const [oldPassword, setOldPassword] = useState();
+    const [password, setNewPassword] = useState();
 
     const updateUser = async () => {
         let result = await fetch(`http://localhost:5000/api/utilisateur/${JSON.parse(connectedUser).pseudo}`, {
@@ -34,6 +37,12 @@ function InfoUtilisateur(){
         }else{
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user", JSON.stringify(result.user));
+            // setNom()
+            // setPrenom()
+            // setPaypal()
+            // setDescription()
+            // setEMail()
+            // setVille()
         }
 
     }
@@ -62,6 +71,8 @@ function InfoUtilisateur(){
                 </div>
             </div>
             <div className='InfoUtilisateur-save'>
+                <input type="text" placeholder="Ancien mot de passe" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
+                <input type="text" placeholder="Nouveau mot de passe" value={password} onChange={e => setNewPassword(e.target.value)}/>
                 <button className='InfoUtilisateur-button' onClick={updateUser}>
                     Enregistrer les modifications
                 </button>
