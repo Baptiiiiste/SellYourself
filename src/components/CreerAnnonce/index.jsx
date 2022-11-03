@@ -1,34 +1,47 @@
 import './creerAnnonce.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {categories} from '../../assets/data'
 
-function addImg(e) {
-    
-    const div = document.querySelector('.CreerAnnonce-LesImages');
-    const array = e.target.files;
-
-    for (let i = 0; i<array.length; i++){
-        const img = document.createElement('img');
-        img.src= "image/" + array[i].name;
-        img.className ='CreerAnnonce-img';
-        div.appendChild(img);
-    }
-    
-}
-
 function CreerAnnonce() {
-    const ref = React.createRef();
 
-    useEffect(() => {
-        const input = ref.current;
-        input.addEventListener('input', addImg);
-    }, []);
+    const image = async () => {
+        const div = document.querySelector('.CreerAnnonce-LesImages');
+        const array = document.querySelector('.CreerAnnonce-Image').files;
+
+        for (let i = 0; i<array.length; i++){
+            const img = document.createElement('img');
+            img.src= "image/" + array[i].name;
+            img.className ='CreerAnnonce-img';
+            div.appendChild(img);
+        }
+    }
+
+    const formulaire = async () => {
+        const titre = document.querySelector('.CreerAnnonce-Titre').value;
+        const description = document.querySelector('.CreerAnnonce-Description').value;
+        const prix = document.querySelector('.CreerAnnonce-Prix').value;
+        const bien = document.querySelector('CreerAnnonce-Bien');
+        const  service = document.querySelector('CreerAnnonce-Service');
+        let type;
+        if (bien.checked) {
+            type = bien.value;
+        }
+        else{
+            type = service.value;
+        }
+        const categorie = document.querySelector('.CreerAnnonce-Categorie');
+        const images = document.querySelectorAll('.CreerAnnonce-img'); 
+        let photos = [];
+        for(let i = 0; i<images.length; i++){
+            photos += images[i].value;
+        }
+    }
 
     return(
-        <form className="CreerAnnonce-Input" method='post'>
+        <form className="CreerAnnonce-Input">
             <input type="text" placeholder='Titre' className="CreerAnnonce-Titre" maxlength="80" />
             <textarea placeholder='Description' className="CreerAnnonce-Description" maxlength="500"/>
-            <input placeholder='Prix' type="text" className="CreerAnnonce-Prix" maxLength="7"/>
+            <input placeholder='Prix' type="number" min='0' max='99999' className="CreerAnnonce-Prix"/>
 
             <div className='CreerAnnonce-Radio'>
                 <fieldset className='CreeAnnonce-RadioBouton'>
@@ -56,12 +69,12 @@ function CreerAnnonce() {
             </div>
 
             <label for="image" className='CreerAnnonce-Label'>Ajouter une photo</label>
-            <input type="file" className="CreerAnnonce-Image" id="image" name="Image" accept=".jpg, .jpeg, .png" multiple ref={ref}></input>
+            <input type="file" className="CreerAnnonce-Image" id="image" name="Image" accept=".jpg, .jpeg, .png" multiple onInput={image}></input>
 
             <p>Format .png, .jpeg et .jpg uniquement</p> 
 
             <div className='CreerAnnonce-BoutonSubmit'>
-                <input type='submit' value="Publier l'annonce" className="CreerAnnonce-Submit" />
+                <input type='submit' value="Publier l'annonce" className="CreerAnnonce-Submit" onClick={formulaire}/>
             </div>
         </form>
     )
