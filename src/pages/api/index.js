@@ -125,7 +125,7 @@ app.post("/api/publier", async (req, resp) => {
     let annonce = new Annonce(req.body);
     let result = await annonce.save();
     resp.send(result);
-})
+});
 
 // Lancement de l'API
 app.listen(5000);

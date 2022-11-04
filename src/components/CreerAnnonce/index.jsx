@@ -10,9 +10,9 @@ function CreerAnnonce() {
     const [prix, setPrix] = useState("");
     const [categorie, setCategorie] = useState("");
     const [type, setType] = useState("");
-    let photos = [];
+    let image;
 
-    const image = async () => {
+    const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const array = document.querySelector('.CreerAnnonce-Image').files;
 
@@ -25,16 +25,27 @@ function CreerAnnonce() {
     }
 
     const formulaire = async () => {
+        image = [];
         const images = document.querySelectorAll('.CreerAnnonce-img');
         for(let i = 0; i<images.length; i++){
-            photos += images[i].value;
+            image += images[i].src.replace(/^.*[\\\/]/, '');
         }
+        const utilisateurId = JSON.parse(localStorage.getItem('user'))._id;
+        let result = await fetch("http://localhost:5000/api/publier", {
+            method: 'post',
+            body: JSON.stringify({utilisateurId, titre, description, image, prix, type}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        result = await result.json();
+
     }
 
     return(
-        <form className="CreerAnnonce-Input">
-            <input type="text" placeholder='Titre' className="CreerAnnonce-Titre" maxlength="80" onChange={(ev) => {setTitre(ev.target.value)}}/>
-            <textarea placeholder='Description' className="CreerAnnonce-Description" maxlength="500" onChange={(ev) => {setDescription(ev.target.value)}}/>
+        <div className="CreerAnnonce-Input">
+            <input type="text" placeholder='Titre' className="CreerAnnonce-Titre" maxLength="80" onChange={(ev) => {setTitre(ev.target.value)}}/>
+            <textarea placeholder='Description' className="CreerAnnonce-Description" maxLength="500" onChange={(ev) => {setDescription(ev.target.value)}}/>
             <input placeholder='Prix' type="number" min='0' max='99999' className="CreerAnnonce-Prix" onChange={(ev) => {setPrix(ev.target.value)}}/>
 
             <div className='CreerAnnonce-Radio'>
@@ -63,14 +74,14 @@ function CreerAnnonce() {
             </div>
 
             <label for="image" className='CreerAnnonce-Label'>Ajouter une photo</label>
-            <input type="file" className="CreerAnnonce-Image" id="image" name="Image" accept=".jpg, .jpeg, .png" multiple onInput={image}></input>
+            <input type="file" className="CreerAnnonce-Image" id="image" name="Image" accept=".jpg, .jpeg, .png" multiple onInput={displayImage}></input>
 
             <p>Format .png, .jpeg et .jpg uniquement</p> 
-
             <div className='CreerAnnonce-BoutonSubmit'>
-                <input type='submit' value="Publier l'annonce" className="CreerAnnonce-Submit" onClick={formulaire}/>
+                <button className="CreerAnnonce-Submit" onClick={formulaire}> Publier l'annonce </button>
             </div>
-        </form>
+            
+        </div>
     )
 }
 
