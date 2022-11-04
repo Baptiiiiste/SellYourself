@@ -23,7 +23,7 @@ const annonceSchema = new mongoose.Schema({
     description: {type: String },
     image: {type: [String] },
     prix: {type: Number, require: true},
-    type: {type: String },
+    type: {type: String, default: 'Bien' },
     categorie: {type: String }
 });
 
