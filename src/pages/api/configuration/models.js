@@ -13,16 +13,16 @@ const userSchema = new mongoose.Schema({
     note: {Type: Number},
     noteList: [],
     notifications: [],
-    annonces: [],
+    annonces: {type: [String] },
     favoris: [],
 });
 
 const annonceSchema = new mongoose.Schema({
-    utilisateur: {type: userSchema},
-    titre: {type: String },
+    utilisateur: {type: String, require: true},
+    titre: {type: String, require: true },
     description: {type: String },
     image: {type: [String] },
-    prix: {type: Number, default: 0},
+    prix: {type: Number, require: true},
     type: {type: String },
     categorie: {type: String }
 });

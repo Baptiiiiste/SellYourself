@@ -106,8 +106,19 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 // Requete new annonce
 app.post("/api/publier/:id", async (req, resp) => {
     const utilisateur = req.params.id;
-    let annonce = new Annonce(req.body, utilisateur );
+    const body = req.body;
+    let annonce = new Annonce(req.body);
     let result = await annonce.save();
+
+    await User.updateOne(
+        { _id: req.params.id },
+        { $push: {annonces: annonce._id} }
+    )
+
+    await Annonce.updateOne(
+        { _id: annonce._id },
+        { $set: {utilisateur: utilisateur} }
+    )
     resp.send(result);
 });
 

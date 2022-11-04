@@ -5,6 +5,8 @@ import { useState } from 'react';
 
 function CreerAnnonce() {
 
+    const connectedUser = sessionStorage.getItem("user");
+
     const [titre, setTitre] = useState("");
     const [description, setDescription] = useState("");
     const [prix, setPrix] = useState("");
@@ -30,7 +32,7 @@ function CreerAnnonce() {
         for(let i = 0; i<images.length; i++){
             image += images[i].src.replace(/^.*[\\\/]/, '');
         }
-        let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(localStorage.getItem('user'))._id}`, {
+        let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser)._id}`, {
             method: 'Post',
             body: JSON.stringify({titre, description, image, prix, type, categorie}),
             headers: {
@@ -38,7 +40,6 @@ function CreerAnnonce() {
             }
         });
         result = await result.json();
-
     }
 
     return(
