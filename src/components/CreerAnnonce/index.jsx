@@ -27,19 +27,24 @@ function CreerAnnonce() {
     }
 
     const formulaire = async () => {
-        image = [];
-        const images = document.querySelectorAll('.CreerAnnonce-img');
-        for(let i = 0; i<images.length; i++){
-            image += images[i].src.replace(/^.*[\\\/]/, '');
-        }
-        let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser)._id}`, {
-            method: 'Post',
-            body: JSON.stringify({titre, description, image, prix, type, categorie}),
-            headers: {
-                'Content-Type': 'Application/json'
+        if(!titre || !prix ){
+            alert("Vous devez renseigner au moins le titre et le prix de l'annonce.");
+        }else if(titre && prix){
+            image = [];
+            const images = document.querySelectorAll('.CreerAnnonce-img');
+            for(let i = 0; i<images.length; i++){
+                image += images[i].src.replace(/^.*[\\\/]/, '');
             }
-        });
-        result = await result.json();
+            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser)._id}`, {
+                method: 'Post',
+                body: JSON.stringify({titre, description, image, prix, type, categorie}),
+                headers: {
+                    'Content-Type': 'Application/json'
+                }
+            });
+            result = await result.json();
+            window.location.reload(false);
+        }
     }
 
     return(
