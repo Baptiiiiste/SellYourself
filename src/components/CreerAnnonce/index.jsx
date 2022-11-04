@@ -18,11 +18,18 @@ function CreerAnnonce() {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const array = document.querySelector('.CreerAnnonce-Image').files;
 
-        for (let i = 0; i<array.length; i++){
-            const img = document.createElement('img');
-            img.src= "image/" + array[i].name;
-            img.className ='CreerAnnonce-img';
-            div.appendChild(img);
+        const nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
+
+        if(nbImage > 10){
+            alert("Vous ne pouvez choisir plus de 10 images !")
+        }
+        else{
+            for (let i = 0; i<array.length; i++){
+                const img = document.createElement('img');
+                img.src= "image/" + array[i].name;
+                img.className ='CreerAnnonce-img';
+                div.appendChild(img);
+            }
         }
     }
 
