@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
 });
 
 const annonceSchema = new mongoose.Schema({
-    idAnnonce: {type: Number, index: { unique: true }},
     utilisateur: {type: userSchema},
     titre: {type: String },
     description: {type: String },
