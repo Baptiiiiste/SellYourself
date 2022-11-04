@@ -58,6 +58,12 @@
     box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
+.InfoUtilisateur-Label:hover{
+    background: var(--orangeFoncé);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
 .InfoUtilisateur-button{
     border: 0px;
     border-radius: 15px;
