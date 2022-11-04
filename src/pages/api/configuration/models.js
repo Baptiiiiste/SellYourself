@@ -18,14 +18,14 @@ const userSchema = new mongoose.Schema({
 });
 
 const annonceSchema = new mongoose.Schema({
-    idAnnonce: {type: Number, required: true, index: { unique: true }},
-    utilisateurId: {type: String, required: true},
-    titre: {type: String, required: true},
-    description: {type: String, required: true},
-    image: {type: [String], required: true},
+    idAnnonce: {type: Number, index: { unique: true }},
+    utilisateurId: {type: String},
+    titre: {type: String },
+    description: {type: String },
+    image: {type: [String] },
     prix: {type: Number, default: 0},
-    type: {type: String, require: true},
-    categorie: {type: String, require: true}
+    type: {type: String },
+    categorie: {type: String }
 });
 
 const noteSchema = new mongoose.Schema({

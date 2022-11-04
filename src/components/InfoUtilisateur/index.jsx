@@ -1,6 +1,7 @@
 import './InfoUtilisateur.css';
 import { useState } from 'react';
 import bcrypt from "bcryptjs"
+
 // Salt
 const salt = bcrypt.genSaltSync(10);
 
@@ -28,6 +29,7 @@ function InfoUtilisateur(){
     const [newPassword, setNewPassword] = useState();
 
     const updateUser = async () => {
+
         let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser).pseudo}`, {
             method: "Put",
             body: JSON.stringify({nom, prenom, description, ville, paypal, email}),
@@ -35,16 +37,20 @@ function InfoUtilisateur(){
                 'Content-Type': 'Application/json'
             }
         });
+
         result = await result.json();
+
         if(result.erreur){
             alert(JSON.stringify(result.erreur));
         }else{
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user", JSON.stringify(result.user));
+
         }
     }
 
     const updatePassword = async () => {
+        
         const password = bcrypt.hashSync(newPassword, salt);
         let result = await fetch(`http://localhost:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser).pseudo}`, {
             method: "Post",
@@ -76,7 +82,7 @@ function InfoUtilisateur(){
                     <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onChange={ChangeImg}></input>
                 </div>
                 <div className='InfoUtilisateur-info'>
-                    <input type="text" name="nom" placeholder={actualNom} value={nom} onChange={e => setNom(e.target.value)}/>
+                    <input className='InfoUtilisateur-info-name' type="text" name="nom" placeholder={actualNom} value={nom} onChange={e => setNom(e.target.value)}/>
                     <input type="text" name="description" placeholder={actualDescription} value={description} onChange={e => setDescription(e.target.value)}/>
                     <input type="text" name="prenom" placeholder={actualPrenom} value={prenom} onChange={e => setPrenom(e.target.value)}/>
                     <input type="text" name="paypal" placeholder={actualPaypal} value={paypal} onChange={e => setPaypal(e.target.value)}/>

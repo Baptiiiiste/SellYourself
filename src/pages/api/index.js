@@ -103,6 +103,15 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 
 
 
+// Requete new annonce
+app.post("/api/publier", async (req, resp) => {
+    // const userToUpdate = await User.findOne({pseudo: req.params.pseudo});
+    let annonce = new Annonce(req.body);
+    let result = await annonce.save();
+    resp.send(result);
+});
+
+
 
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
@@ -120,12 +129,6 @@ function verifyToken(req, resp, next) {
     }
 }
 
-// Requete new annonce
-app.post("/api/publier", async (req, resp) => {
-    let annonce = new Annonce(req.body);
-    let result = await annonce.save();
-    resp.send(result);
-});
 
 // Lancement de l'API
 app.listen(5000);
