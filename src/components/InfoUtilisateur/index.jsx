@@ -45,7 +45,6 @@ function InfoUtilisateur(){
         }else{
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user", JSON.stringify(result.user));
-
         }
     }
 

@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
 
 const annonceSchema = new mongoose.Schema({
     idAnnonce: {type: Number, index: { unique: true }},
-    utilisateurId: {type: String},
+    utilisateur: {type: userSchema},
     titre: {type: String },
     description: {type: String },
     image: {type: [String] },

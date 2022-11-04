@@ -104,9 +104,9 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 
 
 // Requete new annonce
-app.post("/api/publier", async (req, resp) => {
-    // const userToUpdate = await User.findOne({pseudo: req.params.pseudo});
-    let annonce = new Annonce(req.body);
+app.post("/api/publier/:id", async (req, resp) => {
+    const utilisateur = req.params.id;
+    let annonce = new Annonce(req.body, utilisateur );
     let result = await annonce.save();
     resp.send(result);
 });
