@@ -71,9 +71,34 @@ function Home() {
   }, [])
 
   const getAnnonces = async () => {
-    let result = await fetch("http://localhost:5000/annonce/all");
+    let result = await fetch("http://localhost:5000/api/annonce");
     result = await result.json();
     setAnnonces(result);
+  }
+
+  const getUtilisateur = async (pseudo) => {
+    let result = await fetch(`http://localhost:5000/api/utilisateur/${pseudo}`);
+    result = await result.json();
+    return(result);
+  }
+
+  const annonce = [];
+
+  const displayAnnonces = async () => {
+    console.log('oui');
+
+    for( let i = 0; i < annonces.length; i++){
+      const user = getUtilisateur(annonces[i].utilisateur);
+
+    //   annonce.push({titre:'test annonce titre',
+    //     description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
+    //     prix:27,
+    //     img_annonce:'DefaultPP.jpeg',
+    //     nom:'test nom',
+    //     prenom:'test prenom', 
+    //     img_profil:'DefaultPP.jpeg', 
+    //     note:4.5});
+    }
   }
 
   return loader ? 
@@ -82,7 +107,7 @@ function Home() {
     )
     :
     (    
-    <div className="Home">
+    <div className="Home" onLoad={displayAnnonces}>
       <LeftBar/>
       <div className='Home-center'>
         <div className='Home-header'>
@@ -98,7 +123,7 @@ function Home() {
           </div>
           
           <div className='Home-lesAnnonces'>
-            {annonces.map((item, index) => (
+            {/* {annonce.map((item, index) => (
               <UneAnnonce titre={item.titre}
                 description={item.description}
                 prix={item.prix}
@@ -109,7 +134,7 @@ function Home() {
                 note={item.note}
                 key={item.index}
               />
-            ))}
+            ))} */}
           </div>
         </div>
         

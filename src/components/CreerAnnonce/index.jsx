@@ -42,7 +42,7 @@ function CreerAnnonce() {
             for(let i = 0; i<images.length; i++){
                 image += images[i].src.replace(/^.*[\\\/]/, '');
             }
-            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser)._id}`, {
+            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {

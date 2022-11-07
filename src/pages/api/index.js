@@ -104,13 +104,13 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 
 
 // Requete new annonce
-app.post("/api/publier/:id", async (req, resp) => {
-    const utilisateur = req.params.id;
+app.post("/api/publier/:pseudo", async (req, resp) => {
+    const utilisateur = req.params.pseudo;
     let annonce = new Annonce(req.body);
     let result = await annonce.save();
 
     await User.updateOne(
-        { _id: req.params.id },
+        { pseudo: req.params.pseudo },
         { $push: {annonces: annonce._id} }
     )
 
@@ -122,15 +122,26 @@ app.post("/api/publier/:id", async (req, resp) => {
 });
 
 // Requete récupération des annonces
-app.get("/api/annonce/all"), async (req, resp) => {
+app.get("/api/annonce", async (req, resp) => {
     const annonces = await Annonce.find();
-    if (annonces.lenght > 0){
-        resp.send(annonces)
+    if (annonces.length > 0){
+        resp.send(annonces);
     }
     else{
-        resp.send({erreur: "Aucune annonce"})
+        resp.send({erreur: "Aucune annonce"});
     }
-}
+});
+
+// Requete récupération un utilisateur
+app.get("/api/utilisateur/:pseudo", async (req, resp) => {
+    const user = await User.find({pseudo: req.params.pseudo});
+    if (user.length > 0){
+        resp.send(user);
+    }
+    else{
+        resp.send({erreur: "Aucun utilisateur"});
+    }
+});
 
 
 
