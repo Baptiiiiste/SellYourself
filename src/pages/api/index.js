@@ -106,7 +106,6 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 // Requete new annonce
 app.post("/api/publier/:id", async (req, resp) => {
     const utilisateur = req.params.id;
-    const body = req.body;
     let annonce = new Annonce(req.body);
     let result = await annonce.save();
 
@@ -121,6 +120,17 @@ app.post("/api/publier/:id", async (req, resp) => {
     )
     resp.send(result);
 });
+
+// Requete récupération des annonces
+app.get("/api/annonce/all"), async (req, resp) => {
+    const annonces = await Annonce.find();
+    if (annonces.lenght > 0){
+        resp.send(annonces)
+    }
+    else{
+        resp.send({erreur: "Aucune annonce"})
+    }
+}
 
 
 
