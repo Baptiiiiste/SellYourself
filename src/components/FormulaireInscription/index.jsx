@@ -28,6 +28,10 @@ function FormulaireInscription() {
                 return;
             }
 
+            if(passwd.includes(" ")){
+                return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
+            }
+
             const password = bcrypt.hashSync(passwd,salt);
             let data = await fetch(`http://localhost:5000/api/inscription`, {
                 method: 'post',
