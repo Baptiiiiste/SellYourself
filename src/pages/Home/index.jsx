@@ -6,53 +6,6 @@ import LeftBar from '../../components/LeftBar';
 import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 
-const annonces = [
-  {titre:'test annonce titre',
-  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-
-  {titre:'test annonce titre',
-  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-
-  {titre:'test annonce titre',
-  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-
-  {titre:'test annonce titre',
-  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5},
-
-  {titre:'test annonce titre',
-  description:'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO',
-  prix:27,
-  img_annonce:'DefaultPP.jpeg',
-  nom:'test nom',
-  prenom:'test prenom', 
-  img_profil:'DefaultPP.jpeg', 
-  note:4.5}
-]
-
 function Home() {
 
   const [loader, setLoader] = useState(true);
@@ -60,11 +13,23 @@ function Home() {
   const categorie = 'Toutes les catégories';
   const recherche = 'Toutes les annonces';
 
+  const [annonces, setAnnonces] = useState([]);
+
   useEffect(() => {
       setTimeout(() => {
           setLoader(false)
       },1000);
+
+      getAnnonces();
   }, [])
+
+  const getAnnonces = async () => {
+    let result = await fetch("http://localhost:5000/api/annonce");
+    result = await result.json();
+    setAnnonces(result);
+  }
+
+  console.log(annonces);
 
   return loader ? 
     (
@@ -88,18 +53,16 @@ function Home() {
           </div>
           
           <div className='Home-lesAnnonces'>
-            {annonces.map(({titre, description, prix, img_annonce, nom, prenom, img_profil, note}, index) => (
-              <UneAnnonce titre={titre}
-                description={description}
-                prix={prix}
-                img_annonce={img_annonce} 
-                nom={nom}
-                prenom={prenom} 
-                img_profil={img_profil} 
-                note={note}
-                key={index}
-              />
-            ))}
+            {annonces.map(({_id, titre, description, prix, img_annonce, utilisateur}, index) => (
+                <UneAnnonce id={_id}
+                  titre={titre}
+                  description={description}
+                  prix={prix}
+                  img_annonce={img_annonce} 
+                  pseudoVendeur={utilisateur}
+                  key={index}
+                />
+              ))}
           </div>
         </div>
         

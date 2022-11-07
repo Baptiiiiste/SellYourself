@@ -104,14 +104,13 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 
 
 // Requete new annonce
-app.post("/api/publier/:id", async (req, resp) => {
-    const utilisateur = req.params.id;
-    const body = req.body;
+app.post("/api/publier/:pseudo", async (req, resp) => {
+    const utilisateur = req.params.pseudo;
     let annonce = new Annonce(req.body);
     let result = await annonce.save();
 
     await User.updateOne(
-        { _id: req.params.id },
+        { pseudo: req.params.pseudo },
         { $push: {annonces: annonce._id} }
     )
 
@@ -122,6 +121,28 @@ app.post("/api/publier/:id", async (req, resp) => {
     resp.send(result);
 });
 
+// Requete récupération des annonces
+app.get("/api/annonce", async (req, resp) => {
+    const annonces = await Annonce.find();
+    if (annonces.length > 0){
+        resp.send(annonces);
+    }
+    else{
+        resp.send({erreur: "Aucune annonce"});
+    }
+});
+
+// Requete récupération de une annonce
+app.get("/api/annonce/:id", async (req, resp) => {
+    const id = req.params.id;
+    const annonce = await Annonce.find( { _id: id } )
+    if (annonce.length > 0){
+        resp.send(annonce);
+    }
+    else{
+        resp.send({erreur: "Aucune annonce"});
+    }
+});
 
 
 // Vérification du token utilisateur
