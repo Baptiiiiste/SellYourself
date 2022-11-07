@@ -132,17 +132,17 @@ app.get("/api/annonce", async (req, resp) => {
     }
 });
 
-// Requete récupération un utilisateur
-app.get("/api/utilisateur/:pseudo", async (req, resp) => {
-    const user = await User.find({pseudo: req.params.pseudo});
-    if (user.length > 0){
-        resp.send(user);
+// Requete récupération de une annonce
+app.get("/api/annonce/:id", async (req, resp) => {
+    const id = req.params.id;
+    const annonce = await Annonce.find( { _id: id } )
+    if (annonce.length > 0){
+        resp.send(annonce);
     }
     else{
-        resp.send({erreur: "Aucun utilisateur"});
+        resp.send({erreur: "Aucune annonce"});
     }
 });
-
 
 
 // Vérification du token utilisateur

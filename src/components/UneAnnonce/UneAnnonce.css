@@ -1,50 +1,12 @@
 @import "../../assets/variable.css";
 
-/* Vendeur */
-.Vendeur-info-all{
-    display: flex;
-    flex-direction: row;
-    max-height: 15%;
-    align-items: center;
-    width: 100%;
-}
-
-.Vendeur-all{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    text-decoration: none;
-    color: black;
-}
-
-.Vendeur-img{
-    border-radius: 100%;
-    height: 50px;
-    width: 50px;
-}
-
-.Vendeur-info{
-    margin-left: 5%;
-}
-
-.Vendeur-info p{
-    margin: 0%;
-    font-size: 11px;
-}
-
-.Vendeur-note{
-    color: var(--orange);
-}
-
-
 /* Contenu */
-.Contenu-other{
+
+.Contenu-all{
+    height: 80%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
-    margin-top: 2%;
 }
 
 .Contenu-titre, .Contenu-description{
@@ -57,20 +19,35 @@
     -webkit-line-clamp: 3;
     overflow: hidden;
     overflow-wrap: break-word;
+    font-weight: bold;
 }
 
 .Contenu-description{
     font-size: 12px;
 }
 
-.Contenu-prix{
-    margin: 0%;
-    font-size: 20px;
+.Contenu-other{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2%;
 }
 
 .Contenu-bouton{
     background-color: white;
     border: 0;
+}
+
+.Contenu-bouton:hover{
+    cursor: pointer;
+    color: var(--orange);
+    font-size: 18px;
+}
+
+.Contenu-prix{
+    margin: 0%;
+    font-size: 20px;
 }
 
 /* Annonce */
@@ -98,25 +75,18 @@
 
 .UneAnnonce-description{
     margin: 0 3% 3% 3%;
+    height: 40%;
 }
 
-.UneAnnonce-description p{
+.UneAnnonce-Vendeur{
+    display: flex;
+    flex-direction: row;
     font-weight: bold;
 }
 
-.UneAnnonce-button-left, .UneAnnonce-button-right{
-    border: 0px;
-    background-color: transparent;
-    margin: 0 3% 0 3%;
-    padding: 2%;
-}
+/* Vendeur */
 
-.UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
-    background-color: var(--gris);
-    cursor: pointer;
-}
-
-.UneAnnonce-button{
-    display: flex;
-    justify-content: center;
+.UneAnnonce-Vendeur-nom{
+    color: var(--orange);
+    margin-left: 5px;
 }

@@ -1,5 +1,6 @@
 import './infoAnnonce.css'
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHeart, faStar} from '@fortawesome/free-solid-svg-icons';
 
@@ -20,7 +21,25 @@ function Utilisateur({nom, note, description, localisation, image}){
     )
 }
 
-function Annonce({titre, description, photos}){
+function Annonce(){
+    const params = useParams();
+    console.log(params.id);
+
+    const [annonce, setAnnonce] = useState([]);
+
+    useEffect(() => {
+        getAnnonce();
+    }, [])
+
+    const getAnnonce = async () => {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.id}`);
+        result = await result.json();
+        setAnnonce(result);
+    }
+
+    const titre = annonce[0].titre;
+    const description = annonce[0].description;
+
     return(
         <div className='InfoAnnonce-Annonce'>
             <p className='InfoAnnonce-NomAnnonce'>{titre}</p>

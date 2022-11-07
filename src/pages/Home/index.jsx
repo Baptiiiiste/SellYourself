@@ -29,33 +29,7 @@ function Home() {
     setAnnonces(result);
   }
 
-  const getUtilisateur = async (pseudo) => {
-    let result = await fetch(`http://localhost:5000/api/utilisateur/${pseudo}`);
-    result = await result.json();
-    return([result[0].nom, result[0].prenom, result[0].profilPic, result[0].note]);
-  }
-  
-  let lesAnnonces = [];
-  
-  const displayAnnonces = (listAnnonces) => {
-
-    annonces.forEach(async (item, index)=>{
-      const user = await getUtilisateur(item.utilisateur);
-      listAnnonces.push(<UneAnnonce titre={item.titre}
-                                  description={item.description}
-                                  prix={item.prix}
-                                  img_annonce={item.img_annonce} 
-                                  nom={user[0].nom}
-                                  prenom={user[0].prenom} 
-                                  img_profil={user[0].profilPic} 
-                                  note={user[0].note}
-                                  key={item.index}
-                                />);
-    })
-  }
-
-  console.log(lesAnnonces);
-  
+  console.log(annonces);
 
   return loader ? 
     (
@@ -63,7 +37,7 @@ function Home() {
     )
     :
     (    
-    <div className="Home" onLoad={displayAnnonces(lesAnnonces)}>
+    <div className="Home">
       <LeftBar/>
       <div className='Home-center'>
         <div className='Home-header'>
@@ -79,7 +53,16 @@ function Home() {
           </div>
           
           <div className='Home-lesAnnonces'>
-            {lesAnnonces}
+            {annonces.map(({_id, titre, description, prix, img_annonce, utilisateur}, index) => (
+                <UneAnnonce id={_id}
+                  titre={titre}
+                  description={description}
+                  prix={prix}
+                  img_annonce={img_annonce} 
+                  pseudoVendeur={utilisateur}
+                  key={index}
+                />
+              ))}
           </div>
         </div>
         
