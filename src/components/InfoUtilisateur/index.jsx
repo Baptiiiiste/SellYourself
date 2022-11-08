@@ -1,6 +1,7 @@
 import './InfoUtilisateur.css';
 import { useState } from 'react';
 import bcrypt from "bcryptjs"
+
 // Salt
 const salt = bcrypt.genSaltSync(10);
 
@@ -9,25 +10,36 @@ function InfoUtilisateur(){
     
     const connectedUser = sessionStorage.getItem("user");
 
-    var actualNom = JSON.parse(connectedUser).nom ? `Nom: ${JSON.parse(connectedUser).nom}`  : "Nom";
-    var actualPrenom =  JSON.parse(connectedUser).prenom ? `Prénom: ${JSON.parse(connectedUser).prenom}` : "Prénom";
-    var actualDescription =  JSON.parse(connectedUser).description ? `Description: ${JSON.parse(connectedUser).description}` : "Description";
-    var actualPaypal =  JSON.parse(connectedUser).paypal ? `Paypal: ${JSON.parse(connectedUser).paypal}` : "Paypal.me/moncompte";
-    var actualEmail =  JSON.parse(connectedUser).email ? `Email: ${JSON.parse(connectedUser).email}` : "E-mail";
-    var actualVille = JSON.parse(connectedUser).ville ? `Ville: ${JSON.parse(connectedUser).ville}` : "Ville";
+    const actualNom = JSON.parse(connectedUser).nom ? `Nom: ${JSON.parse(connectedUser).nom}`  : "Nom";
+    const actualPrenom =  JSON.parse(connectedUser).prenom ? `Prénom: ${JSON.parse(connectedUser).prenom}` : "Prénom";
+    const actualDescription =  JSON.parse(connectedUser).description ? `Description: ${JSON.parse(connectedUser).description}` : "Description";
+    const actualPaypal =  JSON.parse(connectedUser).paypal ? `Paypal: ${JSON.parse(connectedUser).paypal}` : "Paypal.me/moncompte";
+    const actualEmail =  JSON.parse(connectedUser).email ? `Email: ${JSON.parse(connectedUser).email}` : "E-mail";
+    const actualVille = JSON.parse(connectedUser).ville ? `Ville: ${JSON.parse(connectedUser).ville}` : "Ville";
 
     
-    const [nom, setNom] = useState();
-    const [prenom, setPrenom] = useState();
-    const [description, setDescription] = useState();
-    const [paypal, setPaypal] = useState();
-    const [email, setEMail] = useState();
-    const [ville, setVille] = useState();
+    let [nom, setNom] = useState();
+    let [prenom, setPrenom] = useState();
+    let [description, setDescription] = useState();
+    let [paypal, setPaypal] = useState();
+    let [email, setEMail] = useState();
+    let [ville, setVille] = useState();
 
     const [oldPassword, setOldPassword] = useState();
     const [newPassword, setNewPassword] = useState();
 
     const updateUser = async () => {
+
+        if(email && !/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
+            return alert("Email incorrecte");
+        }
+
+        if(!nom.trim()) nom = "";
+        if(!prenom.trim()) prenom = "";
+        if(!description.trim()) description = "";
+        if(!paypal.trim()) paypal = "";
+        if(!ville.trim()) ville = "";
+
         let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser).pseudo}`, {
             method: "Put",
             body: JSON.stringify({nom, prenom, description, ville, paypal, email}),
@@ -35,16 +47,24 @@ function InfoUtilisateur(){
                 'Content-Type': 'Application/json'
             }
         });
+
         result = await result.json();
+
         if(result.erreur){
             alert(JSON.stringify(result.erreur));
         }else{
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user", JSON.stringify(result.user));
+            window.location.reload(false);
         }
     }
 
     const updatePassword = async () => {
+
+        if(newPassword.includes(" ")){
+            return alert("Nouveau mot de passe incorrecte, ne pas utiliser d'espace");
+        }
+
         const password = bcrypt.hashSync(newPassword, salt);
         let result = await fetch(`http://localhost:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser).pseudo}`, {
             method: "Post",
@@ -76,7 +96,7 @@ function InfoUtilisateur(){
                     <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onChange={ChangeImg}></input>
                 </div>
                 <div className='InfoUtilisateur-info'>
-                    <input type="text" name="nom" placeholder={actualNom} value={nom} onChange={e => setNom(e.target.value)}/>
+                    <input className='InfoUtilisateur-info-name' type="text" name="nom" placeholder={actualNom} value={nom} onChange={e => setNom(e.target.value)}/>
                     <input type="text" name="description" placeholder={actualDescription} value={description} onChange={e => setDescription(e.target.value)}/>
                     <input type="text" name="prenom" placeholder={actualPrenom} value={prenom} onChange={e => setPrenom(e.target.value)}/>
                     <input type="text" name="paypal" placeholder={actualPaypal} value={paypal} onChange={e => setPaypal(e.target.value)}/>

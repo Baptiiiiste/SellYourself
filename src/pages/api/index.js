@@ -105,6 +105,57 @@ app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
 
 
 
+// Requete new annonce
+app.post("/api/publier/:pseudo", async (req, resp) => {
+    const utilisateur = req.params.pseudo;
+    let annonce = new Annonce(req.body);
+    let result = await annonce.save();
+
+    await User.updateOne(
+        { pseudo: req.params.pseudo },
+        { $push: {annonces: annonce._id} }
+    )
+
+    await Annonce.updateOne(
+        { _id: annonce._id },
+        { $set: {utilisateur: utilisateur} }
+    )
+    resp.send(result);
+});
+
+// Requete récupération des annonces
+app.get("/api/annonce", async (req, resp) => {
+    const annonces = await Annonce.find();
+    if (annonces.length > 0){
+        resp.send(annonces);
+    }
+    else{
+        resp.send({erreur: "Aucune annonce"});
+    }
+});
+
+// Requete récupération de une annonce
+app.get("/api/annonce/:id", async (req, resp) => {
+    const annonce = await Annonce.find( { _id: req.params.id } )
+    if (annonce.length > 0){
+        resp.send(annonce[0]);
+    }
+    else{
+        resp.send({erreur: "Aucune annonce"});
+    }
+});
+
+// Requete récupération de un utilisateur
+app.get("/api/utilisateur/:pseudo", async (req, resp) => {
+    const utilisateur = await User.find( { pseudo: req.params.pseudo } )
+    if (utilisateur.length > 0){
+        resp.send(utilisateur[0]);
+    }
+    else{
+        resp.send({erreur: "Aucun utilisateur"});
+    }
+});
+
 
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
@@ -122,12 +173,6 @@ function verifyToken(req, resp, next) {
     }
 }
 
-// Requete new annonce
-app.post("/api/publier", async (req, resp) => {
-    let annonce = new Annonce(req.body);
-    let result = await annonce.save();
-    resp.send(result);
-})
 
 // Image
 

@@ -19,22 +19,23 @@ const userSchema = new mongoose.Schema({
     note: {Type: Number},
     noteList: [],
     notifications: [],
-    annonces: [],
+    annonces: {type: [String] },
     favoris: [],
 });
 
 const annonceSchema = new mongoose.Schema({
-    utilisateur: userSchema,
-    titre: {type: String},
-    description: {type: String},
-    Image: {type: []},
-    prix: {type: Number, default: 0},
-    type: {type: String}
+    utilisateur: {type: String, require: true},
+    titre: {type: String, require: true },
+    description: {type: String },
+    image: {type: [String] },
+    prix: {type: Number, require: true},
+    type: {type: String, default: 'Bien' },
+    categorie: {type: String }
 });
 
 const noteSchema = new mongoose.Schema({
     utilisateur: userSchema,
-    note: {type: Number},
+    note: {type: Number, required: true},
 });
 
 const notificationSchema = new mongoose.Schema({

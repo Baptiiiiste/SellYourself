@@ -1,14 +1,15 @@
 import './infoAnnonce.css'
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHeart, faStar} from '@fortawesome/free-solid-svg-icons';
 
-function Utilisateur({nom, note, description, localisation, image}){
+function Utilisateur({pseudo, prenom, nom, note, description, localisation, image}){
     return(
         <div className='InfoAnnonce-InfoEtPhotoVendeur'>
             <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/>
             <div className='InfoAnnonce-InfosVendeur'>
-                    <p className='InfoAnnonce-NomVendeur'>{nom}</p>
+                    <p className='InfoAnnonce-NomVendeur'>{pseudo} : {prenom} {nom}</p>
                     <div className='InfoAnnonce-NoteVendeur'>
                         <p className='InfoAnnonce-Note'>Note : {note}/5</p>
                         <FontAwesomeIcon className='InfoAnnonce-Star' icon={faStar}/>
@@ -37,18 +38,42 @@ function Annonce({titre, description, photos}){
     )
 }
 
-function InfoAnnonce({nom, note, descriptionVendeur, localisation, image, titre, descriptionAnnonce, photos, prix}) {
+function InfoAnnonce() {
+    const params = useParams();
+
+    const [annonce, setAnnonce] = useState([]);
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        getAnnonce();
+        getUser();
+    }, [])
+
+    const getAnnonce = async () => {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`);
+        result = await result.json();
+        setAnnonce(result);
+    }
+
+    const getUser = async () => {
+        let result = await fetch(`http://localhost:5000/api/utilisateur/${params.utilisateur}`);
+        result = await result.json();
+        setUser(result);
+    }
+
+    console.log(user);
+
     return (
         <div className='InfoAnnonce'>
             <div className='InfoAnnonce-Haut'>
-                <Utilisateur nom={nom} note={note} description={descriptionVendeur} localisation={localisation} image={image}/>
-                <p className='InfoAnnonce-PrixAnnonce'> {prix} €</p>
+                <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={user.note} description={user.description} localisation={user.localisation} image={user.profilPic}/>
+                <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
                     <Link className='InfoAnnonce-Achat' to={'/validation'}>Acheter</Link>
                     <Link className='InfoAnnonce-BoutonMessage' to={'/conversation'}>Contacter</Link>
                 </div>
             </div>
-            <Annonce titre={titre} description={descriptionAnnonce} photos={photos}/>
+            <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image}/>
             <button className='InfoAnnonce-AjoutFav'>
                 <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faHeart} />
                 <p>Ajouter aux favoris</p>

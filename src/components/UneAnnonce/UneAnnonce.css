@@ -1,5 +1,89 @@
 @import "../../assets/variable.css";
 
+/* Contenu */
+
+.Contenu-all{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Contenu-titre, .Contenu-description{
+    margin-top: 2%;
+    margin-bottom: 0%;
+    font-size: 16px;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    font-weight: bold;
+}
+
+.Contenu-description{
+    font-size: 12px;
+}
+
+.Contenu-other{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2%;
+}
+
+.Contenu-bouton{
+    background-color: white;
+    border: 0;
+}
+
+.Contenu-bouton:hover{
+    cursor: pointer;
+    color: var(--orange);
+    font-size: 18px;
+}
+
+.Contenu-prix{
+    margin: 0%;
+    font-size: 20px;
+}
+
+/* Annonce */
+
+.UneAnnonce-all{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 470px;
+    margin: 2%;
+    border: 1px solid var(--grisFoncé);
+    box-sizing: content-box;
+}
+
+.UneAnnonce-div-Image{
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.UneAnnonce-img-annonce{
+    width: 300px;
+    scroll-snap-align: start;
+}
+
+.UneAnnonce-description{
+    margin: 0 3% 3% 3%;
+    height: 40%;
+}
+
+.UneAnnonce-Vendeur{
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+}
+
 /* Vendeur */
 .Vendeur-info-all{
     display: flex;
@@ -31,92 +115,9 @@
 .Vendeur-info p{
     margin: 0%;
     font-size: 11px;
+    font-weight: bold;
 }
 
 .Vendeur-note{
     color: var(--orange);
-}
-
-
-/* Contenu */
-.Contenu-other{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 2%;
-}
-
-.Contenu-titre, .Contenu-description{
-    margin-top: 2%;
-    margin-bottom: 0%;
-    font-size: 16px;
-    max-width: 100%;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    overflow-wrap: break-word;
-}
-
-.Contenu-description{
-    font-size: 12px;
-}
-
-.Contenu-prix{
-    margin: 0%;
-    font-size: 20px;
-}
-
-.Contenu-bouton{
-    background-color: white;
-    border: 0;
-}
-
-/* Annonce */
-
-.UneAnnonce-all{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 470px;
-    margin: 2%;
-    border: 1px solid var(--grisFoncé);
-    box-sizing: content-box;
-}
-
-.UneAnnonce-div-Image{
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-}
-
-.UneAnnonce-img-annonce{
-    width: 300px;
-    scroll-snap-align: start;
-}
-
-.UneAnnonce-description{
-    margin: 0 3% 3% 3%;
-}
-
-.UneAnnonce-description p{
-    font-weight: bold;
-}
-
-.UneAnnonce-button-left, .UneAnnonce-button-right{
-    border: 0px;
-    background-color: transparent;
-    margin: 0 3% 0 3%;
-    padding: 2%;
-}
-
-.UneAnnonce-button-left:hover, .UneAnnonce-button-right:hover{
-    background-color: var(--gris);
-    cursor: pointer;
-}
-
-.UneAnnonce-button{
-    display: flex;
-    justify-content: center;
 }

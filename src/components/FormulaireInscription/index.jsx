@@ -22,6 +22,16 @@ function FormulaireInscription() {
         if(!passwd || !email || !pseudo){
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
         }else if(email && passwd && pseudo){
+
+            if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
+                alert("Email invalide");
+                return;
+            }
+
+            if(passwd.includes(" ")){
+                return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
+            }
+
             const password = bcrypt.hashSync(passwd,salt);
             let data = await fetch(`http://localhost:5000/api/inscription`, {
                 method: 'post',
@@ -49,7 +59,7 @@ function FormulaireInscription() {
             <div className='form'>
                 <div className="FormulaireInscription-input">
                     <input type="text" name="login" placeholder="IDENTIFIANT" value={pseudo} onChange={(ev) => {setPseudo(ev.target.value)}}/>
-                    <input type="email" name="email" placeholder="E-MAIL" value={email} onChange={(ev) => {setEmail(ev.target.value)}}/>
+                    <input type="email" name="email" placeholder="E-MAIL" value={email} onChange={(ev) => {setEmail(ev.target.value)}} />
                     <input type="password" name="passwd" placeholder="MOT DE PASSE" value={passwd} onChange={(ev) => {setPassword(ev.target.value)}}/>
 
                 </div>
