@@ -10,12 +10,12 @@ function InfoUtilisateur(){
     
     const connectedUser = sessionStorage.getItem("user");
 
-    const actualNom = JSON.parse(connectedUser).nom ? `Nom: ${JSON.parse(connectedUser).nom}`  : "Nom";
-    const actualPrenom =  JSON.parse(connectedUser).prenom ? `Prénom: ${JSON.parse(connectedUser).prenom}` : "Prénom";
-    const actualDescription =  JSON.parse(connectedUser).description ? `Description: ${JSON.parse(connectedUser).description}` : "Description";
-    const actualPaypal =  JSON.parse(connectedUser).paypal ? `Paypal: ${JSON.parse(connectedUser).paypal}` : "Paypal.me/moncompte";
-    const actualEmail =  JSON.parse(connectedUser).email ? `Email: ${JSON.parse(connectedUser).email}` : "E-mail";
-    const actualVille = JSON.parse(connectedUser).ville ? `Ville: ${JSON.parse(connectedUser).ville}` : "Ville";
+    let actualNom = JSON.parse(connectedUser).nom ? `Nom: ${JSON.parse(connectedUser).nom}`  : "Nom";
+    let actualPrenom =  JSON.parse(connectedUser).prenom ? `Prénom: ${JSON.parse(connectedUser).prenom}` : "Prénom";
+    let actualDescription =  JSON.parse(connectedUser).description ? `Description: ${JSON.parse(connectedUser).description}` : "Description";
+    let actualPaypal =  JSON.parse(connectedUser).paypal ? `Paypal: ${JSON.parse(connectedUser).paypal}` : "Paypal.me/moncompte";
+    let actualEmail =  JSON.parse(connectedUser).email ? `Email: ${JSON.parse(connectedUser).email}` : "E-mail";
+    let actualVille = JSON.parse(connectedUser).ville ? `Ville: ${JSON.parse(connectedUser).ville}` : "Ville";
 
     
     let [nom, setNom] = useState();
@@ -27,26 +27,28 @@ function InfoUtilisateur(){
 
     const [oldPassword, setOldPassword] = useState();
     const [newPassword, setNewPassword] = useState();
-
     const updateUser = async () => {
+
 
         if(email && !/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
             return alert("Email incorrecte");
         }
 
-        if(!nom.trim()) nom = "";
-        if(!prenom.trim()) prenom = "";
-        if(!description.trim()) description = "";
-        if(!paypal.trim()) paypal = "";
-        if(!ville.trim()) ville = "";
 
-        let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser).pseudo}`, {
+        if(/^\s$/.test(nom)) nom = "";
+        if(/^\s$/.test(prenom)) prenom = "";
+        if(/^\s$/.test(description)) description = "";
+        if(/^\s$/.test(ville)) ville = "";
+        if(/^\s$/.test(paypal)) paypal = "";
+
+        let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser)._id}`, {
             method: "Put",
             body: JSON.stringify({nom, prenom, description, ville, paypal, email}),
             headers: {
                 'Content-Type': 'Application/json'
             }
         });
+
 
         result = await result.json();
 
@@ -57,6 +59,7 @@ function InfoUtilisateur(){
             sessionStorage.setItem("user", JSON.stringify(result.user));
             window.location.reload(false);
         }
+
     }
 
     const updatePassword = async () => {

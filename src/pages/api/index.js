@@ -19,8 +19,8 @@ require('./configuration/connexion');
 
 // Requete d'inscription
 app.post("/api/inscription", async (req, resp) => {
-    let isPseudoAlreadyTaken = await User.findOne({pseudo: req.body.pseudo});
-    let isEmailAlreadyTaken = await User.findOne({email: req.body.email});
+    const isPseudoAlreadyTaken = await User.findOne({pseudo: req.body.pseudo});
+    const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     
     if(isPseudoAlreadyTaken) resp.send({result:"Cet identifiant est déjà pris"});
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});
@@ -44,7 +44,7 @@ app.post("/api/inscription", async (req, resp) => {
 // Requete de connexion
 app.post("/api/connexion", async (req, resp) => {
     if(req.body.pseudo && req.body.password){
-        let user = await User.findOne({pseudo: req.body.pseudo});
+        const user = await User.findOne({pseudo: req.body.pseudo});
         if(user){
             if(bcrypt.compareSync(req.body.password, user.password)){
                 let result = user.toObject();
@@ -67,16 +67,16 @@ app.post("/api/connexion", async (req, resp) => {
 })
 
 // Requete de modification des informations d'un utilisateur
-app.put("/api/utilisateur/updateUser/:pseudo", async (req, resp) => {
+app.put("/api/utilisateur/updateUser/:id", async (req, resp) => {
 
-    let isEmailAlreadyTaken = await User.findOne({email: req.body.email});
+    const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     if(!isEmailAlreadyTaken){
         await User.updateOne(
-            { pseudo: req.params.pseudo  },
+            { _id: req.params.id  },
             { $set: req.body }
         )
     
-        const newUser = await User.findOne({pseudo : req.params.pseudo})
+        const newUser = await User.findOne({_id : req.params.id})
         resp.send({user: newUser});
     }else{
         resp.send({erreur:"Cette adresse e-mail est déjà prise"})
@@ -88,12 +88,12 @@ app.put("/api/utilisateur/updateUser/:pseudo", async (req, resp) => {
 
 
 // Requete de modification du mot de passe d'un utilisateur
-app.post("/api/utilisateur/updatePassword/:pseudo", async (req, resp) => {
+app.post("/api/utilisateur/updatePassword/:id", async (req, resp) => {
 
-    const userToUpdate = await User.findOne({pseudo: req.params.pseudo});
+    const userToUpdate = await User.findOne({_id: req.params.id});
     if(bcrypt.compareSync(req.body.oldPassword, userToUpdate.password)){
         await User.updateOne(
-            { pseudo: req.params.pseudo  },
+            { _id: req.params.id  },
             { $set: {password: req.body.password} }
         )
         resp.send({result: "Mot de passe changé"});
@@ -134,7 +134,7 @@ app.get("/api/annonce", async (req, resp) => {
     }
 });
 
-// Requete récupération de une annonce
+// Requete récupération d'une annonce
 app.get("/api/annonce/:id", async (req, resp) => {
     const annonce = await Annonce.find( { _id: req.params.id } )
     if (annonce.length > 0){
@@ -154,6 +154,19 @@ app.get("/api/utilisateur/:pseudo", async (req, resp) => {
     else{
         resp.send({erreur: "Aucun utilisateur"});
     }
+});
+
+
+// Requete de suppresion d'une annonce
+app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
+
+    let resAds = await Annonce.deleteOne({_id : req.params.idAds});
+    let resUser = await User.updateOne(
+        { _id : req.params.idUser },
+        { $pull: { annonces: req.params.idAds } }
+    )
+    resp.send({annonce: resAds, user: resUser});
+
 });
 
 
