@@ -26,7 +26,7 @@ root.render(
         <Route path="/" element={<Home/>} />
 
         <Route element={<PrivateComponents/>}>
-          <Route path="/annonce/:id" element={<Annonce/>} />
+          <Route path="/annonce/:annonce/:utilisateur" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
           <Route path="/notifications" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />

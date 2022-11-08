@@ -29,8 +29,6 @@ function Home() {
     setAnnonces(result);
   }
 
-  console.log(annonces);
-
   return loader ? 
     (
     <Loader/> 

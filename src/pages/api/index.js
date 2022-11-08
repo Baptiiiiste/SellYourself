@@ -134,8 +134,7 @@ app.get("/api/annonce", async (req, resp) => {
 
 // Requete récupération de une annonce
 app.get("/api/annonce/:id", async (req, resp) => {
-    const id = req.params.id;
-    const annonce = await Annonce.find( { _id: id } )
+    const annonce = await Annonce.find( { _id: req.params.id } )
     if (annonce.length > 0){
         resp.send(annonce[0]);
     }
@@ -146,8 +145,7 @@ app.get("/api/annonce/:id", async (req, resp) => {
 
 // Requete récupération de un utilisateur
 app.get("/api/utilisateur/:pseudo", async (req, resp) => {
-    const pseudo = req.params.pseudo;
-    const utilisateur = await User.find( { pseudo: pseudo } )
+    const utilisateur = await User.find( { pseudo: req.params.pseudo } )
     if (utilisateur.length > 0){
         resp.send(utilisateur[0]);
     }
