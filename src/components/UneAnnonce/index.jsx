@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
+// Pour ajouter une annonce aux favoris
+function addFavoris() {
+
+}
+
 function Contenu({titre, description, prix}){
     return(
         <div className='Contenu-all'>
@@ -12,7 +17,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div className='Contenu-other'>
-                <button className='Contenu-bouton'>
+                <button className='Contenu-bouton' onClick="addFavoris();">
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
                 <p className='Contenu-prix'>{prix} €</p>
