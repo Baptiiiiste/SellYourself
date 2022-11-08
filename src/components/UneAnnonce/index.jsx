@@ -2,7 +2,19 @@ import './UneAnnonce.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
+function Vendeur({pseudo, photo, note}){
+    return(
+        <div className='Vendeur-all'>
+            <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+            <div className='Vendeur-info'>
+                <p className='Vendeur-nom'>{pseudo}</p>
+                <p className='Vendeur-note'>Note: {note}/5</p>
+            </div>
+        </div>
+    )
+}
 
 // Pour ajouter une annonce aux favoris
 function addFavoris() {
@@ -12,7 +24,7 @@ function addFavoris() {
 function Contenu({titre, description, prix}){
     return(
         <div className='Contenu-all'>
-            <div>
+            <div className='Contenu-text'>
                 <p className='Contenu-titre'>{titre} :</p>
                 <p className='Contenu-description'>{description}</p>
             </div>
@@ -26,7 +38,7 @@ function Contenu({titre, description, prix}){
     )
 }
 
-function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur}) {
+function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, note, img_profil}) {
 
     return (
         <div className='UneAnnonce-all'>
@@ -36,11 +48,8 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur}) 
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
             </Link>
             <div className='UneAnnonce-description'>
+                <Vendeur pseudo={pseudoVendeur} photo={img_profil} note={note}/>
                 <Contenu titre={titre} description={description} prix={prix}/>
-                <div className='UneAnnonce-Vendeur'>
-                    <p>Proposée par : </p>
-                    <p className='UneAnnonce-Vendeur-nom'>{pseudoVendeur}</p>
-                </div>
             </div>
         </div>
     )
