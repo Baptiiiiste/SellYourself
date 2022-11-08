@@ -144,6 +144,18 @@ app.get("/api/annonce/:id", async (req, resp) => {
     }
 });
 
+// Requete récupération des favoris
+// !!!! En travaux !!!!
+app.get("/api/favoris/:id", async (req, resp) => {
+    const favoris = req.params.favoris;
+    if (favoris.length > 0) {
+        resp.send(favoris);
+    }
+    else {
+        resp.send({erreur: "Aucune annonce en favoris"});
+    }
+});
+
 
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
