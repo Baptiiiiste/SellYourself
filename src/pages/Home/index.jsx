@@ -1,4 +1,5 @@
 import './Home.css';
+import "../../assets/variable.css";
 import Loader from '../../components/Loader/index';
 import React, {useState, useEffect} from 'react';
 import HeaderCustom from '../../components/HeaderCustom';
@@ -8,7 +9,7 @@ import UneAnnonce from '../../components/UneAnnonce';
 
 function Home() {
 
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
 
   const categorie = 'Toutes les catégories';
   const recherche = 'Toutes les annonces';
@@ -17,15 +18,28 @@ function Home() {
 
   useEffect(() => {
       setTimeout(() => {
-          setLoader(false)
+          setLoader(false);
+          getAnnonces();
       },1000);
 
-      getAnnonces();
+      
   }, [])
 
   const getAnnonces = async () => {
     let result = await fetch("http://localhost:5000/api/annonce");
     result = await result.json();
+    if(result.length == 0){
+      const div = document.querySelector(".Home-lesAnnonces");
+      
+      while (div.firstChild) {
+        div.removeChild(div.lastChild);
+      }
+
+      const p = document.createElement("p");
+      p.innerHTML = "Aucune annonce disponible";
+      p.className = "Home-Aucune";
+      div.appendChild(p);
+    }
     setAnnonces(result);
   }
 
