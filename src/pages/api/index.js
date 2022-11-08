@@ -128,7 +128,7 @@ app.get("/api/annonce", async (req, resp) => {
         resp.send(annonces);
     }
     else{
-        resp.send({erreur: "Aucune annonce"});
+        resp.send([]);
     }
 });
 
