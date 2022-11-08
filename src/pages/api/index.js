@@ -128,7 +128,7 @@ app.get("/api/annonce", async (req, resp) => {
         resp.send(annonces);
     }
     else{
-        resp.send({erreur: "Aucune annonce"});
+        resp.send([]);
     }
 });
 
@@ -136,10 +136,21 @@ app.get("/api/annonce", async (req, resp) => {
 app.get("/api/annonce/:id", async (req, resp) => {
     const annonce = await Annonce.find( { _id: req.params.id } )
     if (annonce.length > 0){
-        resp.send(annonce);
+        resp.send(annonce[0]);
     }
     else{
         resp.send({erreur: "Aucune annonce"});
+    }
+});
+
+// Requete récupération de un utilisateur
+app.get("/api/utilisateur/:pseudo", async (req, resp) => {
+    const utilisateur = await User.find( { pseudo: req.params.pseudo } )
+    if (utilisateur.length > 0){
+        resp.send(utilisateur[0]);
+    }
+    else{
+        resp.send({erreur: "Aucun utilisateur"});
     }
 });
 

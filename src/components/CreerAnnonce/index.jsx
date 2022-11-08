@@ -5,43 +5,57 @@ import { useState } from 'react';
 
 function CreerAnnonce() {
 
+    console.log(window.location.protocol + '//' + window.location.host + '/');
+
     const connectedUser = sessionStorage.getItem("user");
 
     const [titre, setTitre] = useState("");
     const [description, setDescription] = useState("");
     const [prix, setPrix] = useState("");
-    const [categorie, setCategorie] = useState("");
-    const [type, setType] = useState("");
+    const [categorie, setCategorie] = useState("Autres");
+    const [type, setType] = useState("Bien");
     let image;
+    let nbImage = 0;
 
     const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const array = document.querySelector('.CreerAnnonce-Image').files;
 
-        const nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
+        nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
 
         if(nbImage > 10){
             alert("Vous ne pouvez choisir plus de 10 images !")
         }
         else{
             for (let i = 0; i<array.length; i++){
-                const img = document.createElement('img');
-                img.src= "image/" + array[i].name;
-                img.className ='CreerAnnonce-img';
-                div.appendChild(img);
+                if(array[i].name.src.split('.').pop() == 'jpeg' || array[i].name.src.split('.').pop() == 'jpg' || array[i].name.src.split('.').pop() == 'jpng'){
+                    const img = document.createElement('img');
+                    img.src= "image/" + array[i].name;
+                    img.className ='CreerAnnonce-img';
+                    div.appendChild(img);
+                }
             }
         }
     }
 
     const formulaire = async () => {
-        if(!titre || !prix ){
-            alert("Vous devez renseigner au moins le titre et le prix de l'annonce.");
-        }else if(titre && prix){
+        if(!titre || !prix || nbImage == 0){
+            alert("Vous devez renseigner au moins le titre, le prix de l'annonce ainsi qu'une image.");
+        }else if(titre && prix && nbImage > 0){
+            if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
+                alert("Le titre est invalide");
+            }
+            if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
+                alert("La description est invalide");
+            }
             image = [];
             const images = document.querySelectorAll('.CreerAnnonce-img');
             for(let i = 0; i<images.length; i++){
-                image += images[i].src.replace(/^.*[\\\/]/, '');
+                if(images[i].src.split('.').pop() == 'jpeg' || images[i].src.split('.').pop() == 'jpg' || images[i].src.split('.').pop() == 'jpng'){
+                    image += images[i].src.replace(/^.*[\\\/]/, '');
+                }
             }
+            console.log(image);
             let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
@@ -50,15 +64,29 @@ function CreerAnnonce() {
                 }
             });
             result = await result.json();
-            window.location.reload(false);
+            window.location.assign('http://' + window.location.host + '/');
         }
     }
 
     return(
         <div className="CreerAnnonce-Input">
-            <input type="text" placeholder='Titre' className="CreerAnnonce-Titre" maxLength="80" onChange={(ev) => {setTitre(ev.target.value)}}/>
-            <textarea placeholder='Description' className="CreerAnnonce-Description" maxLength="500" onChange={(ev) => {setDescription(ev.target.value)}}/>
-            <input placeholder='Prix' type="number" min='0' max='99999' className="CreerAnnonce-Prix" onChange={(ev) => {setPrix(ev.target.value)}}/>
+            <input type="text"
+                    placeholder='Titre' 
+                    className="CreerAnnonce-Titre" 
+                    maxLength="80" 
+                    onChange={(ev) => {setTitre(ev.target.value)}}/>
+
+            <textarea placeholder='Description' 
+                    className="CreerAnnonce-Description" 
+                    maxLength="500" 
+                    onChange={(ev) => {setDescription(ev.target.value)}}/>
+
+            <input placeholder='Prix' 
+                    type="number" 
+                    min='0' 
+                    max='99999' 
+                    className="CreerAnnonce-Prix" 
+                    onChange={(ev) => {setPrix(ev.target.value)}}/>
 
             <div className='CreerAnnonce-Radio'>
                 <fieldset className='CreeAnnonce-RadioBouton'>
