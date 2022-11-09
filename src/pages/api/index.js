@@ -177,16 +177,15 @@ app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
 app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
     const user = await User.findOne({pseudo : req.params.pseudo});
     if(user){
-        let listAds = [];
 
-        for( const ads in user.annonces ){
-            // let annonce = Annonce.findOne({ _id : ads });
-            // listAds.push(user.annonces.ads);
-            // let x = ads.();
-            resp.send({x, ads})
+        let listID = user.annonces;
+        let listAds = [];
+        for(let i = 0; i<listID.length; i++){
+            listAds.push(await Annonce.findOne({_id : listID[i]}));
         }
-    
-        resp.send({annonces: listAds});
+
+        resp.send( listAds );
+
     }else{
         resp.send({result: "Une erreur est survenue avec cette utilisateur"});
         return;
