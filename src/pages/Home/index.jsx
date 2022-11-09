@@ -43,6 +43,22 @@ function Home() {
     setAnnonces(result);
   }
 
+  const displayAnnonce = (item, index) => {
+    const annonce = item[0];
+    const user = item[1];
+
+    return (<UneAnnonce id={annonce._id}
+                  titre={annonce.titre}
+                  description={annonce.description}
+                  prix={annonce.prix}
+                  img_annonce={annonce.img_annonce} 
+                  pseudoVendeur={user.pseudo}
+                  img_profil={user.profilPic}
+                  note={user.noteList}
+                  key={index}
+                />)
+  }
+
   return loader ? 
     (
     <Loader/> 
@@ -65,15 +81,8 @@ function Home() {
           </div>
           
           <div className='Home-lesAnnonces'>
-            {annonces.map(({_id, titre, description, prix, img_annonce, utilisateur}, index) => (
-                <UneAnnonce id={_id}
-                  titre={titre}
-                  description={description}
-                  prix={prix}
-                  img_annonce={img_annonce} 
-                  pseudoVendeur={utilisateur}
-                  key={index}
-                />
+            {annonces.map((item, index) => (
+              displayAnnonce(item, index)
               ))}
           </div>
         </div>
