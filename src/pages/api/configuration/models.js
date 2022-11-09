@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+const noteSchema = new mongoose.Schema({
+    utilisateurId: {type: String, required: true},
+    note: {type: Number, required: true},
+});
+
 const userSchema = new mongoose.Schema({
     pseudo: {type: String, required: true, index: { unique: true }},
     email: {type: String, required: true, index: { unique: true }},
@@ -23,14 +28,11 @@ const annonceSchema = new mongoose.Schema({
     description: {type: String },
     image: {type: [String] },
     prix: {type: Number, require: true},
-    type: {type: String, default: 'Bien' },
+    type: {type: String },
     categorie: {type: String }
 });
 
-const noteSchema = new mongoose.Schema({
-    utilisateurId: {type: String, required: true},
-    note: {type: Number, required: true},
-});
+
 
 const notificationSchema = new mongoose.Schema({
     type: {type: String, required: true},

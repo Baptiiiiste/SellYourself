@@ -2,15 +2,28 @@ import './UneAnnonce.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons'
 
 function Vendeur({pseudo, photo, note}){
+    let nbNote = note.length;
+    if(nbNote === 0){
+        note = "Aucune note"
+    }
+    else{
+        let moy = 0;
+        for( const n of note){
+            moy += n.note;
+        }
+        moy = moy/nbNote
+        note = moy + "/5";
+    }
+
     return(
         <div className='Vendeur-all'>
             <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
             <div className='Vendeur-info'>
                 <p className='Vendeur-nom'>{pseudo}</p>
-                <p className='Vendeur-note'>Note: {note}/5</p>
+                <p className='Vendeur-note'>Note: {note}{ note !== "Aucune note" && <FontAwesomeIcon icon={faStar} />} ( {nbNote} avis )</p>
             </div>
         </div>
     )

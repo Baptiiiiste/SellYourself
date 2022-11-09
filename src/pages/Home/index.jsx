@@ -28,7 +28,7 @@ function Home() {
   const getAnnonces = async () => {
     let result = await fetch("http://localhost:5000/api/annonce");
     result = await result.json();
-    if(result.length == 0){
+    if(result.length === 0){
       const div = document.querySelector(".Home-lesAnnonces");
       
       while (div.firstChild) {
@@ -41,6 +41,22 @@ function Home() {
       div.appendChild(p);
     }
     setAnnonces(result);
+  }
+
+  const displayAnnonce = (item, index) => {
+    const annonce = item[0];
+    const user = item[1];
+
+    return (<UneAnnonce id={annonce._id}
+                  titre={annonce.titre}
+                  description={annonce.description}
+                  prix={annonce.prix}
+                  img_annonce={annonce.img_annonce} 
+                  pseudoVendeur={user.pseudo}
+                  img_profil={user.profilPic}
+                  note={user.noteList}
+                  key={index}
+                />)
   }
 
   return loader ? 
@@ -65,15 +81,8 @@ function Home() {
           </div>
           
           <div className='Home-lesAnnonces'>
-            {annonces.map(({_id, titre, description, prix, img_annonce, utilisateur}, index) => (
-                <UneAnnonce id={_id}
-                  titre={titre}
-                  description={description}
-                  prix={prix}
-                  img_annonce={img_annonce} 
-                  pseudoVendeur={utilisateur}
-                  key={index}
-                />
+            {annonces.map((item, index) => (
+              displayAnnonce(item, index)
               ))}
           </div>
         </div>

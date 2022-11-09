@@ -124,8 +124,13 @@ app.post("/api/publier/:pseudo", async (req, resp) => {
 // Requete récupération des annonces
 app.get("/api/annonce", async (req, resp) => {
     const annonces = await Annonce.find();
+    let tableau = [];
     if (annonces.length > 0){
-        resp.send(annonces);
+        for(const a of annonces){
+            const utilisateur = await User.find( { pseudo: a.utilisateur } )
+            tableau.push([a, utilisateur[0]])
+        }
+        resp.send(tableau);
     }
     else{
         resp.send([]);
