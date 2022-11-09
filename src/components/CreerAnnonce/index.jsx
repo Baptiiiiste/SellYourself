@@ -29,7 +29,7 @@ function CreerAnnonce() {
         }
         else{
             for (let i = 0; i<array.length; i++){
-                if(array[i].name.src.split('.').pop() === 'jpeg' || array[i].name.src.split('.').pop() === 'jpg' || array[i].name.src.split('.').pop() === 'jpng'){
+                if(array[i].name.split('.').pop() === 'jpeg' || array[i].name.split('.').pop() === 'jpg' || array[i].name.split('.').pop() === 'jpng'){
                     const img = document.createElement('img');
                     img.src= "image/" + array[i].name;
                     img.className ='CreerAnnonce-img';
@@ -55,7 +55,6 @@ function CreerAnnonce() {
                 if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
                 }
             }
-            console.log(image);
             await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
