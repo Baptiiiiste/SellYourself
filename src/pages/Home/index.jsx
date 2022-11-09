@@ -19,10 +19,8 @@ function Home() {
   useEffect(() => {
       setTimeout(() => {
           setLoader(false);
-          getAnnonces();
       },1000);
-
-      
+      getAnnonces();
   }, [])
 
   const getAnnonces = async () => {
