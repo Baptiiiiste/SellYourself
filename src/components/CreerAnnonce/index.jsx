@@ -2,10 +2,11 @@ import './creerAnnonce.css';
 import React from 'react';
 import {categories} from '../../assets/data'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CreerAnnonce() {
 
-    console.log(window.location.protocol + '//' + window.location.host + '/');
+    const navigate = useNavigate();
 
     const connectedUser = sessionStorage.getItem("user");
 
@@ -28,7 +29,7 @@ function CreerAnnonce() {
         }
         else{
             for (let i = 0; i<array.length; i++){
-                if(array[i].name.src.split('.').pop() == 'jpeg' || array[i].name.src.split('.').pop() == 'jpg' || array[i].name.src.split('.').pop() == 'jpng'){
+                if(array[i].name.src.split('.').pop() === 'jpeg' || array[i].name.src.split('.').pop() === 'jpg' || array[i].name.src.split('.').pop() === 'jpng'){
                     const img = document.createElement('img');
                     img.src= "image/" + array[i].name;
                     img.className ='CreerAnnonce-img';
@@ -39,7 +40,7 @@ function CreerAnnonce() {
     }
 
     const formulaire = async () => {
-        if(!titre || !prix || nbImage == 0){
+        if(!titre || !prix || nbImage === 0){
             alert("Vous devez renseigner au moins le titre, le prix de l'annonce ainsi qu'une image.");
         }else if(titre && prix && nbImage > 0){
             if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
@@ -51,20 +52,18 @@ function CreerAnnonce() {
             image = [];
             const images = document.querySelectorAll('.CreerAnnonce-img');
             for(let i = 0; i<images.length; i++){
-                if(images[i].src.split('.').pop() == 'jpeg' || images[i].src.split('.').pop() == 'jpg' || images[i].src.split('.').pop() == 'jpng'){
-                    image += images[i].src.replace(/^.*[\\\/]/, '');
+                if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
                 }
             }
             console.log(image);
-            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
+            await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {
                     'Content-Type': 'Application/json'
                 }
             });
-            result = await result.json();
-            window.location.assign('http://' + window.location.host + '/');
+            navigate("/")
         }
     }
 
@@ -124,6 +123,5 @@ function CreerAnnonce() {
         </div>
     )
 }
-
 
 export default CreerAnnonce;

@@ -28,7 +28,7 @@ function Home() {
   const getAnnonces = async () => {
     let result = await fetch("http://localhost:5000/api/annonce");
     result = await result.json();
-    if(result.length == 0){
+    if(result.length === 0){
       const div = document.querySelector(".Home-lesAnnonces");
       
       while (div.firstChild) {
