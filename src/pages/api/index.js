@@ -157,12 +157,18 @@ app.get("/api/utilisateur/:pseudo", async (req, resp) => {
 // Requete récupération des favoris
 // !!!! En travaux !!!!
 app.get("/api/favoris/:id", async (req, resp) => {
-    const favoris = req.params.favoris;
-    if (favoris.length > 0) {
-        resp.send(favoris);
-    }
-    else {
-        resp.send({erreur: "Aucune annonce en favoris"});
+    const user = await User.findOne({pseudo : req.params.id});
+    if(user){
+        let listFavs = [];
+
+        for( const favs in user.favoris ){
+            resp.send({x, favs})
+        }
+    
+        resp.send({favoris: listFavs});
+    }else{
+        resp.send({result: "Une erreur est survenue avec cette utilisateur"});
+        return;
     }
 });
 
