@@ -39,15 +39,16 @@ function Annonce({titre, description, photos}){
 }
 
 function InfoAnnonce() {
-    const params = useParams();
-
-    const [annonce, setAnnonce] = useState([]);
-    const [user, setUser] = useState([]);
 
     useEffect(() => {
         getAnnonce();
         getUser();
     }, [])
+
+    const params = useParams();
+
+    const [annonce, setAnnonce] = useState([]);
+    const [user, setUser] = useState([]);
 
     const getAnnonce = async () => {
         let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`);

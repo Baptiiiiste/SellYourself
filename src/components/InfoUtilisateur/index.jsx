@@ -69,7 +69,7 @@ function InfoUtilisateur(){
         }
 
         const password = bcrypt.hashSync(newPassword, salt);
-        let result = await fetch(`http://localhost:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser).pseudo}`, {
+        let result = await fetch(`http://localhost:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser)._id}`, {
             method: "Post",
             body: JSON.stringify({oldPassword, password} ),
             headers: {
