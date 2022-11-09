@@ -1,0 +1,101 @@
+@import "../../assets/variable.css";
+
+/* ANNONCE */
+.UneAnnonceDetaillee-all{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--gris);
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.UneAnnonceDetaillee-info{
+    width: 90%;
+}
+
+.UneAnnonceDetaillee-titre{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0;
+}
+
+.UneAnnonceDetaillee-other{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.UneAnnonceDetaillee-image{
+    height: 150px;
+}
+
+.UneAnnonceDetaillee-description{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 20px;
+    font-size: 20px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    width: 80%;
+}
+
+.UneAnnonce-descriptionImage{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.UneAnnonceDetaillee-prix{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.UneAnnonceDetaillee-delete{
+    height: 65px;
+    width: 65px;
+    border: 0;
+    border-radius: 500px;
+    background-color:var(--rouge);
+    transition: 0.3s;
+}
+
+.UneAnnonceDetaillee-delete:hover{
+    background-color:var(--rougeFoncé);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.UneAnnonceDetaillee-icon{
+    height: 30px;
+    width: 30px;
+    color: white;
+}
+
+.UneAnnonceDetaillee-all:hover{
+    background-color:var(--grisMoyen);
+    transition: 0.3s;
+}
+
+
+.UneAnnonceDetaillee-edit{
+    height: 65px;
+    width: 65px;
+    border: 0;
+    border-radius: 500px;
+    background-color:var(--vert);
+    transition: 0.3s;
+}
+
+.UneAnnonceDetaillee-edit:hover{
+    background-color:var(--vertFoncé);
+    transition: 0.3s;
+    cursor: pointer;
+}

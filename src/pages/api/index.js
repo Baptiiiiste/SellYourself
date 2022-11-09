@@ -88,7 +88,7 @@ app.put("/api/utilisateur/updateUser/:id", async (req, resp) => {
 // Requete de modification du mot de passe d'un utilisateur
 app.post("/api/utilisateur/updatePassword/:id", async (req, resp) => {
 
-    const userToUpdate = await User.findOne({_id: req.params.id});
+    const userToUpdate = await User.findOne({ _id: req.params.id });
     if(bcrypt.compareSync(req.body.oldPassword, userToUpdate.password)){
         await User.updateOne(
             { _id: req.params.id  },
@@ -168,9 +168,32 @@ app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
         { _id : req.params.idUser },
         { $pull: { annonces: req.params.idAds } }
     )
-    resp.send({annonce: resAds, user: resUser});
-
+    if(resAds && resUser)
+        resp.send({annonce: resAds, user: resUser});
+    else resp.send({result: "Erreur lors de la suppression"})
 });
+
+// Requete pour obtenir la liste des annonces d'un utilisateur précis
+app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
+    const user = await User.findOne({pseudo : req.params.pseudo});
+    if(user){
+        let listAds = [];
+
+        for( const ads in user.annonces ){
+            // let annonce = Annonce.findOne({ _id : ads });
+            // listAds.push(user.annonces.ads);
+            // let x = ads.();
+            resp.send({x, ads})
+        }
+    
+        resp.send({annonces: listAds});
+    }else{
+        resp.send({result: "Une erreur est survenue avec cette utilisateur"});
+        return;
+    }
+
+    
+})
 
 
 // Vérification du token utilisateur
@@ -189,6 +212,18 @@ function verifyToken(req, resp, next) {
     }
 }
 
+
+app.get("/api/search/:key", async(req,resp) => {
+    let result = await Annonce.find({
+        "$or": [
+            {
+                name: { $regex: req.params.key}
+            },
+
+        ]
+    });
+    resp.send(result);
+})
 
 // Lancement de l'API
 app.listen(5000);
