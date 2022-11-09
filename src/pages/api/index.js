@@ -177,7 +177,7 @@ app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
         for( const ads in user.annonces ){
             // let annonce = Annonce.findOne({ _id : ads });
             // listAds.push(user.annonces.ads);
-            let x = ads.();
+            // let x = ads.();
             resp.send({x, ads})
         }
     
