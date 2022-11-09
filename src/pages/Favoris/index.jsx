@@ -30,7 +30,7 @@ function Favoris() {
     const [favoris, setFavoris] = useState();
 
     const getFavoris = async () => {
-        let result = await fetch(`http://localhost:5000/api/favoris/${JSON.parse(connectedUser)._id}`, {
+        let result = await fetch(`http://localhost:5000/api/favoris/${JSON.parse(connectedUser).pseudo}`, {
             method: "Get"
         });
         result = await result.json();

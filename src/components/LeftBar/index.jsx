@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './leftbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMessage, faBell, faHeart, faGear, faRightFromBracket, faLock, faUser, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMessage, faHome, faBell, faHeart, faGear, faRightFromBracket, faLock, faUser, faStar } from '@fortawesome/free-solid-svg-icons'
 
 
 function Leftbar() {
@@ -15,7 +15,23 @@ function Leftbar() {
     pseudo = JSON.parse(connectedUser).pseudo;
   }
 
-  const note = 4.5;
+  let note;
+  let nbNote;
+  if(connectedUser){
+    note = JSON.parse(connectedUser).noteList;
+    nbNote = note.length;
+    if(nbNote > 0){
+      let moy = 0;
+      for( const n of note){
+          moy += parseInt(n.note);
+      }
+      moy = moy/nbNote
+      note = moy + "/5";
+    }
+    else {
+      note = "";
+    }
+  }
 
   
   const logout = () => {
@@ -33,19 +49,19 @@ function Leftbar() {
         <div className='LeftBar-username'>
           <p>
             {pseudo}
-          </p>          
-          <div className='LeftBar-Note'>
-            <p>
-              Note : {note}/5
-            </p>
-            <div  className='LeftBar-NoteStar'>
-              <FontAwesomeIcon icon={faStar}/>
-            </div>
-          </div>
-
+          </p>
+          <p className='LeftBar-Note'>
+            {note} { note !== "" && note && <FontAwesomeIcon icon={faStar} /> && "(" + nbNote + " avis )"}
+          </p>
         </div>
       </div>
       <div className='LeftBar-menu'>
+        <Link className='LeftBar-Link' to="/">
+          <FontAwesomeIcon icon={faHome} />
+          <p className='LeftBar-textMenu'>
+            Accueil
+          </p>
+        </Link>
         <Link className='LeftBar-Link' to="/publier">
           <FontAwesomeIcon icon={faPlus} />
           <p className='LeftBar-textMenu'>
@@ -89,7 +105,7 @@ function Leftbar() {
   )
   :
   (
-    <div className='allLeftBar'>
+    <div className='allLeftBar-Visitor'>
       <div className='LeftBar-NameImg'>
         <div className='LeftBar-ProfilePic'>
           <img className='Leftbar-ProfilImage' src={require('../../assets/logoutPP.png')} alt=""/>

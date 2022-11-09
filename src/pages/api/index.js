@@ -161,24 +161,39 @@ app.get("/api/utilisateur/:pseudo", async (req, resp) => {
 
 // Requete récupération des favoris
 // !!!! En travaux !!!!
-app.get("/api/favoris/:id", async (req, resp) => {
-    const user = await User.findOne({pseudo : req.params.id});
+app.get("/api/favoris/:pseudo", async (req, resp) => {
+    const user = await User.findOne({pseudo : req.params.pseudo});
     if(user){
-        let listFavs = [];
 
-        for( const favs in user.favoris ){
-            resp.send({x, favs})
+        let listID = user.favoris;
+        let listFavs = [];
+        for(let i = 0; i<listID.length; i++){
+            listAds.push(await Annonce.findOne({_id : listID[i]}));
         }
-    
-        resp.send({favoris: listFavs});
+
+        resp.send( listFavs );
+
     }else{
+        resp.send({result: "Une erreur est survenue avec cet utilisateur"});
+        return;
+    }
+});
+
+// Requete d'enregistrement d'une annonce en favoris
+// !!! En travaux !!!
+app.post("/api/annonce/addFavoris/:pseudo/:idAds", async (req, resp) => {
+    const user = await User.updateOne(
+        { pseudo: req.params.pseudo },
+        { $push: {favoris: idAds } }
+    )
+    if (!user) {
         resp.send({result: "Une erreur est survenue avec cette utilisateur"});
         return;
     }
 });
 
 
-// Requete de suppresion d'une annonce
+// Requete de suppression d'une annonce
 app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
 
     let resAds = await Annonce.deleteOne({_id : req.params.idAds});
