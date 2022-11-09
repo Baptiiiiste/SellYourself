@@ -162,6 +162,18 @@ function verifyToken(req, resp, next) {
 }
 
 
+app.get("/api/search/:key", async(req,resp) => {
+    let result = await Annonce.find({
+        "$or": [
+            {
+                name: { $regex: req.params.key}
+            },
+
+        ]
+    });
+    resp.send(result);
+})
+
 // Lancement de l'API
 app.listen(5000);
 
