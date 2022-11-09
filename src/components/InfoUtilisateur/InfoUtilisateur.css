@@ -89,7 +89,7 @@
 .InfoUtilisateur-mdp{
     width: 93.5%;
     border: 2px solid var(--orange);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-around;
 }

@@ -6,6 +6,7 @@ const ImageSchema = new mongoose.Schema({
 });
 
 
+
 const userSchema = new mongoose.Schema({
     pseudo: {type: String, index: { unique: true }},
     email: {type: String, index: { unique: true }},
@@ -29,12 +30,12 @@ const annonceSchema = new mongoose.Schema({
     description: {type: String },
     image: {type: [String] },
     prix: {type: Number, require: true},
-    type: {type: String, default: 'Bien' },
+    type: {type: String },
     categorie: {type: String }
 });
 
 const noteSchema = new mongoose.Schema({
-    utilisateur: userSchema,
+    utilisateurId: {type: String, required: true},
     note: {type: Number, required: true},
 });
 
