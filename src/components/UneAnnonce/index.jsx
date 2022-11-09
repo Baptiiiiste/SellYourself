@@ -2,7 +2,7 @@ import './UneAnnonce.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 function Vendeur({pseudo, photo, note}){
     return(
@@ -42,7 +42,7 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
 
     return (
         <div className='UneAnnonce-all'>
-            <Link to={"/annonce/" + id} params={{titre: titre}} className='UneAnnonce-div-Image'>
+            <Link to={"/annonce/" + id + "/" + pseudoVendeur} params={{titre: titre}} className='UneAnnonce-div-Image'>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
