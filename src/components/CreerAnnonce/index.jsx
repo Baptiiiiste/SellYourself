@@ -78,7 +78,7 @@ function CreerAnnonce() {
 
             <textarea placeholder='Description' 
                     className="CreerAnnonce-Description" 
-                    maxLength="500" 
+                    maxLength="1000" 
                     onChange={(ev) => {setDescription(ev.target.value)}}/>
 
             <input placeholder='Prix' 
