@@ -37,12 +37,15 @@
 .Contenu-bouton{
     background-color: white;
     border: 0;
+    transition: 0.3s;
+    font-size: 20px;
 }
 
 .Contenu-bouton:hover{
     cursor: pointer;
-    color: var(--orange);
-    font-size: 18px;
+    color: var(--rougeFoncé);
+    font-size: 24px;
+    transition: 0.3s;
 }
 
 .Contenu-prix{
