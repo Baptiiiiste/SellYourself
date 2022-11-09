@@ -1,6 +1,20 @@
 import { Link } from 'react-router-dom';
 import './headerCustom.css'
 
+
+const searchHandle= async (e)=>{
+  let key = e.target.value;
+  if(key){
+    let result = await fetch(`http://localhost:5000/api/search/${key}`);
+    result = result.json()
+    if(result){
+      //setter sur le contenu de la map
+    }
+  }else{
+    
+  }
+}
+
 function HeaderCustom({title}) {
 
   if(title === "logForm") return(
@@ -41,7 +55,7 @@ function HeaderCustom({title}) {
           <h1>fr</h1>
         </Link>
         <div className='headercustom-input'>
-          <input placeholder='Rechercher'/>
+          <input type="text" placeholder='Rechercher'onChange={searchHandle}/>
         </div>
         <div className="headercustom-filter">
           <select name="activite" id="activite" className='headercustom-leFiltre'>

@@ -124,8 +124,13 @@ app.post("/api/publier/:pseudo", async (req, resp) => {
 // Requete récupération des annonces
 app.get("/api/annonce", async (req, resp) => {
     const annonces = await Annonce.find();
+    let tableau = [];
     if (annonces.length > 0){
-        resp.send(annonces);
+        for(const a of annonces){
+            const utilisateur = await User.find( { pseudo: a.utilisateur } )
+            tableau.push([a, utilisateur[0]])
+        }
+        resp.send(tableau);
     }
     else{
         resp.send([]);
@@ -190,16 +195,15 @@ app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
 app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
     const user = await User.findOne({pseudo : req.params.pseudo});
     if(user){
-        let listAds = [];
 
-        for( const ads in user.annonces ){
-            // let annonce = Annonce.findOne({ _id : ads });
-            // listAds.push(user.annonces.ads);
-            // let x = ads.();
-            resp.send({x, ads})
+        let listID = user.annonces;
+        let listAds = [];
+        for(let i = 0; i<listID.length; i++){
+            listAds.push(await Annonce.findOne({_id : listID[i]}));
         }
-    
-        resp.send({annonces: listAds});
+
+        resp.send( listAds );
+
     }else{
         resp.send({result: "Une erreur est survenue avec cette utilisateur"});
         return;
@@ -225,6 +229,18 @@ function verifyToken(req, resp, next) {
     }
 }
 
+
+app.get("/api/search/:key", async(req,resp) => {
+    let result = await Annonce.find({
+        "$or": [
+            {
+                name: { $regex: req.params.key}
+            },
+
+        ]
+    });
+    resp.send(result);
+})
 
 // Lancement de l'API
 app.listen(5000);

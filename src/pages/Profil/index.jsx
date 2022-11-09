@@ -26,24 +26,24 @@ const annonces = [
 ]
 
 
+let connectedUser = sessionStorage.getItem("user");
 
-//  const getUserAds = async () => {
-//      let annonces = await fetch(`http://localhost:5000/api/utilisateur/getAds/${JSON.parse(connectedUser)._id}`, {
-//          method: "Get",
-//          headers: {
-//              'Content-Type': 'Application/json'
-//          }
-//      });
-//      annonces = annonces.json();
-//      console.log(annonces);
-//      return annonces
-//  }
+ const getUserAds = async () => {
+     let annonces = await fetch(`http://localhost:5000/api/utilisateur/getAds/${JSON.parse(connectedUser)._id}`, {
+         method: "Get",
+         headers: {
+             'Content-Type': 'Application/json'
+         }
+     });
+     annonces = annonces.json();
+     console.log(annonces);
+     return annonces
+ }
 
 
 function Profil() {
 
-let connectedUser = sessionStorage.getItem("user");
-
+    getUserAds();
 
     // useEffect(() => {
 
