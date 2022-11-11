@@ -174,7 +174,7 @@ app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
 });
 
 // Requete pour obtenir la liste des annonces d'un utilisateur précis
-app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
+app.get("/api/utilisateur/getAnnonces/:pseudo", async (req, resp) => {
     const user = await User.findOne({pseudo : req.params.pseudo});
     if(user){
 
