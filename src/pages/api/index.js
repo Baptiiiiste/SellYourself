@@ -121,13 +121,19 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
 });
 
 // Requete récupération des annonces
-app.get("/api/annonce", async (req, resp) => {
-    const annonces = await Annonce.find();
+app.get("/api/annonce/:categorie", async (req, resp) => {
+    let annonces;
+    if(req.params.categorie === 'Toutes catégories'){
+        annonces = await Annonce.find();
+    }
+    else{
+        annonces = await Annonce.find( { categorie: req.params.categorie } );
+    }
     let tableau = [];
     if (annonces.length > 0){
         for(const a of annonces){
-            const utilisateur = await User.find( { pseudo: a.utilisateur } )
-            tableau.push([a, utilisateur[0]])
+            const utilisateur = await User.find( { pseudo: a.utilisateur } );
+            tableau.push([a, utilisateur[0]]);
         }
         resp.send(tableau);
     }
@@ -161,7 +167,7 @@ app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
             for( const n of utilisateur[0].noteList){
                 moy += parseInt(n.note);
             }
-            moy = moy/nbNote
+            moy = (moy/nbNote).toFixed(2)
             note = moy + "/5";
         }
         resp.send([utilisateur[0], note, nbNote]);
@@ -202,7 +208,6 @@ app.get("/api/search/:key", verifyToken, async(req,resp) => {
     });
     resp.send(result);
 })
-
 
 
 // ---------------------------------------------------------------------------------------

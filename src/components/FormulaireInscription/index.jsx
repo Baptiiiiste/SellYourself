@@ -44,7 +44,7 @@ function FormulaireInscription() {
             if(data.authToken){
                 sessionStorage.setItem("user", JSON.stringify(data.user));
                 sessionStorage.setItem("token", JSON.stringify(data.authToken));
-                navigate("/");
+                navigate("/Toutes catégories");
             }else{
                 alert(data.result);
             }

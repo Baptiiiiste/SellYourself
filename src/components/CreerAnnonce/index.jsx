@@ -13,7 +13,7 @@ function CreerAnnonce() {
     const [titre, setTitre] = useState("");
     const [description, setDescription] = useState("");
     const [prix, setPrix] = useState("");
-    const [categorie, setCategorie] = useState("Autres");
+    const [categorie, setCategorie] = useState("Autre");
     const [type, setType] = useState("Bien");
     let image;
 

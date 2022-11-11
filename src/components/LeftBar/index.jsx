@@ -25,7 +25,7 @@ function Leftbar() {
       for( const n of note){
           moy += parseInt(n.note);
       }
-      moy = moy/nbNote
+      moy = (moy/nbNote).toFixed(2)
       note = moy + "/5";
     }
     else {
@@ -36,7 +36,7 @@ function Leftbar() {
   
   const logout = () => {
     sessionStorage.clear();
-    navigate("/");
+    navigate("/Toutes catégories");
   }
 
   return connectedUser ?
@@ -50,13 +50,17 @@ function Leftbar() {
           <p>
             {pseudo}
           </p>
-          <p className='LeftBar-Note'>
-            {note} { note !== "" && note && <FontAwesomeIcon icon={faStar} /> && "(" + nbNote + " avis )"}
-          </p>
+          { note !== "" && 
+            <div className='LeftBar-Note'>
+              {note}
+              <FontAwesomeIcon icon={faStar} />
+              {"(" + nbNote + " avis )"}
+            </div>
+          }
         </div>
       </div>
       <div className='LeftBar-menu'>
-        <Link className='LeftBar-Link' to="/">
+        <Link className='LeftBar-Link' to="/Toutes catégories">
           <FontAwesomeIcon icon={faHome} />
           <p className='LeftBar-textMenu'>
             Accueil
@@ -94,7 +98,7 @@ function Leftbar() {
         </Link>
       </div>
       <div className='LeftBar-logout'>
-          <Link className='LeftBar-Link' to="/" onClick={logout}>
+          <Link className='LeftBar-Link' to="/Toutes catégories" onClick={logout}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             <p className='LeftBar-textMenu'>
               Déconnexion
