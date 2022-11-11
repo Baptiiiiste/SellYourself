@@ -76,6 +76,10 @@ function InfoAnnonce() {
         setUser(result);
     }
 
+    const addFav = () => {
+        console.log("oui");
+    }
+
     
     const user = userAll[0];
     const note = userAll[1];
@@ -91,12 +95,12 @@ function InfoAnnonce() {
                     <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={note} nbNote={nbNote} description={user.description} localisation={user.localisation} image={user.profilPic}/>
                     <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                     <div className='InfoAnnonce-Boutons'>
-                        <Link className='InfoAnnonce-Achat' to={'/validation/' + annonce._id + "/" + user.pseudo}>Acheter</Link>
+                        <Link className='InfoAnnonce-Achat' to={'/validation/' + user.pseudo + "/" + annonce._id}>Acheter</Link>
                         <Link className='InfoAnnonce-BoutonMessage' to={'/conversation'}>Contacter</Link>
                     </div>
                 </div>
                 <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image}/>
-                <button className='InfoAnnonce-AjoutFav'>
+                <button className='InfoAnnonce-AjoutFav' onClick={addFav}>
                     <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faHeart} />
                     <p>Ajouter aux favoris</p>
                 </button>

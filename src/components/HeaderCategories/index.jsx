@@ -1,14 +1,28 @@
-import React from "react";
+import React, {useState} from 'react';
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { LeftArrow, RightArrow } from "./arrows.jsx";
 import usePreventBodyScroll from "./usePreventBodyScroll.jsx";
 import { Card } from "./card.jsx";
 import './HeaderCategories.css';
+import { useNavigate } from 'react-router-dom';
 import { categories } from "../../assets/data"
 
 
 function HeaderCategories() {
   const { disableScroll, enableScroll } = usePreventBodyScroll();
+  const navigate = useNavigate();
+
+  const setCategorie = (categorie) => {
+    // if(categorie != undefined){
+    //   navigate("/" + categorie);
+    // }
+    console.log(categorie)
+  }
+
+  const [text, setText] = useState(null)
+  const showText = (text) => {
+    setText(text);
+  }
 
   return (
     <div>
@@ -19,13 +33,11 @@ function HeaderCategories() {
             RightArrow={RightArrow}
             onWheel={onWheel}
           >
-            {categories.map(({ name }, index) => (
-              <Card
-                name={name}
-                key={index}
-              >
-              </Card>
-            ))}
+            {categories.map((obj,index) => <Card name={obj.name} key={index} onClick={() => showText(obj.name)}/>)}
+              
+              {/* ({ name }, index) => (
+                <Card name={name} key={index} onClick={setCategorie(name)}/>
+            ))} */}
 
           </ScrollMenu>
         </div>

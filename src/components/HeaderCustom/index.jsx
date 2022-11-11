@@ -45,7 +45,7 @@ function HeaderCustom({title}) {
           <h1>fr</h1>
         </Link>
         <div className='headercustom-link'>
-          <Link className="headercustom-lien" to={"/annonce/" + param.annonce + "/" + param.utilisateur}>Retour</Link>
+          <Link className="headercustom-lien" to={"/annonce/" + param.utilisateur + "/" + param.annonce}>Retour</Link>
         </div>
       </header>
     )

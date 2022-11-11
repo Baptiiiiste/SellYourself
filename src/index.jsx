@@ -26,14 +26,14 @@ root.render(
         <Route path="/" element={<Home/>} />
 
         <Route element={<PrivateComponents/>}>
-          <Route path="/annonce/:annonce/:utilisateur" element={<Annonce/>} />
+          <Route path="/annonce/:utilisateur/:annonce" element={<Annonce/>} />
           <Route path="/publier" element={<Publier/>} />
           <Route path="/notifications" element={<Notification/>} />
           <Route path="/profil" element={<Profil/>} />
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
           <Route path='/conversation' element={<Conversation/>} />
-          <Route path='/validation/:annonce/:utilisateur' element={<ValiderAchat/>} />
+          <Route path='/validation/:utilisateur/:annonce' element={<ValiderAchat/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />

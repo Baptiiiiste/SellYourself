@@ -44,3 +44,8 @@
   cursor: pointer;
   transition: 0.2s;
 }
+
+.HeaderCategories-button{
+  border: 0;
+  background-color: transparent;
+}
