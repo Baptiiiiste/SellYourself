@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from 'react';
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { LeftArrow, RightArrow } from "./arrows.jsx";
 import usePreventBodyScroll from "./usePreventBodyScroll.jsx";
@@ -16,7 +16,12 @@ function HeaderCategories() {
     // if(categorie != undefined){
     //   navigate("/" + categorie);
     // }
-    console.log(categorie);
+    console.log(categorie)
+  }
+
+  const [text, setText] = useState(null)
+  const showText = (text) => {
+    setText(text);
   }
 
   return (
@@ -28,11 +33,11 @@ function HeaderCategories() {
             RightArrow={RightArrow}
             onWheel={onWheel}
           >
-            {categories.map(({ name }, index) => (
-              <button className="HeaderCategories-button" onClick={setCategorie(name)}>
-                <Card name={name} key={index} />
-              </button>
-            ))}
+            {categories.map((obj,index) => <Card name={obj.name} key={index} onClick={() => showText(obj.name)}/>)}
+              
+              {/* ({ name }, index) => (
+                <Card name={name} key={index} onClick={setCategorie(name)}/>
+            ))} */}
 
           </ScrollMenu>
         </div>
