@@ -55,14 +55,24 @@ function InfoAnnonce() {
     const [userAll, setUser] = useState([]);
 
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`);
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
         result = await result.json();
+        if(result.tokenError){
+            return alert(result.tokenError);
+        }
         setAnnonce(result);
     }
 
     const getUser = async () => {
-        let result = await fetch(`http://localhost:5000/api/user/${params.utilisateur}`);
+        let result = await fetch(`http://localhost:5000/api/utilisateur/${params.utilisateur}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
         result = await result.json();
+        if(result.tokenError){
+            return alert(result.tokenError);
+        }
         setUser(result);
     }
 

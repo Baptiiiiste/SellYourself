@@ -55,13 +55,18 @@ function CreerAnnonce() {
                 if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
                 }
             }
-            await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
+            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {
-                    'Content-Type': 'Application/json'
+                    'Content-Type': 'Application/json',
+                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                 }
             });
+            result = await result.json();
+            if(result.tokenError){
+                return alert(result.tokenError);
+            }
             navigate("/")
         }
     }
