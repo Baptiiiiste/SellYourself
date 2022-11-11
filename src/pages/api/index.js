@@ -202,9 +202,19 @@ app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
     }else{
         resp.send({result: "Une erreur est survenue avec cette utilisateur"});
         return;
-    }
+    }    
+})
 
-    
+app.get("/api/search/:key", async(req,resp) => {
+    let result = await Annonce.find({
+        "$or": [
+            {
+                name: { $regex: req.params.key}
+            },
+
+        ]
+    });
+    resp.send(result);
 })
 
 
@@ -223,19 +233,6 @@ function verifyToken(req, resp, next) {
         resp.status(403).send({result: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
-
-
-app.get("/api/search/:key", async(req,resp) => {
-    let result = await Annonce.find({
-        "$or": [
-            {
-                name: { $regex: req.params.key}
-            },
-
-        ]
-    });
-    resp.send(result);
-})
 
 // Lancement de l'API
 app.listen(5000);

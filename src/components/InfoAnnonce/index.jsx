@@ -66,6 +66,10 @@ function InfoAnnonce() {
         setUser(result);
     }
 
+    const addFav = () => {
+        console.log("oui");
+    }
+
     
     const user = userAll[0];
     const note = userAll[1];
@@ -86,7 +90,7 @@ function InfoAnnonce() {
                     </div>
                 </div>
                 <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image}/>
-                <button className='InfoAnnonce-AjoutFav'>
+                <button className='InfoAnnonce-AjoutFav' onClick={addFav}>
                     <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faHeart} />
                     <p>Ajouter aux favoris</p>
                 </button>
