@@ -65,8 +65,6 @@ function Home() {
                 />)
   }
 
-  console.log(annonces);
-
   return loader ? 
     (
     <Loader/> 

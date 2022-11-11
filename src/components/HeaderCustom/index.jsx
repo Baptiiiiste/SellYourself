@@ -29,7 +29,7 @@ function HeaderCustom({title}) {
         <h1>fr</h1>
       </Link>
       <div className='headercustom-link'>
-        <Link className="headercustom-lien" to="/">Accueil</Link>
+        <Link className="headercustom-lien" to={"/" + categorie}>Accueil</Link>
       </div>
     </header>
   )

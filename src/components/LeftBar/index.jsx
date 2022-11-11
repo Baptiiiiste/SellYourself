@@ -98,7 +98,7 @@ function Leftbar() {
         </Link>
       </div>
       <div className='LeftBar-logout'>
-          <Link className='LeftBar-Link' to="/" onClick={logout}>
+          <Link className='LeftBar-Link' to="/Toutes catégories" onClick={logout}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             <p className='LeftBar-textMenu'>
               Déconnexion
