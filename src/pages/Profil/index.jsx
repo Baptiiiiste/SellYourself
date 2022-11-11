@@ -1,6 +1,6 @@
 import "./Profil.css";
 import {useState} from 'react';
-import { Link } from 'react-router-dom';
+
 import HeaderCustom from "../../components/HeaderCustom";
 import InfoUtilisateur from "../../components/InfoUtilisateur";
 import LeftBar from "../../components/LeftBar";
@@ -28,7 +28,8 @@ function Profil() {
 			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).annonces[i]}`, {
 				method: "Get",
 				headers: {
-					'Content-Type': 'Application/json'
+					'Content-Type': 'Application/json',
+					authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
 				}
 			});
 		
