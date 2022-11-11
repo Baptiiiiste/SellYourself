@@ -19,11 +19,6 @@ function HeaderCategories() {
     console.log(categorie)
   }
 
-  const [text, setText] = useState(null)
-  const showText = (text) => {
-    setText(text);
-  }
-
   return (
     <div>
       <div className="HeaderCategories-container">
@@ -33,11 +28,9 @@ function HeaderCategories() {
             RightArrow={RightArrow}
             onWheel={onWheel}
           >
-            {categories.map((obj,index) => <Card name={obj.name} key={index} onClick={() => showText(obj.name)}/>)}
-              
-              {/* ({ name }, index) => (
-                <Card name={name} key={index} onClick={setCategorie(name)}/>
-            ))} */}
+            {categories.map((obj,index) => (
+              <Card name={obj.name} key={index} onClick={setCategorie(obj.name)}/>
+            ))}
 
           </ScrollMenu>
         </div>
