@@ -67,6 +67,22 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
 }
+  
+/* .UneAnnonce-div-Image::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.UneAnnonce-div-Image::-webkit-scrollbar {
+    height: 35px;
+}
+
+.UneAnnonce-div-Image::-webkit-scrollbar-button:single-button:horizontal:decrement {
+    background-image: url("../../assets/caret-left-solid.svg");
+}
+
+.UneAnnonce-div-Image::-webkit-scrollbar-button:single-button:horizontal:increment {
+    background-image: url("../../assets/caret-right-solid.svg");
+} */
 
 .UneAnnonce-img-annonce{
     width: 300px;

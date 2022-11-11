@@ -138,25 +138,10 @@ app.get("/api/annonce", async (req, resp) => {
 });
 
 // Requete récupération d'une annonce
-app.get("/api/annonce/:id/:pseudo", async (req, resp) => {
+app.get("/api/annonce/:id", async (req, resp) => {
     const annonce = await Annonce.find( { _id: req.params.id } )
-    const utilisateur = await User.find( { pseudo: req.params.pseudo } )
     if (annonce.length > 0){
-        let nbNote = utilisateur[0].noteList.length;
-        let note;
-        
-        if(nbNote === 0){
-            note = "Aucune note"
-        }
-        else{
-            let moy = 0;
-            for( const n of utilisateur[0].noteList){
-                moy += parseInt(n.note);
-            }
-            moy = moy/nbNote
-            note = moy + "/5";
-        }
-        resp.send([annonce[0], utilisateur[0], note, nbNote]);
+        resp.send(annonce[0]);
     }
     else{
         resp.send({erreur: "Aucune annonce"});
@@ -164,7 +149,7 @@ app.get("/api/annonce/:id/:pseudo", async (req, resp) => {
 });
 
 // Requete récupération de un utilisateur
-app.get("/api/utilisateur/:pseudo", async (req, resp) => {
+app.get("/api/user/:pseudo", async (req, resp) => {
     const utilisateur = await User.find( { pseudo: req.params.pseudo } )
     if (utilisateur.length > 0){
         let nbNote = utilisateur[0].noteList.length;

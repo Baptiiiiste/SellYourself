@@ -1,4 +1,5 @@
 import './infoAnnonce.css'
+import Loader from '../../components/Loader/index';
 import React, {useState, useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -38,33 +39,49 @@ function Annonce({titre, description, photos}){
 
 function InfoAnnonce() {
 
+    const [loader, setLoader] = useState(true);
+
     useEffect(() => {
+        setTimeout(() => {
+            setLoader(false);
+        },1000);
         getAnnonce();
+        getUser();
     }, [])
 
     const params = useParams();
 
-    const [all, setAnnonce] = useState([]);
+    const [annonce, setAnnonce] = useState([]);
+    const [userAll, setUser] = useState([]);
 
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${params.utilisateur}`);
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`);
         result = await result.json();
         setAnnonce(result);
     }
 
-    console.log(all);
+    const getUser = async () => {
+        let result = await fetch(`http://localhost:5000/api/user/${params.utilisateur}`);
+        result = await result.json();
+        setUser(result);
+    }
 
-    const annonce = all[0];
-    const user = all[1];
-    const note = all[2];
-    const nbNote = all[3];
+    
+    const user = userAll[0];
+    const note = userAll[1];
+    const nbNote = userAll[2];
 
-    return (<div className='InfoAnnonce'>
+    return loader ? 
+    (
+    <Loader/> 
+    )
+    :
+    (  <div className='InfoAnnonce'>
                 <div className='InfoAnnonce-Haut'>
                     <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={note} nbNote={nbNote} description={user.description} localisation={user.localisation} image={user.profilPic}/>
                     <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                     <div className='InfoAnnonce-Boutons'>
-                        <Link className='InfoAnnonce-Achat' to={'/validation'}>Acheter</Link>
+                        <Link className='InfoAnnonce-Achat' to={'/validation/' + annonce._id + "/" + user.pseudo}>Acheter</Link>
                         <Link className='InfoAnnonce-BoutonMessage' to={'/conversation'}>Contacter</Link>
                     </div>
                 </div>
