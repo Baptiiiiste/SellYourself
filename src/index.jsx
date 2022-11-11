@@ -33,7 +33,7 @@ root.render(
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
           <Route path='/conversation' element={<Conversation/>} />
-          <Route path='/validation' element={<ValiderAchat/>} />
+          <Route path='/validation/:annonce/:utilisateur' element={<ValiderAchat/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />

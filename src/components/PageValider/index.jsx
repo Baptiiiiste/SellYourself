@@ -1,7 +1,6 @@
 import './PageValider.css'
 
-function ValidationAchat() { 
-
+function ValidationAchat({annonce}) { 
 
     return (
         <div className="PageValider">
@@ -9,8 +8,8 @@ function ValidationAchat() {
             <div className="PageValider-Annonce">
             <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='PageValider-Image'/>
                 <div className="PageValider-InfoAchat">
-                    <p className='PageValider-NomAnnonce'>Nom de l'annonce</p>
-                    <p className='PageValider-PrixAnnonce'>XX.XX€</p>
+                    <p className='PageValider-NomAnnonce'>{annonce.titre}</p>
+                    <p className='PageValider-PrixAnnonce'>{annonce.prix}€</p>
                 </div>
             </div>
             <div className='PageValider-DivBouton'>

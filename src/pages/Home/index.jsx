@@ -9,7 +9,7 @@ import UneAnnonce from '../../components/UneAnnonce';
 
 function Home() {
 
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   const categorie = 'Toutes les catégories';
   const recherche = 'Toutes les annonces';
@@ -19,10 +19,8 @@ function Home() {
   useEffect(() => {
       setTimeout(() => {
           setLoader(false);
-          getAnnonces();
       },1000);
-
-      
+      getAnnonces();
   }, [])
 
   const getAnnonces = async () => {

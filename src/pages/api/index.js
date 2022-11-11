@@ -149,10 +149,23 @@ app.get("/api/annonce/:id", async (req, resp) => {
 });
 
 // Requete récupération de un utilisateur
-app.get("/api/utilisateur/:pseudo", async (req, resp) => {
+app.get("/api/user/:pseudo", async (req, resp) => {
     const utilisateur = await User.find( { pseudo: req.params.pseudo } )
     if (utilisateur.length > 0){
-        resp.send(utilisateur[0]);
+        let nbNote = utilisateur[0].noteList.length;
+        let note;
+        if(nbNote === 0){
+            note = "Aucune note"
+        }
+        else{
+            let moy = 0;
+            for( const n of utilisateur[0].noteList){
+                moy += parseInt(n.note);
+            }
+            moy = moy/nbNote
+            note = moy + "/5";
+        }
+        resp.send([utilisateur[0], note, nbNote]);
     }
     else{
         resp.send({erreur: "Aucun utilisateur"});

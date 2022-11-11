@@ -12,7 +12,7 @@ function Vendeur({pseudo, photo, note}){
     else{
         let moy = 0;
         for( const n of note){
-            moy += n.note;
+            moy += parseInt(n.note);
         }
         moy = moy/nbNote
         note = moy + "/5";
