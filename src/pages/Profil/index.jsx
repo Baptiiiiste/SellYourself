@@ -1,6 +1,6 @@
 import "./Profil.css";
 import {useState} from 'react';
-import { Link } from 'react-router-dom';
+
 import HeaderCustom from "../../components/HeaderCustom";
 import InfoUtilisateur from "../../components/InfoUtilisateur";
 import LeftBar from "../../components/LeftBar";
@@ -12,34 +12,46 @@ import AnnonceProfil from "../../components/AnnonceProfil";
 
 function Profil() {
 
+
+
     let connectedUser = sessionStorage.getItem("user");
 
-    const getUserAds = async () => {
-        let annonces = await fetch(`http://localhost:5000/api/utilisateur/getAnnonces/${JSON.parse(connectedUser).pseudo}`, {
-            method: "Get",
-            headers: {
-                'Content-Type': 'Application/json'
-            }
-        });
-        annonces = annonces.json();
-        return annonces;
-    }
+	useEffect(() => {
+		getUserAds();
+	}, [connectedUser])
 
-    let annonces = [];
-    getUserAds().then(e => {
-        for(let i in Object.keys(e)){
-            annonces.push(e[i]);
-        }
-    });
-    console.log("---------------------------------------------------------")
-    console.log()
+    const [annonces, setAnnonces] = useState([]);
+
+    const getUserAds = async () => {
+		let listAds = [];
+		for(let i = 0; i < (JSON.parse(connectedUser).annonces).length; i++){
+			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).annonces[i]}`, {
+				method: "Get",
+				headers: {
+					'Content-Type': 'Application/json',
+					authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+				}
+			});
+		
+			a = await a.json().then(a => listAds.push(a));
+		}
+		setAnnonces(listAds)
+	}
+
+	
+	const displayAnnonce = (item, index) => {
+		const annonce = item;
+	
+		return (<AnnonceProfil titre={annonce.titre}
+			description={annonce.description}
+			prix={annonce.prix}
+			img_annonce={annonce.img}
+			key={index}
+		/>)
+
+	  }
 
     
-
-    // useEffect(() => {
-
-    // }, [connectedUser])
-
 
     return (
         <div className='Profil'>
@@ -51,16 +63,9 @@ function Profil() {
                 <div className="Profil-info">
                     <InfoUtilisateur />
                     <div className="Profil-annonces">
-                        {annonces.map(({ titre, description, prix, img }, index) => (
-                            <AnnonceProfil titre={titre}
-                                description={description}
-                                prix={prix}
-                                img_annonce={img}
-                                key={index}
-
-                            />
-
-                        ))}
+						{annonces.map((item, index) => (
+							displayAnnonce(item, index)
+						))}
                     </div>
                 </div>
             </div>
