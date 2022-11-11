@@ -40,7 +40,6 @@ function CreerAnnonce() {
 
     const formulaire = async () => {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
-        console.log(nbImage);
         if(!titre || !prix || nbImage === 0 || prix > 99999){
             alert("Vous devez renseigner au moins le titre, le prix de l'annonce ainsi qu'une image.");
         }else if(titre && prix && nbImage > 0 && prix <= 99999){
@@ -68,7 +67,9 @@ function CreerAnnonce() {
             if(result.tokenError){
                 return alert(result.tokenError);
             }
-            navigate("/")
+            sessionStorage.removeItem("user");
+            sessionStorage.setItem("user", JSON.stringify(result.user));
+            navigate("/");
         }
     }
 

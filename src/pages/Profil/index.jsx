@@ -13,12 +13,12 @@ import AnnonceProfil from "../../components/AnnonceProfil";
 function Profil() {
 
 
-
+	
     let connectedUser = sessionStorage.getItem("user");
 
 	useEffect(() => {
 		getUserAds();
-	}, [connectedUser])
+	}, [])
 
     const [annonces, setAnnonces] = useState([]);
 
@@ -46,6 +46,8 @@ function Profil() {
 			description={annonce.description}
 			prix={annonce.prix}
 			img_annonce={annonce.img}
+			id = {annonce._id}
+			owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
 			key={index}
 		/>)
 

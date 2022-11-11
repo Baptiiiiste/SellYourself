@@ -104,7 +104,7 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
 app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
     const utilisateur = req.params.pseudo;
     let annonce = new Annonce(req.body);
-    let result = await annonce.save();
+    await annonce.save();
 
     await User.updateOne(
         { pseudo: req.params.pseudo },
@@ -115,7 +115,9 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
         { _id: annonce._id },
         { $set: {utilisateur: utilisateur} }
     )
-    resp.send(result);
+
+    const newUser = await User.findOne({ pseudo: req.params.pseudo })
+    resp.send({user : newUser});
 });
 
 // Requete récupération des annonces
@@ -171,16 +173,21 @@ app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
 
 
 // Requete de suppresion d'une annonce
-app.delete("/api/annonce/deleteAds/:idUser/:idAds", verifyToken, async (req, resp) => {
+app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
 
-    let resAds = await Annonce.deleteOne({_id : req.params.idAds});
+    let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
     let resUser = await User.updateOne(
         { _id : req.params.idUser },
         { $pull: { annonces: req.params.idAds } }
     )
-    if(resAds && resUser)
-        resp.send({annonce: resAds, user: resUser});
-    else resp.send({result: "Erreur lors de la suppression"})
+    if(resAds && resUser){
+        const newUser = await User.findOne({ _id : req.params.idUser });
+        resp.send({user: newUser});
+    }
+    else{
+        resp.send({erreur: "Erreur lors de la suppression"})
+    } 
+
 });
 
 
