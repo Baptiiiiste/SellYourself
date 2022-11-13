@@ -1,7 +1,6 @@
 import './PageValider.css'
 
 function ValidationAchat({annonce}) { 
-
     return (
         <div className="PageValider">
             <p className='PageValider-Titre'>ACHAT</p>
