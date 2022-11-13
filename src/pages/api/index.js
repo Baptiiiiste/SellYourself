@@ -167,7 +167,7 @@ app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
             for( const n of utilisateur[0].noteList){
                 moy += parseInt(n.note);
             }
-            moy = (moy/nbNote).toFixed(2)
+            moy = Number((moy/nbNote).toFixed(2));
             note = moy + "/5";
         }
         resp.send([utilisateur[0], note, nbNote]);

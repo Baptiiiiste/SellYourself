@@ -25,7 +25,7 @@ function Leftbar() {
       for( const n of note){
           moy += parseInt(n.note);
       }
-      moy = (moy/nbNote).toFixed(2)
+      moy = Number((moy/nbNote).toFixed(2));
       note = moy + "/5";
     }
     else {
