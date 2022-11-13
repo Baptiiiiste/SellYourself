@@ -121,7 +121,7 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
 });
 
 // Requete récupération des annonces
-app.get("/api/annonce/:categorie", async (req, resp) => {
+app.get("/api/annonce/search/:categorie", async (req, resp) => {
     let annonces;
     if(req.params.categorie === 'Toutes catégories'){
         annonces = await Annonce.find();

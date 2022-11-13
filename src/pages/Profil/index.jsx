@@ -32,15 +32,14 @@ function Profil() {
 					authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
 				}
 			});
-		
 			a = await a.json().then(a => listAds.push(a));
 		}
 		setAnnonces(listAds)
 	}
-
 	
 	const displayAnnonce = (item, index) => {
 		const annonce = item;
+		console.log(annonce);
 	
 		return (<AnnonceProfil titre={annonce.titre}
 			description={annonce.description}

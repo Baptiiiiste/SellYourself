@@ -27,7 +27,7 @@ function Home() {
   }, [])
 
   const getAnnonces = async () => {
-    let result = await fetch(`http://localhost:5000/api/annonce/${categorie}`);
+    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}`);
     result = await result.json();
     setAnnonces(result);
   }
