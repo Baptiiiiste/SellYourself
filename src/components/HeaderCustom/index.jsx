@@ -18,18 +18,17 @@ const searchHandle= async (e)=>{
 function HeaderCustom({title}) {
 
   const param = useParams();
-  const categorie = "Toutes catégories";
 
   if(title === "logForm") return(
     <header>
-      <Link to={"/" + categorie} className="headercustom-logo2">
+      <Link to="/" className="headercustom-logo2">
         <img src={require('../../assets/Logo.png')} alt=""/>
         <h1>SellYourself</h1>
         <h1 className='headercustom-point'>.</h1>
         <h1>fr</h1>
       </Link>
       <div className='headercustom-link'>
-        <Link className="headercustom-lien" to={"/" + categorie}>Accueil</Link>
+        <Link className="headercustom-lien" to="/">Accueil</Link>
       </div>
     </header>
   )
@@ -39,7 +38,7 @@ function HeaderCustom({title}) {
 
     return(
       <header>
-        <Link to={"/" + categorie} className="headercustom-logo2">
+        <Link to="/" className="headercustom-logo2">
           <img src={require('../../assets/Logo.png')} alt=""/>
           <h1>SellYourself</h1>
           <h1 className='headercustom-point'>.</h1>
@@ -55,7 +54,7 @@ function HeaderCustom({title}) {
   if(title === "homePage") return(
     <div className='headercustom-global'>
       <div className='headercustom-bar'>
-        <Link to={"/" + categorie} className="headercustom-logo3">
+        <Link to="/" className="headercustom-logo3">
           <img src={require('../../assets/Logo.png')} alt=""/>
           <h1>SellYourself</h1>
           <h1 className='headercustom-point'>.</h1>
@@ -80,7 +79,7 @@ function HeaderCustom({title}) {
 
   return (
     <header>
-        <Link to={"/" + categorie} className="headercustom-logo">
+        <Link to="/" className="headercustom-logo">
           <img src={require('../../assets/Logo.png')} alt=""/>
           <h1>SellYourself</h1>
           <h1 className='headercustom-point'>.</h1>

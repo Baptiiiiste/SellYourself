@@ -23,7 +23,7 @@ root.render(
     <Router>
 
       <Routes>
-        <Route path="/:categorie" element={<Home/>} />
+        <Route path="/" element={<Home/>} />
 
         <Route element={<PrivateComponents/>}>
           <Route path="/annonce/:utilisateur/:annonce" element={<Annonce/>} />

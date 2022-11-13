@@ -11,9 +11,6 @@ import AnnonceProfil from "../../components/AnnonceProfil";
 
 
 function Profil() {
-
-
-	
     let connectedUser = sessionStorage.getItem("user");
 
 	useEffect(() => {

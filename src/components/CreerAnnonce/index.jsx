@@ -69,7 +69,7 @@ function CreerAnnonce() {
             }
             sessionStorage.removeItem("user");
             sessionStorage.setItem("user", JSON.stringify(result.user));
-            navigate("/Toutes catégories");
+            navigate("/");
         }
     }
 

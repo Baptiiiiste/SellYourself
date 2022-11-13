@@ -12,7 +12,7 @@ function Home() {
   const params = useParams();
   const [loader, setLoader] = useState(true);
 
-  const categorie = params.categorie;
+  const categorie = 'Toutes catégories';
   const recherche = 'Toutes les annonces';
 
   const [annonces, setAnnonces] = useState([]);
@@ -35,7 +35,6 @@ function Home() {
   setTimeout(() => {
     if(annonces.length === 0){
       const div = document.querySelector(".Home-lesAnnonces");
-      console.log(div.firstChild);
       while (div.firstChild!=null) {
         div.removeChild(div.lastChild);
       }

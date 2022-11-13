@@ -36,7 +36,7 @@ function Leftbar() {
   
   const logout = () => {
     sessionStorage.clear();
-    navigate("/Toutes catégories");
+    navigate("/");
   }
 
   return connectedUser ?
@@ -60,7 +60,7 @@ function Leftbar() {
         </div>
       </div>
       <div className='LeftBar-menu'>
-        <Link className='LeftBar-Link' to="/Toutes catégories">
+        <Link className='LeftBar-Link' to="/">
           <FontAwesomeIcon icon={faHome} />
           <p className='LeftBar-textMenu'>
             Accueil
@@ -98,7 +98,7 @@ function Leftbar() {
         </Link>
       </div>
       <div className='LeftBar-logout'>
-          <Link className='LeftBar-Link' to="/Toutes catégories" onClick={logout}>
+          <Link className='LeftBar-Link' to="/" onClick={logout}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             <p className='LeftBar-textMenu'>
               Déconnexion

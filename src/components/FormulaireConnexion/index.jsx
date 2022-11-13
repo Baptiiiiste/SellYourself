@@ -21,7 +21,7 @@ function FormulaireConnexion() {
         if(result.authToken){
             sessionStorage.setItem("user", JSON.stringify(result.user));
             sessionStorage.setItem("token", JSON.stringify(result.authToken));
-            navigate("/Toutes catégories");
+            navigate("/");
         }else{
             alert(result.result);
         }
