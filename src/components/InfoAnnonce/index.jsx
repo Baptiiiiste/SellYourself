@@ -8,10 +8,27 @@ import axios from 'axios';
 
 function Utilisateur({pseudo, prenom, nom, note, nbNote, description, localisation, image}){
 
+    // const [data,setData] = useState([])
+    // useEffect(()=>{
+    //     axios.get('http://localhost:5000')
+    //     .then((res)=>setData(res.data))
+    //     .catch((err)=> console.log(err,"it has an error"));
+    // })
+    
     return(
         <div className='InfoAnnonce-InfoEtPhotoVendeur'>
-            <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/>
+            {/* {
+                data.map((singleData)=>{
+                    const base64String = btoa(
+                        String.fromCharCode(...new Uint8Array((singleData.image.data.data)))
+                    );
+                    return <img src={`data:image/png;base64,${base64String}`} alt="" className='InfoAnnonce-PhotoVendeur'/>
+                })
+
+            } */}
+            {/* <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/> */}
             <div className='InfoAnnonce-InfosVendeur'>
+                
                     <p className='InfoAnnonce-NomVendeur'>{pseudo} : {prenom} {nom}</p>
                     <p className='InfoAnnonce-Note'>Note: {note}{ note !== "Aucune note" && <FontAwesomeIcon icon={faStar} />} ( {nbNote} avis )</p>
                     <p className='InfoAnnonce-DescriptionVendeur'>{description}</p>
@@ -22,26 +39,13 @@ function Utilisateur({pseudo, prenom, nom, note, nbNote, description, localisati
 }
 
 function Annonce({titre, description, photos}){
-    const [data,setData] = useState([])
-    useEffect(()=>{
-        axios.get('http://localhost:5000')
-        .then((res)=>setData(res.data))
-        .catch((err)=> console.log(err,"it has an error"));
-    })
+    
     return(
         <div className='InfoAnnonce-Annonce'>
             <p className='InfoAnnonce-NomAnnonce'>{titre}</p>
             <p className='InfoAnnonce-DescriptionAnnonce'>{description}</p>
             <div className='InfoAnnonce-PhotosAnnonce'>
-                {/* {
-                    data.map((singleData)=>{
-                        const base64String = btoa(
-                            String.fromCharCode(...new Uint8Array((singleData.image.data.data)))
-                        );
-                        return <img src={`data:image/png;base64,${base64String}`}/>
-                    })
-
-                } */}
+                <img src={require('../../assets/annonce1.jpg')} alt="" />
                 <img src={require('../../assets/annonce2.jpg')} alt="" />
                 <img src={require('../../assets/annonce3.jpg')} alt="" />
                 <img src={require('../../assets/annonce1.jpg')} alt="" />
