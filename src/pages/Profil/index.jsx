@@ -8,8 +8,6 @@ import { useEffect } from "react";
 import AnnonceProfil from "../../components/AnnonceProfil";
 
 
-
-
 function Profil() {
     let connectedUser = sessionStorage.getItem("user");
 
