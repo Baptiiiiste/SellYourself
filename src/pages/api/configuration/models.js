@@ -33,10 +33,9 @@ const annonceSchema = new mongoose.Schema({
 });
 
 
-
 const notificationSchema = new mongoose.Schema({
-    type: {type: String, required: true},
-    content: {type: String, required: true}
+    type: {type: String},
+    content: {type: String}
 });
 
 module.exports = {

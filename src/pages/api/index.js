@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const { User, Annonce } = require("./configuration/models");
+const { User, Annonce, Notification } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
+const mongoose = require("mongoose")
 
 
 
@@ -223,11 +224,15 @@ app.get("/api/search/:key", verifyToken, async(req,resp) => {
 
 
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
-    if(!req.body.type || !req.body.message) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
-
+    if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
+    const notif = new Notification({type: req.body.type, content: req.body.content});
     let result = await User.updateOne(
         {pseudo : req.params.pseudo},
-        { $push: {notifications: {type: req.body.type, message: req.body.message } } }
+        { $push: 
+            {notifications: 
+                notif
+            } 
+        }
     );
 
     if(result){
@@ -239,6 +244,25 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     }
 
 })
+
+// app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
+
+//     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
+//     let resUser = await User.updateOne(
+//         { _id : req.params.idUser },
+//         { $pull: { annonces: req.params.idAds } }
+//     )
+//     if(resAds && resUser){
+//         const newUser = await User.findOne({ _id : req.params.idUser });
+//         resp.send({user: newUser});
+//     }
+//     else{
+//         resp.send({erreur: "Erreur lors de la suppression"})
+//     } 
+
+// });
+
+
 
 // ---------------------------------------------------------------------------------------
 
