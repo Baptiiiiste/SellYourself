@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { LeftArrow, RightArrow } from "./arrows.jsx";
 import usePreventBodyScroll from "./usePreventBodyScroll.jsx";
@@ -10,6 +10,7 @@ import { categories } from "../../assets/data"
 function HeaderCategories() {
   const { disableScroll, enableScroll } = usePreventBodyScroll();
 
+
   return (
     <div>
       <div className="HeaderCategories-container">
@@ -19,12 +20,8 @@ function HeaderCategories() {
             RightArrow={RightArrow}
             onWheel={onWheel}
           >
-            {categories.map(({ name }, index) => (
-              <Card
-                name={name}
-                key={index}
-              >
-              </Card>
+            {categories.map((obj,index) => (
+              <Card name={obj.name} key={index}/>
             ))}
 
           </ScrollMenu>

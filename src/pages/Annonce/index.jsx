@@ -13,15 +13,7 @@ function Annonce() {
                     <HeaderCustom title="Annonce"/>
                 </div> 
                 <div className='Annonce-lesAnnonces'>
-                    <InfoAnnonce nom={"Thomas Pasquet"} 
-                                note={4.4} 
-                                descriptionVendeur={"Je suis une description vendeur"} 
-                                localisation={"Paris"} 
-                                image={"test"} 
-                                titre={"Titre de l'annonce ici"} 
-                                descriptionAnnonce={"Je suis une description annonce OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"} 
-                                photos={"test"} 
-                                prix={27.5}/>
+                    <InfoAnnonce />
                 </div>
             </div>
         </div>

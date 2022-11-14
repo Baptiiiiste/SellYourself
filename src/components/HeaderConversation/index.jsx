@@ -1,8 +1,9 @@
 import "./HeaderConversation.css"
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function HeaderConversation({image, titre, description}) {
+  const param = useParams();
   return(
     <div className="HeaderConversation">
       <div className="HeaderConversation-annonce">
@@ -12,7 +13,7 @@ function HeaderConversation({image, titre, description}) {
             <p className="HeaderConversation-description">{description}</p>
         </div>
       </div>
-        <Link className="HeaderConversation-lien" to="/annonce">Voir l'annonce</Link>
+        <Link className="HeaderConversation-lien" to={"/annonce/" + param.utilisateur + "/" + param.annonce}>Voir l'annonce</Link>
     </div>
   )
 }
