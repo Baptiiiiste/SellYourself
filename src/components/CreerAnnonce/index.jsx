@@ -13,16 +13,15 @@ function CreerAnnonce() {
     const [titre, setTitre] = useState("");
     const [description, setDescription] = useState("");
     const [prix, setPrix] = useState("");
-    const [categorie, setCategorie] = useState("Autres");
+    const [categorie, setCategorie] = useState("Autre");
     const [type, setType] = useState("Bien");
     let image;
-    let nbImage = 0;
 
     const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const array = document.querySelector('.CreerAnnonce-Image').files;
 
-        nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
+        const nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
 
         if(nbImage > 10){
             alert("Vous ne pouvez choisir plus de 10 images !")
@@ -40,9 +39,10 @@ function CreerAnnonce() {
     }
 
     const formulaire = async () => {
-        if(!titre || !prix || nbImage === 0){
+        const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
+        if(!titre || !prix || nbImage === 0 || prix > 99999){
             alert("Vous devez renseigner au moins le titre, le prix de l'annonce ainsi qu'une image.");
-        }else if(titre && prix && nbImage > 0){
+        }else if(titre && prix && nbImage > 0 && prix <= 99999){
             if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
                 alert("Le titre est invalide");
             }
@@ -55,14 +55,21 @@ function CreerAnnonce() {
                 if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
                 }
             }
-            await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
+            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {
-                    'Content-Type': 'Application/json'
+                    'Content-Type': 'Application/json',
+                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                 }
             });
-            navigate("/")
+            result = await result.json();
+            if(result.tokenError){
+                return alert(result.tokenError);
+            }
+            sessionStorage.removeItem("user");
+            sessionStorage.setItem("user", JSON.stringify(result.user));
+            navigate("/");
         }
     }
 
@@ -81,8 +88,8 @@ function CreerAnnonce() {
 
             <input placeholder='Prix' 
                     type="number" 
-                    min='0' 
-                    max='99999' 
+                    min = "0"
+                    max="99999" 
                     className="CreerAnnonce-Prix" 
                     onChange={(ev) => {setPrix(ev.target.value)}}/>
 

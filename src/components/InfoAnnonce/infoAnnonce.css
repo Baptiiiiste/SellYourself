@@ -65,6 +65,9 @@
     font-size: 20px;
 }
 
+.InfoAnnonce-NomAnnonce{
+    font-weight: bold;
+}
 .InfoAnnonce-DescriptionAnnonce{
     width: 70%;
     word-wrap: break-word;

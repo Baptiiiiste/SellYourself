@@ -65,7 +65,7 @@ app.post("/api/connexion", async (req, resp) => {
 })
 
 // Requete de modification des informations d'un utilisateur
-app.put("/api/utilisateur/updateUser/:id", async (req, resp) => {
+app.put("/api/utilisateur/updateUser/:id", verifyToken, async (req, resp) => {
 
     const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     if(!isEmailAlreadyTaken){
@@ -82,11 +82,8 @@ app.put("/api/utilisateur/updateUser/:id", async (req, resp) => {
 })
 
 
-
-
-
 // Requete de modification du mot de passe d'un utilisateur
-app.post("/api/utilisateur/updatePassword/:id", async (req, resp) => {
+app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) => {
 
     const userToUpdate = await User.findOne({ _id: req.params.id });
     if(bcrypt.compareSync(req.body.oldPassword, userToUpdate.password)){
@@ -104,10 +101,10 @@ app.post("/api/utilisateur/updatePassword/:id", async (req, resp) => {
 
 
 // Requete new annonce
-app.post("/api/publier/:pseudo", async (req, resp) => {
+app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
     const utilisateur = req.params.pseudo;
     let annonce = new Annonce(req.body);
-    let result = await annonce.save();
+    await annonce.save();
 
     await User.updateOne(
         { pseudo: req.params.pseudo },
@@ -118,17 +115,25 @@ app.post("/api/publier/:pseudo", async (req, resp) => {
         { _id: annonce._id },
         { $set: {utilisateur: utilisateur} }
     )
-    resp.send(result);
+
+    const newUser = await User.findOne({ pseudo: req.params.pseudo })
+    resp.send({user : newUser});
 });
 
 // Requete récupération des annonces
-app.get("/api/annonce", async (req, resp) => {
-    const annonces = await Annonce.find();
+app.get("/api/annonce/search/:categorie", async (req, resp) => {
+    let annonces;
+    if(req.params.categorie === 'Toutes catégories'){
+        annonces = await Annonce.find();
+    }
+    else{
+        annonces = await Annonce.find( { categorie: req.params.categorie } );
+    }
     let tableau = [];
     if (annonces.length > 0){
         for(const a of annonces){
-            const utilisateur = await User.find( { pseudo: a.utilisateur } )
-            tableau.push([a, utilisateur[0]])
+            const utilisateur = await User.find( { pseudo: a.utilisateur } );
+            tableau.push([a, utilisateur[0]]);
         }
         resp.send(tableau);
     }
@@ -138,7 +143,7 @@ app.get("/api/annonce", async (req, resp) => {
 });
 
 // Requete récupération d'une annonce
-app.get("/api/annonce/:id", async (req, resp) => {
+app.get("/api/annonce/:id", verifyToken, async (req, resp) => {
     const annonce = await Annonce.find( { _id: req.params.id } )
     if (annonce.length > 0){
         resp.send(annonce[0]);
@@ -149,10 +154,23 @@ app.get("/api/annonce/:id", async (req, resp) => {
 });
 
 // Requete récupération de un utilisateur
-app.get("/api/utilisateur/:pseudo", async (req, resp) => {
+app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
     const utilisateur = await User.find( { pseudo: req.params.pseudo } )
     if (utilisateur.length > 0){
-        resp.send(utilisateur[0]);
+        let nbNote = utilisateur[0].noteList.length;
+        let note;
+        if(nbNote === 0){
+            note = "Aucune note"
+        }
+        else{
+            let moy = 0;
+            for( const n of utilisateur[0].noteList){
+                moy += parseInt(n.note);
+            }
+            moy = Number((moy/nbNote).toFixed(2));
+            note = moy + "/5";
+        }
+        resp.send([utilisateur[0], note, nbNote]);
     }
     else{
         resp.send({erreur: "Aucun utilisateur"});
@@ -164,7 +182,6 @@ app.get("/api/utilisateur/:pseudo", async (req, resp) => {
 app.get("/api/favoris/:pseudo", async (req, resp) => {
     const user = await User.findOne({pseudo : req.params.pseudo});
     if(user){
-
         let listID = user.favoris;
         let listFavs = [];
         for(let i = 0; i<listID.length; i++){
@@ -193,40 +210,39 @@ app.post("/api/annonce/addFavoris/:pseudo/:idAds", async (req, resp) => {
 });
 
 
-// Requete de suppression d'une annonce
-app.delete("/api/annonce/deleteAds/:idUser/:idAds", async (req, resp) => {
+// Requete de suppresion d'une annonce
+app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
 
-    let resAds = await Annonce.deleteOne({_id : req.params.idAds});
+    let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
     let resUser = await User.updateOne(
         { _id : req.params.idUser },
         { $pull: { annonces: req.params.idAds } }
     )
-    if(resAds && resUser)
-        resp.send({annonce: resAds, user: resUser});
-    else resp.send({result: "Erreur lors de la suppression"})
+    if(resAds && resUser){
+        const newUser = await User.findOne({ _id : req.params.idUser });
+        resp.send({user: newUser});
+    }
+    else{
+        resp.send({erreur: "Erreur lors de la suppression"})
+    } 
+
 });
 
-// Requete pour obtenir la liste des annonces d'un utilisateur précis
-app.get("/api/utilisateur/getAds/:pseudo", async (req, resp) => {
-    const user = await User.findOne({pseudo : req.params.pseudo});
-    if(user){
 
-        let listID = user.annonces;
-        let listAds = [];
-        for(let i = 0; i<listID.length; i++){
-            listAds.push(await Annonce.findOne({_id : listID[i]}));
-        }
+app.get("/api/search/:key", verifyToken, async(req,resp) => {
+    let result = await Annonce.find({
+        "$or": [
+            {
+                name: { $regex: req.params.key}
+            },
 
-        resp.send( listAds );
-
-    }else{
-        resp.send({result: "Une erreur est survenue avec cette utilisateur"});
-        return;
-    }
-
-    
+        ]
+    });
+    resp.send(result);
 })
 
+
+// ---------------------------------------------------------------------------------------
 
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
@@ -235,12 +251,12 @@ function verifyToken(req, resp, next) {
 
         token = token.split(" ")[1];
         Jwt.verify(token, process.env.JWTKEY,(err, success) => {
-            if(err) resp.status(401).send({result: "Veuillez renseigner un token valide"});
+            if(err) resp.status(401).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
             else next();
         });
     
     }else{
-        resp.status(403).send({result: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+        resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
 
