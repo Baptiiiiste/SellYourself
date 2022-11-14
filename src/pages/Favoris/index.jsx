@@ -23,23 +23,23 @@ const favs = [
     {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
 ]
 
+const connectedUser = sessionStorage.getItem("user");
+
+const getUserFavs = async () => {
+    let favoris = await fetch(`http://localhost:5000/api/favoris/${JSON.parse(connectedUser).pseudo}`, {
+        method: "Get",
+        headers: {
+            'Content-Type': 'Application/json'
+        }
+    });
+    favoris = favoris.json();
+    console.log(favoris);
+    return favoris
+}
+
 function Favoris() {
 
-    const connectedUser = sessionStorage.getItem("user");
-
-    const [favoris, setFavoris] = useState();
-
-    const getFavoris = async () => {
-        let result = await fetch(`http://localhost:5000/api/favoris/${JSON.parse(connectedUser).pseudo}`, {
-            method: "Get"
-        });
-        result = await result.json();
-        setFavoris(result);
-    }
-
-    useEffect(() => {
-        getFavoris();
-    }, [])
+    getUserFavs();
 
     return (
         <div className='Favoris'>
