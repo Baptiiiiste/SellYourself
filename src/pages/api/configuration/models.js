@@ -40,8 +40,8 @@ const noteSchema = new mongoose.Schema({
 });
 
 const notificationSchema = new mongoose.Schema({
-    type: {type: String},
-    content: {type: String}
+    type: {type: String, required: true},
+    content: {type: String, required: true}
 });
 
 

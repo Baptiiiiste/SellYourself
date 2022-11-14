@@ -6,63 +6,96 @@ import HeaderCustom from '../../components/HeaderCustom';
 import LeftBar from '../../components/LeftBar';
 import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
-import { useParams } from 'react-router-dom';
 
 function Home() {
-  const params = useParams();
   const [loader, setLoader] = useState(true);
 
-  const categorie = 'Toutes catégories';
   const recherche = 'Toutes les annonces';
 
-  const [annonces, setAnnonces] = useState([]);
-  
+  const [annonces, setAnnonces] = useState();
+  const [categorie, setCategorie] = useState("Toutes catégories");
+  const [divCategorie, setDivCategorie] = useState();
 
   useEffect(() => {
       getAnnonces();
       setTimeout(() => {
           setLoader(false);
+          getDivCategorie();
       },1000);
-      
   }, [])
 
+  // useEffect(() => {
+  //   getCategorie();
+  // }, [divCategorie])
+
   const getAnnonces = async () => {
-    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}`);
+    let result = await fetch(`http://localhost:5000/api/annonces`);
     result = await result.json();
     setAnnonces(result);
   }
 
-  setTimeout(() => {
-    if(annonces.length === 0){
-      const div = document.querySelector(".Home-lesAnnonces");
-      while (div.firstChild!=null) {
-        div.removeChild(div.lastChild);
-      }
-  
-      const p = document.createElement("p");
-      p.innerHTML = "Aucune annonce disponible";
-      p.className = "Home-Aucune";
-      div.appendChild(p);
-    }
-  },1000);
+  const getDivCategorie = () => {
+    const div = document.querySelector('.Home-display-categorie');
+    setDivCategorie(div);
+  }
 
-  
+  const getCategorie = () => {
+    const p = divCategorie.innerHTML;
+    setCategorie(p);
+  }
 
   const displayAnnonce = (item, index) => {
     const annonce = item[0];
     const user = item[1];
 
-    return (<UneAnnonce id={annonce._id}
-                  titre={annonce.titre}
-                  description={annonce.description}
-                  prix={annonce.prix}
-                  img_annonce={annonce.img_annonce} 
-                  pseudoVendeur={user.pseudo}
-                  img_profil={user.profilPic}
-                  note={user.noteList}
-                  key={index}
-                />)
+    console.log(categorie);
+    if (annonce.categorie = categorie || categorie === 'Toutes categories'){
+      
+      return (<UneAnnonce id={annonce._id}
+        titre={annonce.titre}
+        description={annonce.description}
+        prix={annonce.prix}
+        img_annonce={annonce.img_annonce} 
+        pseudoVendeur={user.pseudo}
+        img_profil={user.profilPic}
+        note={user.noteList}
+        key={index}
+      />)
+    }
   }
+
+  const displayLesAnnonces = () => {
+    const nbAnnonces = annonces[1];
+    if(nbAnnonces === 0){
+      setTimeout(() => {
+        const div = document.querySelector(".Home-lesAnnonces");
+        while (div.firstChild!=null) {
+          div.removeChild(div.lastChild);
+        }
+    
+        const p = document.createElement("p");
+        p.innerHTML = "Aucune annonce disponible";
+        p.className = "Home-Aucune";
+        div.appendChild(p);
+      },1000);
+    }
+
+    else{
+      return (annonces[0].map((item, index) => (
+        displayAnnonce(item, index)
+      )))
+    }
+  } 
+
+  // let observer = new MutationObserver(MutationRecord => {
+  //   // displayLesAnnonces();
+  //   console.log(MutationRecord);
+  // })
+
+  // const divCategorie = document.getElementById("categorie");
+  // console.log(divCategorie);
+
+  // observer.observe(divCategorie);
 
   return loader ? 
     (
@@ -79,16 +112,14 @@ function Home() {
         </div>
         <div className='Home-all'>
           <div className='Home-div-Categorie'>
-            <p className='Home-categorie'>Catégorie : </p> <p className='Home-display-categorie' >{categorie}</p>
+            <p className='Home-categorie'>Catégorie : </p> <p id='categorie' className='Home-display-categorie'>{categorie}</p>
           </div>
           <div className='Home-div-search'>
             <p className='Home-search'>Recherche : </p> <p className='Home-display-search'>{recherche}</p>
           </div>
           
           <div className='Home-lesAnnonces'>
-            {annonces.map((item, index) => (
-              displayAnnonce(item, index)
-              ))}
+            {displayLesAnnonces()}
           </div>
         </div>
         

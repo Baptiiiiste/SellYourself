@@ -1,10 +1,9 @@
 const express = require("express");
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const { User, Annonce, Image } = require("./configuration/models");
+const { User, Annonce, Notification, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
-const multer = require("multer");
-const fs = require('fs');
+
 
 
 // Création de l'API
@@ -122,25 +121,17 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
 });
 
 // Requete récupération des annonces
-app.get("/api/annonce/search/:categorie", async (req, resp) => {
-    let annonces;
-    if(req.params.categorie === 'Toutes catégories'){
-        annonces = await Annonce.find();
-    }
-    else{
-        annonces = await Annonce.find( { categorie: req.params.categorie } );
-    }
+app.get("/api/annonces", async (req, resp) => {
+    const annonces = await Annonce.find();
+
     let tableau = [];
     if (annonces.length > 0){
         for(const a of annonces){
             const utilisateur = await User.find( { pseudo: a.utilisateur } );
             tableau.push([a, utilisateur[0]]);
         }
-        resp.send(tableau);
     }
-    else{
-        resp.send([]);
-    }
+    resp.send([tableau, annonces.length]);
 });
 
 // Requete récupération d'une annonce
@@ -221,6 +212,47 @@ app.get("/api/search/:key", verifyToken, async(req,resp) => {
     });
     resp.send(result);
 })
+
+
+app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
+    if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
+    const notif = new Notification({type: req.body.type, content: req.body.content});
+    let result = await User.updateOne(
+        {pseudo : req.params.pseudo},
+        { $push: 
+            {notifications: 
+                notif
+            } 
+        }
+    );
+
+    if(result){
+        const user = await User.findOne({pseudo: req.params.pseudo});
+        if(!user) return resp.send({erreur: "Utilisateur introuvable"});
+        resp.send({user: user});
+    }else{
+        resp.send({erreur: "Erreur lors de l'envoie de la notification"});
+    }
+
+})
+
+// app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
+
+//     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
+//     let resUser = await User.updateOne(
+//         { _id : req.params.idUser },
+//         { $pull: { annonces: req.params.idAds } }
+//     )
+//     if(resAds && resUser){
+//         const newUser = await User.findOne({ _id : req.params.idUser });
+//         resp.send({user: newUser});
+//     }
+//     else{
+//         resp.send({erreur: "Erreur lors de la suppression"})
+//     } 
+
+// });
+
 
 
 // ---------------------------------------------------------------------------------------
