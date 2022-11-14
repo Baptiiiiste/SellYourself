@@ -177,40 +177,7 @@ app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
     }
 });
 
-// Requete récupération des favoris
-// !!!! En travaux !!!!
-app.get("/api/favoris/:pseudo", async (req, resp) => {
-    const user = await User.findOne({pseudo : req.params.pseudo});
-    if(user){
-        let listID = user.favoris;
-        let listFavs = [];
-        for(let i = 0; i<listID.length; i++){
-            listAds.push(await Annonce.findOne({_id : listID[i]}));
-        }
-
-        resp.send( listFavs );
-
-    }else{
-        resp.send({result: "Une erreur est survenue avec cet utilisateur"});
-        return;
-    }
-});
-
-// Requete d'enregistrement d'une annonce en favoris
-// !!! En travaux !!!
-app.post("/api/annonce/addFavoris/:pseudo/:idAds", async (req, resp) => {
-    const user = await User.updateOne(
-        { pseudo: req.params.pseudo },
-        { $push: {favoris: idAds } }
-    )
-    if (!user) {
-        resp.send({result: "Une erreur est survenue avec cette utilisateur"});
-        return;
-    }
-});
-
-
-// Requete de suppresion d'une annonce
+// Requete de suppression d'une annonce
 app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
 
     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
@@ -227,6 +194,19 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
     } 
 
 });
+
+// Requete d'ajout d'une annonce en favoris
+// !!! Faut tester !!!
+app.post("/api/favoris/addFavs/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
+    let user = await User.findOne({_id : req.params.idUser});
+    let actualFavs = user.favoris;
+    if (actualFavs.find(req.params.idAnnonce) == undefined) {
+        await User.updateOne(
+            { _id: req.params.idUser },
+            { $push: {annonces: req.params.idAnnonce} }
+        )
+    }
+})
 
 
 app.get("/api/search/:key", verifyToken, async(req,resp) => {
