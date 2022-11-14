@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHeart, faStar} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function Utilisateur({pseudo, prenom, nom, note, nbNote, description, localisation, image}){
 
@@ -21,12 +22,26 @@ function Utilisateur({pseudo, prenom, nom, note, nbNote, description, localisati
 }
 
 function Annonce({titre, description, photos}){
+    const [data,setData] = useState([])
+    useEffect(()=>{
+        axios.get('http://localhost:5000')
+        .then((res)=>setData(res.data))
+        .catch((err)=> console.log(err,"it has an error"));
+    })
     return(
         <div className='InfoAnnonce-Annonce'>
             <p className='InfoAnnonce-NomAnnonce'>{titre}</p>
             <p className='InfoAnnonce-DescriptionAnnonce'>{description}</p>
             <div className='InfoAnnonce-PhotosAnnonce'>
-                <img src={require('../../assets/annonce1.jpg')} alt="" />
+                {/* {
+                    data.map((singleData)=>{
+                        const base64String = btoa(
+                            String.fromCharCode(...new Uint8Array((singleData.image.data.data)))
+                        );
+                        return <img src={`data:image/png;base64,${base64String}`}/>
+                    })
+
+                } */}
                 <img src={require('../../assets/annonce2.jpg')} alt="" />
                 <img src={require('../../assets/annonce3.jpg')} alt="" />
                 <img src={require('../../assets/annonce1.jpg')} alt="" />

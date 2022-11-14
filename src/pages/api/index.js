@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const { User, Annonce } = require("./configuration/models");
+const { User, Annonce, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
-
+const multer = require("multer");
+const fs = require('fs');
 
 
 // Création de l'API
@@ -228,6 +229,64 @@ function verifyToken(req, resp, next) {
     }
 }
 
+
+// Image
+
+const Storage = multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'uploads')
+    },
+
+    filename: (req, file, cb)=>{
+        cb(null,file.originalname)
+    }
+})
+
+const upload = multer({
+    storage: Storage
+})//.single('testImage')
+
+app.post('/',upload.single('testImage'),(req,res)=>{
+    
+    const saveImage = new Image({
+        nom: req.body.name,
+        image:{
+            data: fs.readFileSync('uploads/' + req.file.filename),
+            contentType:"image/png"
+        },
+    });
+
+    saveImage.save()
+    .then((res)=>{console.log('image is saved')})
+    .catch((err)=>{console.log(err, 'error has occurr')})
+    /*
+    upload(req,res,err=>{
+        if(err){
+            console.log
+        }
+        else{
+            const newImage = new Image({
+                name: req.body.name,
+                image: {
+                    data: req.file.filename,
+                    contentType: 'image/png'
+                }
+            })
+
+            newImage.save()
+            .then(()=>res.send('successfully uploaded'))
+            .catch(err=>console.log(err))
+
+        }
+    })
+    */
+})
+
+
+app.get('/',async(req,res)=>{
+    const allData = await Image.find()
+    res.json(allData)
+})
 
 app.get("/api/search/:key", async(req,resp) => {
     let result = await Annonce.find({
