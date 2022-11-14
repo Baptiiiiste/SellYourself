@@ -121,25 +121,17 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
 });
 
 // Requete récupération des annonces
-app.get("/api/annonce/search/:categorie", async (req, resp) => {
-    let annonces;
-    if(req.params.categorie === 'Toutes catégories'){
-        annonces = await Annonce.find();
-    }
-    else{
-        annonces = await Annonce.find( { categorie: req.params.categorie } );
-    }
+app.get("/api/annonces", async (req, resp) => {
+    const annonces = await Annonce.find();
+
     let tableau = [];
     if (annonces.length > 0){
         for(const a of annonces){
             const utilisateur = await User.find( { pseudo: a.utilisateur } );
             tableau.push([a, utilisateur[0]]);
         }
-        resp.send(tableau);
     }
-    else{
-        resp.send([]);
-    }
+    resp.send([tableau, annonces.length]);
 });
 
 // Requete récupération d'une annonce

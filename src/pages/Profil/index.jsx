@@ -36,7 +36,6 @@ function Profil() {
 	
 	const displayAnnonce = (item, index) => {
 		const annonce = item;
-		console.log(annonce);
 	
 		return (<AnnonceProfil titre={annonce.titre}
 			description={annonce.description}
