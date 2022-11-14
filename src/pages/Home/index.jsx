@@ -24,9 +24,13 @@ function Home() {
       },1000);
   }, [])
 
-  // useEffect(() => {
-  //   getCategorie();
-  // }, [divCategorie])
+  useEffect(() => {
+    // setTimeout(() => {
+    //   getCategorie();
+    // },1000);
+    // displayLesAnnonces();
+    console.log("oui");
+  }, [divCategorie])
 
   const getAnnonces = async () => {
     let result = await fetch(`http://localhost:5000/api/annonces`);
