@@ -208,6 +208,24 @@ app.get("/api/utilisateur/getAnnonces/:pseudo", async (req, resp) => {
 })
 
 
+app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
+    if(!req.body.type || !req.body.message) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
+
+    let result = await User.updateOne(
+        {pseudo : req.params.pseudo},
+        { $push: {notifications: {type: req.body.type, message: req.body.message } } }
+    );
+
+    if(result){
+        const user = await User.findOne({pseudo: req.params.pseudo});
+        if(!user) return resp.send({erreur: "Utilisateur introuvable"});
+        resp.send({user: user});
+    }else{
+        resp.send({erreur: "Erreur lors de l'envoie de la notification"});
+    }
+
+})
+
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
