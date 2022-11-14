@@ -45,7 +45,8 @@ function InfoUtilisateur(){
             method: "Put",
             body: JSON.stringify({nom, prenom, description, ville, paypal, email}),
             headers: {
-                'Content-Type': 'Application/json'
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
 
@@ -53,7 +54,9 @@ function InfoUtilisateur(){
         result = await result.json();
 
         if(result.erreur){
-            alert(JSON.stringify(result.erreur));
+            alert(result.erreur);
+        } else if(result.tokenError){ 
+            alert(result.tokenError);
         }else{
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user", JSON.stringify(result.user));
@@ -73,12 +76,15 @@ function InfoUtilisateur(){
             method: "Post",
             body: JSON.stringify({oldPassword, password} ),
             headers: {
-                'Content-Type': 'Application/json'
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
         result = await result.json();
         if(result.erreur){
             alert(JSON.stringify(result.erreur));
+        }else if(result.tokenError){ 
+            alert(result.tokenError);
         }else if(result.result){
             alert(JSON.stringify(result.result));
         }

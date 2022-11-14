@@ -14,7 +14,7 @@ function Vendeur({pseudo, photo, note}){
         for( const n of note){
             moy += parseInt(n.note);
         }
-        moy = moy/nbNote
+        moy = Number((moy/nbNote).toFixed(2));
         note = moy + "/5";
     }
 
@@ -29,6 +29,11 @@ function Vendeur({pseudo, photo, note}){
     )
 }
 
+// Pour ajouter une annonce aux favoris
+function addFavoris() {
+
+}
+
 function Contenu({titre, description, prix}){
     return(
         <div className='Contenu-all'>
@@ -37,7 +42,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div className='Contenu-other'>
-                <button className='Contenu-bouton'>
+                <button className='Contenu-bouton' onClick="addFavoris();">
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
                 <p className='Contenu-prix'>{prix} €</p>
@@ -50,7 +55,7 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
 
     return (
         <div className='UneAnnonce-all'>
-            <Link to={"/annonce/" + id + "/" + pseudoVendeur} params={{titre: titre}} className='UneAnnonce-div-Image'>
+            <Link to={"/annonce/" + pseudoVendeur + "/" + id} params={{titre: titre}} className='UneAnnonce-div-Image'>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
                 <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>

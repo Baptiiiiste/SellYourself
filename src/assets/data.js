@@ -7,7 +7,7 @@ export const categories = [
     { name: "Musique & Audio"},
     { name: "Programmation & Tech"},
     { name: "Rédaction & Traduction"},
-    { name: "Design UI/UX"},
+    { name: "Design"},
     { name: "Vidéo"},
     { name: "Photographie"},
     { name: "Animation"},

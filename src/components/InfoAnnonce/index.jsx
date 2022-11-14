@@ -55,15 +55,29 @@ function InfoAnnonce() {
     const [userAll, setUser] = useState([]);
 
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`);
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
         result = await result.json();
+        if(result.tokenError){
+            return alert(result.tokenError);
+        }
         setAnnonce(result);
     }
 
     const getUser = async () => {
-        let result = await fetch(`http://localhost:5000/api/user/${params.utilisateur}`);
+        let result = await fetch(`http://localhost:5000/api/utilisateur/${params.utilisateur}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
         result = await result.json();
+        if(result.tokenError){
+            return alert(result.tokenError);
+        }
         setUser(result);
+    }
+
+    const addFav = () => {
+        console.log("oui");
     }
 
     
@@ -81,12 +95,12 @@ function InfoAnnonce() {
                     <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={note} nbNote={nbNote} description={user.description} localisation={user.localisation} image={user.profilPic}/>
                     <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                     <div className='InfoAnnonce-Boutons'>
-                        <Link className='InfoAnnonce-Achat' to={'/validation/' + annonce._id + "/" + user.pseudo}>Acheter</Link>
-                        <Link className='InfoAnnonce-BoutonMessage' to={'/conversation'}>Contacter</Link>
+                        <Link className='InfoAnnonce-Achat' to={'/validation/' + user.pseudo + "/" + annonce._id}>Acheter</Link>
+                        <Link className='InfoAnnonce-BoutonMessage' to={'/conversation/' + user.pseudo + "/" + annonce._id}>Contacter</Link>
                     </div>
                 </div>
                 <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image}/>
-                <button className='InfoAnnonce-AjoutFav'>
+                <button className='InfoAnnonce-AjoutFav' onClick={addFav}>
                     <FontAwesomeIcon className='InfoAnnonce-Icon' icon={faHeart} />
                     <p>Ajouter aux favoris</p>
                 </button>
