@@ -15,6 +15,7 @@ import Favoris from './pages/Favoris';
 import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
 import ValiderAchat from './pages/ValiderAchat';
+import Categorie from './pages/Categorie';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -24,6 +25,7 @@ root.render(
 
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/search/:categorie/:recherche" element={<Categorie/>} />
 
         <Route element={<PrivateComponents/>}>
           <Route path="/annonce/:utilisateur/:annonce" element={<Annonce/>} />

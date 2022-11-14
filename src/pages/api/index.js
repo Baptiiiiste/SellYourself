@@ -133,6 +133,7 @@ app.get("/api/annonces", async (req, resp) => {
             tableau.push([a, utilisateur[0]]);
         }
     }
+
     resp.send([tableau, annonces.length]);
 });
 
@@ -145,6 +146,49 @@ app.get("/api/annonce/:id", verifyToken, async (req, resp) => {
     else{
         resp.send({erreur: "Aucune annonce"});
     }
+});
+
+// Requete recherche annonces
+app.get("/api/annonce/search/:categorie/:rechercher", verifyToken, async (req, resp) => {
+    let annonces;
+    let tableau = [];
+    let lesAnnonces = [];
+    if(req.params.categorie === 'Toutes' && req.params.rechercher === 'Toutes'){
+        annonces = await Annonce.find();
+    }
+    else if(req.params.categorie === 'Toutes'){
+        
+        annonces = await Annonce.find({$or: [
+            {description: {$regex: req.params.rechercher}}, 
+            {titre: {$regex: req.params.rechercher}}
+        ]});
+    }
+    else if(req.params.rechercher === 'Toutes'){
+        annonces = await Annonce.find( { categorie: req.params.categorie } );
+    }
+    else{
+        annonces = await Annonce.find({$or: [
+            {description: {$regex: req.params.rechercher}}, 
+            {titre: {$regex: req.params.rechercher}}
+        ]});
+
+        if (annonces.length > 0){
+            for(const a of annonces){
+                if(a.categorie === req.params.categorie){
+                    lesAnnonces.push(a);
+                }
+            }
+            annonces = lesAnnonces;
+        }
+    }
+    if (annonces.length > 0){
+        for(const a of annonces){
+            const utilisateur = await User.find( { pseudo: a.utilisateur } );
+            tableau.push([a, utilisateur[0]]);
+        }
+    }
+
+    resp.send([tableau, annonces.length]);
 });
 
 // Requete récupération de un utilisateur
@@ -203,17 +247,17 @@ app.post("/api/favoris/addFavs/:idUser/:idAnnonce", verifyToken, async (req, res
 })
 
 
-app.get("/api/search/:key", verifyToken, async(req,resp) => {
-    let result = await Annonce.find({
-        "$or": [
-            {
-                name: { $regex: req.params.key}
-            },
+// app.get("/api/search/:key", verifyToken, async(req,resp) => {
+//     let result = await Annonce.find({
+//         "$or": [
+//             {
+//                 name: { $regex: req.params.key}
+//             },
 
-        ]
-    });
-    resp.send(result);
-})
+//         ]
+//     });
+//     resp.send(result);
+// })
 
 
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {

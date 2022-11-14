@@ -1,23 +1,36 @@
-import { Link, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './headerCustom.css'
-
-
-const searchHandle= async (e)=>{
-  let key = e.target.value;
-  if(key){
-    let result = await fetch(`http://localhost:5000/api/search/${key}`);
-    result = result.json()
-    if(result){
-      //setter sur le contenu de la map
-    }
-  }else{
-    
-  }
-}
 
 function HeaderCustom({title}) {
 
+  const [categorie, setCategorie] = useState('Toutes');
+
+  setTimeout(() => {
+      getCategorie();
+  },0);
+
+  const getCategorie = () => {
+      const categorie = document.querySelector('.Categorie-display-categorie');
+      if(categorie != null){
+        setCategorie(categorie.innerHTML);
+      }
+  }
+
   const param = useParams();
+  const navigate = useNavigate();
+
+  const searchHandle = async (event) => {
+    if (event.key === 'Enter') {
+      const input = document.querySelector('.headercustom-input-search').value;
+      if(input.length === 0){
+        navigate(`/search/${categorie}/Toutes`);
+      }
+      else{
+        navigate(`/search/${categorie}/${input}`);
+      }
+    }
+  }
 
   if(title === "logForm") return(
     <header>
@@ -51,7 +64,9 @@ function HeaderCustom({title}) {
     )
   }
 
-  if(title === "homePage") return(
+  if(title === "homePage")
+
+    return(
     <div className='headercustom-global'>
       <div className='headercustom-bar'>
         <Link to="/" className="headercustom-logo3">
@@ -61,7 +76,7 @@ function HeaderCustom({title}) {
           <h1>fr</h1>
         </Link>
         <div className='headercustom-input'>
-          <input type="text" placeholder='Rechercher'onChange={searchHandle}/>
+          <input className='headercustom-input-search' type="text" placeholder='Rechercher' onKeyDown={searchHandle}/>
         </div>
         <div className="headercustom-filter">
           <select name="activite" id="activite" className='headercustom-leFiltre'>
