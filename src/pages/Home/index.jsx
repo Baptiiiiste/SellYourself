@@ -23,7 +23,6 @@ function Home() {
   const getAnnonces = async () => {
     let result = await fetch(`http://localhost:5000/api/annonces`);
     result = await result.json();
-    console.log(result);
     setAnnonces(result);
   }
 
@@ -45,6 +44,7 @@ function Home() {
 
   const displayLesAnnonces = () => {
     const nbAnnonces = annonces[1];
+
     if(nbAnnonces === 0){
       setTimeout(() => {
         const div = document.querySelector(".Home-lesAnnonces");
@@ -56,7 +56,7 @@ function Home() {
         p.innerHTML = "Aucune annonce disponible";
         p.className = "Home-Aucune";
         div.appendChild(p);
-      },200);
+      },500);
     }
 
     else{

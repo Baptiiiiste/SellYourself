@@ -20,7 +20,7 @@ function Categorie() {
       getAnnonces();
       setTimeout(() => {
           setLoaderCategorie(false);
-      },500);
+      },1000);
       
   }, [])
 
@@ -61,7 +61,7 @@ function Categorie() {
         p.innerHTML = "Aucune annonce disponible";
         p.className = "Categorie-Aucune";
         div.appendChild(p);
-      },200);
+      },500);
     }
 
     else{
