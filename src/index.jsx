@@ -16,6 +16,7 @@ import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
 import ValiderAchat from './pages/ValiderAchat';
 import Categorie from './pages/Categorie';
+import ModifierAnnonce from './pages/Publier';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -36,6 +37,7 @@ root.render(
           <Route path="/favoris" element={<Favoris/>} />
           <Route path='/conversation/:utilisateur/:annonce' element={<Conversation/>} />
           <Route path='/validation/:utilisateur/:annonce' element={<ValiderAchat/>} />
+          <Route path='/modifier/:annonce' element={<ModifierAnnonce/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />
