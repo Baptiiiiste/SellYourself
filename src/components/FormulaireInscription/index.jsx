@@ -18,7 +18,7 @@ function FormulaireInscription() {
         if(connectedUser) navigate("/");
     },[]);
 
-    const signIn = async () => {
+    const signIn = async (e) => {
         if(!passwd || !email || !pseudo){
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
         }else if(email && passwd && pseudo){
@@ -32,14 +32,24 @@ function FormulaireInscription() {
                 return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
             }
 
+            e.preventDefault();
+
+            const captcha = document.querySelector('#g-recaptcha-response').value;
+
             const password = bcrypt.hashSync(passwd,salt);
             let data = await fetch(`http://localhost:5000/api/inscription`, {
-                method: 'post',
-                body: JSON.stringify({pseudo, email, password }),
+                method: 'POST',
                 headers: {
+                    'Accept':'application/json, text/plain, */*',
                     'Content-Type':'application/json'
-                }
-            });
+                },
+                body:JSON.stringify({pseudo:pseudo, email:email, password:password, captcha:captcha })
+            })
+            // .then((resp) => resp.json())
+            // .then((data)=>{
+            //     console.log(data);
+            //     alert(data.msg);
+            // });
             data = await data.json();
             if(data.authToken){
                 sessionStorage.setItem("user", JSON.stringify(data.user));
@@ -55,8 +65,7 @@ function FormulaireInscription() {
 
     return (
         <div className="FormulaireInscription-form">
-            <script src="https://www.google.com/recaptcha/api.js"></script>
-
+        <script src="https://www.google.com/recaptcha/api.js"></script>
             <h1>INSCRIPTION</h1>
             <div className='form'>
                 <div className="FormulaireInscription-input">
@@ -66,8 +75,8 @@ function FormulaireInscription() {
 
                 </div>
                 
-                <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="6LeHuQ8jAAAAACgbBCYVuXKB_A9RzzGeJktoqoKv"></div>
+                <div className="form-group">
+                    <div className="g-recaptcha" data-sitekey="6LeHuQ8jAAAAACgbBCYVuXKB_A9RzzGeJktoqoKv"></div>
                 </div>
                 
                 <button className="FormulaireInscription-button" onClick={signIn} >S'INSCRIRE </button>
@@ -76,6 +85,7 @@ function FormulaireInscription() {
                 Déja inscrit ?
                 <Link className="FormulaireInscription-signin" to="/connexion">Se connecter</Link>
             </div>
+
         </div>
         
     );

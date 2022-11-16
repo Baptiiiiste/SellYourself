@@ -7,35 +7,19 @@ const multer = require("multer");
 const fs = require('fs')
 const bodyParser = require('body-parser');
 const { request } = require("http");
+const { json } = require("body-parser");
 
-// Secret key for captcha 
-const secretKey = '6LeHuQ8jAAAAAMyaXJzJrY6Vk1xS47LxEe_ptwBU';
 
-// Verify URL for the captcha
-//const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
-// Make Request to verifyUrl
+//const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
 
-request(verifyUrl, (err, response, body)=> {
-    body = JSON.parse(body);
-
-    // If not successful
-
-    if(body.success !== undefined && !body.success){
-        resp.send({result:"Captcha invalide"});
-    }
-
-    // If successful
-
-    return res.json({"succes": true, "msg":"Captcha passed"});
-}); 
 
 
 // Création de l'API
 const app = express();
 app.use(express.json());
 app.use(cors());
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -45,18 +29,46 @@ app.post("/api/inscription", async (req, resp) => {
     const isPseudoAlreadyTaken = await User.findOne({pseudo: req.body.pseudo});
     const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     
+    
+
+
     if(isPseudoAlreadyTaken) resp.send({result:"Cet identifiant est déjà pris"});
+    
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});
-    else if(
-        req.body.captcha === undefined || 
-        req.body.captcha === '' || 
-        req.body.captcha === null
-    ){
-        resp.send({result:"Captcha invalide"});
+
+    else if(req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null){
+        return resp.json({"success": false,"msg": "Please select captcha"});
+        //resp.send({result:"Captcha invalide"});
     }
     else {
         let user = new User(req.body);
         let result = await user.save();
+
+        // Secret key for captcha 
+        const secretKey = '6LeHuQ8jAAAAAMyaXJzJrY6Vk1xS47LxEe_ptwBU';
+
+        // Verify URL for the captcha
+        const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+        // Make Request to verifyUrl
+
+        request(verifyUrl, (err, response, body)=> {
+            body = JSON.parse(body);
+            console.log(body);
+
+            // If not successful
+
+            if(body.success !== undefined && !body.success){
+                return resp.json({"success":false, "msg":"Failed captcha verification"});
+                //resp.send({"result":"Captcha invalide"});
+            }
+
+            // If successful
+
+            return resp.json({"success": true, "msg":"Captcha passed"});
+            //resp.send({"success": true, "msg":"Captcha passed"});
+        }); 
+
 
         result = result.toObject();
         delete result.password;
@@ -402,8 +414,7 @@ app.get('/',async(req,res)=>{
 
 // ----------------------
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+
 
 // app.get('/api/captcha', (req,res) => {
 //     res.sendFile(__dirname + '/index.html');
