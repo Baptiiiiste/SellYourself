@@ -55,6 +55,9 @@ function CreerAnnonce() {
                 if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
                 }
             }
+            if(categorie.length === 0){
+                setCategorie('Autre');
+            }
             let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
@@ -125,7 +128,6 @@ function CreerAnnonce() {
             <div className='CreerAnnonce-BoutonSubmit'>
                 <button className="CreerAnnonce-Submit" onClick={formulaire}> Publier l'annonce </button>
             </div>
-            
         </div>
     )
 }

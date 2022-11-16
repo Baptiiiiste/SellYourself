@@ -9,25 +9,18 @@ import UneAnnonce from '../../components/UneAnnonce';
 import { useParams } from 'react-router-dom';
 
 function Categorie() {
-  const [loaderCategorie, setLoaderCategorie] = useState(true);
 
   const params = useParams();
-  const [annonces, setAnnonces] = useState();
+  const [annonces, setAnnonces] = useState([]);
   const categorie = params.categorie;
   const recherche = params.recherche;
 
   useEffect(() => {
       getAnnonces();
-      setTimeout(() => {
-          setLoaderCategorie(false);
-      },1000);
-      
-  }, [])
+  }, [params])
 
   const getAnnonces = async () => {
-    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}/${recherche}`, {
-      headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
-    });
+    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}/${recherche}`);
     result = await result.json();
     setAnnonces(result);
   }
@@ -49,35 +42,35 @@ function Categorie() {
   }
 
   const displayLesAnnonces = () => {
-    const nbAnnonces = annonces[1];
-    if(nbAnnonces === 0){
-      setTimeout(() => {
-        const div = document.querySelector(".Categorie-lesAnnonces");
-        while (div.firstChild!=null) {
-          div.removeChild(div.lastChild);
-        }
-    
-        const p = document.createElement("p");
-        p.innerHTML = "Aucune annonce disponible";
-        p.className = "Categorie-Aucune";
-        div.appendChild(p);
-      },500);
-    }
+      const nbAnnonces = annonces[1];
 
-    else{
-      return (annonces[0].map((item, index) => (
-        displayAnnonce(item, index)
-      )))
-    }
+      if(nbAnnonces === 0){
+        setTimeout(() => {
+          const div = document.querySelector(".Categorie-lesAnnonces");
+          while (div.firstChild!=null) {
+            div.removeChild(div.lastChild);
+          }
+      
+          const p = document.createElement("p");
+          p.innerHTML = "Aucune annonce disponible";
+          p.className = "Home-Aucune";
+          div.appendChild(p);
+        },10);
+      }
+
+      else{
+        return (annonces[0].map((item, index) => (
+          displayAnnonce(item, index)
+        )))
+      }
   }
 
-  return loaderCategorie ? 
+  return (annonces.length === 0) ?
     (
     <LoaderCategorie/> 
     )
     :
-    (    
-    <div className="Categorie">
+    (<div className="Categorie">
       <LeftBar/>
       <div className='Categorie-center'>
         <div className='Categorie-header'>

@@ -149,7 +149,7 @@ app.get("/api/annonce/:id", verifyToken, async (req, resp) => {
 });
 
 // Requete recherche annonces
-app.get("/api/annonce/search/:categorie/:rechercher", verifyToken, async (req, resp) => {
+app.get("/api/annonce/search/:categorie/:rechercher", async (req, resp) => {
     let annonces;
     let tableau = [];
     let lesAnnonces = [];

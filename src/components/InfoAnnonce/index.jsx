@@ -58,20 +58,21 @@ function Annonce({titre, description, photos}){
 
 function InfoAnnonce() {
 
-    const [loader, setLoader] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoader(false);
-        },1000);
-        getAnnonce();
-        getUser();
-    }, [])
+    const [loader, setLoader] = useState(false);
 
     const params = useParams();
 
     const [annonce, setAnnonce] = useState([]);
     const [userAll, setUser] = useState([]);
+
+    useEffect(() => {
+        // setTimeout(() => {
+        //     setLoader(false);
+        // },1000);
+        getAnnonce();
+        getUser();
+    }, [])
+
 
     const getAnnonce = async () => {
         let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
@@ -99,17 +100,17 @@ function InfoAnnonce() {
         console.log("oui");
     }
 
-    
+    console.log(userAll)
     const user = userAll[0];
     const note = userAll[1];
     const nbNote = userAll[2];
 
-    return loader ? 
-    (
-    <Loader/> 
-    )
-    :
-    (  <div className='InfoAnnonce'>
+    return (userAll.length === 0) ?
+        (
+        <Loader/> 
+        )
+        :
+        (  <div className='InfoAnnonce'>
                 <div className='InfoAnnonce-Haut'>
                     <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={note} nbNote={nbNote} description={user.description} localisation={user.localisation} image={user.profilPic}/>
                     <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
