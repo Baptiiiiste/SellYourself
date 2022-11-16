@@ -29,12 +29,30 @@ function Vendeur({pseudo, photo, note}){
     )
 }
 
-// Pour ajouter une annonce aux favoris
-function addFavoris() {
+function Contenu({id, titre, description, prix}){
+    
+    const addFavoris = async () => {
+        let connectedUser = sessionStorage.getItem("user");
 
-}
+        let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
+            method: "Post",
+            headers: {
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
+            }
+        });
+        
+        result = await result.json();
 
-function Contenu({titre, description, prix}){
+        if(result.erreur) {
+            return alert(result.erreur);
+        } else {
+            sessionStorage.removeItem("user");
+            sessionStorage.setItem("user", JSON.stringify(result.user));
+            window.location.reload(false);
+        }
+    }
+
     return(
         <div className='Contenu-all'>
             <div className='Contenu-text'>
@@ -42,7 +60,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div className='Contenu-other'>
-                <button className='Contenu-bouton' onClick="addFavoris();">
+                <button className='Contenu-bouton' onClick={addFavoris}>
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
                 <p className='Contenu-prix'>{prix} €</p>
@@ -62,7 +80,7 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
             </Link>
             <div className='UneAnnonce-description'>
                 <Vendeur pseudo={pseudoVendeur} photo={img_profil} note={note}/>
-                <Contenu titre={titre} description={description} prix={prix}/>
+                <Contenu id={id} titre={titre} description={description} prix={prix}/>
             </div>
         </div>
     )
