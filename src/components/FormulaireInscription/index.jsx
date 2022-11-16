@@ -55,6 +55,8 @@ function FormulaireInscription() {
 
     return (
         <div className="FormulaireInscription-form">
+            <script src="https://www.google.com/recaptcha/api.js"></script>
+
             <h1>INSCRIPTION</h1>
             <div className='form'>
                 <div className="FormulaireInscription-input">
@@ -63,6 +65,11 @@ function FormulaireInscription() {
                     <input type="password" name="passwd" placeholder="MOT DE PASSE" value={passwd} onChange={(ev) => {setPassword(ev.target.value)}}/>
 
                 </div>
+                
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6LeHuQ8jAAAAACgbBCYVuXKB_A9RzzGeJktoqoKv"></div>
+                </div>
+                
                 <button className="FormulaireInscription-button" onClick={signIn} >S'INSCRIRE </button>
             </div>
             <div className="FormulaireInscription-signin-div">
@@ -70,6 +77,7 @@ function FormulaireInscription() {
                 <Link className="FormulaireInscription-signin" to="/connexion">Se connecter</Link>
             </div>
         </div>
+        
     );
 }
 

@@ -27,6 +27,11 @@ function FormulaireConnexion() {
         }
     }
 
+    const verifEnterKey = async(event)=>{
+        if(event.key === 'Enter'){
+            login();
+        }
+    }
 
     return (
         <div className="FormulaireConnexion-form">
@@ -34,7 +39,7 @@ function FormulaireConnexion() {
             <div method="FormulaireConnexion-post">
                 <div className="FormulaireConnexion-input">
                     <input type="text" name="login" value={pseudo} onChange={(ev) => {setPseudo(ev.target.value)}} placeholder="IDENTIFIANT" required/>
-                    <input type="password" name="password" value={password} onChange={(ev) => {setPassword(ev.target.value)}} placeholder="MOT DE PASSE" required/>
+                    <input type="password" name="password" value={password} onChange={(ev) => {setPassword(ev.target.value)}} placeholder="MOT DE PASSE" required onKeyDown={verifEnterKey}/>
                 </div>
                 <button onClick={login} className="FormulaireConnexion-button">SE CONNECTER </button>
             </div>

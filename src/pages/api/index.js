@@ -5,7 +5,30 @@ const { User, Annonce, Notification, Image } = require("./configuration/models")
 const Jwt = require("jsonwebtoken");
 const multer = require("multer");
 const fs = require('fs')
+const bodyParser = require('body-parser');
+const { request } = require("http");
 
+// Secret key for captcha 
+const secretKey = '6LeHuQ8jAAAAAMyaXJzJrY6Vk1xS47LxEe_ptwBU';
+
+// Verify URL for the captcha
+//const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
+// Make Request to verifyUrl
+
+request(verifyUrl, (err, response, body)=> {
+    body = JSON.parse(body);
+
+    // If not successful
+
+    if(body.success !== undefined && !body.success){
+        resp.send({result:"Captcha invalide"});
+    }
+
+    // If successful
+
+    return res.json({"succes": true, "msg":"Captcha passed"});
+}); 
 
 
 // Création de l'API
@@ -24,12 +47,21 @@ app.post("/api/inscription", async (req, resp) => {
     
     if(isPseudoAlreadyTaken) resp.send({result:"Cet identifiant est déjà pris"});
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});
+    else if(
+        req.body.captcha === undefined || 
+        req.body.captcha === '' || 
+        req.body.captcha === null
+    ){
+        resp.send({result:"Captcha invalide"});
+    }
     else {
         let user = new User(req.body);
         let result = await user.save();
 
         result = result.toObject();
         delete result.password;
+
+
 
         Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
             if(err){
@@ -301,24 +333,6 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
 
 
 
-// ---------------------------------------------------------------------------------------
-
-// Vérification du token utilisateur
-function verifyToken(req, resp, next) {
-    let token = req.headers['authorization'];
-    if(token){
-
-        token = token.split(" ")[1];
-        Jwt.verify(token, process.env.JWTKEY,(err, success) => {
-            if(err) resp.status(401).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
-            else next();
-        });
-    
-    }else{
-        resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
-    }
-}
-
 
 // Image
 
@@ -373,10 +387,48 @@ app.post('/',upload.single('testImage'),(req,res)=>{
 })
 
 
+
+
+
 app.get('/',async(req,res)=>{
     const allData = await Image.find()
     res.json(allData)
 })
+
+
+// ----------------------
+
+// Captcha
+
+// ----------------------
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+// app.get('/api/captcha', (req,res) => {
+//     res.sendFile(__dirname + '/index.html');
+// });
+
+
+// ---------------------------------------------------------------------------------------
+
+// Vérification du token utilisateur
+function verifyToken(req, resp, next) {
+    let token = req.headers['authorization'];
+    if(token){
+
+        token = token.split(" ")[1];
+        Jwt.verify(token, process.env.JWTKEY,(err, success) => {
+            if(err) resp.status(401).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+            else next();
+        });
+    
+    }else{
+        resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+    }
+}
+
+// ----------------------------------------------------------
 
 app.get("/api/search/:key", async(req,resp) => {
     let result = await Annonce.find({
