@@ -3,11 +3,11 @@ Projet de marketplace réalisé pour notre projet tutoré de l'IUT Informatique 
 
 Preview disponible sur [sellyourself.fr](https://sellyourself.fr).
 
-Réalisé avec React & mongoDB
+Réalisé avec MongoDB, Express, React et Node (MERN)
 
 ## Setup
 
-/!\ Vous devez avoir Node 
+/!\ Vous devez avoir Node : [Lien pour Node ici](https://nodejs.org/en/)
 
 - Cloner le repository
 ```

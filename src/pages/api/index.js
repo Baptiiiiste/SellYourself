@@ -234,16 +234,35 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
 });
 
 // Requete d'ajout d'une annonce en favoris
-// !!! Faut tester !!!
-app.post("/api/favoris/addFavs/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-    let user = await User.findOne({_id : req.params.idUser});
-    let actualFavs = user.favoris;
-    if (actualFavs.find(req.params.idAnnonce) == undefined) {
-        await User.updateOne(
-            { _id: req.params.idUser },
-            { $push: {annonces: req.params.idAnnonce} }
-        )
+app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
+    let result= await User.updateOne(
+        { _id: req.params.idUser },
+        { $push: {favoris: req.params.idAnnonce} }
+    )
+    if(result){
+
+        let user = await User.findOne({_id : req.params.idUser});
+    
+        resp.send({user: user})
+    }else{
+        resp.send({erreur: "erreur"})
     }
+})
+
+// Requete de suppression d'une annonce en favoris
+app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
+
+    let resUser = await User.updateOne(
+        { _id : req.params.idUser },
+        { $pull: { favoris: req.params.idAnnonce } }
+    )
+    if(resUser){
+        const newUser = await User.findOne({ _id : req.params.idUser });
+        resp.send({user: newUser});
+    }
+    else{
+        resp.send({erreur: "Erreur lors de la suppression"})
+    } 
 })
 
 
