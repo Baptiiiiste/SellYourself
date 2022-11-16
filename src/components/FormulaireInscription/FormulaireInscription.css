@@ -27,7 +27,7 @@
 }
 
 .FormulaireInscription-input input[type=text], input[type=password], input[type=email] {
-    width: 120%;
+    width: 100%;
     margin: 10px 0;
     border: none;
     border-bottom: 2px solid var(--orange);
