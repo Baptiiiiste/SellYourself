@@ -37,7 +37,7 @@ app.post("/api/inscription", async (req, resp) => {
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});
 
     else if(req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null){
-        return resp.json({"success": false,"msg": "Please select captcha"});
+        return resp.json({"success": false,"result": "Veuillez vérifier la captcha"});
         //resp.send({result:"Captcha invalide"});
     }
     else {
@@ -59,13 +59,13 @@ app.post("/api/inscription", async (req, resp) => {
             // If not successful
 
             if(body.success !== undefined && !body.success){
-                return resp.json({"success":false, "msg":"Failed captcha verification"});
+                return resp.json({"success":false, "result":"Échec de la vérification de la captcha"});
                 //resp.send({"result":"Captcha invalide"});
             }
 
             // If successful
 
-            return resp.json({"success": true, "msg":"Captcha passed"});
+            return resp.json({"success": true, "result":"Captcha réussie"});
             //resp.send({"success": true, "msg":"Captcha passed"});
         }); 
 
