@@ -31,7 +31,7 @@ function Vendeur({pseudo, photo, note}){
 
 // Pour ajouter une annonce aux favoris
 function addFavoris() {
-
+    console.log("oui");
 }
 
 function Contenu({titre, description, prix}){
@@ -42,7 +42,7 @@ function Contenu({titre, description, prix}){
                 <p className='Contenu-description'>{description}</p>
             </div>
             <div className='Contenu-other'>
-                <button className='Contenu-bouton' onClick="addFavoris();">
+                <button className='Contenu-bouton' onClick={addFavoris}>
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
                 <p className='Contenu-prix'>{prix} €</p>

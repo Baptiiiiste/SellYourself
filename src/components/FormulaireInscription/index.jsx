@@ -44,13 +44,13 @@ function FormulaireInscription() {
                     'Content-Type':'application/json'
                 },
                 body:JSON.stringify({pseudo:pseudo, email:email, password:password, captcha:captcha })
-            })
+            }).catch((err)=>{console.log(err)});
             // .then((resp) => resp.json())
             // .then((data)=>{
             //     console.log(data);
             //     alert(data.msg);
             // });
-            data = await data.json();
+            data = await data.json().catch(err =>{console.log(err)});
             if(data.authToken){
                 sessionStorage.setItem("user", JSON.stringify(data.user));
                 sessionStorage.setItem("token", JSON.stringify(data.authToken));
