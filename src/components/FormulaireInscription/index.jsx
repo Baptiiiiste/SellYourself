@@ -63,6 +63,8 @@ function FormulaireInscription() {
         
     }
 
+
+    
     return (
         <div className="FormulaireInscription-form">
         <script src="https://www.google.com/recaptcha/api.js"></script>

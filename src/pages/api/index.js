@@ -58,7 +58,7 @@ app.post("/api/inscription", async (req, resp) => {
 
             // If not successful
 
-            if(body.success !== undefined && !body.success){
+            if(body.success !== undefined && body.success === false){
                 return resp.json({"success":false, "result":"Échec de la vérification de la captcha"});
                 //resp.send({"result":"Captcha invalide"});
             }
