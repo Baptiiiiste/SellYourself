@@ -18,7 +18,7 @@ function FormulaireInscription() {
         if(connectedUser) navigate("/");
     },[]);
 
-    const signIn = async () => {
+    const signIn = async (e) => {
         if(!passwd || !email || !pseudo){
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
         }else if(email && passwd && pseudo){
@@ -32,15 +32,25 @@ function FormulaireInscription() {
                 return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
             }
 
+            e.preventDefault();
+
+            const captcha = document.querySelector('#g-recaptcha-response').value;
+
             const password = bcrypt.hashSync(passwd,salt);
             let data = await fetch(`http://localhost:5000/api/inscription`, {
-                method: 'post',
-                body: JSON.stringify({pseudo, email, password }),
+                method: 'POST',
                 headers: {
+                    'Accept':'application/json, text/plain, */*',
                     'Content-Type':'application/json'
-                }
-            });
-            data = await data.json();
+                },
+                body:JSON.stringify({pseudo:pseudo, email:email, password:password, captcha:captcha })
+            }).catch((err)=>{console.log(err)});
+            // .then((resp) => resp.json())
+            // .then((data)=>{
+            //     console.log(data);
+            //     alert(data.msg);
+            // });
+            data = await data.json().catch(err =>{console.log(err)});
             if(data.authToken){
                 sessionStorage.setItem("user", JSON.stringify(data.user));
                 sessionStorage.setItem("token", JSON.stringify(data.authToken));
@@ -53,8 +63,11 @@ function FormulaireInscription() {
         
     }
 
+
+    
     return (
         <div className="FormulaireInscription-form">
+        <script src="https://www.google.com/recaptcha/api.js"></script>
             <h1>INSCRIPTION</h1>
             <div className='form'>
                 <div className="FormulaireInscription-input">
@@ -63,13 +76,20 @@ function FormulaireInscription() {
                     <input type="password" name="passwd" placeholder="MOT DE PASSE" value={passwd} onChange={(ev) => {setPassword(ev.target.value)}}/>
 
                 </div>
+                
+                <div className="form-group">
+                    <div className="g-recaptcha" data-sitekey="6LeHuQ8jAAAAACgbBCYVuXKB_A9RzzGeJktoqoKv"></div>
+                </div>
+                
                 <button className="FormulaireInscription-button" onClick={signIn} >S'INSCRIRE </button>
             </div>
             <div className="FormulaireInscription-signin-div">
                 Déja inscrit ?
                 <Link className="FormulaireInscription-signin" to="/connexion">Se connecter</Link>
             </div>
+
         </div>
+        
     );
 }
 
