@@ -8,15 +8,11 @@ import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 
 function Home() {
-  const [loader, setLoader] = useState(true);
-
-  const [annonces, setAnnonces] = useState();
+  const [annonces, setAnnonces] = useState([]);
 
   useEffect(() => {
+      
       getAnnonces();
-      setTimeout(() => {
-          setLoader(false);
-      },1000);
       
   }, [])
 
@@ -43,36 +39,42 @@ function Home() {
   }
 
   const displayLesAnnonces = () => {
-    const nbAnnonces = annonces[1];
+    if(annonces.length != 0){
+      const nbAnnonces = annonces[1];
 
-    if(nbAnnonces === 0){
-      setTimeout(() => {
+      if(nbAnnonces === 0){
+        setTimeout(() => {
+          const div = document.querySelector(".Home-lesAnnonces");
+          while (div.firstChild!=null) {
+            div.removeChild(div.lastChild);
+          }
+      
+          const p = document.createElement("p");
+          p.innerHTML = "Aucune annonce disponible";
+          p.className = "Home-Aucune";
+          div.appendChild(p);
+        },10);
+      }
+
+      else{
         const div = document.querySelector(".Home-lesAnnonces");
-        while (div.firstChild!=null) {
-          div.removeChild(div.lastChild);
+        const p = document.querySelector(".Home-Aucune");
+        if(p){
+          div.removeChild(p);
         }
-    
-        const p = document.createElement("p");
-        p.innerHTML = "Aucune annonce disponible";
-        p.className = "Home-Aucune";
-        div.appendChild(p);
-      },500);
-    }
-
-    else{
-      return (annonces[0].map((item, index) => (
-        displayAnnonce(item, index)
-      )))
+        return (annonces[0].map((item, index) => (
+          displayAnnonce(item, index)
+        )))
+      }
     }
   }
 
-  return loader ? 
+  return (annonces.length === 0) ?
     (
     <Loader/> 
     )
     :
-    (    
-    <div className="Home">
+    (<div className="Home">
       <LeftBar/>
       <div className='Home-center'>
         <div className='Home-header'>

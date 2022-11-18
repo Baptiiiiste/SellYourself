@@ -60,13 +60,16 @@ function Favoris() {
 			a = await a.json().then(a => listFavs.push(a));
 		}
 		setAnnonces(listFavs)
+        console.log(listFavs)
 	}
 	
 	const displayFavoris = (item, index) => {
 		const favoris = item;
 		console.log(favoris);
 	
-		return (<UneAnnonceDetaillee titre={favoris.titre}
+		return (<UneAnnonceDetaillee 
+            id={favoris._id}
+            titre={favoris.titre}
             description={favoris.description}
             prix={favoris.prix}
             img_annonce={favoris.img_annonce}
