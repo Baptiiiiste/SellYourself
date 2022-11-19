@@ -2,8 +2,36 @@ import "./Inscription.css"
 import React from 'react';
 import FormulaireInscription from '../../components/FormulaireInscription';
 import HeaderCustom from '../../components/HeaderCustom';
+import { useEffect } from "react";
+
+function reloadPage() {
+  var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+  // Current Time //
+  var now = Date.now();
+  // Total Process Lenght as Minutes //
+  var tenSec = 1 * 100;
+  // End Time of Process //
+  var plusTenSec = currentDocumentTimestamp + tenSec;
+  if (now > plusTenSec) {
+    window.location.reload();
+  }
+}
 
 function Inscription() {
+
+  // useEffect(()=>{
+  //     if( window.sessionStorage )
+  //     {
+  //       if( sessionStorage.getItem('firstLoad') !== 'true')
+  //       {
+  //         sessionStorage['firstLoad'] = 'true';
+  //         window.location.reload(false);
+  //       }  
+  //     }
+  // },[])
+
+
+  reloadPage();
   return(
     <div className="Inscription">
       <HeaderCustom title="logForm" className="Inscription-header"/>
