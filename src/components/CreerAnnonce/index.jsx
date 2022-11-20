@@ -42,13 +42,18 @@ function CreerAnnonce() {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
         if(!titre || !prix || nbImage === 0 || prix > 99999){
             alert("Vous devez renseigner au moins le titre, le prix de l'annonce ainsi qu'une image.");
-        }else if(titre && prix && nbImage > 0 && prix <= 99999){
-            if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
-                alert("Le titre est invalide");
-            }
-            if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
-                alert("La description est invalide");
-            }
+        }
+        if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
+            alert("Le titre est invalide");
+        }
+        if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
+            alert("La description est invalide");
+        }
+        if(prix <0){
+            alert("Le prix doit être positif");
+        }
+        else if(titre && prix && nbImage > 0 && prix <= 99999){
+            
             image = [];
             const images = document.querySelectorAll('.CreerAnnonce-img');
             for(let i = 0; i<images.length; i++){

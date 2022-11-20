@@ -43,6 +43,7 @@ function Home() {
   }
 
   const displayLesAnnonces = () => {
+
     if(annonces.length !== 0 && isOk){
       const nbAnnonces = annonces[1];
       if(nbAnnonces === 0){

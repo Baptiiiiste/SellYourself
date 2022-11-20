@@ -28,6 +28,7 @@
     "react-horizontal-scrolling-menu": "^3.2.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
+    "request": "^2.88.2",
     "stream": "npm:stream-browserify",
     "web-vitals": "^2.1.4"
   },
