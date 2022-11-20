@@ -8,6 +8,7 @@ const fs = require('fs')
 const bodyParser = require('body-parser');
 const { request } = require("http");
 const { json } = require("body-parser");
+const request2 = require('request');
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
@@ -37,7 +38,9 @@ app.post("/api/inscription", async (req, resp) => {
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});
 
     else if(req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null){
-        return resp.json({"success": false,"result": "Veuillez vérifier la captcha"});
+        if(resp.headersSent !== true){
+            resp.send({"success": false,"result": "Veuillez vérifier la captcha"});
+        }
         //resp.send({result:"Captcha invalide"});
     }
     else {
@@ -48,24 +51,27 @@ app.post("/api/inscription", async (req, resp) => {
         const secretKey = '6LeHuQ8jAAAAAMyaXJzJrY6Vk1xS47LxEe_ptwBU';
 
         // Verify URL for the captcha
-        const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-
+        const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+        
         // Make Request to verifyUrl
 
-        request(verifyUrl, (err, response, body)=> {
+        request2(verifyUrl, (err, response, body)=> {
             body = JSON.parse(body);
-            console.log(body);
+            // console.log(body);
 
             // If not successful
 
             if(body.success !== undefined && body.success === false){
-                return resp.json({"success":false, "result":"Échec de la vérification de la captcha"});
+                if(resp.headersSent !== true){
+                    resp.send({"success":false, "result":"Échec de la vérification de la captcha"});
+                }
                 //resp.send({"result":"Captcha invalide"});
             }
 
             // If successful
-
-            return resp.json({"success": true, "result":"Captcha réussie"});
+            if(resp.headersSent !== true){
+                resp.send({"success": true, "result":"Captcha réussie"});
+            }
             //resp.send({"success": true, "msg":"Captcha passed"});
         }); 
 
@@ -77,9 +83,15 @@ app.post("/api/inscription", async (req, resp) => {
 
         Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
             if(err){
-                resp.send({result:"Une erreur est survenue, attendez un peu"});
+                if(resp.headersSent !== true){
+                    resp.send({result:"Une erreur est survenue, attendez un peu"});
+                }
+                
             }
-            resp.send({user: result, authToken:token});   
+            if(resp.headersSent !== true){
+                resp.send({user: result, authToken:token});
+            }
+               
         });
     }
 
