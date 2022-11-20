@@ -52,7 +52,7 @@ function Contenu({id, titre, description, prix}){
             window.location.reload(false);
         }
     }
-
+    
     return(
         <div className='Contenu-all'>
             <div className='Contenu-text'>
