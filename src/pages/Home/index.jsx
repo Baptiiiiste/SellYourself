@@ -9,10 +9,14 @@ import UneAnnonce from '../../components/UneAnnonce';
 
 function Home() {
   const [annonces, setAnnonces] = useState([]);
+  const [isOk, setIsOk] = useState(false);
 
   useEffect(() => {
-      
+      setIsOk(false);
       getAnnonces();
+      setTimeout(() => {
+        setIsOk(true);
+      }, 500)
       
   }, [])
 
@@ -39,9 +43,9 @@ function Home() {
   }
 
   const displayLesAnnonces = () => {
-    if(annonces.length !== 0){
-      const nbAnnonces = annonces[1];
 
+    if(annonces.length !== 0 && isOk){
+      const nbAnnonces = annonces[1];
       if(nbAnnonces === 0){
         setTimeout(() => {
           const div = document.querySelector(".Home-lesAnnonces");
@@ -57,11 +61,6 @@ function Home() {
       }
 
       else{
-        const div = document.querySelector(".Home-lesAnnonces");
-        const p = document.querySelector(".Home-Aucune");
-        if(p){
-          div.removeChild(p);
-        }
         return (annonces[0].map((item, index) => (
           displayAnnonce(item, index)
         )))
@@ -69,7 +68,7 @@ function Home() {
     }
   }
 
-  return (annonces.length === 0) ?
+  return !isOk ?
     (
     <Loader/> 
     )
