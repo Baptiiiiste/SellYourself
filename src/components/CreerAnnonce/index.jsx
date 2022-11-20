@@ -23,7 +23,7 @@ function CreerAnnonce() {
 
         const nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
 
-        if(nbImage > 10){
+        if(nbImage > 5){
             alert("Vous ne pouvez choisir plus de 10 images !")
         }
         else{
