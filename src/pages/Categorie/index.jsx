@@ -14,9 +14,15 @@ function Categorie() {
   const [annonces, setAnnonces] = useState([]);
   const categorie = params.categorie;
   const recherche = params.recherche;
+  const [isOk, setIsOk] = useState(false);
 
   useEffect(() => {
+      setIsOk(false);
       getAnnonces();
+      setTimeout(() => {
+        setIsOk(true);
+      }, 1000)
+      
   }, [params])
 
   const getAnnonces = async () => {
@@ -42,6 +48,7 @@ function Categorie() {
   }
 
   const displayLesAnnonces = () => {
+    if(annonces.length !== 0 && isOk){
       const nbAnnonces = annonces[1];
 
       if(nbAnnonces === 0){
@@ -53,7 +60,7 @@ function Categorie() {
       
           const p = document.createElement("p");
           p.innerHTML = "Aucune annonce disponible";
-          p.className = "Home-Aucune";
+          p.className = "Categorie-Aucune";
           div.appendChild(p);
         },10);
       }
@@ -63,9 +70,10 @@ function Categorie() {
           displayAnnonce(item, index)
         )))
       }
+    }
   }
 
-  return (annonces.length === 0) ?
+  return !isOk ?
     (
     <LoaderCategorie/> 
     )
