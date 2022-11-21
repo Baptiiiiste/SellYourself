@@ -16,6 +16,8 @@ import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
 import ValiderAchat from './pages/ValiderAchat';
 import Categorie from './pages/Categorie';
+import ForgotPwd from './pages/PasswordForgot';
+import ResetPassword from './pages/ResetPassword';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -40,6 +42,8 @@ root.render(
         
         <Route path="/inscription" element={<Inscription/>} />
         <Route path="/connexion" element={<Connexion/>} />
+        <Route path="/forgotPwd" element={<ForgotPwd/>} />
+        <Route path="/resetPassword" element={<ResetPassword/>} />
         <Route path="/*" element={<Erreur/>} />
       </Routes>
 
