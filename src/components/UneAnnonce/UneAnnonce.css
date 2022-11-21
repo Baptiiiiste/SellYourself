@@ -62,13 +62,15 @@
     height: 470px;
     margin: 2%;
     border: 1px solid var(--grisFoncé);
-    box-sizing: content-box;
+    box-sizing:content-box;
+    border-radius: 15px;
 }
 
 .UneAnnonce-div-Image{
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    border-radius: 15px;
 }
   
 /* .UneAnnonce-div-Image::-webkit-scrollbar-track {

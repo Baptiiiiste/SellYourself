@@ -8,7 +8,7 @@ function FormulaireResetPassword() {
     const navigate = useNavigate();
     
 
-    const login = async () => {
+    const resetPassword = async () => {
         navigate("/resetPassword");
     }
 
@@ -23,7 +23,7 @@ function FormulaireResetPassword() {
                 <div className="FormulaireResetPassword-input">
                     <input type="text" name="confirm-new-password"  placeholder="CONFIRMER LE MOT DE PASSE" required/>
                 </div>
-                <button onClick={login} className="FormulaireResetPassword-button">CONFIRMER</button>
+                <button onClick={resetPassword} className="FormulaireResetPassword-button">CONFIRMER</button>
             </div>
             <div className="FormulaireResetPassword-signin">
                 Retour à la

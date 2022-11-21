@@ -24,8 +24,7 @@ function FormulaireInscription() {
         }else if(email && passwd && pseudo){
 
             if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
-                alert("Email invalide");
-                return;
+               return alert("Format d'adresse e-mail invalide");
             }
 
             if(passwd.includes(" ")){

@@ -454,6 +454,49 @@ app.get('/',async(req,res)=>{
 
 // ---------------------------------------------------------------------------------------
 
+
+
+// ----------------------
+
+// Forgot password
+
+// ----------------------
+
+app.post("/api/forgotPwd",async(req,resp)=>{
+    const {email} = req.body.email;
+    try{
+
+        if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(req.body.email)){
+            resp.send({result:"Format d'adresse e-mail invalide"});
+        }
+
+        const oldUser = await User.findOne({email: req.body.email});
+
+        if( !oldUser){
+            resp.send({result:"Adresse e-mail inconnue"});
+        }
+
+        const secret = process.env.JWTKEY + oldUser.password;
+
+        const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
+
+        const link = `http://localhost:5000/api/resetPassword/${oldUser.pseudo}/${token}`;
+
+        console.log(link);
+    }
+    catch(error){
+        
+    }
+});
+
+app.get('/resetPassword/:pseudo/:token', async(req, resp)=>{
+    const {pseudo,token} = req.params;
+    console.log(req.params);
+});
+
+
+// ---------------------------------------------------------------------------------------
+
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
