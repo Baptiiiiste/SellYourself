@@ -15,26 +15,50 @@ function CreerAnnonce() {
     const [prix, setPrix] = useState("");
     const [categorie, setCategorie] = useState("Autre");
     const [type, setType] = useState("Bien");
-    let image;
+    const [image, setImage] = useState([]);
+
+    const toBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
 
     const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
-        const array = document.querySelector('.CreerAnnonce-Image').files;
+        const files = document.querySelector('.CreerAnnonce-Image').files;
 
-        const nbImage = array.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
+        const nbImage = files.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
 
         if(nbImage > 5){
             alert("Vous ne pouvez choisir plus de 5 images !")
         }
         else{
-            for (let i = 0; i<array.length; i++){
-                if(array[i].name.split('.').pop() === 'jpeg' || array[i].name.split('.').pop() === 'jpg' || array[i].name.split('.').pop() === 'jpng'){
+            let lesImages = []
+            image.forEach(element => {
+                lesImages.push(element)
+            });
+            for (let i = 0; i<files.length; i++){
+                const extension = files[i].name.split('.').pop().toLowerCase();
+                
+                if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
+                    const imageBase64 = await toBase64(files[i]);
+
                     const img = document.createElement('img');
-                    img.src= "image/" + array[i].name;
+                    img.src= imageBase64;
                     img.className ='CreerAnnonce-img';
                     div.appendChild(img);
+
+                    lesImages.push(imageBase64);
                 }
             }
+            setImage(lesImages);
         }
     }
 
@@ -52,17 +76,11 @@ function CreerAnnonce() {
         if(prix <0){
             alert("Le prix doit être positif");
         }
+        if(categorie.length === 0){
+            setCategorie('Autre');
+        }
         else if(titre && prix && nbImage > 0 && prix <= 99999){
-            
-            image = [];
-            const images = document.querySelectorAll('.CreerAnnonce-img');
-            for(let i = 0; i<images.length; i++){
-                if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
-                }
-            }
-            if(categorie.length === 0){
-                setCategorie('Autre');
-            }
+            console.log(image)
             let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
