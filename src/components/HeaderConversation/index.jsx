@@ -8,7 +8,7 @@ function HeaderConversation({image, titre, description}) {
   const displayImage = () => {
     if(image !== undefined){
       if(image.length === 0) return <img className="HeaderConversation-image" src={require('../../assets/default.png')}/>
-      else return <img className="HeaderConversation-image" src={image}/>
+      else return <img className="HeaderConversation-image" src={image[0]}/>
     }
   }
 

@@ -29,7 +29,12 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
         }
     }
 
-
+    const displayImage = () => {
+        if(img_annonce !== undefined){
+            if(img_annonce.length === 0) return <img className="UneAnnonceDetaillee-image" src={require('../../assets/default.png')}/>
+            else return <img className="UneAnnonceDetaillee-image" src={img_annonce[0]}/>
+        }
+    }
 
 
     return(
@@ -37,7 +42,7 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
             <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
                 <p className="UneAnnonceDetaillee-titre">{titre}</p>
                 <div className='UneAnnonce-descriptionImage'>
-                    <img className="UneAnnonceDetaillee-image" src={require("../../assets/annonce1.jpg")} alt=""/>
+                    {displayImage()}
                     <p className="UneAnnonceDetaillee-description">{description}</p>
                 </div>
                 
