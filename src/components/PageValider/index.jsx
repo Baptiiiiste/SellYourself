@@ -1,11 +1,18 @@
 import './PageValider.css'
 
 function ValidationAchat({annonce}) { 
+    const displayImage = () => {
+        if(annonce.image !== undefined){
+            if(annonce.image.length === 0) return <img className="PageValider-Image" src={require('../../assets/default.png')}/>
+            else return <img className="PageValider-Image" src={annonce.image}/>
+        }
+    }
+
     return (
         <div className="PageValider">
             <p className='PageValider-Titre'>ACHAT</p>
             <div className="PageValider-Annonce">
-            <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='PageValider-Image'/>
+                {displayImage()}
                 <div className="PageValider-InfoAchat">
                     <p className='PageValider-NomAnnonce'>{annonce.titre}</p>
                     <p className='PageValider-PrixAnnonce'>{annonce.prix}€</p>
