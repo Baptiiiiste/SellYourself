@@ -83,7 +83,6 @@
 
 .InfoAnnonce-PhotosAnnonce img{
     height: 250px;
-    width: 300px;
     margin: 0 15px;
     scroll-snap-align: start;
 }

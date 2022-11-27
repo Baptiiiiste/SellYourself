@@ -7,26 +7,10 @@ import {faHeart, faStar} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 function Utilisateur({pseudo, prenom, nom, note, nbNote, description, localisation, image}){
-
-    // const [data,setData] = useState([])
-    // useEffect(()=>{
-    //     axios.get('http://localhost:5000')
-    //     .then((res)=>setData(res.data))
-    //     .catch((err)=> console.log(err,"it has an error"));
-    // })
     
     return(
         <div className='InfoAnnonce-InfoEtPhotoVendeur'>
-            {/* {
-                data.map((singleData)=>{
-                    const base64String = btoa(
-                        String.fromCharCode(...new Uint8Array((singleData.image.data.data)))
-                    );
-                    return <img src={`data:image/png;base64,${base64String}`} alt="" className='InfoAnnonce-PhotoVendeur'/>
-                })
-
-            } */}
-            {/* <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/> */}
+            <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur'/>
             <div className='InfoAnnonce-InfosVendeur'>
                 
                     <p className='InfoAnnonce-NomVendeur'>{pseudo} : {prenom} {nom}</p>
@@ -39,18 +23,24 @@ function Utilisateur({pseudo, prenom, nom, note, nbNote, description, localisati
 }
 
 function Annonce({titre, description, photos}){
+
+    const displayImage = () => {
+        if(photos !== undefined){
+            if(photos.length === 0) return <img src={require('../../assets/default.png')}/>
+            else {
+                return (photos.map((item, index) => (
+                    <img src={item}/>
+                )));
+            }
+        }
+    }
     
     return(
         <div className='InfoAnnonce-Annonce'>
             <p className='InfoAnnonce-NomAnnonce'>{titre}</p>
             <p className='InfoAnnonce-DescriptionAnnonce'>{description}</p>
             <div className='InfoAnnonce-PhotosAnnonce'>
-                <img src={require('../../assets/annonce1.jpg')} alt="" />
-                <img src={require('../../assets/annonce2.jpg')} alt="" />
-                <img src={require('../../assets/annonce3.jpg')} alt="" />
-                <img src={require('../../assets/annonce1.jpg')} alt="" />
-                <img src={require('../../assets/annonce2.jpg')} alt="" />
-                <img src={require('../../assets/annonce3.jpg')} alt="" />
+                {displayImage()}
             </div>
         </div>
     )
@@ -58,17 +48,12 @@ function Annonce({titre, description, photos}){
 
 function InfoAnnonce() {
 
-    const [loader, setLoader] = useState(false);
-
     const params = useParams();
 
     const [annonce, setAnnonce] = useState([]);
     const [userAll, setUser] = useState([]);
 
     useEffect(() => {
-        // setTimeout(() => {
-        //     setLoader(false);
-        // },1000);
         getAnnonce();
         getUser();
     }, [])
@@ -118,7 +103,6 @@ function InfoAnnonce() {
         }
     }
 
-    console.log(userAll)
     const user = userAll[0];
     const note = userAll[1];
     const nbNote = userAll[2];

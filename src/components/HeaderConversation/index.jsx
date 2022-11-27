@@ -4,10 +4,18 @@ import { Link, useParams } from "react-router-dom";
 
 function HeaderConversation({image, titre, description}) {
   const param = useParams();
+
+  const displayImage = () => {
+    if(image !== undefined){
+      if(image.length === 0) return <img className="HeaderConversation-image" src={require('../../assets/default.png')}/>
+      else return <img className="HeaderConversation-image" src={image}/>
+    }
+  }
+
   return(
     <div className="HeaderConversation">
       <div className="HeaderConversation-annonce">
-        <img className="HeaderConversation-image" src={require("../../assets/annonce1.jpg")} alt=""/>
+        {displayImage()}
         <div className="HeaderConversation-contenu">
             <p className="HeaderConversation-titre">{titre}</p>
             <p className="HeaderConversation-description">{description}</p>

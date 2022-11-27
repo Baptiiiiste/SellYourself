@@ -74,11 +74,11 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
 
     const displayImage = () => {
         if(img_annonce !== undefined){
-            if(img_annonce.length === 0) return <img className='UneAnnonce-img-annonce' src={require('../../assets/default.png')}/>
+            if(img_annonce.length === 0) {return <img className='UneAnnonce-img-annonce' src={require('../../assets/default.png')}/>}
             else {
-                return img_annonce.forEach(element => {
-                    <img className='UneAnnonce-img-annonce' src={element}/>
-                });
+                return (img_annonce.map((item, index) => (
+                    <img className='UneAnnonce-img-annonce' src={item}/>
+                )));
             }
         }
     }
