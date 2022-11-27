@@ -43,7 +43,6 @@ function Profil() {
 			owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
 			key={index}
 		/>)
-
 	  }
 
     
