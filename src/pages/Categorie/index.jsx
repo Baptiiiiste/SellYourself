@@ -39,7 +39,7 @@ function Categorie() {
       titre={annonce.titre}
       description={annonce.description}
       prix={annonce.prix}
-      img_annonce={annonce.img_annonce} 
+      img_annonce={annonce.image} 
       pseudoVendeur={user.pseudo}
       img_profil={user.profilPic}
       note={user.noteList}

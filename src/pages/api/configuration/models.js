@@ -45,8 +45,6 @@ const notificationSchema = new mongoose.Schema({
 });
 
 
-
-
 module.exports = {
     User: mongoose.model("users", userSchema),
     Annonce: mongoose.model("annonces", annonceSchema),
