@@ -34,6 +34,17 @@ function InfoUtilisateur(){
             return alert("Email incorrecte");
         }
 
+        if(!/^[a-zA-Z0-9_.-]*$/.test(nom)){
+            return alert("Nom incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+        }
+
+        if(!/^[a-zA-Z0-9_.-]*$/.test(prenom)){
+            return alert("Prénom incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+        }
+
+        if(!/^[a-zA-Z0-9_.-]*$/.test(ville)){
+            return alert("Ville incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+        }
 
         if(/^\s$/.test(nom)) nom = "";
         if(/^\s$/.test(prenom)) prenom = "";

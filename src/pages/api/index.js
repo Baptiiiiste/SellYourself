@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
 const multer = require("multer");
-const fs = require('fs')
+const fs = require('fs');
+const { Await } = require("react-router-dom");
 
 
 
@@ -259,6 +260,13 @@ app.post("/api/favoris/addFavs/:idUser/:idAnnonce", verifyToken, async (req, res
 //     resp.send(result);
 // })
 
+app.get("/api/utilisateur/getNotif/:pseudo/:idNotif", async (req, resp) => {
+    let user = await User.findOne({ pseudo: req.params.pseudo })
+    const notifs = user.notifications.map(n => n._id);
+    const filteredNotif = notifs.toString().indexOf(req.params.idNotif);
+    resp.send({notif: user.notifications[filteredNotif]});
+});
+
 
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
@@ -282,42 +290,45 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
 
 })
 
-// app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
+app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
 
-//     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
-//     let resUser = await User.updateOne(
-//         { _id : req.params.idUser },
-//         { $pull: { annonces: req.params.idAds } }
-//     )
-//     if(resAds && resUser){
-//         const newUser = await User.findOne({ _id : req.params.idUser });
-//         resp.send({user: newUser});
-//     }
-//     else{
-//         resp.send({erreur: "Erreur lors de la suppression"})
-//     } 
+    let user = await User.findOne({ pseudo: req.params.pseudo })
+    const notifs = user.notifications.map(n => n._id);
+    const filteredNotif = notifs.toString().indexOf(req.params.idNotif);
 
-// });
-
-
-
-// ---------------------------------------------------------------------------------------
-
-// Vérification du token utilisateur
-function verifyToken(req, resp, next) {
-    let token = req.headers['authorization'];
-    if(token){
-
-        token = token.split(" ")[1];
-        Jwt.verify(token, process.env.JWTKEY,(err, success) => {
-            if(err) resp.status(401).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
-            else next();
-        });
-    
+    if(filteredNotif != -1){
+        user.notifications.splice(filteredNotif, 1);
+        await User.updateOne(
+            {pseudo: req.params.pseudo},
+            {$set: {notifications: user.notifications}}
+        );
+    } 
+    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    if(newUser){
+        resp.send({user: newUser});
     }else{
-        resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+        resp.send({erreur: "Erreur lors de la suppression"})
     }
-}
+});
+
+app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
+    let user = await User.findOne({ pseudo: req.params.pseudo })
+    user.notifications.splice(0, user.notifications.length)
+    await User.updateOne(
+        {pseudo: req.params.pseudo},
+        {$set: {notifications: user.notifications}}
+    );
+    
+    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    if(newUser){
+        resp.send({user: newUser});
+    }else{
+        resp.send({erreur: "Erreur lors de la suppression"})
+    }
+
+});
+
+
 
 
 // Image
@@ -389,6 +400,25 @@ app.get("/api/search/:key", async(req,resp) => {
     });
     resp.send(result);
 })
+
+
+// ---------------------------------------------------------------------------------------
+
+// Vérification du token utilisateur
+function verifyToken(req, resp, next) {
+    let token = req.headers['authorization'];
+    if(token){
+
+        token = token.split(" ")[1];
+        Jwt.verify(token, process.env.JWTKEY,(err, success) => {
+            if(err) resp.status(401).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+            else next();
+        });
+    
+    }else{
+        resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+    }
+}
 
 // Lancement de l'API
 app.listen(5000);

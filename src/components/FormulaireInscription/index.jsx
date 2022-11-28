@@ -32,6 +32,10 @@ function FormulaireInscription() {
                 return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
             }
 
+            if(!/^[a-zA-Z0-9_.-]*$/.test(pseudo) || pseudo.includes(" ")){
+                return alert("Pseudo incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+            }
+
             const password = bcrypt.hashSync(passwd,salt);
             let data = await fetch(`http://localhost:5000/api/inscription`, {
                 method: 'post',
