@@ -103,19 +103,27 @@ function InfoUtilisateur() {
     const ChangeImg = async () => {
         const imgProfil = document.querySelector('.InfoUtilisateur-image');
         const image = document.querySelector('.InfoUtilisateur-modif').files[0];
-        const image64 = await toBase64(image);
-        imgProfil.src = image64;
+        const profilPic = await toBase64(image);
+        imgProfil.src = profilPic;
 
         let result = await fetch(`http://localhost:5000/api/utilisateur/image/${JSON.parse(connectedUser).pseudo}`, {
-            method: "Post",
-            
+            method: "Put",
+            body: JSON.stringify({ profilPic }),
             headers: {
                 'Content-Type': 'Application/json',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
         result = await result.json();
-
+        if (result.erreur) {
+            alert(result.erreur);
+        } else if (result.tokenError) {
+            alert(result.tokenError);
+        } else {
+            sessionStorage.removeItem("user")
+            sessionStorage.setItem("user", JSON.stringify(result.user));
+            window.location.reload(true);
+        }
     }
 
     // Affichage HTML

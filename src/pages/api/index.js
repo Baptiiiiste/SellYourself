@@ -99,12 +99,15 @@ app.post("/api/connexion", async (req, resp) => {
             if(bcrypt.compareSync(req.body.password, user.password)){
                 let result = user.toObject();
                 delete result.password;
+                delete result.profilPic;
+                let utilisateur = user.toObject();
+                delete utilisateur.password;
                 
                 Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
                     if(err){
                         resp.send({result:"Une erreur est survenue, attendez un peu"});
                     }
-                    resp.send({user: result, authToken:token});   
+                    resp.send({user: utilisateur, authToken:token});   
                 });
 
             }else resp.send({result:"Mot de passe incorrect"});
@@ -336,10 +339,10 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
 })
 
 // Requete modification image profil utilisateur
-app.post("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
+app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
     let result= await User.updateOne(
         { pseudo: req.params.pseudo },
-        { $set: {profilPic: req.body} }
+        { $set: req.body }
     )
     if(result){
         let user = await User.findOne({pseudo : req.params.pseudo});
