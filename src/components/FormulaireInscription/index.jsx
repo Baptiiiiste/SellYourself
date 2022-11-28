@@ -1,13 +1,15 @@
+// Import 
 import './FormulaireInscription.css'
 import { Link , useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
-
 import bcrypt from "bcryptjs"
 
+// Sel pour le mot de passe
 const salt = bcrypt.genSaltSync(10);
 
+// Composant qui représente le formulaire d'inscription
 function FormulaireInscription() {
-
+    // Variables
     const [pseudo, setPseudo] = useState("");
     const [email, setEmail] = useState("");
     const [passwd, setPassword] = useState("");
@@ -18,6 +20,7 @@ function FormulaireInscription() {
         if(connectedUser) navigate("/");
     },[]);
 
+    // Fonction pour s'enregistrer
     const signIn = async (e) => {
         if(!passwd || !email || !pseudo){
             alert("Vous devez renseigner tous les champs pour vous inscrire.");
@@ -45,11 +48,6 @@ function FormulaireInscription() {
                 },
                 body:JSON.stringify({pseudo:pseudo, email:email, password:password, captcha:captcha })
             }).catch((err)=>{console.log(err)});
-            // .then((resp) => resp.json())
-            // .then((data)=>{
-            //     console.log(data);
-            //     alert(data.msg);
-            // });
             data = await data.json().catch(err =>{console.log(err)});
             if(data.authToken){
                 sessionStorage.setItem("user", JSON.stringify(data.user));
@@ -58,13 +56,10 @@ function FormulaireInscription() {
             }else{
                 alert(data.result);
             }
-            
         }
-        
     }
-
-
     
+    // Affichage HTML
     return (
         <div className="FormulaireInscription-form">
         <script src="https://www.google.com/recaptcha/api.js"></script>

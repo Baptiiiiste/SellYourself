@@ -1,3 +1,4 @@
+// Import 
 import './PageValider.css'
 
 function ValidationAchat({annonce}) { 

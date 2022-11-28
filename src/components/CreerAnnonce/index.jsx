@@ -1,15 +1,14 @@
+// Import 
 import './creerAnnonce.css';
-import React from 'react';
-import {categories} from '../../assets/data'
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { categories } from '../../assets/data'
 import { useNavigate } from 'react-router-dom';
 
+// Composant qui représente le formulaire pour publier une annonce
 function CreerAnnonce() {
-
+    // Variables
     const navigate = useNavigate();
-
     const connectedUser = sessionStorage.getItem("user");
-
     const [titre, setTitre] = useState("");
     const [description, setDescription] = useState("");
     const [prix, setPrix] = useState("");
@@ -17,6 +16,7 @@ function CreerAnnonce() {
     const [type, setType] = useState("Bien");
     const [image, setImage] = useState([]);
 
+    // Fonction pour convertir un fichier en base64
     const toBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -30,6 +30,7 @@ function CreerAnnonce() {
         });
     };
 
+    // Fonction pour afficher les images
     const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const files = document.querySelector('.CreerAnnonce-Image').files;
@@ -57,6 +58,7 @@ function CreerAnnonce() {
                         const img = document.createElement('img');
                         img.src= imageBase64;
                         img.className ='CreerAnnonce-img';
+                        img.alt = "";
                         div.appendChild(img);
 
                         lesImages.push(imageBase64);
@@ -69,6 +71,7 @@ function CreerAnnonce() {
         }
     }
 
+    // Fonction pour valider le formulaire et envoyer l'annonce en base de données
     const formulaire = async () => {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
 
@@ -121,6 +124,7 @@ function CreerAnnonce() {
         }
     }
 
+    // Affichage HTML
     return(
         <div className="CreerAnnonce-Input">
             <input type="text"
