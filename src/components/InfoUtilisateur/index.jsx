@@ -16,6 +16,7 @@ function InfoUtilisateur() {
     let actualPaypal = JSON.parse(connectedUser).paypal ? `Paypal: ${JSON.parse(connectedUser).paypal}` : "Paypal.me/moncompte";
     let actualEmail = JSON.parse(connectedUser).email ? `Email: ${JSON.parse(connectedUser).email}` : "E-mail";
     let actualVille = JSON.parse(connectedUser).ville ? `Ville: ${JSON.parse(connectedUser).ville}` : "Ville";
+    let image = JSON.parse(connectedUser).profilPic;
     let [nom, setNom] = useState();
     let [prenom, setPrenom] = useState();
     let [description, setDescription] = useState();
@@ -84,10 +85,37 @@ function InfoUtilisateur() {
         }
     }
 
+    // Fonction pour convertir un fichier en base64
+    const toBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
     // Fonction pour modifier l'image de profil
     const ChangeImg = async () => {
         const imgProfil = document.querySelector('.InfoUtilisateur-image');
-        imgProfil.src = "image/" + document.querySelector('.InfoUtilisateur-modif').files[0].name;
+        const image = document.querySelector('.InfoUtilisateur-modif').files[0];
+        const image64 = await toBase64(image);
+        imgProfil.src = image64;
+
+        let result = await fetch(`http://localhost:5000/api/utilisateur/image/${JSON.parse(connectedUser).pseudo}`, {
+            method: "Post",
+            
+            headers: {
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+        result = await result.json();
+
     }
 
     // Affichage HTML
@@ -95,7 +123,7 @@ function InfoUtilisateur() {
         <div className='InfoUtilisateur'>
             <div className='InfoUtilisateur-all'>
                 <div className='InfoUtilisateur-photo'>
-                    <img className="InfoUtilisateur-image" src={require("../../assets/DefaultPP.jpeg")} alt="" />
+                    <img className="InfoUtilisateur-image" src={image} alt="" />
                     <label for="image" className='InfoUtilisateur-Label'>Changer la photo</label>
                     <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onChange={ChangeImg}></input>
                 </div>

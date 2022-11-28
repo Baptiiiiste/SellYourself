@@ -12,10 +12,12 @@ function Leftbar() {
   let pseudo = "";
   let note;
   let nbNote;
+  let profilPic;
 
   if (connectedUser) {
     pseudo = JSON.parse(connectedUser).pseudo;
     note = JSON.parse(connectedUser).noteList;
+    profilPic = JSON.parse(connectedUser).profilPic;
     nbNote = note.length;
     if (nbNote > 0) {
       let moy = 0;
@@ -42,7 +44,7 @@ function Leftbar() {
       <div className='allLeftBar'>
         <div className='LeftBar-NameImg'>
           <div className='LeftBar-ProfilePic'>
-            <img className='Leftbar-ProfilImage' src={require('../../assets/DefaultPP.jpeg')} alt="" />
+            <img className='Leftbar-ProfilImage' src={profilPic} alt="" />
           </div>
           <div className='LeftBar-username'>
             <p>

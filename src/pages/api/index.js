@@ -3,11 +3,6 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
-const multer = require("multer");
-const fs = require('fs')
-const bodyParser = require('body-parser');
-const { request } = require("http");
-const { json } = require("body-parser");
 const request2 = require('request');
 
 
@@ -337,6 +332,20 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
         resp.send({user: user});
     }else{
         resp.send({erreur: "Erreur lors de l'envoie de la notification"});
+    }
+})
+
+// Requete modification image profil utilisateur
+app.post("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
+    let result= await User.updateOne(
+        { pseudo: req.params.pseudo },
+        { $set: {profilPic: req.body} }
+    )
+    if(result){
+        let user = await User.findOne({pseudo : req.params.pseudo});
+        resp.send({user: user})
+    }else{
+        resp.send({erreur: "erreur"})
     }
 })
 

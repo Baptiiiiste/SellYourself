@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     description: {type: String, default: ""},
     nom: {type: String, default: ""},
     ville: {type: String, default: ""},
-    profilPic: ImageSchema,
+    profilPic: {type: String},
     paypal: {type: String, default: ""},
     note: {Type: Number},
     noteList: [],
