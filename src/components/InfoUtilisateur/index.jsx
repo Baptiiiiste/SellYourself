@@ -103,26 +103,37 @@ function InfoUtilisateur() {
     const ChangeImg = async () => {
         const imgProfil = document.querySelector('.InfoUtilisateur-image');
         const image = document.querySelector('.InfoUtilisateur-modif').files[0];
-        const profilPic = await toBase64(image);
-        imgProfil.src = profilPic;
+        const extension = image.name.split('.').pop().toLowerCase();
+        const size = image.size;
 
-        let result = await fetch(`http://localhost:5000/api/utilisateur/image/${JSON.parse(connectedUser).pseudo}`, {
-            method: "Put",
-            body: JSON.stringify({ profilPic }),
-            headers: {
-                'Content-Type': 'Application/json',
-                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-            }
-        });
-        result = await result.json();
-        if (result.erreur) {
-            alert(result.erreur);
-        } else if (result.tokenError) {
-            alert(result.tokenError);
+        if(size > 2097152){
+            alert(`La taille de ce fichier (${image.name}) est trop grand`)
         } else {
-            sessionStorage.removeItem("user")
-            sessionStorage.setItem("user", JSON.stringify(result.user));
-            window.location.reload(true);
+            if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
+                const profilPic = await toBase64(image);
+                imgProfil.src = profilPic;
+
+                let result = await fetch(`http://localhost:5000/api/utilisateur/image/${JSON.parse(connectedUser).pseudo}`, {
+                    method: "Put",
+                    body: JSON.stringify({ profilPic }),
+                    headers: {
+                        'Content-Type': 'Application/json',
+                        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                    }
+                });
+                result = await result.json();
+                if (result.erreur) {
+                    alert(result.erreur);
+                } else if (result.tokenError) {
+                    alert(result.tokenError);
+                } else {
+                    sessionStorage.removeItem("user")
+                    sessionStorage.setItem("user", JSON.stringify(result.user));
+                    window.location.reload(true);
+                }
+            } else {
+                alert("Seulement les fichiers .jpg, .jpeg et .png sont accepter")
+            }
         }
     }
 

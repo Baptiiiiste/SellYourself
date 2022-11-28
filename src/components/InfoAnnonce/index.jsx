@@ -11,7 +11,7 @@ function Utilisateur({ pseudo, prenom, nom, note, nbNote, description, localisat
     // Affichage HTML
     return (
         <div className='InfoAnnonce-InfoEtPhotoVendeur'>
-            <img src={require('../../assets/DefaultPP.jpeg')} alt="" className='InfoAnnonce-PhotoVendeur' />
+            <img src={image} alt="" className='InfoAnnonce-PhotoVendeur' />
             <div className='InfoAnnonce-InfosVendeur'>
                 <p className='InfoAnnonce-NomVendeur'>{pseudo} : {prenom} {nom}</p>
                 <p className='InfoAnnonce-Note'>Note: {note}{note !== "Aucune note" && <FontAwesomeIcon icon={faStar} />} ( {nbNote} avis )</p>

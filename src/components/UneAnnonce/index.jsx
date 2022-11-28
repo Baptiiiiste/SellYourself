@@ -21,7 +21,7 @@ function Vendeur({pseudo, photo, note}){
 
     return(
         <div className='Vendeur-all'>
-            <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+            <img className='Vendeur-img' src={photo} alt=""/>
             <div className='Vendeur-info'>
                 <p className='Vendeur-nom'>{pseudo}</p>
                 <p className='Vendeur-note'>Note: {note}{ note !== "Aucune note" && <FontAwesomeIcon icon={faStar} />}</p>
