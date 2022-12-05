@@ -24,9 +24,6 @@ app.post("/api/inscription", async (req, resp) => {
     const isPseudoAlreadyTaken = await User.findOne({pseudo: req.body.pseudo});
     const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     
-    
-
-
     if(isPseudoAlreadyTaken) resp.send({result:"Cet identifiant est déjà pris"});
     
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});

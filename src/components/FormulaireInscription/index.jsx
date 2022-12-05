@@ -40,13 +40,24 @@ function FormulaireInscription() {
             const captcha = document.querySelector('#g-recaptcha-response').value;
 
             const password = bcrypt.hashSync(passwd,salt);
+
+            const profilPic = await fetch('https://api.thecatapi.com/v1/images/search',{headers: {
+                'x-api-key': 'DEMO_API_KEY'
+            }})
+            .then((response) => {
+            return response.json();
+            })
+            .then((data) => {
+            return data[0].url;
+            });
+
             let data = await fetch(`http://localhost:5000/api/inscription`, {
                 method: 'POST',
                 headers: {
                     'Accept':'application/json, text/plain, */*',
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify({pseudo:pseudo, email:email, password:password, captcha:captcha })
+                body:JSON.stringify({pseudo:pseudo, email:email, password:password, captcha:captcha, profilPic:profilPic})
             }).catch((err)=>{console.log(err)});
             data = await data.json().catch(err =>{console.log(err)});
             if(data.authToken){
