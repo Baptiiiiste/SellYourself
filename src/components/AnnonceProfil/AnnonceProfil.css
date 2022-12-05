@@ -32,6 +32,7 @@
 
 .UneAnnonceDetaillee-image{
     height: 150px;
+    max-width: 250px;
 }
 
 .UneAnnonceDetaillee-description{

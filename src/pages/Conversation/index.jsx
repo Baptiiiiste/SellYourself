@@ -37,6 +37,7 @@ function Conversation() {
                 </div>
                 <div className="Conversation-info">
                     <HeaderConversation 
+                        image={annonce.image}
                         titre={annonce.titre}
                         description={annonce.description}
                     />

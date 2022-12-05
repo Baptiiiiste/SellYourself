@@ -1,3 +1,4 @@
+// Import 
 import './UneAnnonce.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -20,10 +21,11 @@ function Vendeur({pseudo, photo, note}){
 
     return(
         <div className='Vendeur-all'>
-            <img className='Vendeur-img' src={require('../../assets/DefaultPP.jpeg')} alt=""/>
+            <img className='Vendeur-img' src={photo} alt=""/>
             <div className='Vendeur-info'>
                 <p className='Vendeur-nom'>{pseudo}</p>
-                <p className='Vendeur-note'>Note: {note}{ note !== "Aucune note" && <FontAwesomeIcon icon={faStar} />} ( {nbNote} avis )</p>
+                <p className='Vendeur-note'>Note: {note}{ note !== "Aucune note" && <FontAwesomeIcon icon={faStar} />}</p>
+                {nbNote !== 0 && <p className='Vendeur-note'> ( {nbNote} avis )</p>}
             </div>
         </div>
     )
@@ -69,17 +71,32 @@ function Contenu({id, titre, description, prix}){
     )
 }
 
-function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, note, img_profil}) {
+function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, note, img_profil, categorie}) {
+
+    const displayImage = () => {
+        if(img_annonce !== undefined){
+            if(img_annonce.length === 0) {return <img className='UneAnnonce-img-annonce' src={require('../../assets/default.png')}/>}
+            else {
+                return (img_annonce.map((item, index) => (
+                    <img className='UneAnnonce-img-annonce' src={item}/>
+                )));
+            }
+        }
+    }
 
     return (
         <div className='UneAnnonce-all'>
             <Link to={"/annonce/" + pseudoVendeur + "/" + id} params={{titre: titre}} className='UneAnnonce-div-Image'>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce1.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce2.jpg')} alt=""/>
-                <img className='UneAnnonce-img-annonce' src={require('../../assets/annonce3.jpg')} alt=""/>
+                {displayImage()}
             </Link>
             <div className='UneAnnonce-description'>
-                <Vendeur pseudo={pseudoVendeur} photo={img_profil} note={note}/>
+                <div className='UneAnnonce-description-top'>
+                    <Vendeur pseudo={pseudoVendeur} photo={img_profil} note={note}/>
+                    <div className='UneAnnonce-categorie'>
+                        <p className='UneAnnonce-categorie-titre'>Catégorie :</p>
+                        <p className='UneAnnonce-categorie-text'>{categorie}</p>
+                    </div>
+                </div>
                 <Contenu id={id} titre={titre} description={description} prix={prix}/>
             </div>
         </div>

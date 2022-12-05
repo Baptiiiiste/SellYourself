@@ -15,28 +15,11 @@
     width: 400px;
     margin: 20px;
     font-size: 20px;
+    color: #696969
 }
 
 .CreerAnnonce-Description{
     height: 80px;
-}
-
-.CreerAnnonce-Categorie{
-    font-size: 16px;
-}
-
-.CreerAnnonce-Radio {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 400px;
-    margin: 30px 0;
-}
-
-.CreeAnnonce-RadioBouton{
-    padding: 20px 30px;
-    font-size: 18px;
-    border: 2px solid var(--orange);
 }
 
 .CreerAnnonce-BoutonSubmit {
@@ -46,20 +29,6 @@
     width: 100%;
     padding-right: 100px;
 }
-
-.CreerAnnonce-Bien, .CreerAnnonce-Service{
-    appearance: none;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--orange);
-    transition: 0.2s all linear;
-    margin-right: 10px;
-}
-
-.CreerAnnonce-Bien:checked, .CreerAnnonce-Service:checked {
-    border: 8px solid var(--orangeFoncé);
-  }
 
 .CreerAnnonce-Image{
     display: none;
@@ -77,7 +46,6 @@
 
 .CreerAnnonce-LesImages img{
     height: 250px;
-    width: 300px;
     margin: 0 15px;
 }
 

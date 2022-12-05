@@ -1,3 +1,4 @@
+// Import 
 import './Loader.css';
 
 function Loader() {

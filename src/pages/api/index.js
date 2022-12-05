@@ -3,11 +3,6 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
-const multer = require("multer");
-const fs = require('fs')
-const bodyParser = require('body-parser');
-const { request } = require("http");
-const { json } = require("body-parser");
 const request2 = require('request');
 
 
@@ -17,10 +12,9 @@ const request2 = require('request');
 
 // Création de l'API
 const app = express();
-app.use(express.json());
+app.use(express.json({limit: '25mb'}));
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({limit: '25mb', extended: false}));
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -105,12 +99,15 @@ app.post("/api/connexion", async (req, resp) => {
             if(bcrypt.compareSync(req.body.password, user.password)){
                 let result = user.toObject();
                 delete result.password;
+                delete result.profilPic;
+                let utilisateur = user.toObject();
+                delete utilisateur.password;
                 
                 Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
                     if(err){
                         resp.send({result:"Une erreur est survenue, attendez un peu"});
                     }
-                    resp.send({user: result, authToken:token});   
+                    resp.send({user: utilisateur, authToken:token});   
                 });
 
             }else resp.send({result:"Mot de passe incorrect"});
@@ -155,8 +152,6 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
     }
 
 });
-
-
 
 // Requete new annonce
 app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
@@ -321,20 +316,7 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     } 
 })
 
-
-// app.get("/api/search/:key", verifyToken, async(req,resp) => {
-//     let result = await Annonce.find({
-//         "$or": [
-//             {
-//                 name: { $regex: req.params.key}
-//             },
-
-//         ]
-//     });
-//     resp.send(result);
-// })
-
-
+// Requete de ajout d'une notification
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
@@ -354,90 +336,27 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     }else{
         resp.send({erreur: "Erreur lors de l'envoie de la notification"});
     }
-
 })
 
-// app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
-
-//     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
-//     let resUser = await User.updateOne(
-//         { _id : req.params.idUser },
-//         { $pull: { annonces: req.params.idAds } }
-//     )
-//     if(resAds && resUser){
-//         const newUser = await User.findOne({ _id : req.params.idUser });
-//         resp.send({user: newUser});
-//     }
-//     else{
-//         resp.send({erreur: "Erreur lors de la suppression"})
-//     } 
-
-// });
-
-
-
-
-// Image
-
-const Storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'uploads')
-    },
-
-    filename: (req, file, cb)=>{
-        cb(null,file.originalname)
+// Requete modification image profil utilisateur
+app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
+    let result= await User.updateOne(
+        { pseudo: req.params.pseudo },
+        { $set: req.body }
+    )
+    if(result){
+        let user = await User.findOne({pseudo : req.params.pseudo});
+        resp.send({user: user})
+    }else{
+        resp.send({erreur: "erreur"})
     }
 })
 
-const upload = multer({
-    storage: Storage
-})//.single('testImage')
-
-app.post('/',upload.single('testImage'),(req,res)=>{
-    
-    const saveImage = new Image({
-        nom: req.body.name,
-        image:{
-            data: fs.readFileSync('uploads/' + req.file.filename),
-            contentType:"image/png"
-        },
-    });
-
-    saveImage.save()
-    .then((res)=>{console.log('image is saved')})
-    .catch((err)=>{console.log(err, 'error has occurr')})
-    /*
-    upload(req,res,err=>{
-        if(err){
-            console.log
-        }
-        else{
-            const newImage = new Image({
-                name: req.body.name,
-                image: {
-                    data: req.file.filename,
-                    contentType: 'image/png'
-                }
-            })
-
-            newImage.save()
-            .then(()=>res.send('successfully uploaded'))
-            .catch(err=>console.log(err))
-
-        }
-    })
-    */
-})
-
-
-
-
-
-app.get('/',async(req,res)=>{
-    const allData = await Image.find()
-    res.json(allData)
-})
-
+// Requete recupération nombre annonce utilisateur
+app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
+    const user = await User.find( { pseudo: req.params.pseudo } );
+    resp.send({annonces: user[0].annonces});
+});
 
 // ----------------------
 
@@ -469,20 +388,6 @@ function verifyToken(req, resp, next) {
         resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
-
-// ----------------------------------------------------------
-
-app.get("/api/search/:key", async(req,resp) => {
-    let result = await Annonce.find({
-        "$or": [
-            {
-                name: { $regex: req.params.key}
-            },
-
-        ]
-    });
-    resp.send(result);
-})
 
 // Lancement de l'API
 app.listen(5000);

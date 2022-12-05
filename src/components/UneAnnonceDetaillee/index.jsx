@@ -1,8 +1,11 @@
+// Import 
 import './UneAnnonceDetaillee.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from'@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
-function UneAnnonceDetaillee({id, titre, description, prix, img_annonce}){
+function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner}){
+    const navigate = useNavigate();
 
     const deleteAdFromFavs = async () => {
         let connectedUser = sessionStorage.getItem("user");
@@ -24,12 +27,23 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce}){
         }
     }
 
+    const displayImage = () => {
+        if(img_annonce !== undefined){
+            if(img_annonce.length === 0) return <img className="UneAnnonceDetaillee-image" src={require('../../assets/default.png')}/>
+            else return <img className="UneAnnonceDetaillee-image" src={img_annonce[0]}/>
+        }
+    }
+
+    const redirectToAd = () => {
+        navigate(`/annonce/${owner}/${id}`);
+    }
+
     return(
         <div className="UneAnnonceDetaillee-all">
-            <div className='UneAnnonceDetaillee-info'>
+            <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
                 <p className="UneAnnonceDetaillee-titre">{titre}</p>
                 <div className='UneAnnonce-descriptionImage'>
-                    <img className="UneAnnonceDetaillee-image" src={require("../../assets/annonce1.jpg")} alt=""/>
+                    {displayImage()}
                     <p className="UneAnnonceDetaillee-description">{description}</p>
                 </div>
                 

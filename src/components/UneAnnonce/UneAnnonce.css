@@ -9,7 +9,12 @@
     justify-content: space-between;
 }
 
-.Contenu-titre, .Contenu-description{
+.UneAnnonce-description-top{
+    display: flex;
+    flex-direction: row;
+}
+
+.Contenu-titre, .Contenu-description, .UneAnnonce-categorie-titre, .UneAnnonce-categorie-text{
     margin-top: 2%;
     margin-bottom: 0%;
     font-size: 16px;
@@ -22,8 +27,18 @@
     font-weight: bold;
 }
 
-.Contenu-description{
+.Contenu-description, .UneAnnonce-categorie-titre, .UneAnnonce-categorie-text{
     font-size: 12px;
+}
+
+.UneAnnonce-categorie-text{
+    color: var(--orange);
+}
+
+.Contenu-categorie{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .Contenu-other{
@@ -69,27 +84,17 @@
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    height: 60%;
+    background-color: var(--gris);
+    border-bottom: 1px solid var(--grisFoncé);
+    margin-bottom: 10px;
 }
   
-/* .UneAnnonce-div-Image::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.UneAnnonce-div-Image::-webkit-scrollbar {
-    height: 35px;
-}
-
-.UneAnnonce-div-Image::-webkit-scrollbar-button:single-button:horizontal:decrement {
-    background-image: url("../../assets/caret-left-solid.svg");
-}
-
-.UneAnnonce-div-Image::-webkit-scrollbar-button:single-button:horizontal:increment {
-    background-image: url("../../assets/caret-right-solid.svg");
-} */
-
 .UneAnnonce-img-annonce{
-    width: 300px;
+    max-width: 300px;
+    max-height: 270px;
     scroll-snap-align: start;
+    object-fit: contain;
 }
 
 .UneAnnonce-description{
@@ -119,6 +124,7 @@
     justify-content: flex-start;
     text-decoration: none;
     color: black;
+    width: 70%;
 }
 
 .Vendeur-img{
