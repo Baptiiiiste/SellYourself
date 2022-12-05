@@ -142,7 +142,10 @@ function InfoUtilisateur() {
         <div className='InfoUtilisateur'>
             <div className='InfoUtilisateur-all'>
                 <div className='InfoUtilisateur-photo'>
-                    <img className="InfoUtilisateur-image" src={image} alt="" />
+                    <div className="InfoUtilisateur-div-image">
+                        <img className="InfoUtilisateur-image" src={image} alt="" />
+                    </div>
+                    
                     <label for="image" className='InfoUtilisateur-Label'>Changer la photo</label>
                     <input type="file" className="InfoUtilisateur-modif" id="image" name="Image" accept=".jpg, .jpeg, .png" onChange={ChangeImg}></input>
                 </div>
