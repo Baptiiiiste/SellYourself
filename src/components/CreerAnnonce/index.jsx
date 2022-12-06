@@ -33,8 +33,6 @@ function CreerAnnonce() {
     const deleteImage = (img) => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const image = document.getElementById(img);
-        console.log(div);
-        console.log(image);
         div.removeChild(image);
     }
 
