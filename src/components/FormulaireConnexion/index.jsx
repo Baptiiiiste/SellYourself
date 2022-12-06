@@ -21,8 +21,17 @@ function FormulaireConnexion() {
             }
         });
         result = await result.json();
+
+        let fav = await fetch(`http://localhost:5000/api/viderFav/${pseudo}`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        fav = await fav.json();
+        
         if(result.authToken){
-            sessionStorage.setItem("user", JSON.stringify(result.user));
+            sessionStorage.setItem("user", JSON.stringify(fav.user));
             sessionStorage.setItem("token", JSON.stringify(result.authToken));
             navigate("/");
         }else{

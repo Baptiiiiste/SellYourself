@@ -302,7 +302,6 @@ app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) =
 
 // Requete de suppression d'une annonce en favoris
 app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-
     let resUser = await User.updateOne(
         { _id : req.params.idUser },
         { $pull: { favoris: req.params.idAnnonce } }
@@ -314,6 +313,22 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     else{
         resp.send({erreur: "Erreur lors de la suppression"})
     } 
+})
+
+// Requete de suppression favoris inexistant
+app.post("/api/viderFav/:user", async (req, resp) => {
+    const user = await User.findOne({ pseudo : req.params.user });
+    let resUser = user;
+    user.favoris.forEach(async element => {
+        const result = await Annonce.findOne({_id : element});
+        if(!result){
+            resUser = await User.updateOne(
+                { _id : req.params.user },
+                { $pull : { favoris : element } }
+            )
+        }
+    });
+    resp.send({user: resUser});
 })
 
 // Requete de ajout d'une notification
