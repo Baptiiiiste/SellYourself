@@ -1,3 +1,4 @@
+// Import 
 import './LoaderCategorie.css';
 
 function LoaderCategorie() {

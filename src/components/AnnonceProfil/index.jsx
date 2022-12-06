@@ -1,17 +1,20 @@
+// Import 
 import './AnnonceProfil.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPen } from'@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-
+// Composant qui représente une annonce de la page profil
 function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
-
+    // Variable
     const navigate = useNavigate();
 
+    // Fonction pour être redirigé vers l'annonce choisis
     const redirectToAd = () => {
         navigate(`/annonce/${owner[0]}/${id}`);
     }
 
+    // Fonction pour supprimer une annonce
     const deleteAd = async () => {
 
         const valid = await window.confirm(`Vous etes sur le point de supprimer l'annonce:\n ${titre}\n Valider ?`);
@@ -32,16 +35,26 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
             window.location.reload(false);
         }
     }
+    
+    // Fonction pour afficher les images
+    const displayImage = () => {
+        if(img_annonce !== undefined){
+            if(img_annonce.length === 0) return <img className="UneAnnonceDetaillee-image" src={require('../../assets/default.png')} alt=""/>
+            else return <img className="UneAnnonceDetaillee-image" src={img_annonce[0]}  alt=""/>
+        }
+    }
+    
+    const redirectToModifAd = () => {
+        navigate(`/modifier/${id}`);
+    }
 
-
-
-
+    // Affichage HTML
     return(
         <div className="UneAnnonceDetaillee-all">
             <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
                 <p className="UneAnnonceDetaillee-titre">{titre}</p>
                 <div className='UneAnnonce-descriptionImage'>
-                    <img className="UneAnnonceDetaillee-image" src={require("../../assets/annonce1.jpg")} alt=""/>
+                    {displayImage()}
                     <p className="UneAnnonceDetaillee-description">{description}</p>
                 </div>
                 
@@ -50,7 +63,7 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
                 <button className="UneAnnonceDetaillee-delete" onClick={deleteAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faTrashCan} />
                 </button>
-                <button className="UneAnnonceDetaillee-edit">
+                <button className="UneAnnonceDetaillee-edit" onClick={redirectToModifAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faPen}/>
                 </button>
                 <p className="UneAnnonceDetaillee-prix">{prix} €</p>

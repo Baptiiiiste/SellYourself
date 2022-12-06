@@ -1,0 +1,14 @@
+.ModifierAnnonce{
+    display: flex;
+    flex-direction: row;
+}
+.ModifierAnnonce-center {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.ModifierAnnonce-nouveau{
+    overflow-y: auto;
+}
