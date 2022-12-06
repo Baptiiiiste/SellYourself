@@ -19,18 +19,17 @@ function FormulairePwdForgot() {
             method: "POST",
             crossDomain: true,
             headers:{
-                "Content-Type":"application/json",
-                Accept: "application/json",
-                "Access-Control-Allow-Origin": "*",
+                "Content-Type":"application/json"
+                // Accept: "application/json",
+                // "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({
                 email,
             })
-        }).then((res)=> res.json())
-          .then((data)=>{
-            console.log(data,"userRegister");
-            alert(data.result);
-          });
+        })
+        data = await data.json();
+        if(data.result) alert(data.result);    
+        navigate("/connexion");
     }
 
 

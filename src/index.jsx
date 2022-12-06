@@ -44,6 +44,7 @@ root.render(
         <Route path="/connexion" element={<Connexion/>} />
         <Route path="/forgotPwd" element={<ForgotPwd/>} />
         <Route path="/resetPassword" element={<ResetPassword/>} />
+        <Route path='/resetPassword/:pseudo/:token' element={<ResetPassword/>} />
         <Route path="/*" element={<Erreur/>} />
       </Routes>
 

@@ -477,22 +477,26 @@ app.post("/api/forgotPwd",async(req,resp)=>{
 
         const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
 
-        const link = `http://localhost:5000/api/resetPassword/${oldUser.pseudo}/${token}`;
+        const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
 
         console.log(link);
-    }
+        resp.send({});
+        }
     catch(error){
         
     }
 });
 
-app.get('/api/resetPassword/:pseudo/:token', async(req, resp)=>{
-    const {pseudo,token} = req.params;
-    // console.log(pseudo, token);
+app.post('/api/resetPassword', async(req, resp)=>{
+
+    const pseudo = req.body.pseudo;
+
+    const token = req.body.token;
+
     const newUser = await User.findOne({pseudo: pseudo});
 
     if( !newUser){
-        resp.send({result:"Utilisateur inconnu"});
+        resp.send({result:"Lien invalide, veuillez réessayer"});
         return;
     }
 
@@ -500,8 +504,7 @@ app.get('/api/resetPassword/:pseudo/:token', async(req, resp)=>{
 
     try{
         const verifySecret = Jwt.verify(token,secret);
-        resp.send({result:"Verified"});
-        resp.render("../../components/FormulaireResetPassword");
+        resp.send({result:"Mot de passe modifié avec succès !"});
     } catch(err) {
         resp.send({result:"Session expiré, veuillez recommencer"});
     }

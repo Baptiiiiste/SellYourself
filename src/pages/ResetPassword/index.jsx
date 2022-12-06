@@ -3,7 +3,11 @@ import React from 'react';
 import FormulaireResetPassword from '../../components/FormulaireResetPassword';
 import HeaderCustom from '../../components/HeaderCustom';
 
-function ResetPassword() {
+
+function ResetPassword(){
+
+
+
   return(
     <div className="ResetPassword">
       <HeaderCustom title="logForm" className="ResetPassword-header"/>
