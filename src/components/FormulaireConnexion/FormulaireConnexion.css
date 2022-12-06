@@ -1,0 +1,64 @@
+@import "../../assets/variable.css";
+
+.FormulaireConnexion-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -35px;
+}
+
+.FormulaireConnexion-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 0.5;
+    margin: 50px;
+    height: 400px;
+}
+
+.FormulaireConnexion-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120%;
+}
+
+.FormulaireConnexion-input input[type=text], input[type=password] {
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid var(--orange);
+}
+
+.FormulaireConnexion-button{
+    border: 0px;
+    border-radius: 15px;
+    width: 150px;
+    height: 40px;
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold;
+    margin: 15px;
+    transition: 0.2s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.FormulaireConnexion-button:hover{
+    background-color:var(--orangeFoncé);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.FormulaireConnexion-signup-div{
+    display: flex;
+    flex-direction: row;
+}
+
+.FormulaireConnexion-signup{
+    text-decoration: none;
+    color: var(--orange);
+    margin-left: 10px;
+}

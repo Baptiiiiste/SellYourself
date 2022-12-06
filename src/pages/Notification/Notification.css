@@ -1,0 +1,44 @@
+@import "../../assets/variable.css";
+
+.Notifications{
+    display: flex;
+    flex-direction: row;
+}
+.Notifications-center{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Notifications-info{
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.Notifications{
+    display: flex;
+}
+
+.Notifications-deleteAll{
+    border: 0px;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.Notifications-deleteAll:hover{
+    background-color: var(--orangeFoncé);
+    cursor: pointer;
+}
+
+.Notifications-deleteAllButton{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

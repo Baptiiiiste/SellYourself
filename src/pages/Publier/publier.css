@@ -1,0 +1,14 @@
+.Publier{
+    display: flex;
+    flex-direction: row;
+}
+.Publier-center {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Publier-nouveau{
+    overflow-y: auto;
+}

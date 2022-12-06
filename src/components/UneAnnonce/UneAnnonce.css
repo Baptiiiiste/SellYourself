@@ -1,0 +1,149 @@
+@import "../../assets/variable.css";
+
+/* Contenu */
+
+.Contenu-all{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.UneAnnonce-description-top{
+    display: flex;
+    flex-direction: row;
+}
+
+.Contenu-titre, .Contenu-description, .UneAnnonce-categorie-titre, .UneAnnonce-categorie-text{
+    margin-top: 2%;
+    margin-bottom: 0%;
+    font-size: 16px;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    font-weight: bold;
+}
+
+.Contenu-description, .UneAnnonce-categorie-titre, .UneAnnonce-categorie-text{
+    font-size: 12px;
+}
+
+.UneAnnonce-categorie-text{
+    color: var(--orange);
+}
+
+.Contenu-categorie{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Contenu-other{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2%;
+}
+
+.Contenu-bouton{
+    background-color: white;
+    border: 0;
+    transition: 0.3s;
+    font-size: 20px;
+}
+
+.Contenu-bouton:hover{
+    cursor: pointer;
+    color: var(--rougeFoncé);
+    font-size: 24px;
+    transition: 0.3s;
+}
+
+.Contenu-prix{
+    margin: 0%;
+    font-size: 20px;
+}
+
+/* Annonce */
+
+.UneAnnonce-all{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 470px;
+    margin: 2%;
+    border: 1px solid var(--grisFoncé);
+    box-sizing: content-box;
+}
+
+.UneAnnonce-div-Image{
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    height: 50%;
+    background-color: var(--gris);
+    border-bottom: 1px solid var(--grisFoncé);
+    margin-bottom: 10px;
+}
+  
+.UneAnnonce-img-annonce{
+    max-width: 300px;
+    max-height: 270px;
+    scroll-snap-align: start;
+    object-fit: contain;
+}
+
+.UneAnnonce-description{
+    margin: 0 3% 3% 3%;
+    height: 50%;
+}
+
+.UneAnnonce-Vendeur{
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+}
+
+/* Vendeur */
+.Vendeur-info-all{
+    display: flex;
+    flex-direction: row;
+    max-height: 15%;
+    align-items: center;
+    width: 100%;
+}
+
+.Vendeur-all{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: black;
+    width: 70%;
+}
+
+.Vendeur-img{
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.Vendeur-info{
+    margin-left: 5%;
+}
+
+.Vendeur-info p{
+    margin: 0%;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.Vendeur-note{
+    color: var(--orange);
+}

@@ -1,0 +1,26 @@
+@import "../../assets/variable.css";
+
+.Favoris{
+    display: flex;
+    flex-direction: row;
+}
+.Favoris-center{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Favoris-info{
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.Favoris{
+    display: flex;
+}
+
+.Favoris-annonce{
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,116 @@
+@import "../../assets/variable.css";
+
+.allLeftBar{
+    width: 15%;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-right: 2px solid var(--orange);
+}
+
+.allLeftBar-Visitor{
+    width: 15%;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    border-right: 2px solid var(--orange);
+}
+
+.allLeftBar-Visitor .LeftBar-menu{
+    flex: 0.7;
+}
+
+.LeftBar-ProfilePic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.Leftbar-ProfilImage{
+    border-radius: 100%;
+    height: 180px;
+    width: 180px;
+    margin-top: 20px;
+    object-fit: cover;
+}
+
+.LeftBar-NameImg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.LeftBar-username{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.LeftBar-textMenu{
+    display: flex;
+    margin: 8px;
+    
+}
+
+.LeftBar-menu{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    flex-direction: column;
+    width: 150px;
+}
+
+.LeftBar-menuImage{
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: left;
+}
+
+.LeftBar-Link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    justify-content: flex-start;
+    color: black;
+    transition: 0.3s;
+}
+
+.LeftBar-Link:hover{
+    color: var(--orange);
+    transition: 0.3s;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.LeftBar-logout{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    margin-top: 100px;
+    flex-direction: column;
+    margin: 10px;
+    align-items: center;
+}
+
+.LeftBar-Note, .Leftbar-Avis{
+    color :var(--orange);
+    font-size: medium;
+    margin: 0;
+}
+
+.LeftBar-NoteStar{
+    display: flex;
+    justify-content: right;
+    color :var(--orange);
+    margin-left: 5px;
+    font-size: medium;
+}

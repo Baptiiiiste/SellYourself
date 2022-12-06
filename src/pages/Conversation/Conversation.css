@@ -1,0 +1,58 @@
+@import "../../assets/variable.css";
+
+.Conversation{
+    display: flex;
+    flex-direction: row;
+}
+.Conversation-center{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Conversation-info{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.Conversation-newMessage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+}
+
+.Conversation-bar{
+    width: 85%;
+    background-color: var(--gris); 
+    border: 0;
+    border-radius: 40px;
+    padding: 15px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.Conversation-envoyer{
+    width: 150px;
+    border: 1px solid var(--orange);
+    border-radius: 40px;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Conversation-envoyer:hover{
+    background-color: var(--gris);
+    cursor: pointer;
+}
+
+.Conversation-icon{
+    font-size: 25px;
+    margin-left: 10%;
+}

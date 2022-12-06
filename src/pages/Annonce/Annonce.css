@@ -1,0 +1,15 @@
+.Annonce-GrosseBoite {
+    display: flex;
+    flex-direction: row;
+}
+
+.Annonce-PetiteBoite {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+}
+
+.Annonce-lesAnnonces{
+    overflow-y: auto;
+}

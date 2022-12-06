@@ -1,0 +1,173 @@
+@import "../../assets/variable.css";
+
+/* Utilisateur */
+.InfoAnnonce-InfoEtPhotoVendeur{
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    text-decoration: none;
+    color: black;
+}
+
+.InfoAnnonce-PhotoVendeur{
+    border-radius: 100%;
+    height: 180px;
+    width: 180px;
+    object-fit: cover;
+}
+
+.InfoAnnonce-InfosVendeur{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3%;
+    justify-content: center;
+}
+
+.InfoAnnonce-InfosVendeur p {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+.InfoAnnonce-NomVendeur{
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.InfoAnnonce-Note{
+    color: var(--orange);
+    font-size: 20px;
+}
+
+.InfoAnnonce-NoteVendeur{
+    display: flex;
+    align-items: center;
+}
+
+.InfoAnnonce-Star{
+    color :var(--orange);
+    margin-left: 5px;
+    font-size: medium;
+}
+
+.InfoAnnonce-DescriptionVendeur{
+    color: var(--grisFoncé);
+    font-size: 20px;
+}
+
+.InfoAnnonce-LocalisationVendeur{
+    color: var(--grisFoncé);
+    font-size: 20px;
+}
+
+
+/* Annonce */
+.InfoAnnonce-Annonce p{
+    margin: 20px 0 0 0;
+    font-size: 20px;
+}
+
+.InfoAnnonce-NomAnnonce{
+    font-weight: bold;
+}
+.InfoAnnonce-DescriptionAnnonce{
+    width: 70%;
+    word-wrap: break-word;
+}
+
+.InfoAnnonce-PhotosAnnonce{
+    display: flex;
+    scroll-snap-type: x mandatory;
+    justify-content: stretch;
+    margin-top: 50px;
+    overflow-x: auto;
+}
+
+.InfoAnnonce-PhotosAnnonce img{
+    height: 250px;
+    margin: 0 15px;
+    scroll-snap-align: start;
+}
+
+
+/* InfoAnnonce */
+.InfoAnnonce{
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.InfoAnnonce-Haut{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.InfoAnnonce-PrixAnnonce{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.InfoAnnonce-Achat{
+    font-size: 20px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.InfoAnnonce-Achat:hover{
+    background-color: var(--orangeFoncé);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.InfoAnnonce-BoutonMessage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    margin: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.InfoAnnonce-BoutonMessage:hover{
+    color: var(--orange);
+    transition: 0.3s;
+}
+
+.InfoAnnonce-AjoutFav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 50px;
+    width: max-content;
+    font-size: 20px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.InfoAnnonce-AjoutFav:hover, .InfoAnnonce-Achat:hover{
+    background-color: var(--orangeFoncé);
+    cursor: pointer;
+}
+
+.InfoAnnonce-AjoutFav p{
+    margin: 0;
+}
+
+.InfoAnnonce-Icon {
+    margin-right: 10px;
+}

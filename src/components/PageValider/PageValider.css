@@ -1,0 +1,58 @@
+.PageValider{
+    font-weight: bold;
+}
+
+.PageValider-Titre{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.PageValider-Annonce{
+    display: flex;
+    justify-content: center;
+}
+
+.PageValider-Image{
+    height: 100px;
+    /* max-width: 150px; */
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+.PageValider-InfoAchat{
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.PageValider-PrixAnnonce, .PageValider-NomAnnonce{
+    margin:10px;
+}
+
+
+.PageValider-DivBouton{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.PageValider-Bouton{
+    font-size: 20px;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.3s;
+    padding: 15px;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+
+.PageValider-Bouton:hover{
+    background: var(--orangeFoncé);
+    cursor: pointer;
+}

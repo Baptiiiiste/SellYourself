@@ -1,0 +1,31 @@
+@import "../../assets/variable.css";
+
+.Inscription-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Inscription-formulaire{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--grisFoncé);
+}
+
+.Inscription-img-login{
+    max-width: 90%;
+}
+
+.Inscription-bas{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.Inscription{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}

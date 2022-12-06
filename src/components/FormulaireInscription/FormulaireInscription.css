@@ -1,0 +1,69 @@
+@import "../../assets/variable.css";
+
+.FormulaireInscription-form .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -35px;
+}
+
+.FormulaireInscription-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 0.5;
+    margin: 50px;
+    height: 400px;
+}
+
+.FormulaireInscription-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120%;
+}
+
+.FormulaireInscription-input input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid var(--orange);
+}
+
+.FormulaireInscription-button{
+    border: 0px;
+    border-radius: 15px;
+    width: 150px;
+    height: 40px;
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold;
+    margin: 15px;
+    transition: 0.2s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.FormulaireInscription-button:hover{
+    background-color: var(--orangeFoncé);
+    cursor: pointer;
+    transition: 0.2s;  
+}
+
+.FormulaireInscription-signin-div{
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+}
+
+.FormulaireInscription-signin{
+    text-decoration: none;
+    color: var(--orange);
+    margin-left: 10px;
+}
+
+.form-group{
+    margin: 15px;
+}

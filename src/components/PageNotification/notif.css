@@ -1,0 +1,77 @@
+@import "../../assets/variable.css";
+
+.Notification{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.Notification-all{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    background-color: var(--gris);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.Notification-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+}
+
+.Notification-text p{
+    margin: 0;
+}
+
+.Notification-text{
+    width: 90%;
+    text-decoration: none;
+    color: black;
+}
+
+.Notification-Image{
+    height: 25px;
+    margin: 0 15px;
+}
+
+.Notification-info{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.Notification-message{
+    font-size: 12px;
+}
+
+.Notification-messageText{
+    font-size: 12px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+.Notification-button{
+    height: 40px;
+    width: 40px;
+    border: 0;
+    border-radius: 500px;
+    background-color:var(--rouge);
+}
+
+.Notification-button:hover{
+    background-color:var(--rougeFoncé);
+    cursor: pointer;
+}
+
+.Notification-delete{
+    height: 20px;
+    width: 20px;
+    color: white;
+}

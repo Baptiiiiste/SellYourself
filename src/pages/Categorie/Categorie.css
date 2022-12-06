@@ -1,0 +1,57 @@
+@import "../../assets/variable.css";
+
+.Categorie{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+.Categorie-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 85%;
+}
+
+textarea:focus,input:focus {
+    outline: 0;
+}
+
+.Categorie-lesAnnonces{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 40%;
+}
+.Categorie-all{
+    overflow-y: auto;
+    height: 89%;
+}
+
+.Categorie-categorie, .Categorie-search, .Categorie-display-categorie, .Categorie-display-search{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.Categorie-display-categorie, .Categorie-display-search{
+    margin-left: 10px;
+    color: var(--orange);
+}
+
+.Categorie-categorie, .Categorie-search{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.Categorie-div-Categorie, .Categorie-div-search{
+    margin: 2px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.Categorie-div-Categorie{
+    margin-top: 40px;
+}

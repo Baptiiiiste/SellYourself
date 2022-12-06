@@ -1,3 +1,5 @@
+@import "../../assets/variable.css";
+
 .all {
   display: flex;
   flex-direction: column;

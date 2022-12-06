@@ -1,0 +1,51 @@
+@import "../../assets/variable.css";
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.react-horizontal-scrolling-menu--arrow-left button, .react-horizontal-scrolling-menu--arrow-right button{
+  border: 0;
+  border-radius: 30%;
+  background-color: white;
+}
+
+.react-horizontal-scrolling-menu--arrow-left button:hover, .react-horizontal-scrolling-menu--arrow-right button:hover{
+  background-color: var(--gris);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.HeaderCategories-container {
+  border-bottom: 1px solid var(--grisFoncé);
+
+}
+
+.HeaderCategories-card {
+  padding: 5px 10px;
+  white-space: nowrap;
+  margin: 0 8px;
+}
+
+.HeaderCategories-link {
+  text-decoration: none;
+  color: black;
+  transition: 0.2s;
+}
+.HeaderCategories-link:hover{
+  color: var(--orange);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.HeaderCategories-button{
+  border: 0;
+  background-color: transparent;
+}

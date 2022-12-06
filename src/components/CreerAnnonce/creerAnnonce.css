@@ -1,0 +1,88 @@
+@import "../../assets/variable.css";
+
+.CreerAnnonce-Input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.CreerAnnonce-Titre, .CreerAnnonce-Description, .CreerAnnonce-Prix, .CreerAnnonce-Categorie {
+    border: 0;
+    border-bottom: 2px solid var(--orange);
+    height: 30px;
+    width: 400px;
+    margin: 20px;
+    font-size: 20px;
+    color: #696969
+}
+
+.CreerAnnonce-Description{
+    height: 80px;
+}
+
+.CreerAnnonce-BoutonSubmit {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 100px;
+}
+
+.CreerAnnonce-Image{
+    display: none;
+}
+
+.CreerAnnonce-LesImages{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.CreerAnnonce-LesImages img{
+    height: 250px;
+    margin: 0 15px;
+}
+
+.CreerAnnonce-Label{
+    border-radius: 5px;
+    background-color: var(--orange);
+    height: 50px;
+    width: 250px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    padding-top: 10px;
+    transition: 0.3s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.CreerAnnonce-Label:hover{
+    background: var(--orangeFoncé);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.CreerAnnonce-Submit{
+    font-size: 20px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.CreerAnnonce-Submit:hover{
+    background: var(--orangeFoncé);
+    cursor: pointer;
+    transition: 0.3s;
+}
