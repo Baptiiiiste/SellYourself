@@ -8,15 +8,15 @@ import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 
 function Home() {
-  const [loader, setLoader] = useState(true);
-
-  const [annonces, setAnnonces] = useState();
+  const [annonces, setAnnonces] = useState([]);
+  const [isOk, setIsOk] = useState(false);
 
   useEffect(() => {
+      setIsOk(false);
       getAnnonces();
       setTimeout(() => {
-          setLoader(false);
-      },1000);
+        setIsOk(true);
+      }, 500)
       
   }, [])
 
@@ -34,45 +34,47 @@ function Home() {
         titre={annonce.titre}
         description={annonce.description}
         prix={annonce.prix}
-        img_annonce={annonce.img_annonce} 
+        img_annonce={annonce.image} 
         pseudoVendeur={user.pseudo}
         img_profil={user.profilPic}
         note={user.noteList}
+        categorie={annonce.categorie}
         key={index}
     />)
   }
 
   const displayLesAnnonces = () => {
-    const nbAnnonces = annonces[1];
 
-    if(nbAnnonces === 0){
-      setTimeout(() => {
-        const div = document.querySelector(".Home-lesAnnonces");
-        while (div.firstChild!=null) {
-          div.removeChild(div.lastChild);
-        }
-    
-        const p = document.createElement("p");
-        p.innerHTML = "Aucune annonce disponible";
-        p.className = "Home-Aucune";
-        div.appendChild(p);
-      },500);
-    }
+    if(annonces.length !== 0 && isOk){
+      const nbAnnonces = annonces[1];
+      if(nbAnnonces === 0){
+        setTimeout(() => {
+          const div = document.querySelector(".Home-lesAnnonces");
+          while (div.firstChild!=null) {
+            div.removeChild(div.lastChild);
+          }
+      
+          const p = document.createElement("p");
+          p.innerHTML = "Aucune annonce disponible";
+          p.className = "Home-Aucune";
+          div.appendChild(p);
+        },10);
+      }
 
-    else{
-      return (annonces[0].map((item, index) => (
-        displayAnnonce(item, index)
-      )))
+      else{
+        return (annonces[0].map((item, index) => (
+          displayAnnonce(item, index)
+        )))
+      }
     }
   }
 
-  return loader ? 
+  return !isOk ?
     (
     <Loader/> 
     )
     :
-    (    
-    <div className="Home">
+    (<div className="Home">
       <LeftBar/>
       <div className='Home-center'>
         <div className='Home-header'>

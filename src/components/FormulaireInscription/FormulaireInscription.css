@@ -27,7 +27,7 @@
 }
 
 .FormulaireInscription-input input[type=text], input[type=password], input[type=email] {
-    width: 120%;
+    width: 100%;
     margin: 10px 0;
     border: none;
     border-bottom: 2px solid var(--orange);
@@ -55,10 +55,15 @@
 .FormulaireInscription-signin-div{
     display: flex;
     flex-direction: row;
+    margin-top: 30px;
 }
 
 .FormulaireInscription-signin{
     text-decoration: none;
     color: var(--orange);
     margin-left: 10px;
+}
+
+.form-group{
+    margin: 15px;
 }

@@ -38,12 +38,11 @@ function Profil() {
 		return (<AnnonceProfil titre={annonce.titre}
 			description={annonce.description}
 			prix={annonce.prix}
-			img_annonce={annonce.img}
+			img_annonce={annonce.image}
 			id = {annonce._id}
 			owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
 			key={index}
 		/>)
-
 	  }
 
     

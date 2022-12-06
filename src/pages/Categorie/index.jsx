@@ -9,25 +9,24 @@ import UneAnnonce from '../../components/UneAnnonce';
 import { useParams } from 'react-router-dom';
 
 function Categorie() {
-  const [loaderCategorie, setLoaderCategorie] = useState(true);
 
   const params = useParams();
-  const [annonces, setAnnonces] = useState();
+  const [annonces, setAnnonces] = useState([]);
   const categorie = params.categorie;
   const recherche = params.recherche;
+  const [isOk, setIsOk] = useState(false);
 
   useEffect(() => {
+      setIsOk(false);
       getAnnonces();
       setTimeout(() => {
-          setLoaderCategorie(false);
-      },1000);
+        setIsOk(true);
+      }, 1000)
       
-  }, [])
+  }, [params])
 
   const getAnnonces = async () => {
-    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}/${recherche}`, {
-      headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
-    });
+    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}/${recherche}`);
     result = await result.json();
     setAnnonces(result);
   }
@@ -40,44 +39,47 @@ function Categorie() {
       titre={annonce.titre}
       description={annonce.description}
       prix={annonce.prix}
-      img_annonce={annonce.img_annonce} 
+      img_annonce={annonce.image} 
       pseudoVendeur={user.pseudo}
       img_profil={user.profilPic}
       note={user.noteList}
+      categorie={annonce.categorie}
       key={index}
     />)
   }
 
   const displayLesAnnonces = () => {
-    const nbAnnonces = annonces[1];
-    if(nbAnnonces === 0){
-      setTimeout(() => {
-        const div = document.querySelector(".Categorie-lesAnnonces");
-        while (div.firstChild!=null) {
-          div.removeChild(div.lastChild);
-        }
-    
-        const p = document.createElement("p");
-        p.innerHTML = "Aucune annonce disponible";
-        p.className = "Categorie-Aucune";
-        div.appendChild(p);
-      },500);
-    }
+    if(annonces.length !== 0 && isOk){
+      const nbAnnonces = annonces[1];
 
-    else{
-      return (annonces[0].map((item, index) => (
-        displayAnnonce(item, index)
-      )))
+      if(nbAnnonces === 0){
+        setTimeout(() => {
+          const div = document.querySelector(".Categorie-lesAnnonces");
+          while (div.firstChild!=null) {
+            div.removeChild(div.lastChild);
+          }
+      
+          const p = document.createElement("p");
+          p.innerHTML = "Aucune annonce disponible";
+          p.className = "Categorie-Aucune";
+          div.appendChild(p);
+        },10);
+      }
+
+      else{
+        return (annonces[0].map((item, index) => (
+          displayAnnonce(item, index)
+        )))
+      }
     }
   }
 
-  return loaderCategorie ? 
+  return !isOk ?
     (
     <LoaderCategorie/> 
     )
     :
-    (    
-    <div className="Categorie">
+    (<div className="Categorie">
       <LeftBar/>
       <div className='Categorie-center'>
         <div className='Categorie-header'>

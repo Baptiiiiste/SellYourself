@@ -3,16 +3,18 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
-const multer = require("multer");
-const fs = require('fs')
+const request2 = require('request');
+
+
+//const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
 
 
 
 // Création de l'API
 const app = express();
-app.use(express.json());
+app.use(express.json({limit: '25mb'}));
 app.use(cors());
-
+app.use(express.urlencoded({limit: '25mb', extended: false}));
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -23,19 +25,64 @@ app.post("/api/inscription", async (req, resp) => {
     const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     
     if(isPseudoAlreadyTaken) resp.send({result:"Cet identifiant est déjà pris"});
+    
     else if(isEmailAlreadyTaken) resp.send({result:"Cette adresse e-mail est déjà prise"});
+
+    else if(req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null){
+        if(resp.headersSent !== true){
+            resp.send({"success": false,"result": "Veuillez vérifier la captcha"});
+        }
+        //resp.send({result:"Captcha invalide"});
+    }
     else {
         let user = new User(req.body);
         let result = await user.save();
 
+        // Secret key for captcha 
+        const secretKey = '6LeHuQ8jAAAAAMyaXJzJrY6Vk1xS47LxEe_ptwBU';
+
+        // Verify URL for the captcha
+        const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+        
+        // Make Request to verifyUrl
+
+        request2(verifyUrl, (err, response, body)=> {
+            body = JSON.parse(body);
+            // console.log(body);
+
+            // If not successful
+
+            if(body.success !== undefined && body.success === false){
+                if(resp.headersSent !== true){
+                    resp.send({"success":false, "result":"Échec de la vérification de la captcha"});
+                }
+                //resp.send({"result":"Captcha invalide"});
+            }
+
+            // If successful
+            if(resp.headersSent !== true){
+                resp.send({"success": true, "result":"Captcha réussie"});
+            }
+            //resp.send({"success": true, "msg":"Captcha passed"});
+        }); 
+
+
         result = result.toObject();
         delete result.password;
 
+
+
         Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
             if(err){
-                resp.send({result:"Une erreur est survenue, attendez un peu"});
+                if(resp.headersSent !== true){
+                    resp.send({result:"Une erreur est survenue, attendez un peu"});
+                }
+                
             }
-            resp.send({user: result, authToken:token});   
+            if(resp.headersSent !== true){
+                resp.send({user: result, authToken:token});
+            }
+               
         });
     }
 
@@ -49,12 +96,15 @@ app.post("/api/connexion", async (req, resp) => {
             if(bcrypt.compareSync(req.body.password, user.password)){
                 let result = user.toObject();
                 delete result.password;
+                delete result.profilPic;
+                let utilisateur = user.toObject();
+                delete utilisateur.password;
                 
                 Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
                     if(err){
                         resp.send({result:"Une erreur est survenue, attendez un peu"});
                     }
-                    resp.send({user: result, authToken:token});   
+                    resp.send({user: utilisateur, authToken:token});   
                 });
 
             }else resp.send({result:"Mot de passe incorrect"});
@@ -99,8 +149,6 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
     }
 
 });
-
-
 
 // Requete new annonce
 app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
@@ -149,7 +197,7 @@ app.get("/api/annonce/:id", verifyToken, async (req, resp) => {
 });
 
 // Requete recherche annonces
-app.get("/api/annonce/search/:categorie/:rechercher", verifyToken, async (req, resp) => {
+app.get("/api/annonce/search/:categorie/:rechercher", async (req, resp) => {
     let annonces;
     let tableau = [];
     let lesAnnonces = [];
@@ -235,15 +283,18 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
 
 // Requete d'ajout d'une annonce en favoris
 app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-    let result= await User.updateOne(
-        { _id: req.params.idUser },
-        { $push: {favoris: req.params.idAnnonce} }
-    )
-    if(result){
-
-        let user = await User.findOne({_id : req.params.idUser});
-    
-        resp.send({user: user})
+    let user = await User.findOne({_id : req.params.idUser});
+    if(!user.favoris.includes(req.params.idAnnonce)){
+        let result= await User.updateOne(
+            { _id: req.params.idUser },
+            { $push: {favoris: req.params.idAnnonce} }
+        )
+        if(result){
+            let user = await User.findOne({_id : req.params.idUser});
+            resp.send({user: user})
+        }else{
+            resp.send({erreur: "erreur"})
+        }
     }else{
         resp.send({erreur: "erreur"})
     }
@@ -251,7 +302,6 @@ app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) =
 
 // Requete de suppression d'une annonce en favoris
 app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-
     let resUser = await User.updateOne(
         { _id : req.params.idUser },
         { $pull: { favoris: req.params.idAnnonce } }
@@ -265,20 +315,29 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     } 
 })
 
+// Requete de suppression favoris inexistant
+app.post("/api/viderFav/:user", async (req, resp) => {
+    const user = await User.findOne({ pseudo : req.params.user });
+    if(user.favoris.length === 0){
+        resp.send({user: user});
+    } else {
+        user.favoris.forEach(async element => {
+            const result = await Annonce.findOne({_id : element});
+            if(!result){
+                resUser = await User.updateOne(
+                    { pseudo : req.params.user },
+                    { $pull : { favoris : element } }
+                )
+            }
+        });
+        const newUser = await User.findOne({ pseudo : req.params.user });
+        if(newUser){
+            resp.send({user: newUser});
+        }
+    }
+})
 
-// app.get("/api/search/:key", verifyToken, async(req,resp) => {
-//     let result = await Annonce.find({
-//         "$or": [
-//             {
-//                 name: { $regex: req.params.key}
-//             },
-
-//         ]
-//     });
-//     resp.send(result);
-// })
-
-
+// Requete de ajout d'une notification
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
@@ -298,26 +357,39 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     }else{
         resp.send({erreur: "Erreur lors de l'envoie de la notification"});
     }
-
 })
 
-// app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
+// Requete modification image profil utilisateur
+app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
+    let result= await User.updateOne(
+        { pseudo: req.params.pseudo },
+        { $set: req.body }
+    )
+    if(result){
+        let user = await User.findOne({pseudo : req.params.pseudo});
+        resp.send({user: user})
+    }else{
+        resp.send({erreur: "erreur"})
+    }
+})
 
-//     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
-//     let resUser = await User.updateOne(
-//         { _id : req.params.idUser },
-//         { $pull: { annonces: req.params.idAds } }
-//     )
-//     if(resAds && resUser){
-//         const newUser = await User.findOne({ _id : req.params.idUser });
-//         resp.send({user: newUser});
-//     }
-//     else{
-//         resp.send({erreur: "Erreur lors de la suppression"})
-//     } 
+// Requete recupération nombre annonce utilisateur
+app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
+    const user = await User.find( { pseudo: req.params.pseudo } );
+    resp.send({annonces: user[0].annonces});
+});
 
+// ----------------------
+
+// Captcha
+
+// ----------------------
+
+
+
+// app.get('/api/captcha', (req,res) => {
+//     res.sendFile(__dirname + '/index.html');
 // });
-
 
 
 // ---------------------------------------------------------------------------------------
@@ -337,77 +409,6 @@ function verifyToken(req, resp, next) {
         resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
-
-
-// Image
-
-const Storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'uploads')
-    },
-
-    filename: (req, file, cb)=>{
-        cb(null,file.originalname)
-    }
-})
-
-const upload = multer({
-    storage: Storage
-})//.single('testImage')
-
-app.post('/',upload.single('testImage'),(req,res)=>{
-    
-    const saveImage = new Image({
-        nom: req.body.name,
-        image:{
-            data: fs.readFileSync('uploads/' + req.file.filename),
-            contentType:"image/png"
-        },
-    });
-
-    saveImage.save()
-    .then((res)=>{console.log('image is saved')})
-    .catch((err)=>{console.log(err, 'error has occurr')})
-    /*
-    upload(req,res,err=>{
-        if(err){
-            console.log
-        }
-        else{
-            const newImage = new Image({
-                name: req.body.name,
-                image: {
-                    data: req.file.filename,
-                    contentType: 'image/png'
-                }
-            })
-
-            newImage.save()
-            .then(()=>res.send('successfully uploaded'))
-            .catch(err=>console.log(err))
-
-        }
-    })
-    */
-})
-
-
-app.get('/',async(req,res)=>{
-    const allData = await Image.find()
-    res.json(allData)
-})
-
-app.get("/api/search/:key", async(req,resp) => {
-    let result = await Annonce.find({
-        "$or": [
-            {
-                name: { $regex: req.params.key}
-            },
-
-        ]
-    });
-    resp.send(result);
-})
 
 // Lancement de l'API
 app.listen(5000);

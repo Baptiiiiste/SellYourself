@@ -1,27 +1,9 @@
 import "./Favoris.css";
 import React from 'react';
-import { Link } from "react-router-dom";
 import HeaderCustom from "../../components/HeaderCustom";
 import UneAnnonceDetaillee from "../../components/UneAnnonceDetaillee";
 import LeftBar from "../../components/LeftBar";
 import { useState, useEffect } from "react";
-
-const favs = [
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-    {titre: "titre de l'annonce", description: "bla bla bla", prix: 27, img_annonce: "annonce1.jpg"},
-]
 
 const connectedUser = sessionStorage.getItem("user");
 
@@ -33,7 +15,6 @@ const getUserFavs = async () => {
         }
     });
     favoris = favoris.json();
-    console.log(favoris);
     return favoris
 }
 
@@ -60,19 +41,18 @@ function Favoris() {
 			a = await a.json().then(a => listFavs.push(a));
 		}
 		setAnnonces(listFavs)
-        console.log(listFavs)
 	}
 	
 	const displayFavoris = (item, index) => {
 		const favoris = item;
-		console.log(favoris);
 	
 		return (<UneAnnonceDetaillee 
             id={favoris._id}
             titre={favoris.titre}
             description={favoris.description}
             prix={favoris.prix}
-            img_annonce={favoris.img_annonce}
+            img_annonce={favoris.image}
+            owner={favoris.utilisateur}
             key={favoris.index}
             />)
     }

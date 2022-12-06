@@ -4,9 +4,9 @@ export const categories = [
     // Services: 
 
     { name: "Graphisme"},
-    { name: "Musique & Audio"},
-    { name: "Programmation & Tech"},
-    { name: "Rédaction & Traduction"},
+    { name: "Musique - Audio"},
+    { name: "Programmation - Tech"},
+    { name: "Rédaction - Traduction"},
     { name: "Design"},
     { name: "Vidéo"},
     { name: "Photographie"},
@@ -17,10 +17,10 @@ export const categories = [
     // Biens:
 
     { name: "Electroménager"},
-    { name: "Image & Son"},
+    { name: "Image - Son"},
     { name: "Téléphone"},
     { name: "Informatique"},
-    { name: "DVD & CD"},
+    { name: "DVD - CD"},
     { name: "Immobilier"},
     { name: "Ameublement"},
     { name: "Voitures"},
@@ -29,8 +29,8 @@ export const categories = [
     { name: "Décoration"},
     { name: "Vetements"},
     { name: "Chaussures"},
-    { name: "Montres & Bijoux"},
-    { name: "Jeux & Jouets"},
+    { name: "Montres - Bijoux"},
+    { name: "Jeux - Jouets"},
     { name: "Arts"},
     { name: "Instrument"},
     { name: "Bricolage"},

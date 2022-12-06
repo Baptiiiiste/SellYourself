@@ -1,5 +1,5 @@
-# 💫 Sell Yourself - En développement
-Projet de marketplace réalisé pour notre projet tutoré de l'IUT Informatique de Clermont-Ferrand
+# 💫 Sell Yourself - Development
+Marketplace website made using MERN
 
 Preview disponible sur [sellyourself.fr](https://sellyourself.fr).
 
