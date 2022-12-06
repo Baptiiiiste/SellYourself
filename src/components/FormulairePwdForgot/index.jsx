@@ -11,6 +11,9 @@ function FormulairePwdForgot() {
 
 
     const sendMail = async () => {
+        if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
+            return alert("Format d'adresse e-mail invalide");
+        }
         console.log(email);
         let data = await fetch("http://localhost:5000/api/forgotPwd",{
             method: "POST",
@@ -28,9 +31,15 @@ function FormulairePwdForgot() {
             console.log(data,"userRegister");
             alert(data.result);
           });
+    }
 
 
 
+    const verifEnterKey = async(event)=>{
+        if(event.key === 'Enter'){
+            sendMail();
+        }
+    
     }
 
 
@@ -39,7 +48,7 @@ function FormulairePwdForgot() {
             <h1>Mot de passe oublié ?</h1>
             <div method="FormulairePwdForgot-post">
                 <div className="FormulairePwdForgot-input">
-                    <input type="email" name="email"  placeholder="E-MAIL" value={email} onChange={(ev) => {setEmail(ev.target.value)}} required/>
+                    <input type="email" name="email"  placeholder="E-MAIL" value={email} onChange={(ev) => {setEmail(ev.target.value)}} required onKeyDown={verifEnterKey}/>
                 </div>
                 <button onClick={sendMail} className="FormulairePwdForgot-button">CONFIRMER</button>
             </div>

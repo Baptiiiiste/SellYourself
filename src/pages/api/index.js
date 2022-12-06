@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.set("view enginer","ejs");
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -466,10 +467,6 @@ app.post("/api/forgotPwd",async(req,resp)=>{
     const {email} = req.body.email;
     try{
 
-        if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(req.body.email)){
-            resp.send({result:"Format d'adresse e-mail invalide"});
-        }
-
         const oldUser = await User.findOne({email: req.body.email});
 
         if( !oldUser){
@@ -489,9 +486,30 @@ app.post("/api/forgotPwd",async(req,resp)=>{
     }
 });
 
-app.get('/resetPassword/:pseudo/:token', async(req, resp)=>{
+app.get('/api/resetPassword/:pseudo/:token', async(req, resp)=>{
     const {pseudo,token} = req.params;
-    console.log(req.params);
+    // console.log(pseudo, token);
+    const newUser = await User.findOne({pseudo: pseudo});
+
+    if( !newUser){
+        resp.send({result:"Utilisateur inconnu"});
+        return;
+    }
+
+    const secret = process.env.JWTKEY + newUser.password;
+
+    try{
+        const verifySecret = Jwt.verify(token,secret);
+        resp.send({result:"Verified"});
+        resp.render("../../components/FormulaireResetPassword");
+    } catch(err) {
+        resp.send({result:"Session expiré, veuillez recommencer"});
+    }
+
+    // if(resp.headersSent !== true){
+    //     resp.send("Done");
+    // }
+
 });
 
 
