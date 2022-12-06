@@ -260,24 +260,19 @@ app.post("/api/favoris/addFavs/:idUser/:idAnnonce", verifyToken, async (req, res
 //     resp.send(result);
 // })
 
-app.get("/api/utilisateur/getNotif/:pseudo/:idNotif", async (req, resp) => {
-    let user = await User.findOne({ pseudo: req.params.pseudo })
-    const notifs = user.notifications.map(n => n._id);
-    const filteredNotif = notifs.toString().indexOf(req.params.idNotif);
-    resp.send({notif: user.notifications[filteredNotif]});
+app.get("/api/utilisateur/getNotif/:idNotif", async (req, resp) => {
+    let notif = await Notification.findOne({ _id : req.params.idNotif });
+    resp.send(notif);
 });
 
 
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
+    await notif.save();
     let result = await User.updateOne(
-        {pseudo : req.params.pseudo},
-        { $push: 
-            {notifications: 
-                notif
-            } 
-        }
+        {pseudo: req.params.pseudo},
+        { $push: {notifications: notif._id} }
     );
 
     if(result){
@@ -291,25 +286,41 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
 })
 
 app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
-
-    let user = await User.findOne({ pseudo: req.params.pseudo })
-    const notifs = user.notifications.map(n => n._id);
-    const filteredNotif = notifs.toString().indexOf(req.params.idNotif);
-
-    if(filteredNotif != -1){
-        user.notifications.splice(filteredNotif, 1);
-        await User.updateOne(
-            {pseudo: req.params.pseudo},
-            {$set: {notifications: user.notifications}}
-        );
-    } 
+    
+    //let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
+    await User.updateOne(
+        { pseudo : req.params.pseudo },
+        { $pull: { notifications: req.params.idNotif } }
+    );
+    
     const newUser = await User.findOne({ pseudo : req.params.pseudo });
     if(newUser){
         resp.send({user: newUser});
     }else{
-        resp.send({erreur: "Erreur lors de la suppression"})
+        resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
     }
 });
+
+// app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
+
+//     let user = await User.findOne({ pseudo: req.params.pseudo })
+//     const notifs = user.notifications.map(n => n._id);
+//     const filteredNotif = notifs.toString().indexOf(req.params.idNotif);
+
+//     if(filteredNotif != -1){
+//         user.notifications.splice(filteredNotif, 1);
+//         await User.updateOne(
+//             {pseudo: req.params.pseudo},
+//             {$set: {notifications: user.notifications}}
+//         );
+//     } 
+//     const newUser = await User.findOne({ pseudo : req.params.pseudo });
+//     if(newUser){
+//         resp.send({user: newUser});
+//     }else{
+//         resp.send({erreur: "Erreur lors de la suppression"})
+//     }
+// });
 
 app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
     let user = await User.findOne({ pseudo: req.params.pseudo })

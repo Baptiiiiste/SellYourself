@@ -46,10 +46,8 @@ function Notifications() {
 			});
 			a = await a.json()
                 .then(a => listNotifs.push(a));
-                
-            console.log(a);
 		}
-		setNotifs(listNotifs)
+		setNotifs(listNotifs);
 	}
 	
 	const displayNotifs = (item, index) => {
