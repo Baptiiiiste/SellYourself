@@ -323,7 +323,7 @@ app.post("/api/viderFav/:user", async (req, resp) => {
         const result = await Annonce.findOne({_id : element});
         if(!result){
             resUser = await User.updateOne(
-                { _id : req.params.user },
+                { pseudo : req.params.user },
                 { $pull : { favoris : element } }
             )
         }
