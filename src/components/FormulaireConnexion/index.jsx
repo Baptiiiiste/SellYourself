@@ -29,7 +29,8 @@ function FormulaireConnexion() {
             }
         });
         fav = await fav.json();
-        
+        console.log(JSON.stringify(fav.user));
+
         if(result.authToken){
             sessionStorage.setItem("user", JSON.stringify(fav.user));
             sessionStorage.setItem("token", JSON.stringify(result.authToken));
