@@ -59,7 +59,6 @@
 .Contenu-bouton:hover{
     cursor: pointer;
     color: var(--rougeFoncé);
-    font-size: 24px;
     transition: 0.3s;
 }
 

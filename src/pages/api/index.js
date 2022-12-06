@@ -283,15 +283,18 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
 
 // Requete d'ajout d'une annonce en favoris
 app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-    let result= await User.updateOne(
-        { _id: req.params.idUser },
-        { $push: {favoris: req.params.idAnnonce} }
-    )
-    if(result){
-
-        let user = await User.findOne({_id : req.params.idUser});
-    
-        resp.send({user: user})
+    let user = await User.findOne({_id : req.params.idUser});
+    if(!user.favoris.includes(req.params.idAnnonce)){
+        let result= await User.updateOne(
+            { _id: req.params.idUser },
+            { $push: {favoris: req.params.idAnnonce} }
+        )
+        if(result){
+            let user = await User.findOne({_id : req.params.idUser});
+            resp.send({user: user})
+        }else{
+            resp.send({erreur: "erreur"})
+        }
     }else{
         resp.send({erreur: "erreur"})
     }
