@@ -55,13 +55,31 @@ function Button({id, prix}){
         }
     }
 
+    const delFavoris = async () => {
+        if (connectedUser!=null) {
+            let result = await fetch(`http://localhost:5000/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
+                method: "Delete",
+                headers: {
+                    'Content-Type': 'Application/json',
+                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
+                }
+            });
+            result = await result.json();
+            if(!result.erreur) {
+                sessionStorage.removeItem("user");
+                sessionStorage.setItem("user", JSON.stringify(result.user));
+                window.location.reload(false);
+            }
+        }
+    }
+
     return (
         <div className='Contenu-other'>
             <button className='Contenu-bouton' id={'noFav'+id} onClick={addFavoris}>
                 <FontAwesomeIcon icon={faHeart} />
             </button>
-            <button className='Contenu-bouton' id={'fav'+id} onClick={addFavoris} style={{display: 'none'}}>
-                <FontAwesomeIcon icon={faHeart} style={{color: '--var'}}/>
+            <button className='Contenu-bouton' id={'fav'+id} onClick={delFavoris} style={{display: 'none'}}>
+                <FontAwesomeIcon icon={faHeart} style={{color: 'red'}}/>
             </button>
             <p className='Contenu-prix'>{prix} €</p>
         </div>
