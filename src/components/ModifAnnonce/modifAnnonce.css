@@ -1,0 +1,120 @@
+@import "../../assets/variable.css";
+
+.ModifAnnonce-Input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.ModifAnnonce-Titre, .ModifAnnonce-Description, .ModifAnnonce-Prix, .ModifAnnonce-Categorie {
+    border: 0;
+    border-bottom: 2px solid var(--orange);
+    height: 30px;
+    width: 400px;
+    margin: 20px;
+    font-size: 20px;
+}
+
+.ModifAnnonce-Description{
+    height: 80px;
+}
+
+.ModifAnnonce-Categorie{
+    font-size: 16px;
+}
+
+.ModifAnnonce-Radio {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 400px;
+    margin: 30px 0;
+}
+
+.CreeAnnonce-RadioBouton{
+    padding: 20px 30px;
+    font-size: 18px;
+    border: 2px solid var(--orange);
+}
+
+.ModifAnnonce-BoutonSubmit {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 100px;
+}
+
+.ModifAnnonce-Bien, .ModifAnnonce-Service{
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--orange);
+    transition: 0.2s all linear;
+    margin-right: 10px;
+}
+
+.ModifAnnonce-Bien:checked, .ModifAnnonce-Service:checked {
+    border: 8px solid var(--orangeFoncé);
+  }
+
+.ModifAnnonce-Image{
+    display: none;
+}
+
+.ModifAnnonce-LesImages{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.ModifAnnonce-LesImages img{
+    height: 250px;
+    width: 300px;
+    margin: 0 15px;
+}
+
+.ModifAnnonce-Label{
+    border-radius: 5px;
+    background-color: var(--orange);
+    height: 50px;
+    width: 250px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    padding-top: 10px;
+    transition: 0.3s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.ModifAnnonce-Label:hover{
+    background: var(--orangeFoncé);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.ModifAnnonce-Submit{
+    font-size: 20px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.ModifAnnonce-Submit:hover{
+    background: var(--orangeFoncé);
+    cursor: pointer;
+    transition: 0.3s;
+}

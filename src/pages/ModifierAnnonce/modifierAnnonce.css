@@ -1,14 +1,14 @@
-.Publier{
+.ModifierAnnonce{
     display: flex;
     flex-direction: row;
 }
-.Publier-center {
+.ModifierAnnonce-center {
     display: flex;
     flex-direction: column;
     width: 85%;
     height: 100vh;
 }
 
-.Publier-nouveau{
+.ModifierAnnonce-nouveau{
     overflow-y: auto;
 }

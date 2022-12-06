@@ -16,7 +16,7 @@ import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
 import ValiderAchat from './pages/ValiderAchat';
 import Categorie from './pages/Categorie';
-import ModifierAnnonce from './pages/Publier';
+import ModifierAnnonce from './pages/ModifierAnnonce';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

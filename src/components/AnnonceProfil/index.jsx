@@ -29,6 +29,9 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
         }
     }
 
+    const redirectToModifAd = () => {
+        navigate(`/modifier/${id}`);
+    }
 
 
 
@@ -46,7 +49,7 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
                 <button className="UneAnnonceDetaillee-delete" onClick={deleteAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faTrashCan} />
                 </button>
-                <button className="UneAnnonceDetaillee-edit">
+                <button className="UneAnnonceDetaillee-edit" onClick={redirectToModifAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faPen}/>
                 </button>
                 <p className="UneAnnonceDetaillee-prix">{prix} €</p>
