@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react';
 
 function Vendeur({pseudo, photo, note}){
     let nbNote = note.length;
@@ -31,47 +32,71 @@ function Vendeur({pseudo, photo, note}){
     )
 }
 
-function Contenu({id, titre, description, prix}){
-    
+function Button({id, prix}){
+    let connectedUser = sessionStorage.getItem("user");
+
     const addFavoris = async () => {
-        let connectedUser = sessionStorage.getItem("user");
+        if (connectedUser!=null) {
+            let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
+                method: "Post",
+                headers: {
+                    'Content-Type': 'Application/json',
+                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
+                }
+            });
+            
+            result = await result.json();
 
-        let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
-            method: "Post",
-            headers: {
-                'Content-Type': 'Application/json',
-                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
+            if(!result.erreur) {
+                sessionStorage.removeItem("user");
+                sessionStorage.setItem("user", JSON.stringify(result.user));
+                window.location.reload(false);
             }
-        });
-        
-        result = await result.json();
-
-        if(result.erreur) {
-            return alert(result.erreur);
-        } else {
-            sessionStorage.removeItem("user");
-            sessionStorage.setItem("user", JSON.stringify(result.user));
-            window.location.reload(false);
         }
     }
-    
+
+    return (
+        <div className='Contenu-other'>
+            <button className='Contenu-bouton' id={'noFav'+id} onClick={addFavoris}>
+                <FontAwesomeIcon icon={faHeart} />
+            </button>
+            <button className='Contenu-bouton' id={'fav'+id} onClick={addFavoris} style={{display: 'none'}}>
+                <FontAwesomeIcon icon={faHeart} style={{color: '--var'}}/>
+            </button>
+            <p className='Contenu-prix'>{prix} €</p>
+        </div>
+    )
+}
+
+function Contenu({id, titre, description, prix}){    
     return(
         <div className='Contenu-all'>
             <div className='Contenu-text'>
                 <p className='Contenu-titre'>{titre} :</p>
                 <p className='Contenu-description'>{description}</p>
             </div>
-            <div className='Contenu-other'>
-                <button className='Contenu-bouton' onClick={addFavoris}>
-                    <FontAwesomeIcon icon={faHeart} />
-                </button>
-                <p className='Contenu-prix'>{prix} €</p>
-            </div>
+            <Button id={id} prix={prix}/>
         </div>
     )
 }
 
 function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, note, img_profil, categorie}) {
+    let connectedUser = sessionStorage.getItem("user");
+
+    useEffect(() => {
+        displayButton();
+    }, [])
+
+    const displayButton = () => {
+        if (connectedUser!=null) {
+            const buttonNoFav = document.getElementById('noFav'+id);
+            const buttonFav = document.getElementById('fav'+id);
+            if(JSON.parse(connectedUser).favoris.includes(id)){
+                buttonNoFav.style.display = 'none';
+                buttonFav.style.display = 'block';
+            }
+        }
+    }
 
     const displayImage = () => {
         if(img_annonce !== undefined){
