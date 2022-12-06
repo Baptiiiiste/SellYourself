@@ -13,15 +13,6 @@ function FormulaireConnexion() {
 
     // Fonction pour se connecter
     const login = async () => {
-        let result = await fetch("http://localhost:5000/api/connexion", {
-            method: 'post',
-            body: JSON.stringify({pseudo, password}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        result = await result.json();
-
         let fav = await fetch(`http://localhost:5000/api/viderFav/${pseudo}`, {
             method: 'post',
             headers: {
@@ -31,7 +22,16 @@ function FormulaireConnexion() {
         fav = await fav.json();
         console.log(JSON.stringify(fav.user));
 
-        if(result.authToken){
+        let result = await fetch("http://localhost:5000/api/connexion", {
+            method: 'post',
+            body: JSON.stringify({pseudo, password}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        result = await result.json();
+
+        if(result.authToken && fav.user){
             sessionStorage.setItem("user", JSON.stringify(fav.user));
             sessionStorage.setItem("token", JSON.stringify(result.authToken));
             navigate("/");

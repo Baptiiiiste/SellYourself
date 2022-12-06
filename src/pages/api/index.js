@@ -318,17 +318,23 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
 // Requete de suppression favoris inexistant
 app.post("/api/viderFav/:user", async (req, resp) => {
     const user = await User.findOne({ pseudo : req.params.user });
-    let resUser = user;
-    user.favoris.forEach(async element => {
-        const result = await Annonce.findOne({_id : element});
-        if(!result){
-            resUser = await User.updateOne(
-                { pseudo : req.params.user },
-                { $pull : { favoris : element } }
-            )
+    if(user.favoris.length === 0){
+        resp.send({user: user});
+    } else {
+        user.favoris.forEach(async element => {
+            const result = await Annonce.findOne({_id : element});
+            if(!result){
+                resUser = await User.updateOne(
+                    { pseudo : req.params.user },
+                    { $pull : { favoris : element } }
+                )
+            }
+        });
+        const newUser = await User.findOne({ pseudo : req.params.user });
+        if(newUser){
+            resp.send({user: newUser});
         }
-    });
-    resp.send({user: resUser});
+    }
 })
 
 // Requete de ajout d'une notification
