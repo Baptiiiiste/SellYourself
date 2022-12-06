@@ -32,11 +32,23 @@ function InfoUtilisateur() {
             return alert("Email incorrecte");
         }
 
-        if (/^\s$/.test(nom)) nom = "";
-        if (/^\s$/.test(prenom)) prenom = "";
-        if (/^\s$/.test(description)) description = "";
-        if (/^\s$/.test(ville)) ville = "";
-        if (/^\s$/.test(paypal)) paypal = "";
+        if(!/^[a-zA-Z0-9_.-]*$/.test(nom)){
+            return alert("Nom incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+        }
+
+        if(!/^[a-zA-Z0-9_.-]*$/.test(prenom)){
+            return alert("Prénom incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+        }
+
+        if(!/^[a-zA-Z0-9_.-]*$/.test(ville)){
+            return alert("Ville incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+        }
+
+        if(/^\s$/.test(nom)) nom = "";
+        if(/^\s$/.test(prenom)) prenom = "";
+        if(/^\s$/.test(description)) description = "";
+        if(/^\s$/.test(ville)) ville = "";
+        if(/^\s$/.test(paypal)) paypal = "";
 
         let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser)._id}`, {
             method: "Put",
