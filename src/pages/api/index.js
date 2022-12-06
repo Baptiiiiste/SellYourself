@@ -283,15 +283,18 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
 
 // Requete d'ajout d'une annonce en favoris
 app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-    let result= await User.updateOne(
-        { _id: req.params.idUser },
-        { $push: {favoris: req.params.idAnnonce} }
-    )
-    if(result){
-
-        let user = await User.findOne({_id : req.params.idUser});
-    
-        resp.send({user: user})
+    let user = await User.findOne({_id : req.params.idUser});
+    if(!user.favoris.includes(req.params.idAnnonce)){
+        let result= await User.updateOne(
+            { _id: req.params.idUser },
+            { $push: {favoris: req.params.idAnnonce} }
+        )
+        if(result){
+            let user = await User.findOne({_id : req.params.idUser});
+            resp.send({user: user})
+        }else{
+            resp.send({erreur: "erreur"})
+        }
     }else{
         resp.send({erreur: "erreur"})
     }
@@ -299,7 +302,6 @@ app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) =
 
 // Requete de suppression d'une annonce en favoris
 app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-
     let resUser = await User.updateOne(
         { _id : req.params.idUser },
         { $pull: { favoris: req.params.idAnnonce } }
@@ -311,6 +313,28 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     else{
         resp.send({erreur: "Erreur lors de la suppression"})
     } 
+})
+
+// Requete de suppression favoris inexistant
+app.post("/api/viderFav/:user", async (req, resp) => {
+    const user = await User.findOne({ pseudo : req.params.user });
+    if(user.favoris.length === 0){
+        resp.send({user: user});
+    } else {
+        user.favoris.forEach(async element => {
+            const result = await Annonce.findOne({_id : element});
+            if(!result){
+                resUser = await User.updateOne(
+                    { pseudo : req.params.user },
+                    { $pull : { favoris : element } }
+                )
+            }
+        });
+        const newUser = await User.findOne({ pseudo : req.params.user });
+        if(newUser){
+            resp.send({user: newUser});
+        }
+    }
 })
 
 // Requete de ajout d'une notification

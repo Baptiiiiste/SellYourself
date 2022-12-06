@@ -84,7 +84,7 @@ function HeaderCustom({ title }) {
           <div className='headercustom-input'>
             <input className='headercustom-input-search' type="text" placeholder='Rechercher' onKeyDown={searchHandle} />
           </div>
-          <div className="headercustom-filter">
+          {/* <div className="headercustom-filter">
             <select name="activite" id="activite" className='headercustom-leFiltre'>
               <option value="default">Filtrer</option>
               <option value="Cat1">Categorie 1</option>
@@ -92,7 +92,7 @@ function HeaderCustom({ title }) {
               <option value="Cat3">Categorie 3</option>
               <option value="Cat4">Categorie 4</option>
             </select>
-          </div>
+          </div> */}
         </div>
 
       </div>
