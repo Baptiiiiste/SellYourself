@@ -19,26 +19,90 @@ function ModifAnnonce() {
     let [prix, setPrix] = useState("");
     let [categorie, setCategorie] = useState("Autre");
     let [type, setType] = useState("Bien");
-    let image;
+    let [image, setImage] = useState([]);
+
+    let [actualtitre, setactualTitre] = useState("");
+    let [actualdescription, setactualDescription] = useState("");
+    let [actualprix, setactualPrix] = useState("");
+    let [actualcategorie, setactualCategorie] = useState("Autre");
+    let [actualtype, setactualType] = useState("Bien");
+    let [actualimage, setactualImage] = useState([]);
+
+    const toBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+    const deleteImage = (img) => {
+        console.log("oui");
+        const div = document.querySelector('.ModifAnnonce-LesImages');
+        const image = document.getElementById(img);
+        div.removeChild(image);
+    }
+
+    const displayImageDiv = () => {
+        if (actualimage !== undefined) {
+            if (actualimage.length !== 0) {
+                return (actualimage.map((item, index) => (
+                    <button className='ModifAnnonce-button-img' id={item} onclick={() => {deleteImage()}}>
+                        <img className='ModifAnnonce-img' src={item} alt=''/>
+                    </button> 
+                )));
+            }
+        }
+    }
 
     const displayImage = async () => {
-        const div = document.querySelector('.ModifAnnonce-LesImages');
-        const array = document.querySelector('.ModifAnnonce-Image').files;
+        const div = document.querySelector('.CreerAnnonce-LesImages');
+        const files = document.querySelector('.CreerAnnonce-Image').files;
 
-        const nbImage = array.length + (document.querySelectorAll('.ModifAnnonce-img')).length;
+        const nbImage = files.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
 
-        if(nbImage > 10){
-            alert("Vous ne pouvez choisir plus de 10 images !")
+        if(nbImage > 5){
+            alert("Vous ne pouvez choisir plus de 5 images !")
         }
         else{
-            for (let i = 0; i<array.length; i++){
-                if(array[i].name.split('.').pop() === 'jpeg' || array[i].name.split('.').pop() === 'jpg' || array[i].name.split('.').pop() === 'jpng'){
-                    const img = document.createElement('img');
-                    img.src= "image/" + array[i].name;
-                    img.className ='ModifAnnonce-img';
-                    div.appendChild(img);
+            let lesImages = []
+            image.forEach(element => {
+                lesImages.push(element)
+            });
+            for (let i = 0; i<files.length; i++){
+                const extension = files[i].name.split('.').pop().toLowerCase();
+                const size = files[i].size;
+
+                if(size > 2097152){
+                    alert(`La taille de ce fichier (${files[i].name}) est trop grand`)
+                } else {
+                    if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
+                        const imageBase64 = await toBase64(files[i]);
+
+                        const img = document.createElement('img');
+                        img.src= imageBase64;
+                        img.className ='CreerAnnonce-img';
+                        img.alt = "";
+
+                        const button = document.createElement('button');
+                        button.className = "CreerAnnonce-button-img";
+                        button.id = imageBase64;
+                        button.onclick = () => {deleteImage(imageBase64)};
+                        button.appendChild(img)
+                        div.appendChild(button);
+
+                        lesImages.push(imageBase64);
+                    } else {
+                        alert("Seulement les fichiers .jpg, .jpeg et .png sont accepter")
+                    }
                 }
             }
+            setImage(lesImages);
         }
     }
 
@@ -85,11 +149,12 @@ function ModifAnnonce() {
         if(result.tokenError){
             return alert(result.tokenError);
         }
-        setTitre(result.titre);
-        setDescription(result.description);
-        setPrix(result.prix);
-        setCategorie(result.categorie);
-        setType(result.type);
+        setactualTitre(result.titre);
+        setactualDescription(result.description);
+        setactualPrix(result.prix);
+        setactualCategorie(result.categorie);
+        setactualType(result.type);
+        setactualImage(result.image);
     }
 
     getAnnonce();
@@ -97,36 +162,31 @@ function ModifAnnonce() {
     return(
             <div className="ModifAnnonce-Input">
                 <input type="text"
+                        placeholder={actualtitre}
                         value={titre} 
                         className="ModifAnnonce-Titre" 
                         maxLength="80" 
                         onChange={(ev) => {setTitre(ev.target.value)}}/>
 
                 <textarea value={description} 
+                        placeholder={actualdescription}
                         className="ModifAnnonce-Description" 
                         maxLength="1000" 
                         onChange={(ev) => {setDescription(ev.target.value)}}/>
 
                 <input value={prix} 
+                        placeholder={actualprix}
                         type="number" 
                         min = "0"
                         max="99999" 
                         className="ModifAnnonce-Prix" 
                         onChange={(ev) => {setPrix(ev.target.value)}}/>
 
-                <div className='ModifAnnonce-Radio'>
-                    <fieldset className='CreeAnnonce-RadioBouton'>
-                        <legend> Type d'annonce proposée </legend>
-                        <div>
-                            <input type="radio" className="ModifAnnonce-Bien" id='Bien' name='Type' value="Bien" checked onChange={(ev) => {setType(ev.target.value)}}/>
-                            <label for="Bien">Bien</label>
-                        </div>
-                        <div>
-                            <input type="radio" className="ModifAnnonce-Service" id='Service' name='Type' value="Service" onChange={(ev) => {setType(ev.target.value)}}/>
-                            <label for="Service">Service</label>
-                        </div>
-                    </fieldset>
-                </div>
+                <select name="Categorie" className="ModifAnnonce-Categorie" onChange={(ev) => {setType(ev.target.value)}}>
+                    <option value="">-- Type d'annonce --</option>
+                    <option value="Bien">Bien</option>
+                    <option value="Service">Service</option>
+                </select>
 
                 <select name="Categorie" className="ModifAnnonce-Categorie" onChange={(ev) => {setCategorie(ev.target.value)}}>
                     <option value="">-- Choisissez une catégorie --</option>
@@ -136,7 +196,7 @@ function ModifAnnonce() {
                 </select>
 
                 <div className='ModifAnnonce-LesImages'>
-
+                    {displayImageDiv()}
                 </div>
 
                 <label for="image" className='ModifAnnonce-Label'>Ajouter une photo</label>
