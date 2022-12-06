@@ -4,7 +4,21 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { faMessage, faStar, faCommentDollar, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-function Notification({type, info}) {
+function Notification({type, info, owner, id}) {
+
+    // const navigate = useNavigate();
+
+    const deleteNotif = async () => {
+         await fetch(`http://localhost:5000/api/utilisateur/deleteNotif/${owner}/${id}`, {
+            method: "delete",
+            headers: {
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+        window.location.reload(false);
+    }
+
     if(type === "msg")
         return (
             <div className='Notification-all'>
@@ -15,7 +29,7 @@ function Notification({type, info}) {
                         <p className="Notification-messageText">{info}</p>
                     </Link>
                 </div>
-                <button className='Notification-button'>
+                <button className='Notification-button' onClick={deleteNotif}>
                     <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
                 </button>
             </div>
@@ -31,7 +45,7 @@ function Notification({type, info}) {
                         <p className="Notification-message">{info}</p>
                     </div>
                 </div>
-                <button className='Notification-button'>
+                <button className='Notification-button' onClick={deleteNotif}>
                     <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
                 </button>
             </div>
@@ -47,7 +61,7 @@ function Notification({type, info}) {
                         <p className="Notification-message">{info}</p>
                     </div>
                 </div>
-                <button className='Notification-button'>
+                <button className='Notification-button' onClick={deleteNotif}>
                     <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
                 </button>
             </div>

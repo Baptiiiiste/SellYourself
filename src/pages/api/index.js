@@ -5,6 +5,7 @@ const { User, Annonce, Notification, Image } = require("./configuration/models")
 const Jwt = require("jsonwebtoken");
 const multer = require("multer");
 const fs = require('fs');
+let ObjectId = require('mongodb').ObjectId;
 const { Await } = require("react-router-dom");
 
 
@@ -260,9 +261,14 @@ app.post("/api/favoris/addFavs/:idUser/:idAnnonce", verifyToken, async (req, res
 //     resp.send(result);
 // })
 
-app.get("/api/utilisateur/getNotif/:idNotif", async (req, resp) => {
-    let notif = await Notification.findOne({ _id : req.params.idNotif });
-    resp.send(notif);
+app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
+    let listNotifs = [];
+    const user = await User.findOne({pseudo: req.params.pseudo});
+    for (let i = 0; i < user.notifications.length; i++) {
+        let notif = await Notification.findOne({ _id : new ObjectId(user.notifications[i]) });
+        listNotifs.push(notif);
+    }
+    resp.send({listNotifs});
 });
 
 
@@ -270,9 +276,10 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
     await notif.save();
+    let notifId = (notif._id).toString();
     let result = await User.updateOne(
         {pseudo: req.params.pseudo},
-        { $push: {notifications: notif._id} }
+        { $push: {notifications: notifId} }
     );
 
     if(result){
@@ -301,26 +308,6 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
     }
 });
 
-// app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
-
-//     let user = await User.findOne({ pseudo: req.params.pseudo })
-//     const notifs = user.notifications.map(n => n._id);
-//     const filteredNotif = notifs.toString().indexOf(req.params.idNotif);
-
-//     if(filteredNotif != -1){
-//         user.notifications.splice(filteredNotif, 1);
-//         await User.updateOne(
-//             {pseudo: req.params.pseudo},
-//             {$set: {notifications: user.notifications}}
-//         );
-//     } 
-//     const newUser = await User.findOne({ pseudo : req.params.pseudo });
-//     if(newUser){
-//         resp.send({user: newUser});
-//     }else{
-//         resp.send({erreur: "Erreur lors de la suppression"})
-//     }
-// });
 
 app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
     let user = await User.findOne({ pseudo: req.params.pseudo })

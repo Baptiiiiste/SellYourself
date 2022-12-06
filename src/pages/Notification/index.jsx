@@ -6,25 +6,6 @@ import LeftBar from "../../components/LeftBar";
 import {useState, useEffect} from 'react';
 
 
-
-const notifs = [
-    { type: "msg", info: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},
-    { type: "note", info: "4"},
-    { type: "client", info: "titre de l'annonce et nom de l'acheteur si renseigné"},
-    { type: "fav", info: "titre de l'annonce"},
-]
-
-const deleteAllNotifs = async () => {
-    
-    // let result = await fetch(`http://localhost:5000/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
-    //     method: "delete",
-    //     headers: {
-    //         'Content-Type': 'Application/json',
-    //         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-    //     }
-    // });
-}
-
 function Notifications() {
     let connectedUser = sessionStorage.getItem("user");
 
@@ -34,34 +15,33 @@ function Notifications() {
 
     const [notifs, setNotifs] = useState([]);
 
+    const deleteAllNotifs = async () => {
+    
+        await fetch(`http://localhost:5000/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
+            method: "delete",
+            headers: {
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+
+        window.location.reload(false);
+    }
+
     const getUserNotif = async () => {
-		let listNotifs = [];
-		for(let i = 0; i < (JSON.parse(connectedUser).notifications).length; i++){
-			let a = await fetch(`http://localhost:5000/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}/${JSON.parse(connectedUser).notifications[i]}`, {
-				method: "Get",
-				headers: {
-					'Content-Type': 'Application/json',
-					authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-				}
-			});
-			a = await a.json()
-                .then(a => listNotifs.push(a));
-		}
-		setNotifs(listNotifs);
+        let listNotifications = [];
+        let a = await fetch(`http://localhost:5000/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}`, {
+            method: "Get",
+            headers: {
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+        a = await a.json().then(a => {
+            setNotifs(a.listNotifs);
+        })
 	}
 	
-	const displayNotifs = (item, index) => {
-		const notif = item;
-        
-		return (<Notification
-			type = {notif.type}
-			info = {notif.content}
-			// owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
-			key={index}
-		/>)
-
-	  }
-
     return (
         <div className='Notifications'>
             <LeftBar/>
@@ -75,9 +55,15 @@ function Notifications() {
                             Tout supprimer !
                         </button>
                     </div>
-                    {notifs.map(({ item, index }) => (
-                        displayNotifs(item, index)
-                    ))}
+                    {notifs.map(({ type, content, index, _id }) => (
+                        <Notification
+                        type = {type}
+                        info = {content}
+                        owner = {(JSON.parse(connectedUser).pseudo)}
+                        id = {_id}
+                        key={index}
+                        />
+                    ))} 
                 </div>
             </div>
         </div>
