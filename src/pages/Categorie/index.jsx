@@ -43,6 +43,7 @@ function Categorie() {
       pseudoVendeur={user.pseudo}
       img_profil={user.profilPic}
       note={user.noteList}
+      categorie={annonce.categorie}
       key={index}
     />)
   }

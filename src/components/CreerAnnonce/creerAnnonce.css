@@ -86,3 +86,12 @@
     cursor: pointer;
     transition: 0.3s;
 }
+
+.CreerAnnonce-button-img{
+    background-color: transparent;;
+    border: 0;
+}
+
+.CreerAnnonce-button-img:hover{
+    opacity: 50%;
+}
