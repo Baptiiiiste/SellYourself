@@ -1,5 +1,14 @@
 // Import 
 import './PageValider.css'
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+
+// import { PayPalButton } from "react-paypal-button-v2";
+// import {
+//     PayPalScriptProvider,
+//     PayPalButtons,
+//     usePayPalScriptReducer
+// } from "@paypal/react-paypal-js";
 
 function ValidationAchat({annonce}) { 
     const displayImage = () => {
@@ -9,6 +18,11 @@ function ValidationAchat({annonce}) {
         }
     }
 
+    const style = {                         
+        layout: 'vertical',
+        color:  'gold',
+        shape:  'pill',
+        label:  'paypal'};
     return (
         <div className="PageValider">
             <p className='PageValider-Titre'>ACHAT</p>
@@ -20,7 +34,12 @@ function ValidationAchat({annonce}) {
                 </div>
             </div>
             <div className='PageValider-DivBouton'>
-                <button className='PageValider-Bouton'>CONFIRMER L'ACHAT</button>
+                {/* <button className='PageValider-Bouton'>CONFIRMER L'ACHAT</button> */}
+                <PayPalScriptProvider options={{ "client-id": "Af6eNd93COGamQLT09xSok7j9AEc9i3_Xop6mmpaTsJQ7S0usEF5iJqfVOIHrr7kh2A3rX2qAjrZVUPc" }}>
+                    <PayPalButtons
+                        style={style}
+                    />
+                </PayPalScriptProvider>
             </div>
         </div>
     );
