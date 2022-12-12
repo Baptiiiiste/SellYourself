@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.set("view enginer","ejs");
+app.set("view engine","ejs");
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -492,6 +492,10 @@ app.post('/api/resetPassword', async(req, resp)=>{
     const pseudo = req.body.pseudo;
 
     const token = req.body.token;
+
+    const password = req.body.password;
+
+    console.log("test");    
 
     const newUser = await User.findOne({pseudo: pseudo});
 
