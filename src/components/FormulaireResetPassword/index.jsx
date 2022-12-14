@@ -35,18 +35,18 @@ function FormulaireResetPassword() {
                 return alert("Les mots de passes ne sont pas identiques");
             }
 
-            const password = bcrypt.hashSync(password,salt);
+            const hashPassword = bcrypt.hashSync(password,salt);
 
             const pseudo =  params.pseudo;
             const token = params.token;
         
             let result = await fetch(`http://localhost:5000/api/resetPassword`, {
                 method: "post",
-                body: JSON.stringify({pseudo, token, password}),
+                body: JSON.stringify({pseudo, token, hashPassword}),
                     headers: {
                         'Content-Type': 'Application/json'
                     }
-			})
+			}).catch((err)=>{console.log(err)});
             result = await result.json();
             alert(result.result);
             if(result.result !== "Lien invalide, veuillez réessayer" && result.result !== "Session expiré, veuillez recommencer"){

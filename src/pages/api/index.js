@@ -495,7 +495,6 @@ app.post('/api/resetPassword', async(req, resp)=>{
 
     const password = req.body.password;
 
-    console.log("test");    
 
     const newUser = await User.findOne({pseudo: pseudo});
 
