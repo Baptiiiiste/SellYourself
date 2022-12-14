@@ -7,16 +7,19 @@ import LeftBar from "../../components/LeftBar";
 import { useEffect } from "react";
 import AnnonceProfil from "../../components/AnnonceProfil";
 
-
+// Page de profil utilisateur
 function Profil() {
+	// Utilisateur connecté
     let connectedUser = sessionStorage.getItem("user");
 
+	// Appel de fonction pour récupérer les annonces de l'utilisateur
 	useEffect(() => {
 		getUserAds();
 	}, [])
 
     const [annonces, setAnnonces] = useState([]);
 
+	// Fonction pour récupérer les annonces de l'utilisateur à l'aide d'une requête vers l'api
     const getUserAds = async () => {
 		let listAds = [];
 		for(let i = 0; i < (JSON.parse(connectedUser).annonces).length; i++){
@@ -32,6 +35,7 @@ function Profil() {
 		setAnnonces(listAds)
 	}
 	
+	// fonction pour afficher 1 annonce de l'utilisateur
 	const displayAnnonce = (item, index) => {
 		const annonce = item;
 	
@@ -43,10 +47,10 @@ function Profil() {
 			owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
 			key={index}
 		/>)
-	  }
+	}
 
     
-
+	// Affichage de la page avec un appel aux composants nécessaire
     return (
         <div className='Profil'>
             <LeftBar />

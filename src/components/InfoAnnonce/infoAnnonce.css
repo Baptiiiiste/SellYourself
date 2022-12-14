@@ -96,6 +96,22 @@
     padding: 20px;
 }
 
+.InfoAnnonce-isVendu{
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: green;
+}
+
+.InfoAnnonce-isVendu p{
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+
 .InfoAnnonce-Haut{
     display:flex;
     flex-direction: row;

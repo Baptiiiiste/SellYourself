@@ -50,10 +50,10 @@ function FormulaireInscription() {
                 'x-api-key': 'DEMO_API_KEY'
             }})
             .then((response) => {
-            return response.json();
+                return response.json();
             })
             .then((data) => {
-            return data[0].url;
+                return data[0].url;
             });
 
             let data = await fetch(`http://localhost:5000/api/inscription`, {

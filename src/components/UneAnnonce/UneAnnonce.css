@@ -3,7 +3,7 @@
 /* Contenu */
 
 .Contenu-all{
-    height: 70%;
+    height: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -12,6 +12,7 @@
 .UneAnnonce-description-top{
     display: flex;
     flex-direction: row;
+    height: 20%;
 }
 
 .Contenu-titre, .Contenu-description, .UneAnnonce-categorie-titre, .UneAnnonce-categorie-text{
@@ -105,6 +106,21 @@
     display: flex;
     flex-direction: row;
     font-weight: bold;
+}
+
+.UneAnnonce-isVendu{
+    border-radius: 8px;
+    margin-top: 10px;
+    height: 10%;
+    background-color: green;
+}
+
+.UneAnnonce-isVendu p{
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
 }
 
 /* Vendeur */

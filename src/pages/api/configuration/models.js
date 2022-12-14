@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { bool } = require("prop-types");
 
 const ImageSchema = new mongoose.Schema({
     nom: {type: String},
@@ -31,7 +32,8 @@ const annonceSchema = new mongoose.Schema({
     image: {type: [String] },
     prix: {type: Number, require: true},
     type: {type: String },
-    categorie: {type: String }
+    categorie: {type: String },
+    vendu: {type: Boolean, default: false}
 });
 
 const noteSchema = new mongoose.Schema({

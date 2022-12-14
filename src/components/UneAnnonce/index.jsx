@@ -98,11 +98,12 @@ function Contenu({id, titre, description, prix}){
     )
 }
 
-function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, note, img_profil, categorie}) {
+function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, note, img_profil, categorie, vendu}) {
     let connectedUser = sessionStorage.getItem("user");
 
     useEffect(() => {
         displayButton();
+        isVendu(id);
     }, [])
 
     const displayButton = () => {
@@ -127,6 +128,15 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
         }
     }
 
+    const isVendu = (id) => {
+        const div = document.getElementById(id);
+        if(div !== undefined){
+            if(vendu){
+                div.style.display = 'block';
+            }
+        }
+    }
+
     return (
         <div className='UneAnnonce-all'>
             <Link to={"/annonce/" + pseudoVendeur + "/" + id} params={{titre: titre}} className='UneAnnonce-div-Image'>
@@ -139,6 +149,9 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
                         <p className='UneAnnonce-categorie-titre'>Catégorie :</p>
                         <p className='UneAnnonce-categorie-text'>{categorie}</p>
                     </div>
+                </div>
+                <div className='UneAnnonce-isVendu' id={id} style={{display: 'none'}}>
+                    <p>L'annonce est vendue</p>
                 </div>
                 <Contenu id={id} titre={titre} description={description} prix={prix}/>
             </div>
