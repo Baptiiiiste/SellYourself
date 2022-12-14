@@ -398,6 +398,28 @@ app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
     }
 })
 
+// Requete modification annonce
+app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
+    let annonce = await Annonce.findOne({ _id: req.params.annonce });
+    if(annonce){
+        if(annonce.utilisateur === req.params.user){
+            let result = await Annonce.updateOne(
+                { _id: req.params.annonce },
+                { $set: req.body }
+            )
+            if(result){
+                let newAnnonce = await Annonce.findOne({ _id: req.params.annonce });
+                resp.send({annonce: newAnnonce});
+            } else {
+                resp.send({msg: "non"});
+            }
+        } else {
+            resp.send({erreur: "l'annonce de vous appartient pas"});
+        }
+    }else{
+        resp.send({erreur: "erreur"});
+    }
+})
 
 app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
     
@@ -414,6 +436,7 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
         resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
     }
 });
+
 
 // Requete recupération nombre annonce utilisateur
 app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {

@@ -15,28 +15,11 @@
     width: 400px;
     margin: 20px;
     font-size: 20px;
+    color: #696969
 }
 
 .ModifAnnonce-Description{
     height: 80px;
-}
-
-.ModifAnnonce-Categorie{
-    font-size: 16px;
-}
-
-.ModifAnnonce-Radio {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 400px;
-    margin: 30px 0;
-}
-
-.CreeAnnonce-RadioBouton{
-    padding: 20px 30px;
-    font-size: 18px;
-    border: 2px solid var(--orange);
 }
 
 .ModifAnnonce-BoutonSubmit {
@@ -46,20 +29,6 @@
     width: 100%;
     padding-right: 100px;
 }
-
-.ModifAnnonce-Bien, .ModifAnnonce-Service{
-    appearance: none;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--orange);
-    transition: 0.2s all linear;
-    margin-right: 10px;
-}
-
-.ModifAnnonce-Bien:checked, .ModifAnnonce-Service:checked {
-    border: 8px solid var(--orangeFoncé);
-  }
 
 .ModifAnnonce-Image{
     display: none;
@@ -77,7 +46,6 @@
 
 .ModifAnnonce-LesImages img{
     height: 250px;
-    width: 300px;
     margin: 0 15px;
 }
 
@@ -117,4 +85,13 @@
     background: var(--orangeFoncé);
     cursor: pointer;
     transition: 0.3s;
+}
+
+.ModifAnnonce-button-img{
+    background-color: transparent;;
+    border: 0;
+}
+
+.ModifAnnonce-button-img:hover{
+    opacity: 50%;
 }
