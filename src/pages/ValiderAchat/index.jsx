@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Validation from '../../components/PageValider';
 import HeaderCustom from '../../components/HeaderCustom';
 
+// Page pour valider un achat
 function ValiderAchat() {
 
   useEffect(() => {

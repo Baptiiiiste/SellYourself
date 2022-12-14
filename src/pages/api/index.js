@@ -365,7 +365,7 @@ app.post("/api/viderFav/:user", async (req, resp) => {
     }
 })
 
-// Requete de ajout d'une notification
+// Requete d'ajout d'une notification
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
