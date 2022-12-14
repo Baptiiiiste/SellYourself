@@ -3,6 +3,7 @@ import React from 'react';
 import {categories} from '../../assets/data'
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function ModifAnnonce() {
 
@@ -21,12 +22,17 @@ function ModifAnnonce() {
     let [type, setType] = useState("Bien");
     let [image, setImage] = useState([]);
 
+    let [id, setId] = useState("");
     let [actualtitre, setactualTitre] = useState("");
     let [actualdescription, setactualDescription] = useState("");
     let [actualprix, setactualPrix] = useState("");
     let [actualcategorie, setactualCategorie] = useState("Autre");
     let [actualtype, setactualType] = useState("Bien");
     let [actualimage, setactualImage] = useState([]);
+
+    useEffect(() => {
+        getAnnonce()
+    }, [])
 
     const toBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -42,17 +48,20 @@ function ModifAnnonce() {
     };
 
     const deleteImage = (img) => {
-        console.log("oui");
         const div = document.querySelector('.ModifAnnonce-LesImages');
-        const image = document.getElementById(img);
-        div.removeChild(image);
+        const buttonImage = document.getElementById(img);
+        div.removeChild(buttonImage);
+        var index = image.indexOf(img);
+        if (index > -1) {
+            image.splice(index, 1);
+        }
     }
 
     const displayImageDiv = () => {
         if (actualimage !== undefined) {
             if (actualimage.length !== 0) {
                 return (actualimage.map((item, index) => (
-                    <button className='ModifAnnonce-button-img' id={item} onclick={() => {deleteImage()}}>
+                    <button className='ModifAnnonce-button-img' id={item} onClick={() => {deleteImage(item)}}>
                         <img className='ModifAnnonce-img' src={item} alt=''/>
                     </button> 
                 )));
@@ -61,19 +70,15 @@ function ModifAnnonce() {
     }
 
     const displayImage = async () => {
-        const div = document.querySelector('.CreerAnnonce-LesImages');
-        const files = document.querySelector('.CreerAnnonce-Image').files;
+        const div = document.querySelector('.ModifAnnonce-LesImages');
+        const files = document.querySelector('.ModifAnnonce-Image').files;
 
-        const nbImage = files.length + (document.querySelectorAll('.CreerAnnonce-img')).length;
+        const nbImage = files.length + image.length;
 
         if(nbImage > 5){
             alert("Vous ne pouvez choisir plus de 5 images !")
         }
         else{
-            let lesImages = []
-            image.forEach(element => {
-                lesImages.push(element)
-            });
             for (let i = 0; i<files.length; i++){
                 const extension = files[i].name.split('.').pop().toLowerCase();
                 const size = files[i].size;
@@ -86,45 +91,60 @@ function ModifAnnonce() {
 
                         const img = document.createElement('img');
                         img.src= imageBase64;
-                        img.className ='CreerAnnonce-img';
+                        img.className ='ModifAnnonce-img';
                         img.alt = "";
 
                         const button = document.createElement('button');
-                        button.className = "CreerAnnonce-button-img";
+                        button.className = "ModifAnnonce-button-img";
                         button.id = imageBase64;
                         button.onclick = () => {deleteImage(imageBase64)};
-                        button.appendChild(img)
+                        button.appendChild(img);
                         div.appendChild(button);
 
-                        lesImages.push(imageBase64);
+                        image.push(imageBase64);
                     } else {
                         alert("Seulement les fichiers .jpg, .jpeg et .png sont accepter")
                     }
                 }
             }
-            setImage(lesImages);
         }
     }
 
     const formulaire = async () => {
-        const nbImage = (document.querySelectorAll('.ModifAnnonce-img')).length;
+        const nbImage = image.length;
+
+        let result = await fetch(`http://localhost:5000/api/annonce/user/${JSON.parse(connectedUser).pseudo}`, {
+            method: 'Get',
+            headers: {
+                'Content-Type': 'Application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+        result = await result.json();
+
+        const nbAnnonce = result.annonces.length;
+        
+        if(nbAnnonce >= 5){
+            alert("Vous avez déjà atteint le nombre maximum d'annonces")
+        }
         if(!titre || !prix || nbImage === 0 || prix > 99999){
             alert("Vous devez renseigner au moins le titre, le prix de l'annonce ainsi qu'une image.");
-        }else if(titre && prix && nbImage > 0 && prix <= 99999){
-            if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
-                alert("Le titre est invalide");
-            }
-            if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
-                alert("La description est invalide");
-            }
-            image = [];
-            const images = document.querySelectorAll('.ModifAnnonce-img');
-            for(let i = 0; i<images.length; i++){
-                if(images[i].src.split('.').pop() === 'jpeg' || images[i].src.split('.').pop() === 'jpg' || images[i].src.split('.').pop() === 'jpng'){
-                }
-            }
-            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
-                method: 'Post',
+        }
+        if(titre && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(titre)){
+            alert("Le titre est invalide");
+        }
+        if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
+            alert("La description est invalide");
+        }
+        if(prix <0){
+            alert("Le prix doit être positif");
+        }
+        if(categorie.length === 0){
+            setCategorie('Autre');
+        }
+        else if(titre && prix && nbImage > 0 && prix <= 99999){
+            let result = await fetch(`http://localhost:5000/api/annonce/edit/${id}/${JSON.parse(connectedUser).pseudo}`, {
+                method: 'Put',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {
                     'Content-Type': 'Application/json',
@@ -132,12 +152,11 @@ function ModifAnnonce() {
                 }
             });
             result = await result.json();
+            console.log(result.annonce);
             if(result.tokenError){
                 return alert(result.tokenError);
             }
-            sessionStorage.removeItem("user");
-            sessionStorage.setItem("user", JSON.stringify(result.user));
-            navigate("/");
+            navigate("/profil");
         }
     }
 
@@ -149,33 +168,37 @@ function ModifAnnonce() {
         if(result.tokenError){
             return alert(result.tokenError);
         }
+        setId(result._id);
         setactualTitre(result.titre);
         setactualDescription(result.description);
         setactualPrix(result.prix);
         setactualCategorie(result.categorie);
         setactualType(result.type);
         setactualImage(result.image);
-    }
 
-    getAnnonce();
+        setTitre(result.titre);
+        setDescription(result.description);
+        setPrix(result.prix);
+        setCategorie(result.categorie);
+        setType(result.type);
+        setImage(result.image);
+    }
 
     return(
             <div className="ModifAnnonce-Input">
                 <input type="text"
                         placeholder={actualtitre}
-                        value={titre} 
                         className="ModifAnnonce-Titre" 
                         maxLength="80" 
                         onChange={(ev) => {setTitre(ev.target.value)}}/>
 
-                <textarea value={description} 
+                <textarea
                         placeholder={actualdescription}
                         className="ModifAnnonce-Description" 
                         maxLength="1000" 
                         onChange={(ev) => {setDescription(ev.target.value)}}/>
 
-                <input value={prix} 
-                        placeholder={actualprix}
+                <input placeholder={actualprix}
                         type="number" 
                         min = "0"
                         max="99999" 
@@ -197,6 +220,7 @@ function ModifAnnonce() {
 
                 <div className='ModifAnnonce-LesImages'>
                     {displayImageDiv()}
+                    
                 </div>
 
                 <label for="image" className='ModifAnnonce-Label'>Ajouter une photo</label>
@@ -204,9 +228,8 @@ function ModifAnnonce() {
 
                 <p>Format .png, .jpeg et .jpg uniquement</p> 
                 <div className='ModifAnnonce-BoutonSubmit'>
-                    <button className="ModifAnnonce-Submit" /*onClick={formulaire}*/> Publier l'annonce </button>
+                    <button className="ModifAnnonce-Submit" onClick={formulaire}> Modifier l'annonce </button>
                 </div>
-                
             </div>
     )
 }
