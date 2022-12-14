@@ -3,10 +3,14 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Image } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
+const multer = require("multer");
+const fs = require('fs');
+let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
+
 
 
 
@@ -283,15 +287,18 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
 
 // Requete d'ajout d'une annonce en favoris
 app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-    let result= await User.updateOne(
-        { _id: req.params.idUser },
-        { $push: {favoris: req.params.idAnnonce} }
-    )
-    if(result){
-
-        let user = await User.findOne({_id : req.params.idUser});
-    
-        resp.send({user: user})
+    let user = await User.findOne({_id : req.params.idUser});
+    if(!user.favoris.includes(req.params.idAnnonce)){
+        let result= await User.updateOne(
+            { _id: req.params.idUser },
+            { $push: {favoris: req.params.idAnnonce} }
+        )
+        if(result){
+            let user = await User.findOne({_id : req.params.idUser});
+            resp.send({user: user})
+        }else{
+            resp.send({erreur: "erreur"})
+        }
     }else{
         resp.send({erreur: "erreur"})
     }
@@ -299,7 +306,6 @@ app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) =
 
 // Requete de suppression d'une annonce en favoris
 app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-
     let resUser = await User.updateOne(
         { _id : req.params.idUser },
         { $pull: { favoris: req.params.idAnnonce } }
@@ -313,17 +319,60 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     } 
 })
 
+
+// app.get("/api/search/:key", verifyToken, async(req,resp) => {
+//     let result = await Annonce.find({
+//         "$or": [
+//             {
+//                 name: { $regex: req.params.key}
+//             },
+
+//         ]
+//     });
+//     resp.send(result);
+// })
+
+app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
+    let listNotifs = [];
+    const user = await User.findOne({pseudo: req.params.pseudo});
+    for (let i = 0; i < user.notifications.length; i++) {
+        let notif = await Notification.findOne({ _id : new ObjectId(user.notifications[i]) });
+        listNotifs.push(notif);
+    }
+    resp.send({listNotifs});
+});
+
+// Requete de suppression favoris inexistant
+app.post("/api/viderFav/:user", async (req, resp) => {
+    const user = await User.findOne({ pseudo : req.params.user });
+    if(user.favoris.length === 0){
+        resp.send({user: user});
+    } else {
+        user.favoris.forEach(async element => {
+            const result = await Annonce.findOne({_id : element});
+            if(!result){
+                resUser = await User.updateOne(
+                    { pseudo : req.params.user },
+                    { $pull : { favoris : element } }
+                )
+            }
+        });
+        const newUser = await User.findOne({ pseudo : req.params.user });
+        if(newUser){
+            resp.send({user: newUser});
+        }
+    }
+})
+
 // Requete de ajout d'une notification
 app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
+    await notif.save();
+    let notifId = (notif._id).toString();
     let result = await User.updateOne(
-        {pseudo : req.params.pseudo},
-        { $push: 
-            {notifications: 
-                notif
-            } 
-        }
+        {pseudo: req.params.pseudo},
+        { $push: {notifications: notifId} }
     );
 
     if(result){
@@ -349,6 +398,46 @@ app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
     }
 })
 
+// Requete modification annonce
+app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
+    let annonce = await Annonce.findOne({ _id: req.params.annonce });
+    if(annonce){
+        if(annonce.utilisateur === req.params.user){
+            let result = await Annonce.updateOne(
+                { _id: req.params.annonce },
+                { $set: req.body }
+            )
+            if(result){
+                let newAnnonce = await Annonce.findOne({ _id: req.params.annonce });
+                resp.send({annonce: newAnnonce});
+            } else {
+                resp.send({msg: "non"});
+            }
+        } else {
+            resp.send({erreur: "l'annonce de vous appartient pas"});
+        }
+    }else{
+        resp.send({erreur: "erreur"});
+    }
+})
+
+app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
+    
+    //let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
+    await User.updateOne(
+        { pseudo : req.params.pseudo },
+        { $pull: { notifications: req.params.idNotif } }
+    );
+    
+    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    if(newUser){
+        resp.send({user: newUser});
+    }else{
+        resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
+    }
+});
+
+
 // Requete recupération nombre annonce utilisateur
 app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
     const user = await User.find( { pseudo: req.params.pseudo } );
@@ -370,6 +459,100 @@ app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
 
 // ---------------------------------------------------------------------------------------
 
+
+app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
+    let user = await User.findOne({ pseudo: req.params.pseudo })
+    user.notifications.splice(0, user.notifications.length)
+    await User.updateOne(
+        {pseudo: req.params.pseudo},
+        {$set: {notifications: user.notifications}}
+    );
+    
+    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    if(newUser){
+        resp.send({user: newUser});
+    }else{
+        resp.send({erreur: "Erreur lors de la suppression"})
+    }
+
+});
+
+
+
+
+// Image
+
+const Storage = multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'uploads')
+    },
+
+    filename: (req, file, cb)=>{
+        cb(null,file.originalname)
+    }
+})
+
+const upload = multer({
+    storage: Storage
+})//.single('testImage')
+
+app.post('/',upload.single('testImage'),(req,res)=>{
+    
+    const saveImage = new Image({
+        nom: req.body.name,
+        image:{
+            data: fs.readFileSync('uploads/' + req.file.filename),
+            contentType:"image/png"
+        },
+    });
+
+    saveImage.save()
+    .then((res)=>{console.log('image is saved')})
+    .catch((err)=>{console.log(err, 'error has occurr')})
+    /*
+    upload(req,res,err=>{
+        if(err){
+            console.log
+        }
+        else{
+            const newImage = new Image({
+                name: req.body.name,
+                image: {
+                    data: req.file.filename,
+                    contentType: 'image/png'
+                }
+            })
+
+            newImage.save()
+            .then(()=>res.send('successfully uploaded'))
+            .catch(err=>console.log(err))
+
+        }
+    })
+    */
+})
+
+
+app.get('/',async(req,res)=>{
+    const allData = await Image.find()
+    res.json(allData)
+})
+
+app.get("/api/search/:key", async(req,resp) => {
+    let result = await Annonce.find({
+        "$or": [
+            {
+                name: { $regex: req.params.key}
+            },
+
+        ]
+    });
+    resp.send(result);
+})
+
+
+// ---------------------------------------------------------------------------------------
+
 // Vérification du token utilisateur
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
@@ -385,6 +568,7 @@ function verifyToken(req, resp, next) {
         resp.status(403).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
     }
 }
+
 
 // Lancement de l'API
 app.listen(5000);

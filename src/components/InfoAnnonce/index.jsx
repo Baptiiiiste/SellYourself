@@ -101,9 +101,7 @@ function InfoAnnonce() {
 
         result = await result.json();
 
-        if (result.erreur) {
-            return alert(result.erreur);
-        } else {
+        if (!result.erreur) {
             sessionStorage.removeItem("user");
             sessionStorage.setItem("user", JSON.stringify(result.user));
             window.location.reload(false);

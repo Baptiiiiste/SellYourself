@@ -83,7 +83,8 @@ header{
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    flex: 0.5;
+    width: auto;
+    margin-right: 100px;
 
     text-decoration: none;
     color: black;
@@ -101,6 +102,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: auto;
     flex: 0.5;
 }
 
@@ -111,24 +113,6 @@ header{
 
 }
 
-.headercustom-filter{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 30px;
-    flex: 0.5;
-}
-
-.headercustom-leFiltre:hover{
-    cursor: pointer;
-}
-
-.headercustom-filter select{
-    background-color: white;
-    border: none;
-    font-size: 20px;
-}
-
 /* ----------------------------------- */
 
 
@@ -137,7 +121,8 @@ header{
 .headercustom-bar{
     display: flex;
     flex-direction: row;
-    width: auto;
+    justify-content: flex-start;
+    width: 100%;
     border-bottom: 1px solid var(--grisFoncé);
     font-size: 0.8em;
     height: 70px

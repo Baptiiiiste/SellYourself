@@ -16,6 +16,10 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
 
     // Fonction pour supprimer une annonce
     const deleteAd = async () => {
+
+        const valid = await window.confirm(`Vous etes sur le point de supprimer l'annonce:\n ${titre}\n Valider ?`);
+        if(!valid) return;
+
         let result = await fetch(`http://localhost:5000/api/annonce/delete/${owner[1]}/${id}`, {
             method: "Delete",
             headers: {
@@ -31,13 +35,17 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
             window.location.reload(false);
         }
     }
-
+    
     // Fonction pour afficher les images
     const displayImage = () => {
         if(img_annonce !== undefined){
             if(img_annonce.length === 0) return <img className="UneAnnonceDetaillee-image" src={require('../../assets/default.png')} alt=""/>
             else return <img className="UneAnnonceDetaillee-image" src={img_annonce[0]}  alt=""/>
         }
+    }
+    
+    const redirectToModifAd = () => {
+        navigate(`/modifier/${id}`);
     }
 
     // Affichage HTML
@@ -55,7 +63,7 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
                 <button className="UneAnnonceDetaillee-delete" onClick={deleteAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faTrashCan} />
                 </button>
-                <button className="UneAnnonceDetaillee-edit">
+                <button className="UneAnnonceDetaillee-edit" onClick={redirectToModifAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faPen}/>
                 </button>
                 <p className="UneAnnonceDetaillee-prix">{prix} €</p>

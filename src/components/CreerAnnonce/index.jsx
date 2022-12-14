@@ -30,6 +30,12 @@ function CreerAnnonce() {
         });
     };
 
+    const deleteImage = (img) => {
+        const div = document.querySelector('.CreerAnnonce-LesImages');
+        const buttonImage = document.getElementById(img);
+        div.removeChild(buttonImage);
+    }
+
     // Fonction pour afficher les images
     const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
@@ -59,7 +65,13 @@ function CreerAnnonce() {
                         img.src= imageBase64;
                         img.className ='CreerAnnonce-img';
                         img.alt = "";
-                        div.appendChild(img);
+
+                        const button = document.createElement('button');
+                        button.className = "CreerAnnonce-button-img";
+                        button.id = imageBase64;
+                        button.onclick = () => {deleteImage(imageBase64)};
+                        button.appendChild(img)
+                        div.appendChild(button);
 
                         lesImages.push(imageBase64);
                     } else {
@@ -105,7 +117,7 @@ function CreerAnnonce() {
         if(categorie.length === 0){
             setCategorie('Autre');
         }
-        else if(titre && prix && nbImage > 0 && prix <= 99999){
+        else if(titre && prix && nbImage > 0 && prix <= 99999 && JSON.parse(connectedUser).paypal.length !== 0){
             let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),

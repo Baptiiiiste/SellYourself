@@ -13,6 +13,15 @@ function FormulaireConnexion() {
 
     // Fonction pour se connecter
     const login = async () => {
+        let fav = await fetch(`http://localhost:5000/api/viderFav/${pseudo}`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        fav = await fav.json();
+        console.log(JSON.stringify(fav.user));
+
         let result = await fetch("http://localhost:5000/api/connexion", {
             method: 'post',
             body: JSON.stringify({pseudo, password}),
@@ -21,8 +30,9 @@ function FormulaireConnexion() {
             }
         });
         result = await result.json();
-        if(result.authToken){
-            sessionStorage.setItem("user", JSON.stringify(result.user));
+
+        if(result.authToken && fav.user){
+            sessionStorage.setItem("user", JSON.stringify(fav.user));
             sessionStorage.setItem("token", JSON.stringify(result.authToken));
             navigate("/");
         }else{

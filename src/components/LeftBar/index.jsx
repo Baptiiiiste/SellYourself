@@ -36,6 +36,7 @@ function Leftbar() {
   const logout = () => {
     sessionStorage.clear();
     navigate("/");
+    window.location.reload(false);
   }
 
   // Affichage HTML

@@ -35,9 +35,14 @@ function FormulaireInscription() {
                 return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
             }
 
+            if(!/^[a-zA-Z0-9_.-]*$/.test(pseudo) || pseudo.includes(" ")){
+                return alert("Pseudo incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+            }
+
             e.preventDefault();
 
             const captcha = document.querySelector('#g-recaptcha-response').value;
+
 
             const password = bcrypt.hashSync(passwd,salt);
 
