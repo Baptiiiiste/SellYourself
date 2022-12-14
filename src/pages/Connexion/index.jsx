@@ -3,6 +3,7 @@ import React from 'react';
 import FormulaireConnexion from '../../components/FormulaireConnexion';
 import HeaderCustom from '../../components/HeaderCustom';
 
+// Page de connexion
 function Connexion() {
   return(
     <div className="Connexion">

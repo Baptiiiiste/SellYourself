@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Erreur.css";
 
+// Page d'erreur : erreur 404
 function Erreur(){
     return (
         <div className="Erreur">
