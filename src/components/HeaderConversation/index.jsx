@@ -4,9 +4,10 @@ import React from 'react';
 import { Link, useParams } from "react-router-dom";
 
 // Composant qui représente les information sur l'annonce dans la page d'une conversation
-function HeaderConversation({ image, titre, description }) {
+function HeaderConversation({ image, titre, description, vendu, user}) {
   // Variable
   const param = useParams();
+  const connectedUser = sessionStorage.getItem("user");
 
   // Fonction pour afficher les images
   const displayImage = () => {
@@ -15,6 +16,17 @@ function HeaderConversation({ image, titre, description }) {
       else return <img className="HeaderConversation-image" src={image[0]} alt="" />
     }
   }
+
+  const isVendu = () => {
+    const div = document.getElementsByClassName("HeaderConversation-note")[0];
+    if(div !== undefined){
+        if(vendu && JSON.parse(connectedUser).pseudo !== user){
+            div.style.display = 'block';
+        }
+    }
+}
+
+isVendu();
 
   // Affichage HTML
   return (
@@ -26,7 +38,10 @@ function HeaderConversation({ image, titre, description }) {
           <p className="HeaderConversation-description">{description}</p>
         </div>
       </div>
-      <Link className="HeaderConversation-lien" to={"/annonce/" + param.utilisateur + "/" + param.annonce}>Voir l'annonce</Link>
+      <div className="HeaderConversation-div-lien">
+        <Link className="HeaderConversation-lien" to={"/annonce/" + param.utilisateur + "/" + param.annonce}>Voir l'annonce</Link>
+        <Link className="HeaderConversation-note" style={{display: 'none'}}>Note</Link>
+      </div>
     </div>
   )
 }

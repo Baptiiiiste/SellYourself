@@ -108,6 +108,18 @@ function InfoAnnonce() {
         }
     }
 
+    
+    const isVendu = () => {
+        const div = document.getElementsByClassName("InfoAnnonce-isVendu")[0];
+        if(div !== undefined){
+            if(annonce.vendu){
+                div.style.display = 'block';
+            }
+        }
+    }
+
+    isVendu();
+
     // Affichage HTML
     return (userAll.length === 0) ?
         (
@@ -115,7 +127,11 @@ function InfoAnnonce() {
         )
         :
         (<div className='InfoAnnonce'>
+            <div className='InfoAnnonce-isVendu' style={{display: 'none'}}>
+                <p>L'annonce est vendu</p>
+            </div>
             <div className='InfoAnnonce-Haut'>
+                
                 <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={note} nbNote={nbNote} description={user.description} localisation={user.localisation} image={user.profilPic} />
                 <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                 <div className='InfoAnnonce-Boutons'>

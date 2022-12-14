@@ -44,13 +44,23 @@
     overflow-wrap: break-word;
 }
 
-.HeaderConversation-lien{
+.HeaderConversation-div-lien{
+    display: flex;
+    flex-direction: column;
+}
+
+.HeaderConversation-lien, .HeaderConversation-note{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     padding: 10px 20px 10px 20px;
     background-color: var(--orange);
     color: white;
     border-radius: 10px;
     text-decoration: none;
+    text-align: center;
     font-weight: bold;
+    margin: 5px;
 }
 
 .HeaderConversation-lien:hover{

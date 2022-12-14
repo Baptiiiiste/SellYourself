@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const { User, Annonce, Notification, Image } = require("./configuration/models");
+const { User, Annonce, Notification, Image, Note } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
 const multer = require("multer");
 const fs = require('fs');
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
+const { async } = require("q");
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
@@ -443,6 +444,22 @@ app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
     const user = await User.find( { pseudo: req.params.pseudo } );
     resp.send({annonces: user[0].annonces});
 });
+
+app.post("/api/note/:vendeur/:user/:note", verifyToken, async (req, resp) => {
+    const user = await User.findOne( { pseudo: req.params.user } );
+    const note = new Note({utilisateurId: user._id, note: req.params.note});
+
+    const userUpdate = await User.updateOne( 
+        { pseudo: req.params.vendeur },
+        { $push: { noteList: note} }
+    );
+    if(userUpdate){
+        const result = await User.findOne({ pseudo: req.params.vendeur })
+        resp.send({ user: result });
+    } else {
+        resp.send({ erreur: "erreur" });
+    }
+})
 
 // ----------------------
 

@@ -40,6 +40,8 @@ function Conversation() {
                         image={annonce.image}
                         titre={annonce.titre}
                         description={annonce.description}
+                        vendu={annonce.vendu}
+                        user={annonce.utilisateur}
                     />
                     <div className="Conversation-newMessage">
                         <input className="Conversation-bar" placeholder="Envoyer un message"/>

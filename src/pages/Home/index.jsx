@@ -39,6 +39,7 @@ function Home() {
         img_profil={user.profilPic}
         note={user.noteList}
         categorie={annonce.categorie}
+        vendu={annonce.vendu}
         key={index}
     />)
   }
