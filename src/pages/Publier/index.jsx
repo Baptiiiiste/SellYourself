@@ -5,6 +5,7 @@ import HeaderCustom from '../../components/HeaderCustom';
 import CreerAnnonce from '../../components/CreerAnnonce';
 import Leftbar from '../../components/LeftBar';
 
+// Page pour poster une annonce
 function Publier() {
     return (
         <div className="Publier">
