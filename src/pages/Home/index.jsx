@@ -6,6 +6,7 @@ import HeaderCustom from '../../components/HeaderCustom';
 import LeftBar from '../../components/LeftBar';
 import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
+import Footer from '../../components/Footer';
 
 function Home() {
   const [annonces, setAnnonces] = useState([]);
@@ -92,8 +93,8 @@ function Home() {
           <div className='Home-lesAnnonces'>
             {displayLesAnnonces()}
           </div>
+        <Footer/>
         </div>
-        
       </div>
     </div>
     )
