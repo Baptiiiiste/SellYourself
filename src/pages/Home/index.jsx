@@ -84,17 +84,19 @@ function Home() {
           <HeaderCategories/>
         </div>
         <div className='Home-all'>
-          <div className='Home-div-Categorie'>
-            <p className='Home-categorie'>Catégorie : </p> <p className='Home-display-categorie'>Toutes</p>
+          <div>
+            <div className='Home-div-Categorie'>
+              <p className='Home-categorie'>Catégorie : </p> <p className='Home-display-categorie'>Toutes</p>
+            </div>
+            <div className='Home-div-search'>
+              <p className='Home-search'>Recherche : </p> <p className='Home-display-search'>Toutes</p>
+            </div>
+            
+            <div className='Home-lesAnnonces'>
+              {displayLesAnnonces()}
+            </div>
           </div>
-          <div className='Home-div-search'>
-            <p className='Home-search'>Recherche : </p> <p className='Home-display-search'>Toutes</p>
-          </div>
-          
-          <div className='Home-lesAnnonces'>
-            {displayLesAnnonces()}
-          </div>
-        <Footer/>
+          <Footer/>
         </div>
       </div>
     </div>

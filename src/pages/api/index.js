@@ -385,6 +385,38 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     }
 })
 
+app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
+    
+    //let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
+    await User.updateOne(
+        { pseudo : req.params.pseudo },
+        { $pull: { notifications: req.params.idNotif } }
+    );
+    
+    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    if(newUser){
+        resp.send({user: newUser});
+    }else{
+        resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
+    }
+});
+
+app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
+    let user = await User.findOne({ pseudo: req.params.pseudo })
+    user.notifications.splice(0, user.notifications.length)
+    await User.updateOne(
+        {pseudo: req.params.pseudo},
+        {$set: {notifications: user.notifications}}
+    );
+    
+    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    if(newUser){
+        resp.send({user: newUser});
+    }else{
+        resp.send({erreur: "Erreur lors de la suppression"})
+    }
+});
+
 // Requete modification image profil utilisateur
 app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
     let result= await User.updateOne(
@@ -422,32 +454,16 @@ app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
     }
 })
 
-app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
-    
-    //let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
-    await User.updateOne(
-        { pseudo : req.params.pseudo },
-        { $pull: { notifications: req.params.idNotif } }
-    );
-    
-    const newUser = await User.findOne({ pseudo : req.params.pseudo });
-    if(newUser){
-        resp.send({user: newUser});
-    }else{
-        resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
-    }
-});
-
-
 // Requete recupération nombre annonce utilisateur
 app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
     const user = await User.find( { pseudo: req.params.pseudo } );
     resp.send({annonces: user[0].annonces});
 });
 
-app.post("/api/note/:vendeur/:user/:note", verifyToken, async (req, resp) => {
+// Requete ajout d'une note
+app.post("/api/note/:annonce/:vendeur/:user/:note", verifyToken, async (req, resp) => {
     const user = await User.findOne( { pseudo: req.params.user } );
-    const note = new Note({utilisateurId: user._id, note: req.params.note});
+    const note = new Note({utilisateurId: user._id, annonceId: req.params.annonce, note: req.params.note});
 
     const userUpdate = await User.updateOne( 
         { pseudo: req.params.vendeur },
@@ -461,112 +477,35 @@ app.post("/api/note/:vendeur/:user/:note", verifyToken, async (req, resp) => {
     }
 })
 
-// ----------------------
-
-// Captcha
-
-// ----------------------
-
-
-
-// app.get('/api/captcha', (req,res) => {
-//     res.sendFile(__dirname + '/index.html');
-// });
-
-
-// ---------------------------------------------------------------------------------------
-
-
-app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
-    let user = await User.findOne({ pseudo: req.params.pseudo })
-    user.notifications.splice(0, user.notifications.length)
-    await User.updateOne(
-        {pseudo: req.params.pseudo},
-        {$set: {notifications: user.notifications}}
-    );
-    
-    const newUser = await User.findOne({ pseudo : req.params.pseudo });
-    if(newUser){
-        resp.send({user: newUser});
-    }else{
-        resp.send({erreur: "Erreur lors de la suppression"})
-    }
-
-});
-
-
-
-
-// Image
-
-const Storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'uploads')
-    },
-
-    filename: (req, file, cb)=>{
-        cb(null,file.originalname)
-    }
-})
-
-const upload = multer({
-    storage: Storage
-})//.single('testImage')
-
-app.post('/',upload.single('testImage'),(req,res)=>{
-    
-    const saveImage = new Image({
-        nom: req.body.name,
-        image:{
-            data: fs.readFileSync('uploads/' + req.file.filename),
-            contentType:"image/png"
-        },
-    });
-
-    saveImage.save()
-    .then((res)=>{console.log('image is saved')})
-    .catch((err)=>{console.log(err, 'error has occurr')})
-    /*
-    upload(req,res,err=>{
-        if(err){
-            console.log
-        }
-        else{
-            const newImage = new Image({
-                name: req.body.name,
-                image: {
-                    data: req.file.filename,
-                    contentType: 'image/png'
+// Requete récupération si un vendeur pour une annonce est notée
+app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) => {
+    const vendeur = await User.findOne( { pseudo: req.params.vendeur } );
+    let bool = false;
+    let note = 0;
+    if(vendeur){
+        const user = await User.findOne( { pseudo: req.params.user } );
+        if(user){
+            vendeur.noteList.forEach(element => {
+                if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
+                    bool = true;
+                    note = element.note;
                 }
-            })
-
-            newImage.save()
-            .then(()=>res.send('successfully uploaded'))
-            .catch(err=>console.log(err))
-
+            });
         }
-    })
-    */
-})
+    }
+    if(bool){
+        resp.send({isNoted: true, note: note});
+    } else {
+        resp.send({isNoted: false});
+    }
+    
+});
 
 
 app.get('/',async(req,res)=>{
     const allData = await Image.find()
     res.json(allData)
 })
-
-app.get("/api/search/:key", async(req,resp) => {
-    let result = await Annonce.find({
-        "$or": [
-            {
-                name: { $regex: req.params.key}
-            },
-
-        ]
-    });
-    resp.send(result);
-})
-
 
 // ---------------------------------------------------------------------------------------
 

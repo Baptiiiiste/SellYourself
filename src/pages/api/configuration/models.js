@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 const { bool } = require("prop-types");
 
-const ImageSchema = new mongoose.Schema({
-    nom: {type: String},
-    image: {data: Buffer, contentType: String}
-});
-
-
-
 const userSchema = new mongoose.Schema({
     pseudo: {type: String, index: { unique: true }},
     email: {type: String, index: { unique: true }},
@@ -38,7 +31,8 @@ const annonceSchema = new mongoose.Schema({
 
 const noteSchema = new mongoose.Schema({
     utilisateurId: {type: String, required: true},
-    note: {type: Number, required: true},
+    annonceId: {type: String, required: true},
+    note: {type: Number, required: true}
 });
 
 const notificationSchema = new mongoose.Schema({
@@ -51,6 +45,5 @@ module.exports = {
     User: mongoose.model("users", userSchema),
     Annonce: mongoose.model("annonces", annonceSchema),
     Note: mongoose.model("notes", noteSchema),
-    Notification: mongoose.model("notifications", notificationSchema),
-    Image: mongoose.model("images", ImageSchema)
+    Notification: mongoose.model("notifications", notificationSchema)
 }

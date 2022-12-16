@@ -50,6 +50,7 @@ function Conversation() {
                         image={annonce.image}
                         titre={annonce.titre}
                         description={annonce.description}
+                        id={annonce._id}
                         vendu={annonce.vendu}
                         user={annonce.utilisateur}
                     />
