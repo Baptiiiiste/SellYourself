@@ -66,6 +66,7 @@
     border-radius: 500px;
     background-color:var(--rouge);
     transition: 0.3s;
+    margin-bottom: 10px;
 }
 
 .UneAnnonceDetaillee-delete:hover{

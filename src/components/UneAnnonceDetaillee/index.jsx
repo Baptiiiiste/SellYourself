@@ -3,9 +3,14 @@ import './UneAnnonceDetaillee.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from'@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner}){
+function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, vendu}){
     const navigate = useNavigate();
+
+    useEffect(() => {
+        isVendu(id);
+    })
 
     const deleteAdFromFavs = async () => {
         let connectedUser = sessionStorage.getItem("user");
@@ -38,8 +43,17 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner})
         navigate(`/annonce/${owner}/${id}`);
     }
 
+    const isVendu = (id) => {
+        const div = document.getElementById(id);
+        if(div !== undefined){
+            if(vendu){
+                div.style.border = 'solid 4px green';
+            }
+        }
+    }
+
     return(
-        <div className="UneAnnonceDetaillee-all">
+        <div className="UneAnnonceDetaillee-all" id={id}>
             <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
                 <p className="UneAnnonceDetaillee-titre">{titre}</p>
                 <div className='UneAnnonce-descriptionImage'>

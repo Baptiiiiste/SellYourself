@@ -3,11 +3,16 @@ import './AnnonceProfil.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPen } from'@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // Composant qui représente une annonce de la page profil
-function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
+function AnnonceProfil({titre, description, prix, img_annonce, id, owner, vendu}){
     // Variable
     const navigate = useNavigate();
+
+    useEffect(() => {
+        isVendu(id);
+    }, [])
 
     // Fonction pour être redirigé vers l'annonce choisis
     const redirectToAd = () => {
@@ -48,9 +53,20 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
         navigate(`/modifier/${id}`);
     }
 
+    const isVendu = (id) => {
+        const div = document.getElementById("all" + id);
+        const edit = document.getElementById("edit" + id);
+        if(div !== undefined){
+            if(vendu){
+                div.style.border = 'solid 4px green';
+                edit.style.display = 'none';
+            }
+        }
+    }
+
     // Affichage HTML
     return(
-        <div className="UneAnnonceDetaillee-all">
+        <div className="UneAnnonceDetaillee-all" id={"all" + id}>
             <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
                 <p className="UneAnnonceDetaillee-titre">{titre}</p>
                 <div className='UneAnnonce-descriptionImage'>
@@ -63,7 +79,7 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner}){
                 <button className="UneAnnonceDetaillee-delete" onClick={deleteAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faTrashCan} />
                 </button>
-                <button className="UneAnnonceDetaillee-edit" onClick={redirectToModifAd}>
+                <button className="UneAnnonceDetaillee-edit" id={"edit" + id} onClick={redirectToModifAd}>
                     <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faPen}/>
                 </button>
                 <p className="UneAnnonceDetaillee-prix">{prix} €</p>

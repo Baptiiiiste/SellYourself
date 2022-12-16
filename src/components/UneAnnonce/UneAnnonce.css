@@ -3,7 +3,7 @@
 /* Contenu */
 
 .Contenu-all{
-    height: 65%;
+    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -100,6 +100,8 @@
 .UneAnnonce-description{
     margin: 0 3% 3% 3%;
     height: 50%;
+    display: flex;
+    flex-direction: column;
 }
 
 .UneAnnonce-Vendeur{

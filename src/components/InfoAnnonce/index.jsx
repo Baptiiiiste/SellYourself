@@ -111,8 +111,10 @@ function InfoAnnonce() {
     
     const isVendu = () => {
         const div = document.getElementsByClassName("InfoAnnonce-isVendu")[0];
+        const achat = document.getElementsByClassName("InfoAnnonce-Achat")[0];
         if(div !== undefined){
             if(annonce.vendu){
+                achat.style.display = 'none';
                 div.style.display = 'block';
             }
         }
@@ -128,7 +130,7 @@ function InfoAnnonce() {
         :
         (<div className='InfoAnnonce'>
             <div className='InfoAnnonce-isVendu' style={{display: 'none'}}>
-                <p>L'annonce est vendu</p>
+                <p>L'annonce est vendue</p>
             </div>
             <div className='InfoAnnonce-Haut'>
                 

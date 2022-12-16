@@ -62,6 +62,7 @@ function Favoris() {
             prix={favoris.prix}
             img_annonce={favoris.image}
             owner={favoris.utilisateur}
+            vendu={favoris.vendu}
             key={favoris.index}
             />)
     }

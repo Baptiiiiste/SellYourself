@@ -45,6 +45,7 @@ function Profil() {
 			img_annonce={annonce.image}
 			id = {annonce._id}
 			owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
+			vendu = {annonce.vendu}
 			key={index}
 		/>)
 	}
