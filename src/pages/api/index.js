@@ -502,50 +502,24 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
 });
 
 // Requete delete note
-// app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, resp) => {
-//     const vendeur = await User.findOne( { pseudo: req.params.vendeur } );
-//     if(vendeur){
-//         const user = await User.findOne( { pseudo: req.params.user } );
-//         if(user){
-//             vendeur.noteList.forEach(async element => {
-//                 if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
-//                     const note = await Note.findOne( { pseudo: req.params.user } );
-//                     resUser = await User.updateOne(
-//                         { pseudo : req.params.user },
-//                         { $pull : { noteList : element } }
-//                     )
-//                 }
-//             });
-//         }
-//     }
-//     if(bool){
-//         resp.send({isNoted: true, note: note});
-//     } else {
-//         resp.send({isNoted: false});
-//     }
-    
-// });
-
-
-const user = await User.findOne({ pseudo : req.params.user });
-    if(user.favoris.length === 0){
-        resp.send({user: user});
-    } else {
-        user.favoris.forEach(async element => {
-            const result = await Annonce.findOne({_id : element});
-            if(!result){
-                resUser = await User.updateOne(
-                    { pseudo : req.params.user },
-                    { $pull : { favoris : element } }
-                )
-            }
-        });
-        const newUser = await User.findOne({ pseudo : req.params.user });
-        if(newUser){
-            resp.send({user: newUser});
+app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, resp) => {
+    const vendeur = await User.findOne( { pseudo: req.params.vendeur } );
+    if(vendeur){
+        const user = await User.findOne( { pseudo: req.params.user } );
+        if(user){
+            vendeur.noteList.forEach(async element => {
+                if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
+                    const resUser = await User.updateOne(
+                        { pseudo : req.params.user },
+                        { $pull : { noteList : element } }
+                    )
+                    resp.send({user: resUser});
+                }
+            });
         }
     }
-
+    resp.send({erreur: "erreur"});
+});
 
 app.get('/',async(req,res)=>{
     const allData = await Image.find()
