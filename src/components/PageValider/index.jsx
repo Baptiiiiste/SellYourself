@@ -47,8 +47,8 @@ function ValidationAchat({annonce}) {
                         disabled={false}
                         forceReRender={[amount, currency, style]}
                         fundingSource={undefined}
-                        createOrder={(data, actions) => {
-                            return actions.order
+                        createOrder={async (data, actions) => {
+                            const orderId = await actions.order
                                 .create({
                                     purchase_units: [
                                         {
@@ -56,28 +56,20 @@ function ValidationAchat({annonce}) {
                                                 currency_code: currency,
                                                 value: amount,
                                             },
-                                            // payee: {
-                                            //     email_address: "sb-43474ut23415175@business.example.com"
-                                            // //     merchant_id:
-                                            // }
                                         },
                                     ],
-                                })
-                                .then((orderId) => {
-                                    // Your code here after create the order
-                                    return orderId;
                                 });
+                            return orderId;
                         }}
-                        onApprove={function (data, actions) {
-                            return actions.order.capture().then(async function() {
-                                let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
-                                    method: 'Post',
-                                    body: JSON.stringify({acheteur: connectedUser, annonce: annonce._id}),
-                                    headers: {
-                                        'Content-Type': 'Application/json',
-                                        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-                                    }
-                                });
+                        onApprove={async function (data, actions) {
+                            await actions.order.capture();
+                            let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
+                                method: 'Post',
+                                body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
+                                headers: {
+                                    'Content-Type': 'Application/json',
+                                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                                }
                             });
                         }}
                     />
