@@ -507,13 +507,18 @@ app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, re
 
 // Requete achat 
 app.post("/api/achat", verifyToken, async (req, resp) => {
-    const achat = new Achat(req.body);
-    await achat.save();
-    let result = await Annonce.updateOne( 
-        { _id: req.body.annonce },
-        { $set: { vendu: true} }
-    );
-    resp.send({achat: achat});
+    const annonce = await Annonce.findOne( {_id: req.body.annonce } );
+    if(!annonce.vendu){
+        const achat = new Achat(req.body);
+        await achat.save();
+        let result = await Annonce.updateOne(
+            { _id: annonce._id },
+            { $set: { vendu: true} }
+        )
+        resp.send({achat: result});
+    } else {
+        resp.send({error: "annonce deja vendu"});
+    }
 });
 
 // ---------------------------------------------------------------------------------------

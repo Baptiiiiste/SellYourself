@@ -51,5 +51,5 @@ module.exports = {
     Annonce: mongoose.model("annonces", annonceSchema),
     Note: mongoose.model("notes", noteSchema),
     Notification: mongoose.model("notifications", notificationSchema),
-    Achat: mongoose.model("achatSchema", achatSchema)
+    Achat: mongoose.model("achats", achatSchema)
 }

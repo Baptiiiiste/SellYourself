@@ -75,7 +75,6 @@ function ValidationAchat({annonce}) {
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }
                                 });
-                                console.log("test");
                             })
                             // let resultNotif = await fetch(`/api/utilisateur/addNotif/${connectedUser}`, {
                             //     method: 'POST',
