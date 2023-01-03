@@ -527,24 +527,24 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
 // });
 
 
-const user = await User.findOne({ pseudo : req.params.user });
-    if(user.favoris.length === 0){
-        resp.send({user: user});
-    } else {
-        user.favoris.forEach(async element => {
-            const result = await Annonce.findOne({_id : element});
-            if(!result){
-                resUser = await User.updateOne(
-                    { pseudo : req.params.user },
-                    { $pull : { favoris : element } }
-                )
-            }
-        });
-        const newUser = await User.findOne({ pseudo : req.params.user });
-        if(newUser){
-            resp.send({user: newUser});
-        }
-    }
+// const user = await User.findOne({ pseudo : req.params.user });
+//     if(user.favoris.length === 0){
+//         resp.send({user: user});
+//     } else {
+//         user.favoris.forEach(async element => {
+//             const result = await Annonce.findOne({_id : element});
+//             if(!result){
+//                 resUser = await User.updateOne(
+//                     { pseudo : req.params.user },
+//                     { $pull : { favoris : element } }
+//                 )
+//             }
+//         });
+//         const newUser = await User.findOne({ pseudo : req.params.user });
+//         if(newUser){
+//             resp.send({user: newUser});
+//         }
+//     }
 
 
 app.get('/',async(req,res)=>{
