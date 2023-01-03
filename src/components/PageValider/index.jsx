@@ -3,12 +3,7 @@ import './PageValider.css'
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
-// import { PayPalButton } from "react-paypal-button-v2";
-// import {
-//     PayPalScriptProvider,
-//     PayPalButtons,
-//     usePayPalScriptReducer
-// } from "@paypal/react-paypal-js";
+
 
 function ValidationAchat({annonce}) { 
     const displayImage = () => {
@@ -59,22 +54,26 @@ function ValidationAchat({annonce}) {
                                             //     email_address: "sb-43474ut23415175@business.example.com"
                                             // //     merchant_id:
                                             // }
-                                        },
-                                        {
-                                            amount: {
-                                                currency_code: currency,
-                                                value: amount*1.1,
-                                            },
-                                        },
+                                        }
                                     ],
                                 })
                                 .then((orderId) => {
                                     // Your code here after create the order
+
                                     return orderId;
                                 });
                         }}
                         onApprove={function (data, actions) {
-                            return actions.order.capture().then(function() {
+                            return actions.order.capture().then(async function() {
+                                let resultNotif = await fetch(`"/api/utilisateur/addNotif/:pseudo"`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept':'application/json, text/plain, */*',
+                                        'Content-Type':'application/json'
+                                    },
+                                    body:JSON.stringify({type:"client",content:"Votre annonce a été vendu"})
+                                }
+                                )
                                 // Your code here after capture the order
                             });
                         }}
