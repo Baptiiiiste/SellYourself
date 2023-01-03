@@ -27,6 +27,7 @@ function ValidationAchat({annonce}) {
         // const amount = "5";
     const amount = annonce.prix;
     const currency = "EUR";
+    const connectedUser = JSON.parse(sessionStorage.getItem("user")).pseudo;
 
     return (
         <div className="PageValider">
@@ -60,12 +61,6 @@ function ValidationAchat({annonce}) {
                                             // //     merchant_id:
                                             // }
                                         },
-                                        {
-                                            amount: {
-                                                currency_code: currency,
-                                                value: amount*1.1,
-                                            },
-                                        },
                                     ],
                                 })
                                 .then((orderId) => {
@@ -74,8 +69,15 @@ function ValidationAchat({annonce}) {
                                 });
                         }}
                         onApprove={function (data, actions) {
-                            return actions.order.capture().then(function() {
-                                // Your code here after capture the order
+                            return actions.order.capture().then(async function() {
+                                let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
+                                    method: 'Post',
+                                    body: JSON.stringify({acheteur: connectedUser, annonce: annonce._id}),
+                                    headers: {
+                                        'Content-Type': 'Application/json',
+                                        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                                    }
+                                });
                             });
                         }}
                     />

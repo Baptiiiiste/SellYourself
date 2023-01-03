@@ -1,13 +1,10 @@
 const express = require("express");
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const { User, Annonce, Notification, Image, Note } = require("./configuration/models");
+const { User, Annonce, Notification, Note, Achat } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
-const multer = require("multer");
-const fs = require('fs');
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
-const { async } = require("q");
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
@@ -320,19 +317,6 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     } 
 })
 
-
-// app.get("/api/search/:key", verifyToken, async(req,resp) => {
-//     let result = await Annonce.find({
-//         "$or": [
-//             {
-//                 name: { $regex: req.params.key}
-//             },
-
-//         ]
-//     });
-//     resp.send(result);
-// })
-
 app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
     let listNotifs = [];
     const user = await User.findOne({pseudo: req.params.pseudo});
@@ -521,10 +505,15 @@ app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, re
     resp.send({erreur: "erreur"});
 });
 
-app.get('/',async(req,res)=>{
-    const allData = await Image.find()
-    res.json(allData)
-})
+// Requete achat 
+app.post("/api/achat", verifyToken, async (req, resp) => {
+    const achat = new Achat(req.body);
+    const annonce = await Annonce.updateOne( 
+        { _id: req.params.annonce },
+        { $set: { vendu: true} }
+    );
+    resp.send({achat: achat});
+});
 
 // ---------------------------------------------------------------------------------------
 
