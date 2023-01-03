@@ -4,6 +4,7 @@ import React from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
 // Composant qui représente les information sur l'annonce dans la page d'une conversation
@@ -12,11 +13,6 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
   const param = useParams();
   const connectedUser = sessionStorage.getItem("user");
   const nav = useNavigate();
-
-  // useEffect(() => {
-  //   isVendu();
-  //   isNoted();
-  // }, [])
 
   // Fonction pour afficher les images
   const displayImage = () => {
@@ -61,7 +57,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
   }
 
   const addNote = async (note) => {
-    let res = await fetch(`http://localhost:5000/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
+    await fetch(`http://localhost:5000/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
       method: "Post",
       headers: {
         'Content-Type': 'Application/json',
@@ -89,6 +85,17 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
+  const deleteNote = async () => {
+    await fetch(`http://localhost:5000/api/note/delete/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
+      method: "Post",
+      headers: {
+        'Content-Type': 'Application/json',
+        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+      }
+    });
+    nav(`/conversation/${user}/${id}`);
+  }
+
   isVendu();
   isNoted();
 
@@ -105,18 +112,19 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       <div className="HeaderConversation-div-lien">
         <Link className="HeaderConversation-lien" to={"/annonce/" + param.utilisateur + "/" + param.annonce}>Voir l'annonce</Link>
         <div className="HeaderConversation-div-isNoted" style={{display: 'none'}}>
-          <button className="HeaderConversation-note"><FontAwesomeIcon id="buttonNoted-1" icon={faStar}/></button>
-          <button className="HeaderConversation-note"><FontAwesomeIcon id="buttonNoted-2" icon={faStar}/></button>
-          <button className="HeaderConversation-note"><FontAwesomeIcon id="buttonNoted-3" icon={faStar}/></button>
-          <button className="HeaderConversation-note"><FontAwesomeIcon id="buttonNoted-4" icon={faStar}/></button>
-          <button className="HeaderConversation-note"><FontAwesomeIcon id="buttonNoted-5" icon={faStar}/></button>
+          <button><FontAwesomeIcon id="buttonNoted-1" icon={faStar}/></button>
+          <button><FontAwesomeIcon id="buttonNoted-2" icon={faStar}/></button>
+          <button><FontAwesomeIcon id="buttonNoted-3" icon={faStar}/></button>
+          <button><FontAwesomeIcon id="buttonNoted-4" icon={faStar}/></button>
+          <button><FontAwesomeIcon id="buttonNoted-5" icon={faStar}/></button>
+          <button className="HeaderConversation-delete" onClick={deleteNote}><FontAwesomeIcon icon={faX}/></button>
         </div>
         <div className="HeaderConversation-div-note" style={{display: 'none'}}>
-          <button className="HeaderConversation-note" onClick={() => addNote(1)} onMouseOver={() => colorButton(1)} onMouseLeave={() => deColorButton(1)}><FontAwesomeIcon id="button-1" icon={faStar}/></button>
-          <button className="HeaderConversation-note" onClick={() => addNote(2)} onMouseOver={() => colorButton(2)} onMouseLeave={() => deColorButton(2)}><FontAwesomeIcon id="button-2" icon={faStar}/></button>
-          <button className="HeaderConversation-note" onClick={() => addNote(3)} onMouseOver={() => colorButton(3)} onMouseLeave={() => deColorButton(3)}><FontAwesomeIcon id="button-3" icon={faStar}/></button>
-          <button className="HeaderConversation-note" onClick={() => addNote(4)} onMouseOver={() => colorButton(4)} onMouseLeave={() => deColorButton(4)}><FontAwesomeIcon id="button-4" icon={faStar}/></button>
-          <button className="HeaderConversation-note" onClick={() => addNote(5)} onMouseOver={() => colorButton(5)} onMouseLeave={() => deColorButton(5)}><FontAwesomeIcon id="button-5" icon={faStar}/></button>
+          <button onClick={() => addNote(1)} onMouseOver={() => colorButton(1)} onMouseLeave={() => deColorButton(1)}><FontAwesomeIcon id="button-1" icon={faStar}/></button>
+          <button onClick={() => addNote(2)} onMouseOver={() => colorButton(2)} onMouseLeave={() => deColorButton(2)}><FontAwesomeIcon id="button-2" icon={faStar}/></button>
+          <button onClick={() => addNote(3)} onMouseOver={() => colorButton(3)} onMouseLeave={() => deColorButton(3)}><FontAwesomeIcon id="button-3" icon={faStar}/></button>
+          <button onClick={() => addNote(4)} onMouseOver={() => colorButton(4)} onMouseLeave={() => deColorButton(4)}><FontAwesomeIcon id="button-4" icon={faStar}/></button>
+          <button onClick={() => addNote(5)} onMouseOver={() => colorButton(5)} onMouseLeave={() => deColorButton(5)}><FontAwesomeIcon id="button-5" icon={faStar}/></button>
         </div>
       </div>
     </div>

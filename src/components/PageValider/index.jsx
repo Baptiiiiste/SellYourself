@@ -14,7 +14,7 @@ function ValidationAchat({annonce}) {
     const displayImage = () => {
         if(annonce.image !== undefined){
             if(annonce.image.length === 0) return <img className="PageValider-Image" src={require('../../assets/default.png')}/>
-            else return <img className="PageValider-Image" src={annonce.image}/>
+            else return <img className="PageValider-Image" src={annonce.image[0]}/>
         }
     }
 
@@ -23,6 +23,11 @@ function ValidationAchat({annonce}) {
         color:  'gold',
         shape:  'pill',
         label:  'paypal'};
+    
+        // const amount = "5";
+    const amount = annonce.prix;
+    const currency = "EUR";
+
     return (
         <div className="PageValider">
             <p className='PageValider-Titre'>ACHAT</p>
@@ -35,9 +40,44 @@ function ValidationAchat({annonce}) {
             </div>
             <div className='PageValider-DivBouton'>
                 {/* <button className='PageValider-Bouton'>CONFIRMER L'ACHAT</button> */}
-                <PayPalScriptProvider options={{ "client-id": "Af6eNd93COGamQLT09xSok7j9AEc9i3_Xop6mmpaTsJQ7S0usEF5iJqfVOIHrr7kh2A3rX2qAjrZVUPc" }}>
+                <PayPalScriptProvider options={{ "client-id": "Af6eNd93COGamQLT09xSok7j9AEc9i3_Xop6mmpaTsJQ7S0usEF5iJqfVOIHrr7kh2A3rX2qAjrZVUPc", currency: "EUR" }}>
                     <PayPalButtons
                         style={style}
+                        disabled={false}
+                        forceReRender={[amount, currency, style]}
+                        fundingSource={undefined}
+                        createOrder={(data, actions) => {
+                            return actions.order
+                                .create({
+                                    purchase_units: [
+                                        {
+                                            amount: {
+                                                currency_code: currency,
+                                                value: amount,
+                                            },
+                                            // payee: {
+                                            //     email_address: "sb-43474ut23415175@business.example.com"
+                                            // //     merchant_id:
+                                            // }
+                                        },
+                                        {
+                                            amount: {
+                                                currency_code: currency,
+                                                value: amount*1.1,
+                                            },
+                                        },
+                                    ],
+                                })
+                                .then((orderId) => {
+                                    // Your code here after create the order
+                                    return orderId;
+                                });
+                        }}
+                        onApprove={function (data, actions) {
+                            return actions.order.capture().then(function() {
+                                // Your code here after capture the order
+                            });
+                        }}
                     />
                 </PayPalScriptProvider>
             </div>

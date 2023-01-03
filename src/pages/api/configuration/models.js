@@ -40,10 +40,16 @@ const notificationSchema = new mongoose.Schema({
     content: {type: String, required: true}
 });
 
+const achatSchema = new mongoose.Schema({
+    acheteur: {type: String, required: true},
+    annonce: {type: String, required: true}
+});
+
 
 module.exports = {
     User: mongoose.model("users", userSchema),
     Annonce: mongoose.model("annonces", annonceSchema),
     Note: mongoose.model("notes", noteSchema),
-    Notification: mongoose.model("notifications", notificationSchema)
+    Notification: mongoose.model("notifications", notificationSchema),
+    Achat: mongoose.model("achatSchema", achatSchema)
 }

@@ -73,11 +73,14 @@
     width: auto;
 }
 
-.HeaderConversation-note{
+.HeaderConversation-div-lien button {
     background-color: transparent;
     border: 0;
-    margin: 0;
     padding: 2px;
     font-size: 20px;
-    color: var(--grisFoncé)
+    color: var(--grisFoncé);
+}
+
+.HeaderConversation-delete{
+    margin-left: 5px;
 }
