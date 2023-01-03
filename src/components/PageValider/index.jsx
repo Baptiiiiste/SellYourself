@@ -22,6 +22,7 @@ function ValidationAchat({annonce}) {
         // const amount = "5";
     const amount = annonce.prix;
     const currency = "EUR";
+    const connectedUser = JSON.parse(sessionStorage.getItem("user")).pseudo;
 
     return (
         <div className="PageValider">
@@ -41,8 +42,8 @@ function ValidationAchat({annonce}) {
                         disabled={false}
                         forceReRender={[amount, currency, style]}
                         fundingSource={undefined}
-                        createOrder={(data, actions) => {
-                            return actions.order
+                        createOrder={async (data, actions) => {
+                            const orderId = await actions.order
                                 .create({
                                     purchase_units: [
                                         {
@@ -54,28 +55,41 @@ function ValidationAchat({annonce}) {
                                             //     email_address: "sb-43474ut23415175@business.example.com"
                                             // //     merchant_id:
                                             // }
-                                        }
+                                        },
+                                        {
+                                            amount: {
+                                                currency_code: currency,
+                                                value: amount*1.1,
+                                            },
+                                        },
                                     ],
                                 })
                                 .then((orderId) => {
                                     // Your code here after create the order
-
                                     return orderId;
                                 });
+                            return orderId;
                         }}
-                        onApprove={function (data, actions) {
-                            return actions.order.capture().then(async function() {
-                                let resultNotif = await fetch(`"/api/utilisateur/addNotif/:pseudo"`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Accept':'application/json, text/plain, */*',
-                                        'Content-Type':'application/json'
-                                    },
-                                    body:JSON.stringify({type:"client",content:"Votre annonce a été vendu"})
+                        
+                        onApprove={async function (data, actions) {
+                            await actions.order.capture();
+                            let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
+                                method: 'Post',
+                                body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
+                                headers: {
+                                    'Content-Type': 'Application/json',
+                                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                 }
-                                )
-                                // Your code here after capture the order
                             });
+                            let resultNotif = await fetch(`/api/utilisateur/addNotif/${connectedUser}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json, text/plain, */*',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendu` })
+                            }
+                            );
                         }}
                     />
                 </PayPalScriptProvider>
