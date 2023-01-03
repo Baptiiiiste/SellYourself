@@ -508,8 +508,9 @@ app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, re
 // Requete achat 
 app.post("/api/achat", verifyToken, async (req, resp) => {
     const achat = new Achat(req.body);
-    const annonce = await Annonce.updateOne( 
-        { _id: req.params.annonce },
+    await achat.save();
+    let result = await Annonce.updateOne( 
+        { _id: req.body.annonce },
         { $set: { vendu: true} }
     );
     resp.send({achat: achat});

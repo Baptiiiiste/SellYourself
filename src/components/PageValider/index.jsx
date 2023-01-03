@@ -56,12 +56,6 @@ function ValidationAchat({annonce}) {
                                             // //     merchant_id:
                                             // }
                                         },
-                                        {
-                                            amount: {
-                                                currency_code: currency,
-                                                value: amount*1.1,
-                                            },
-                                        },
                                     ],
                                 })
                                 .then((orderId) => {
@@ -72,24 +66,26 @@ function ValidationAchat({annonce}) {
                         }}
                         
                         onApprove={async function (data, actions) {
-                            await actions.order.capture();
-                            let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
-                                method: 'Post',
-                                body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
-                                headers: {
-                                    'Content-Type': 'Application/json',
-                                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-                                }
-                            });
-                            let resultNotif = await fetch(`/api/utilisateur/addNotif/${connectedUser}`, {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json, text/plain, */*',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendu` })
-                            }
-                            );
+                            return actions.order.capture().then(async function(){
+                                let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
+                                    method: 'Post',
+                                    body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
+                                    headers: {
+                                        'Content-Type': 'Application/json',
+                                        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                                    }
+                                });
+                                console.log("test");
+                            })
+                            // let resultNotif = await fetch(`/api/utilisateur/addNotif/${connectedUser}`, {
+                            //     method: 'POST',
+                            //     headers: {
+                            //         'Accept': 'application/json, text/plain, */*',
+                            //         'Content-Type': 'application/json'
+                            //     },
+                            //     body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendu` })
+                            // }
+                            // );
                         }}
                     />
                 </PayPalScriptProvider>
