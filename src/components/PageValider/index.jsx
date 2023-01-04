@@ -84,7 +84,7 @@ function ValidationAchat({annonce}) {
                                         'Content-Type': 'application/json',
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     },
-                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendue`, client: connectedUser })
+                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendue à ${connectedUser}, Jetez un oeil à vos conversations récentes`, client: connectedUser })
                                 });
                                 navigate(`/conversation/${annonce._id}`);
                             })
