@@ -489,7 +489,6 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
 app.post("/api/note/delete", verifyToken, async (req, resp) => {
     const vendeur = await User.findOne( { pseudo: req.body.vendeur } );
     if(vendeur){
-        resp.send({vendeur: vendeur});
         const user = await User.findOne( { pseudo: req.body.user } );
         if(user){
             vendeur.noteList.forEach(async element => {
@@ -503,7 +502,9 @@ app.post("/api/note/delete", verifyToken, async (req, resp) => {
             });
         }
     }
-    resp.send({erreur: "erreur"});
+    else{
+        resp.send({erreur: "erreur"});
+    }
 });
 
 // Requete achat 
