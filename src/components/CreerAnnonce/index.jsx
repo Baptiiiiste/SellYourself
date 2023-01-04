@@ -87,8 +87,9 @@ function CreerAnnonce() {
     const formulaire = async () => {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/user/${JSON.parse(connectedUser).pseudo}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
             method: 'Get',
+            body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
                 'Content-Type': 'Application/json',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`

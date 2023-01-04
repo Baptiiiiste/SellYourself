@@ -439,9 +439,9 @@ app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
 })
 
 // Requete recupération nombre annonce utilisateur
-app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
-    const user = await User.findOne( { pseudo: req.params.pseudo } );
-    resp.send({annonces: user[0].annonces});
+app.get("/api/annonce/user", verifyToken, async (req, resp) => {
+    const user = await User.findOne( { pseudo: req.body.pseudo } );
+    resp.send({annonces: user.annonces});
 });
 
 // Requete ajout d'une note
@@ -485,16 +485,17 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
     
 });
 
-// Requete delete note
-app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, resp) => {
-    const vendeur = await User.findOne( { pseudo: req.params.vendeur } );
+// Requete delete note /:annonce/:vendeur/:user
+app.post("/api/note/delete", verifyToken, async (req, resp) => {
+    const vendeur = await User.findOne( { pseudo: req.body.vendeur } );
     if(vendeur){
-        const user = await User.findOne( { pseudo: req.params.user } );
+        resp.send({vendeur: vendeur});
+        const user = await User.findOne( { pseudo: req.body.user } );
         if(user){
             vendeur.noteList.forEach(async element => {
-                if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
+                if(element.utilisateurId == user._id && element.annonceId == req.body.annonce){
                     const resUser = await User.updateOne(
-                        { pseudo : req.params.user },
+                        { pseudo : req.body.user },
                         { $pull : { noteList : element } }
                     )
                     resp.send({user: resUser});
