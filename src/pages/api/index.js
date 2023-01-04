@@ -441,7 +441,7 @@ app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
 // Requete recupération nombre annonce utilisateur
 app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
     const user = await User.findOne( { pseudo: req.params.pseudo } );
-    resp.send({annonces: user[0].annonces});
+    resp.send({annonces: user.annonces});
 });
 
 // Requete ajout d'une note
