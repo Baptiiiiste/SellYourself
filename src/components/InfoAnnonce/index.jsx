@@ -142,7 +142,7 @@ function InfoAnnonce() {
                 <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
                     <Link className='InfoAnnonce-Achat' to={'/validation/' + user.pseudo + "/" + annonce._id}>Acheter</Link>
-                    <Link className='InfoAnnonce-BoutonMessage' to={'/conversation/' + user.pseudo + "/" + annonce._id}>Contacter</Link>
+                    <Link className='InfoAnnonce-BoutonMessage' to={'/conversation/' + annonce._id}>Contacter</Link>
                 </div>
             </div>
             <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image} />

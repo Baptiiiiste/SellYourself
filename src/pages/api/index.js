@@ -522,7 +522,7 @@ app.post("/api/achat", verifyToken, async (req, resp) => {
 });
 
 // Requete récuperation achat
-app.get("/api/getAchat", verifyToken, async (req, resp) => {
+app.post("/api/getAchat", verifyToken, async (req, resp) => {
     const achat = await Achat.findOne({ annonce: req.body.annonce });
     resp.send({ achat: achat });
 })
