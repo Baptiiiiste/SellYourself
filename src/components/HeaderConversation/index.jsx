@@ -22,7 +22,17 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
-  const isVendu = () => {
+  const isVendu = async () => {
+    let result = await fetch(`http://localhost:5000/api/getAchat`, {
+      method: "Get",
+      body: JSON.stringify({ annonce: id }),
+      headers: {
+        'Content-Type': 'Application/json',
+        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+      }
+    });
+    result = await result.json();
+
     const div = document.getElementsByClassName("HeaderConversation-div-note")[0];
     if(div !== undefined){
       if(vendu && JSON.parse(connectedUser).pseudo !== user){

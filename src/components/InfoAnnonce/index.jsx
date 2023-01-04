@@ -57,6 +57,7 @@ function InfoAnnonce() {
     const user = userAll[0];
     const note = userAll[1];
     const nbNote = userAll[2];
+    const connectedUser = sessionStorage.getItem("user");
 
     useEffect(() => {
         getAnnonce();
@@ -116,6 +117,9 @@ function InfoAnnonce() {
             if(annonce.vendu){
                 achat.style.display = 'none';
                 div.style.display = 'block';
+            }
+            if(annonce.utilisateur === JSON.parse(connectedUser).pseudo){
+                achat.style.display = 'none';
             }
         }
     }

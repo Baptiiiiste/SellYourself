@@ -440,7 +440,7 @@ app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
 
 // Requete recupération nombre annonce utilisateur
 app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
-    const user = await User.find( { pseudo: req.params.pseudo } );
+    const user = await User.findOne( { pseudo: req.params.pseudo } );
     resp.send({annonces: user[0].annonces});
 });
 
@@ -520,6 +520,12 @@ app.post("/api/achat", verifyToken, async (req, resp) => {
         resp.send({error: "annonce deja vendu"});
     }
 });
+
+// Requete récuperation achat
+app.get("/api/getAchat", verifyToken, async (req, resp) => {
+    const achat = await Achat.findOne({ annonce: req.body.annonce });
+    resp.send({ achat: achat });
+})
 
 // ---------------------------------------------------------------------------------------
 
