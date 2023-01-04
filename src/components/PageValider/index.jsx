@@ -75,16 +75,16 @@ function ValidationAchat({annonce}) {
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }
                                 });
+                                let resultNotif = await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+                                    method: 'Post',
+                                    headers: {
+                                        'Accept': 'application/json, text/plain, */*',
+                                        'Content-Type': 'application/json',
+                                        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                                    },
+                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendue`, client: connectedUser })
+                                });
                             })
-                            // let resultNotif = await fetch(`/api/utilisateur/addNotif/${connectedUser}`, {
-                            //     method: 'POST',
-                            //     headers: {
-                            //         'Accept': 'application/json, text/plain, */*',
-                            //         'Content-Type': 'application/json'
-                            //     },
-                            //     body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendu` })
-                            // }
-                            // );
                         }}
                     />
                 </PayPalScriptProvider>
