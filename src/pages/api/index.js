@@ -350,13 +350,13 @@ app.post("/api/viderFav/:user", async (req, resp) => {
 })
 
 // Requete d'ajout d'une notification
-app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
+app.post("/api/utilisateur/addNotif",verifyToken, async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
     await notif.save();
     let notifId = (notif._id).toString();
     let result = await User.updateOne(
-        {pseudo: req.params.pseudo},
+        {pseudo: req.body.pseudo},
         { $push: {notifications: notifId} }
     );
 
