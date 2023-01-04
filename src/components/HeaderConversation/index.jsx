@@ -24,7 +24,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   const isVendu = async () => {
     let result = await fetch(`http://localhost:5000/api/getAchat`, {
-      method: "Get",
+      method: "Post",
       body: JSON.stringify({ annonce: id }),
       headers: {
         'Content-Type': 'Application/json',
@@ -35,7 +35,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
     const div = document.getElementsByClassName("HeaderConversation-div-note")[0];
     if(div !== undefined){
-      if(vendu && JSON.parse(connectedUser).pseudo !== user){
+      if(vendu && JSON.parse(connectedUser).pseudo !== user && result.achat.acheteur === JSON.parse(connectedUser).pseudo){
         div.style.display = 'block';
       }
     }
@@ -120,7 +120,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
         </div>
       </div>
       <div className="HeaderConversation-div-lien">
-        <Link className="HeaderConversation-lien" to={"/annonce/" + param.utilisateur + "/" + param.annonce}>Voir l'annonce</Link>
+        <Link className="HeaderConversation-lien" to={"/annonce/" + user + "/" + id}>Voir l'annonce</Link>
         <div className="HeaderConversation-div-isNoted" style={{display: 'none'}}>
           <button><FontAwesomeIcon id="buttonNoted-1" icon={faStar}/></button>
           <button><FontAwesomeIcon id="buttonNoted-2" icon={faStar}/></button>
