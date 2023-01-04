@@ -103,7 +103,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
-    nav(`/conversation/${user}/${id}`);
+    window.location.reload(false);
   }
 
   isVendu();
