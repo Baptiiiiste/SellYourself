@@ -2,6 +2,7 @@
 import './PageValider.css'
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -18,7 +19,8 @@ function ValidationAchat({annonce}) {
         color:  'gold',
         shape:  'pill',
         label:  'paypal'};
-    
+
+    const navigate = useNavigate();
         // const amount = "5";
     const amount = annonce.prix;
     const currency = "EUR";
@@ -82,8 +84,9 @@ function ValidationAchat({annonce}) {
                                         'Content-Type': 'application/json',
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     },
-                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendue`, client: connectedUser })
+                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendue à ${connectedUser}, Jetez un oeil à vos conversations récentes`, client: connectedUser })
                                 });
+                                navigate(`/conversation/${annonce._id}`);
                             })
                         }}
                     />
