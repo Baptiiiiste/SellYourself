@@ -100,6 +100,15 @@ function InfoAnnonce() {
             }
         });
 
+        await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+            method: 'Post',
+            body: JSON.stringify({ type: "fav", content: `Votre annonce ${annonce.titre} a été liké`, destinataire: annonce.utilisateur }),
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+
         result = await result.json();
 
         if (!result.erreur) {

@@ -42,7 +42,7 @@ function Notification({type, info, owner, id}) {
                 <div className='Notification-right'>
                     <FontAwesomeIcon icon={faHeart} className="Notification-Image" />
                     <div className='Notification-text'>
-                        <p className="Notification-info">Une annonce que vous avez aimé n'est plus disponible.</p>
+                        <p className="Notification-info">Un nouveau like.</p>
                         <p className="Notification-message">{info}</p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ function Notification({type, info, owner, id}) {
                     <FontAwesomeIcon icon={faStar} className="Notification-Image" />
                     <div className='Notification-text'>
                         <p className="Notification-info">Vous avez reçu une nouvelle note.</p>
-                        <p className="Notification-message">Note : {info}/5</p>
+                        <p className="Notification-message">{info}</p>
                     </div>
                 </div>
                 <button className='Notification-button'>

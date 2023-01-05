@@ -69,7 +69,7 @@ function ValidationAchat({annonce}) {
                         
                         onApprove={async function (data, actions) {
                             return actions.order.capture().then(async function(){
-                                let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
+                                await fetch(`http://localhost:5000/api/achat`, {
                                     method: 'Post',
                                     body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
                                     headers: {
@@ -77,14 +77,13 @@ function ValidationAchat({annonce}) {
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }
                                 });
-                                let resultNotif = await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+                                await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
                                     method: 'Post',
+                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été acheté par ${connectedUser}`, destinataire: annonce.utilisateur }),
                                     headers: {
-                                        'Accept': 'application/json, text/plain, */*',
                                         'Content-Type': 'application/json',
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-                                    },
-                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été vendue à ${connectedUser}, Jetez un oeil à vos conversations récentes`, client: connectedUser })
+                                    }
                                 });
                                 navigate(`/conversation/${annonce._id}`);
                             })

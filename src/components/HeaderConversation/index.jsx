@@ -77,7 +77,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
     await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
       method: 'Post',
-      body: JSON.stringify({ type: "note", content: note, pseudo: user }),
+      body: JSON.stringify({ type: "note", content: `Votre annonce ${titre} a été noté ${note}/5`, destinataire: user }),
       headers: {
         'Content-Type': 'application/json',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`

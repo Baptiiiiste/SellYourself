@@ -356,12 +356,12 @@ app.post("/api/utilisateur/addNotif",verifyToken, async(req,resp) => {
     await notif.save();
     let notifId = (notif._id).toString();
     let result = await User.updateOne(
-        {pseudo: req.body.pseudo},
+        {pseudo: req.body.destinataire},
         { $push: {notifications: notifId} }
     );
 
     if(result){
-        const user = await User.findOne({pseudo: req.params.pseudo});
+        const user = await User.findOne({pseudo: req.body.destinataire});
         if(!user) return resp.send({erreur: "Utilisateur introuvable"});
         resp.send({user: user});
     }else{

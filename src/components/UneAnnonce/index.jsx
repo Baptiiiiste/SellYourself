@@ -32,7 +32,7 @@ function Vendeur({pseudo, photo, note}){
     )
 }
 
-function Button({id, prix}){
+function Button({id, prix, titre, pseudo}){
     let connectedUser = sessionStorage.getItem("user");
 
     const addFavoris = async () => {
@@ -42,6 +42,15 @@ function Button({id, prix}){
                 headers: {
                     'Content-Type': 'Application/json',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
+                }
+            });
+
+            await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+                method: 'Post',
+                body: JSON.stringify({ type: "fav", content: `Votre annonce ${titre} a été liké`, destinataire: pseudo }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                 }
             });
             
@@ -86,14 +95,14 @@ function Button({id, prix}){
     )
 }
 
-function Contenu({id, titre, description, prix}){    
+function Contenu({id, titre, description, prix, pseudo}){    
     return(
         <div className='Contenu-all'>
             <div className='Contenu-text'>
                 <p className='Contenu-titre'>{titre} :</p>
                 <p className='Contenu-description'>{description}</p>
             </div>
-            <Button id={id} prix={prix}/>
+            <Button id={id} prix={prix} titre={titre} pseudo={pseudo}/>
         </div>
     )
 }
@@ -153,7 +162,7 @@ function UneAnnonce({id, titre, description, prix, img_annonce, pseudoVendeur, n
                 <div className='UneAnnonce-isVendu' id={id} style={{display: 'none'}}>
                     <p>L'annonce est vendue</p>
                 </div>
-                <Contenu id={id} titre={titre} description={description} prix={prix}/>
+                <Contenu id={id} titre={titre} description={description} prix={prix} pseudo={pseudoVendeur}/>
             </div>
         </div>
     )
