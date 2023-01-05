@@ -63,10 +63,16 @@ function InfoAnnonce() {
         getUser();
     }, [])
 
+    let connectedUser = sessionStorage.getItem('user');
+    const pseudo = JSON.parse(connectedUser).pseudo;
+
     // Fonction pour récupérer une annonce
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
-            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        console.log(pseudo + ":" + typeof pseudo);
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${pseudo}`, {
+            headers: {
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+             }
         });
         result = await result.json();
         if (result.tokenError) {

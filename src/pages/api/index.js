@@ -70,11 +70,11 @@ app.post("/api/inscription", async (req, resp) => {
 
 
         result = result.toObject();
-        delete result.password;
+        const pseudo = result.pseudo;
+        const tokenKey = result.password + process.env.JWTKEY
+        result.password = undefined;
 
-
-
-        Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
+        Jwt.sign({pseudo}, tokenKey, {expiresIn: "2h"}, (err, token) => {
             if(err){
                 if(resp.headersSent !== true){
                     resp.send({result:"Une erreur est survenue, attendez un peu"});
@@ -97,16 +97,15 @@ app.post("/api/connexion", async (req, resp) => {
         if(user){
             if(bcrypt.compareSync(req.body.password, user.password)){
                 let result = user.toObject();
-                delete result.password;
-                delete result.profilPic;
-                let utilisateur = user.toObject();
-                delete utilisateur.password;
+                const pseudo = result.pseudo;
+                const tokenKey = result.password + process.env.JWTKEY;
+                result.password = undefined;
                 
-                Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
+                Jwt.sign({pseudo}, tokenKey, {expiresIn: "2h"}, (err, token) => {
                     if(err){
                         resp.send({result:"Une erreur est survenue, attendez un peu"});
                     }
-                    resp.send({user: utilisateur, authToken:token});   
+                    resp.send({user: result, authToken:token});   
                 });
 
             }else resp.send({result:"Mot de passe incorrect"});
@@ -128,10 +127,11 @@ app.put("/api/utilisateur/updateUser/:id", verifyToken, async (req, resp) => {
             { $set: req.body }
         )
     
-        const newUser = await User.findOne({_id : req.params.id})
+        const newUser = await User.findOne({_id : req.params.id});
+        newUser.password = undefined;
         resp.send({user: newUser});
     }else{
-        resp.send({erreur:"Cette adresse e-mail est déjà prise"})
+        resp.send({erreur:"Cette adresse e-mail est déjà prise"});
     }    
 })
 
@@ -168,7 +168,8 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
         { $set: {utilisateur: utilisateur} }
     )
 
-    const newUser = await User.findOne({ pseudo: req.params.pseudo })
+    const newUser = await User.findOne({ pseudo: req.params.pseudo });
+    newUser.password = undefined;
     resp.send({user : newUser});
 });
 
@@ -188,8 +189,48 @@ app.get("/api/annonces", async (req, resp) => {
 });
 
 // Requete récupération d'une annonce
-app.get("/api/annonce/:id", verifyToken, async (req, resp) => {
-    const annonce = await Annonce.find( { _id: req.params.id } )
+app.get("/api/annonce/:id/:accountPseudo", async (req, resp) => {
+    console.log("-- body --");
+    console.log(req.body);
+    console.log("-- params --");
+    console.log(req.params);
+    console.log("-- query --");
+    console.log(req.query);
+    console.log("-- headers --");
+    console.log(req.headers);
+    console.log("-- cookies --");
+    console.log(req.cookies);
+    console.log("-- signedCookies --");
+    console.log(req.signedCookies);
+    console.log("-- ip --");
+    console.log(req.ip);
+    console.log("-- ips --");
+    console.log(req.ips);
+    console.log("-- protocol --");
+    console.log(req.protocol);
+    console.log("-- secure --");
+    console.log(req.secure);
+    console.log("-- subdomains --");
+    console.log(req.subdomains);
+    console.log("-- xhr --");
+    console.log(req.xhr);
+    console.log("-- originalUrl --");
+    console.log(req.originalUrl);
+    console.log("-- baseUrl --");
+    console.log(req.baseUrl);
+    console.log("-- path --");
+    console.log(req.path);
+    console.log("-- hostname --");
+    console.log(req.hostname);
+    console.log("-- host --");
+    console.log(req.host);
+    console.log("-- fresh --");
+    console.log(req.fresh);
+    console.log("-- stale --");
+    console.log(req.stale);
+    console.log("-- url --");
+    console.log(req.url);
+    const annonce = await Annonce.find( { _id: req.params.id } );
     if (annonce.length > 0){
         resp.send(annonce[0]);
     }
@@ -258,6 +299,7 @@ app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
             moy = Number((moy/nbNote).toFixed(2));
             note = moy + "/5";
         }
+        utilisateur[0].password = undefined;
         resp.send([utilisateur[0], note, nbNote]);
     }
     else{
@@ -275,6 +317,7 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
     )
     if(resAds && resUser){
         const newUser = await User.findOne({ _id : req.params.idUser });
+        newUser.password = undefined;
         resp.send({user: newUser});
     }
     else{
@@ -293,6 +336,7 @@ app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) =
         )
         if(result){
             let user = await User.findOne({_id : req.params.idUser});
+            user.password = undefined;
             resp.send({user: user})
         }else{
             resp.send({erreur: "erreur"})
@@ -310,6 +354,7 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     )
     if(resUser){
         const newUser = await User.findOne({ _id : req.params.idUser });
+        newUser.password = undefined;
         resp.send({user: newUser});
     }
     else{
@@ -331,6 +376,7 @@ app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
 app.post("/api/viderFav/:user", async (req, resp) => {
     const user = await User.findOne({ pseudo : req.params.user });
     if(user.favoris.length === 0){
+        user.password = undefined;
         resp.send({user: user});
     } else {
         user.favoris.forEach(async element => {
@@ -344,6 +390,7 @@ app.post("/api/viderFav/:user", async (req, resp) => {
         });
         const newUser = await User.findOne({ pseudo : req.params.user });
         if(newUser){
+            user.password = undefined;
             resp.send({user: newUser});
         }
     }
@@ -363,6 +410,7 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     if(result){
         const user = await User.findOne({pseudo: req.params.pseudo});
         if(!user) return resp.send({erreur: "Utilisateur introuvable"});
+        user.password = undefined;
         resp.send({user: user});
     }else{
         resp.send({erreur: "Erreur lors de l'envoie de la notification"});
@@ -379,6 +427,7 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
     
     const newUser = await User.findOne({ pseudo : req.params.pseudo });
     if(newUser){
+        newUser.password = undefined;
         resp.send({user: newUser});
     }else{
         resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
@@ -395,6 +444,7 @@ app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
     
     const newUser = await User.findOne({ pseudo : req.params.pseudo });
     if(newUser){
+        newUser.password = undefined;
         resp.send({user: newUser});
     }else{
         resp.send({erreur: "Erreur lors de la suppression"})
@@ -409,6 +459,7 @@ app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
     )
     if(result){
         let user = await User.findOne({pseudo : req.params.pseudo});
+        user.password = undefined;
         resp.send({user: user})
     }else{
         resp.send({erreur: "erreur"})
@@ -455,6 +506,7 @@ app.post("/api/note/:annonce/:vendeur/:user/:note", verifyToken, async (req, res
     );
     if(userUpdate){
         const result = await User.findOne({ pseudo: req.params.vendeur })
+        result.password = undefined;
         resp.send({ user: result });
     } else {
         resp.send({ erreur: "erreur" });
@@ -497,6 +549,7 @@ app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, re
                         { pseudo : req.params.user },
                         { $pull : { noteList : element } }
                     )
+                    resUser.password = undefined;
                     resp.send({user: resUser});
                 }
             });
@@ -524,13 +577,19 @@ app.post("/api/achat", verifyToken, async (req, resp) => {
 // ---------------------------------------------------------------------------------------
 
 // Vérification du token utilisateur
-function verifyToken(req, resp, next) {
+async function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
+    let pseudo = "Baptiste" //req.params.accountPseudo;
+    // console.log(pseudo)
+    // console.log("-----------------")
+    //console.log(accountPseudo)
+    
     if(token){
-
+        const user = await User.findOne({pseudo: pseudo});
+        const tokenKey = "$2a$10$KGOhGHewZvjNXf7TGvnC5eZrHvIQaAw1WveTpidwT/BvWolajdOJa"+ process.env.JWTKEY; //user.password + process.env.JWTKEY;
         token = token.split(" ")[1];
-        Jwt.verify(token, process.env.JWTKEY,(err, success) => {
-            if(err) resp.status(401).send({tokenError: "Une erreur est survenue avec votre token d'identification, déconnectez-vous et reconnectez-vous"});
+        Jwt.verify(token, tokenKey,(err, success) => {
+            if(err) resp.status(401).send({tokenError: "Token d'identification invalide, déconnectez-vous et reconnectez-vous"});
             else next();
         });
     
