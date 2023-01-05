@@ -122,6 +122,7 @@ function InfoAnnonce() {
     const isVendu = () => {
         const div = document.getElementsByClassName("InfoAnnonce-isVendu")[0];
         const achat = document.getElementsByClassName("InfoAnnonce-Achat")[0];
+        const contact = document.getElementsByClassName("InfoAnnonce-BoutonMessage")[0];
         if(div !== undefined){
             if(annonce.vendu){
                 achat.style.display = 'none';
@@ -129,6 +130,7 @@ function InfoAnnonce() {
             }
             if(annonce.utilisateur === JSON.parse(connectedUser).pseudo){
                 achat.style.display = 'none';
+                contact.style.display = 'none';
             }
         }
     }

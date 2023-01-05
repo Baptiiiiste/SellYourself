@@ -153,13 +153,13 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
 });
 
 // Requete new annonce
-app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
-    const utilisateur = req.params.pseudo;
-    let annonce = new Annonce(req.body);
+app.post("/api/publier", verifyToken ,async (req, resp) => {
+    const utilisateur = req.body.vendeur;
+    let annonce = new Annonce({utilisateur: req.body.vendeur, titre: req.body.titre, description: req.body.description, image: req.body.image, prix: req.body.prix, type: req.body.type});
     await annonce.save();
 
     await User.updateOne(
-        { pseudo: req.params.pseudo },
+        { pseudo: req.body.vendeur },
         { $push: {annonces: annonce._id} }
     )
 
@@ -168,7 +168,7 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
         { $set: {utilisateur: utilisateur} }
     )
 
-    const newUser = await User.findOne({ pseudo: req.params.pseudo })
+    const newUser = await User.findOne({ pseudo: req.body.vendeur })
     resp.send({user : newUser});
 });
 
@@ -371,7 +371,7 @@ app.post("/api/utilisateur/addNotif",verifyToken, async(req,resp) => {
 
 app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
     
-    //let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
+    let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
     await User.updateOne(
         { pseudo : req.params.pseudo },
         { $pull: { notifications: req.params.idNotif } }
@@ -387,7 +387,10 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
 
 app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
     let user = await User.findOne({ pseudo: req.params.pseudo })
-    user.notifications.splice(0, user.notifications.length)
+    user.notifications.forEach(async element => {
+        await Notification.deleteOne( { _id : element  });
+    })
+    user.notifications.splice(0, user.notifications.length);
     await User.updateOne(
         {pseudo: req.params.pseudo},
         {$set: {notifications: user.notifications}}
@@ -399,6 +402,7 @@ app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
     }else{
         resp.send({erreur: "Erreur lors de la suppression"})
     }
+    
 });
 
 // Requete modification image profil utilisateur
@@ -439,7 +443,7 @@ app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
 })
 
 // Requete recupération nombre annonce utilisateur
-app.get("/api/annonce/user", verifyToken, async (req, resp) => {
+app.post("/api/annonce/user", verifyToken, async (req, resp) => {
     const user = await User.findOne( { pseudo: req.body.pseudo } );
     resp.send({annonces: user.annonces});
 });

@@ -78,7 +78,7 @@ function Notification({type, info, owner, id}) {
                         <p className="Notification-message">{info}</p>
                     </div>
                 </div>
-                <button className='Notification-button'>
+                <button className='Notification-button' onClick={deleteNotif}>
                     <FontAwesomeIcon className='Notification-delete' icon={faTrashCan}/>
                 </button>
             </div>

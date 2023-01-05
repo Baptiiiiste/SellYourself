@@ -88,7 +88,7 @@ function CreerAnnonce() {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
 
         let result = await fetch(`http://localhost:5000/api/annonce/user`, {
-            method: 'Get',
+            method: 'Post',
             body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
                 'Content-Type': 'Application/json',
@@ -119,9 +119,9 @@ function CreerAnnonce() {
             setCategorie('Autre');
         }
         else if(titre && prix && nbImage > 0 && prix <= 99999 && JSON.parse(connectedUser).paypal.length !== 0){
-            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
+            let result = await fetch(`http://localhost:5000/api/publier`, {
                 method: 'Post',
-                body: JSON.stringify({titre, description, image, prix, type, categorie}),
+                body: JSON.stringify({titre, description, image, prix, type, categorie, vendeur: JSON.parse(connectedUser).pseudo}),
                 headers: {
                     'Content-Type': 'Application/json',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
