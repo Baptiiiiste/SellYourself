@@ -113,7 +113,7 @@ function ModifAnnonce() {
     const formulaire = async () => {
         const nbImage = image.length;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/user/${JSON.parse(connectedUser).pseudo}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/utilisateur/${JSON.parse(connectedUser).pseudo}`, {
             method: 'Get',
             headers: {
                 'Content-Type': 'Application/json',
@@ -161,7 +161,7 @@ function ModifAnnonce() {
     }
 
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${JSON.parse(connectedUser).pseudo}`, {
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();

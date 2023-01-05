@@ -23,7 +23,7 @@ function Profil() {
     const getUserAds = async () => {
 		let listAds = [];
 		for(let i = 0; i < (JSON.parse(connectedUser).annonces).length; i++){
-			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).annonces[i]}`, {
+			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).annonces[i]}/${JSON.parse(connectedUser).pseudo}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',

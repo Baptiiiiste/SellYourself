@@ -20,11 +20,12 @@ function Conversation() {
     const [annonce, setAnnonce] = useState([]);
     // Pour pouvoir récupérer un paramètre passer par l'URL
     const params = useParams();
+    const connectedUser = sessionStorage.getItem("user");
 
     // Fonction pour récupérer l'annonce sujette de la conversation
     const getAnnonce = async () => {
         // Requête à l'API pour récupérer les informations d'une annonce
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${JSON.parse(connectedUser).pseudo}`, {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',

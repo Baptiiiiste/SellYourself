@@ -67,7 +67,7 @@ function ValidationAchat({annonce}) {
                         
                         onApprove={async function (data, actions) {
                             return actions.order.capture().then(async function(){
-                                let resultAchat = await fetch(`http://localhost:5000/api/achat`, {
+                                let resultAchat = await fetch(`http://localhost:5000/api/achat/${connectedUser}`, {
                                     method: 'Post',
                                     body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
                                     headers: {

@@ -37,7 +37,7 @@ function Button({id, prix}){
 
     const addFavoris = async () => {
         if (connectedUser!=null) {
-            let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
+            let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser).pseudo}/${id}`, {
                 method: "Post",
                 headers: {
                     'Content-Type': 'Application/json',
@@ -57,7 +57,7 @@ function Button({id, prix}){
 
     const delFavoris = async () => {
         if (connectedUser!=null) {
-            let result = await fetch(`http://localhost:5000/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
+            let result = await fetch(`http://localhost:5000/api/favoris/delete/${JSON.parse(connectedUser).pseudo}/${id}`, {
                 method: "Delete",
                 headers: {
                     'Content-Type': 'Application/json',

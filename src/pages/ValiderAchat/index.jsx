@@ -13,9 +13,10 @@ function ValiderAchat() {
 
   const [annonce, setAnnonce] = useState([]);
   const params = useParams();
+  const connectedUser = sessionStorage.getItem('user');
 
   const getAnnonce = async () => {
-      let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+      let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${JSON.parse(connectedUser).pseudo}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',

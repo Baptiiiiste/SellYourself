@@ -64,12 +64,11 @@ function InfoAnnonce() {
     }, [])
 
     let connectedUser = sessionStorage.getItem('user');
-    const pseudo = JSON.parse(connectedUser).pseudo;
+    const accountPseudo = JSON.parse(connectedUser).pseudo;
 
     // Fonction pour récupérer une annonce
     const getAnnonce = async () => {
-        console.log(pseudo + ":" + typeof pseudo);
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${pseudo}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}/${accountPseudo}`, {
             headers: {
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
              }
@@ -83,7 +82,7 @@ function InfoAnnonce() {
 
     // Fonction pour récupérer un utilisateur
     const getUser = async () => {
-        let result = await fetch(`http://localhost:5000/api/utilisateur/${params.utilisateur}`, {
+        let result = await fetch(`http://localhost:5000/api/utilisateur/${params.utilisateur}/${accountPseudo}`, {
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();
@@ -97,7 +96,7 @@ function InfoAnnonce() {
     const addFavoris = async () => {
         let connectedUser = sessionStorage.getItem("user");
 
-        let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${annonce._id}`, {
+        let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser).pseudo}/${annonce._id}`, {
             method: "Post",
             headers: {
                 'Content-Type': 'Application/json',

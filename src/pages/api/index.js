@@ -118,16 +118,16 @@ app.post("/api/connexion", async (req, resp) => {
 })
 
 // Requete de modification des informations d'un utilisateur
-app.put("/api/utilisateur/updateUser/:id", verifyToken, async (req, resp) => {
+app.put("/api/utilisateur/updateUser/:accountPseudo", verifyToken, async (req, resp) => {
 
     const isEmailAlreadyTaken = await User.findOne({email: req.body.email});
     if(!isEmailAlreadyTaken){
         await User.updateOne(
-            { _id: req.params.id  },
+            { pseudo: req.params.accountPseudo },
             { $set: req.body }
         )
     
-        const newUser = await User.findOne({_id : req.params.id});
+        const newUser = await User.findOne({pseudo : req.params.accountPseudo});
         newUser.password = undefined;
         resp.send({user: newUser});
     }else{
@@ -137,12 +137,12 @@ app.put("/api/utilisateur/updateUser/:id", verifyToken, async (req, resp) => {
 
 
 // Requete de modification du mot de passe d'un utilisateur
-app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) => {
+app.post("/api/utilisateur/updatePassword/:accountPseudo", verifyToken, async (req, resp) => {
 
-    const userToUpdate = await User.findOne({ _id: req.params.id });
+    const userToUpdate = await User.findOne({ pseudo: req.params.accountPseudo });
     if(bcrypt.compareSync(req.body.oldPassword, userToUpdate.password)){
         await User.updateOne(
-            { _id: req.params.id  },
+            { pseudo: req.params.accountPseudo },
             { $set: {password: req.body.password} }
         )
         resp.send({result: "Mot de passe changé"});
@@ -153,13 +153,13 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
 });
 
 // Requete new annonce
-app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
-    const utilisateur = req.params.pseudo;
+app.post("/api/publier/:accountPseudo", verifyToken ,async (req, resp) => {
+    const utilisateur = req.params.accountPseudo;
     let annonce = new Annonce(req.body);
     await annonce.save();
 
     await User.updateOne(
-        { pseudo: req.params.pseudo },
+        { pseudo: req.params.accountPseudo },
         { $push: {annonces: annonce._id} }
     )
 
@@ -168,7 +168,7 @@ app.post("/api/publier/:pseudo", verifyToken ,async (req, resp) => {
         { $set: {utilisateur: utilisateur} }
     )
 
-    const newUser = await User.findOne({ pseudo: req.params.pseudo });
+    const newUser = await User.findOne({ pseudo: req.params.accountPseudo });
     newUser.password = undefined;
     resp.send({user : newUser});
 });
@@ -189,47 +189,8 @@ app.get("/api/annonces", async (req, resp) => {
 });
 
 // Requete récupération d'une annonce
-app.get("/api/annonce/:id/:accountPseudo", async (req, resp) => {
-    console.log("-- body --");
-    console.log(req.body);
-    console.log("-- params --");
-    console.log(req.params);
-    console.log("-- query --");
-    console.log(req.query);
-    console.log("-- headers --");
-    console.log(req.headers);
-    console.log("-- cookies --");
-    console.log(req.cookies);
-    console.log("-- signedCookies --");
-    console.log(req.signedCookies);
-    console.log("-- ip --");
-    console.log(req.ip);
-    console.log("-- ips --");
-    console.log(req.ips);
-    console.log("-- protocol --");
-    console.log(req.protocol);
-    console.log("-- secure --");
-    console.log(req.secure);
-    console.log("-- subdomains --");
-    console.log(req.subdomains);
-    console.log("-- xhr --");
-    console.log(req.xhr);
-    console.log("-- originalUrl --");
-    console.log(req.originalUrl);
-    console.log("-- baseUrl --");
-    console.log(req.baseUrl);
-    console.log("-- path --");
-    console.log(req.path);
-    console.log("-- hostname --");
-    console.log(req.hostname);
-    console.log("-- host --");
-    console.log(req.host);
-    console.log("-- fresh --");
-    console.log(req.fresh);
-    console.log("-- stale --");
-    console.log(req.stale);
-    console.log("-- url --");
-    console.log(req.url);
+app.get("/api/annonce/:id/:accountPseudo", verifyToken, async (req, resp) => {
+
     const annonce = await Annonce.find( { _id: req.params.id } );
     if (annonce.length > 0){
         resp.send(annonce[0]);
@@ -283,7 +244,7 @@ app.get("/api/annonce/search/:categorie/:rechercher", async (req, resp) => {
 });
 
 // Requete récupération de un utilisateur
-app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
+app.get("/api/utilisateur/:pseudo/:accountPseudo", verifyToken, async (req, resp) => {
     const utilisateur = await User.find( { pseudo: req.params.pseudo } )
     if (utilisateur.length > 0){
         let nbNote = utilisateur[0].noteList.length;
@@ -308,15 +269,15 @@ app.get("/api/utilisateur/:pseudo", verifyToken, async (req, resp) => {
 });
 
 // Requete de suppression d'une annonce
-app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) => {
+app.delete("/api/annonce/delete/:accountPseudo/:idAds", verifyToken, async (req, resp) => {
 
     let resAds = await Annonce.deleteOne( { _id : req.params.idAds } );
     let resUser = await User.updateOne(
-        { _id : req.params.idUser },
+        { pseudo : req.params.accountPseudo },
         { $pull: { annonces: req.params.idAds } }
     )
     if(resAds && resUser){
-        const newUser = await User.findOne({ _id : req.params.idUser });
+        const newUser = await User.findOne({ pseudo : req.params.accountPseudo });
         newUser.password = undefined;
         resp.send({user: newUser});
     }
@@ -327,15 +288,15 @@ app.delete("/api/annonce/delete/:idUser/:idAds", verifyToken, async (req, resp) 
 });
 
 // Requete d'ajout d'une annonce en favoris
-app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
-    let user = await User.findOne({_id : req.params.idUser});
+app.post("/api/favoris/add/:accountPseudo/:idAnnonce", verifyToken, async (req, resp) => {
+    let user = await User.findOne({pseudo : req.params.accountPseudo});
     if(!user.favoris.includes(req.params.idAnnonce)){
         let result= await User.updateOne(
-            { _id: req.params.idUser },
+            { pseudo: req.params.accountPseudo },
             { $push: {favoris: req.params.idAnnonce} }
         )
         if(result){
-            let user = await User.findOne({_id : req.params.idUser});
+            let user = await User.findOne({pseudo : req.params.accountPseudo});
             user.password = undefined;
             resp.send({user: user})
         }else{
@@ -347,13 +308,13 @@ app.post("/api/favoris/add/:idUser/:idAnnonce", verifyToken, async (req, resp) =
 })
 
 // Requete de suppression d'une annonce en favoris
-app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, resp) => {
+app.delete("/api/favoris/delete/:accountPseudo/:idAnnonce", verifyToken, async (req, resp) => {
     let resUser = await User.updateOne(
-        { _id : req.params.idUser },
+        { pseudo : req.params.accountPseudo },
         { $pull: { favoris: req.params.idAnnonce } }
     )
     if(resUser){
-        const newUser = await User.findOne({ _id : req.params.idUser });
+        const newUser = await User.findOne({ pseudo : req.params.accountPseudo });
         newUser.password = undefined;
         resp.send({user: newUser});
     }
@@ -362,9 +323,9 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     } 
 })
 
-app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
+app.get("/api/utilisateur/getNotif/:accountPseudo", verifyToken, async (req, resp) => {
     let listNotifs = [];
-    const user = await User.findOne({pseudo: req.params.pseudo});
+    const user = await User.findOne({pseudo: req.params.accountPseudo});
     for (let i = 0; i < user.notifications.length; i++) {
         let notif = await Notification.findOne({ _id : new ObjectId(user.notifications[i]) });
         listNotifs.push(notif);
@@ -373,8 +334,8 @@ app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
 });
 
 // Requete de suppression favoris inexistant
-app.post("/api/viderFav/:user", async (req, resp) => {
-    const user = await User.findOne({ pseudo : req.params.user });
+app.post("/api/viderFav/:accountPseudo", verifyToken, async (req, resp) => {
+    const user = await User.findOne({ pseudo : req.params.accountPseudo });
     if(user.favoris.length === 0){
         user.password = undefined;
         resp.send({user: user});
@@ -383,12 +344,12 @@ app.post("/api/viderFav/:user", async (req, resp) => {
             const result = await Annonce.findOne({_id : element});
             if(!result){
                 resUser = await User.updateOne(
-                    { pseudo : req.params.user },
+                    { pseudo : req.params.accountPseudo },
                     { $pull : { favoris : element } }
                 )
             }
         });
-        const newUser = await User.findOne({ pseudo : req.params.user });
+        const newUser = await User.findOne({ pseudo : req.params.accountPseudo });
         if(newUser){
             user.password = undefined;
             resp.send({user: newUser});
@@ -397,18 +358,18 @@ app.post("/api/viderFav/:user", async (req, resp) => {
 })
 
 // Requete d'ajout d'une notification
-app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
+app.get("/api/utilisateur/addNotif/:accountPseudo", verifyToken, async(req,resp) => {
     if(!req.body.type || !req.body.content) {return resp.send({erreur: "Veuillez renseigner un message pour votre notification"})}
     const notif = new Notification({type: req.body.type, content: req.body.content});
     await notif.save();
     let notifId = (notif._id).toString();
     let result = await User.updateOne(
-        {pseudo: req.params.pseudo},
+        {pseudo: req.params.accountPseudo},
         { $push: {notifications: notifId} }
     );
 
     if(result){
-        const user = await User.findOne({pseudo: req.params.pseudo});
+        const user = await User.findOne({pseudo: req.params.accountPseudo});
         if(!user) return resp.send({erreur: "Utilisateur introuvable"});
         user.password = undefined;
         resp.send({user: user});
@@ -417,15 +378,15 @@ app.get("/api/utilisateur/addNotif/:pseudo", async(req,resp) => {
     }
 })
 
-app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
+app.delete("/api/utilisateur/deleteNotif/:accountPseudo/:idNotif", verifyToken, async (req, resp) => {
     
-    //let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
+    let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
     await User.updateOne(
-        { pseudo : req.params.pseudo },
+        { pseudo : req.params.accountPseudo },
         { $pull: { notifications: req.params.idNotif } }
     );
     
-    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    const newUser = await User.findOne({ pseudo : req.params.accountPseudo });
     if(newUser){
         newUser.password = undefined;
         resp.send({user: newUser});
@@ -434,15 +395,15 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
     }
 });
 
-app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
-    let user = await User.findOne({ pseudo: req.params.pseudo })
+app.delete("/api/utilisateur/deleteAllNotif/:accountPseudo", verifyToken, async (req, resp) => {
+    let user = await User.findOne({ pseudo: req.params.accountPseudo })
     user.notifications.splice(0, user.notifications.length)
     await User.updateOne(
-        {pseudo: req.params.pseudo},
+        {pseudo: req.params.accountPseudo},
         {$set: {notifications: user.notifications}}
     );
     
-    const newUser = await User.findOne({ pseudo : req.params.pseudo });
+    const newUser = await User.findOne({ pseudo : req.params.accountPseudo });
     if(newUser){
         newUser.password = undefined;
         resp.send({user: newUser});
@@ -452,13 +413,13 @@ app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
 });
 
 // Requete modification image profil utilisateur
-app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
+app.put("/api/utilisateur/image/:accountPseudo", verifyToken, async (req, resp) => {
     let result= await User.updateOne(
-        { pseudo: req.params.pseudo },
+        { pseudo: req.params.accountPseudo },
         { $set: req.body }
     )
     if(result){
-        let user = await User.findOne({pseudo : req.params.pseudo});
+        let user = await User.findOne({pseudo : req.params.accountPseudo});
         user.password = undefined;
         resp.send({user: user})
     }else{
@@ -467,10 +428,10 @@ app.put("/api/utilisateur/image/:pseudo", verifyToken, async (req, resp) => {
 })
 
 // Requete modification annonce
-app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
+app.put("/api/annonce/edit/:annonce/:accountPseudo", verifyToken, async (req, resp) => {
     let annonce = await Annonce.findOne({ _id: req.params.annonce });
     if(annonce){
-        if(annonce.utilisateur === req.params.user){
+        if(annonce.utilisateur === req.params.accountPseudo){
             let result = await Annonce.updateOne(
                 { _id: req.params.annonce },
                 { $set: req.body }
@@ -490,14 +451,14 @@ app.put("/api/annonce/edit/:annonce/:user", verifyToken, async (req, resp) => {
 })
 
 // Requete recupération nombre annonce utilisateur
-app.get("/api/annonce/user/:pseudo", verifyToken, async (req, resp) => {
-    const user = await User.find( { pseudo: req.params.pseudo } );
+app.get("/api/annonce/utilisateur/:accountPseudo", verifyToken, async (req, resp) => {
+    const user = await User.find( { pseudo: req.params.accountPseudo } );
     resp.send({annonces: user[0].annonces});
 });
 
 // Requete ajout d'une note
-app.post("/api/note/:annonce/:vendeur/:user/:note", verifyToken, async (req, resp) => {
-    const user = await User.findOne( { pseudo: req.params.user } );
+app.post("/api/note/:annonce/:vendeur/:accountPseudo/:note", verifyToken, async (req, resp) => {
+    const user = await User.findOne( { pseudo: req.params.accountPseudo } );
     const note = new Note({utilisateurId: user._id, annonceId: req.params.annonce, note: req.params.note});
 
     const userUpdate = await User.updateOne( 
@@ -514,12 +475,12 @@ app.post("/api/note/:annonce/:vendeur/:user/:note", verifyToken, async (req, res
 })
 
 // Requete récupération si un vendeur pour une annonce est notée
-app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) => {
+app.get("/api/isNoted/:annonce/:vendeur/:accountPseudo", verifyToken, async (req, resp) => {
     const vendeur = await User.findOne( { pseudo: req.params.vendeur } );
     let bool = false;
     let note = 0;
     if(vendeur){
-        const user = await User.findOne( { pseudo: req.params.user } );
+        const user = await User.findOne( { pseudo: req.params.accountPseudo } );
         if(user){
             vendeur.noteList.forEach(element => {
                 if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
@@ -538,15 +499,15 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
 });
 
 // Requete delete note
-app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, resp) => {
+app.post("/api/note/delete/:annonce/:vendeur/:accountPseudo", verifyToken, async (req, resp) => {
     const vendeur = await User.findOne( { pseudo: req.params.vendeur } );
     if(vendeur){
-        const user = await User.findOne( { pseudo: req.params.user } );
+        const user = await User.findOne( { pseudo: req.params.accountPseudo } );
         if(user){
             vendeur.noteList.forEach(async element => {
                 if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
                     const resUser = await User.updateOne(
-                        { pseudo : req.params.user },
+                        { pseudo : req.params.accountPseudo },
                         { $pull : { noteList : element } }
                     )
                     resUser.password = undefined;
@@ -559,7 +520,7 @@ app.post("/api/note/delete/:annonce/:vendeur/:user", verifyToken, async (req, re
 });
 
 // Requete achat 
-app.post("/api/achat", verifyToken, async (req, resp) => {
+app.post("/api/achat/:accountPseudo", verifyToken, async (req, resp) => {
     const annonce = await Annonce.findOne( {_id: req.body.annonce } );
     if(!annonce.vendu){
         const achat = new Achat(req.body);
@@ -579,14 +540,11 @@ app.post("/api/achat", verifyToken, async (req, resp) => {
 // Vérification du token utilisateur
 async function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
-    let pseudo = "Baptiste" //req.params.accountPseudo;
-    // console.log(pseudo)
-    // console.log("-----------------")
-    //console.log(accountPseudo)
-    
+    let pseudo = req.params.accountPseudo;
+   
     if(token){
         const user = await User.findOne({pseudo: pseudo});
-        const tokenKey = "$2a$10$KGOhGHewZvjNXf7TGvnC5eZrHvIQaAw1WveTpidwT/BvWolajdOJa"+ process.env.JWTKEY; //user.password + process.env.JWTKEY;
+        const tokenKey = user.password + process.env.JWTKEY;
         token = token.split(" ")[1];
         Jwt.verify(token, tokenKey,(err, success) => {
             if(err) resp.status(401).send({tokenError: "Token d'identification invalide, déconnectez-vous et reconnectez-vous"});

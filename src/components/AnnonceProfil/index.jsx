@@ -25,7 +25,7 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner, vendu}
         const valid = await window.confirm(`Vous etes sur le point de supprimer l'annonce:\n ${titre}\n Valider ?`);
         if(!valid) return;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/delete/${owner[1]}/${id}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/delete/${owner[0]}/${id}`, {
             method: "Delete",
             headers: {
                 'Content-Type': 'Application/json',
