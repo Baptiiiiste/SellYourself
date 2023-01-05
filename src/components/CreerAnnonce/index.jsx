@@ -112,7 +112,7 @@ function CreerAnnonce() {
         if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
             alert("La description est invalide");
         }
-        if(prix <0){
+        if(prix <= 0){
             alert("Le prix doit être positif");
         }
         if(categorie.length === 0){

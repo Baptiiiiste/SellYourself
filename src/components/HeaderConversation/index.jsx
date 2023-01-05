@@ -98,7 +98,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
   const deleteNote = async () => {
     await fetch(`http://localhost:5000/api/note/delete`, {
       method: "Post",
-      body: JSON.stringify({annonce: id, vendeur: user, user: JSON.parse(sessionStorage.getItem('user')).pseudo}),
+      body: JSON.stringify({annonce: id, vendeur: user, user: JSON.parse(sessionStorage.getItem('user'))._id}),
       headers: {
         'Content-Type': 'Application/json',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`

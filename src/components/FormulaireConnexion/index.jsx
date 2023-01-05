@@ -20,7 +20,6 @@ function FormulaireConnexion() {
             }
         });
         fav = await fav.json();
-        console.log(JSON.stringify(fav.user));
 
         let result = await fetch("http://localhost:5000/api/connexion", {
             method: 'post',

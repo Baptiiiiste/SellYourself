@@ -489,20 +489,16 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
 app.post("/api/note/delete", verifyToken, async (req, resp) => {
     const vendeur = await User.findOne( { pseudo: req.body.vendeur } );
     if(vendeur){
-        const user = await User.findOne( { pseudo: req.body.user } );
-        if(user){
-            vendeur.noteList.forEach(async element => {
-                if(element.utilisateurId == user._id && element.annonceId == req.body.annonce){
-                    const resUser = await User.updateOne(
-                        { pseudo : req.body.user },
-                        { $pull : { noteList : element } }
-                    )
-                    resp.send({user: resUser});
-                }
-            });
-        }
-    }
-    else{
+        vendeur.noteList.forEach(async element => {
+            if(element.utilisateurId == req.body.user && element.annonceId == req.body.annonce){
+                const resUser = await User.updateOne(
+                    { pseudo : req.body.vendeur },
+                    { $pull : { noteList : element } }
+                )
+                resp.send({user: resUser});
+            }
+        });
+    } else {
         resp.send({erreur: "erreur"});
     }
 });
