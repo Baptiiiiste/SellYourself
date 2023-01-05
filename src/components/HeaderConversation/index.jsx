@@ -83,8 +83,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
-
-    nav("/")
+    window.location.reload(false);
   }
 
   const colorButton = (note) => {
