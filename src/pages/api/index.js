@@ -84,7 +84,6 @@ app.post("/api/inscription", async (req, resp) => {
             if(resp.headersSent !== true){
                 resp.send({user: result, authToken:token});
             }
-               
         });
     }
 
@@ -155,7 +154,7 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
 // Requete new annonce
 app.post("/api/publier", verifyToken ,async (req, resp) => {
     const utilisateur = req.body.vendeur;
-    let annonce = new Annonce({utilisateur: req.body.vendeur, titre: req.body.titre, description: req.body.description, image: req.body.image, prix: req.body.prix, type: req.body.type});
+    let annonce = new Annonce({utilisateur: req.body.vendeur, titre: req.body.titre, description: req.body.description, image: req.body.image, prix: req.body.prix, type: req.body.type, categorie: req.body.categorie});
     await annonce.save();
 
     await User.updateOne(

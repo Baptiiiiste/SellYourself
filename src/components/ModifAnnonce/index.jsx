@@ -24,11 +24,39 @@ function ModifAnnonce() {
     let [actualtitre, setactualTitre] = useState("");
     let [actualdescription, setactualDescription] = useState("");
     let [actualprix, setactualPrix] = useState("");
+    let [actualcategorie, setactualCategorie] = useState("Autre");
+    let [actualtype, setactualType] = useState("Bien");
     let [actualimage, setactualImage] = useState([]);
 
     useEffect(() => {
         getAnnonce()
     }, [])
+
+    // Fonction qui récupère l'annonce
+    const getAnnonce = async () => {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
+        result = await result.json();
+        if(result.tokenError){
+            return alert(result.tokenError);
+        }
+        setId(result._id);
+        setactualTitre(result.titre);
+        setactualDescription(result.description);
+        setactualPrix(result.prix);
+        setactualCategorie(result.categorie);
+        setactualType(result.type);
+        setactualImage(result.image);
+
+        setTitre(result.titre);
+        setDescription(result.description);
+        setPrix(result.prix);
+        setCategorie(result.categorie);
+        console.log(result)
+        setType(result.type);
+        setImage(result.image);
+    }
 
     // Fonction pour convertir un fichier en base64
     const toBase64 = (file) => {
@@ -114,8 +142,9 @@ function ModifAnnonce() {
     const formulaire = async () => {
         const nbImage = image.length;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/user/${JSON.parse(connectedUser).pseudo}`, {
-            method: 'Get',
+        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
+            method: 'Post',
+            body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
                 'Content-Type': 'Application/json',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -159,29 +188,6 @@ function ModifAnnonce() {
             }
             navigate("/profil");
         }
-    }
-
-    // Fonction qui récupère l'annonce
-    const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
-            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
-        });
-        result = await result.json();
-        if(result.tokenError){
-            return alert(result.tokenError);
-        }
-        setId(result._id);
-        setactualTitre(result.titre);
-        setactualDescription(result.description);
-        setactualPrix(result.prix);
-        setactualImage(result.image);
-
-        setTitre(result.titre);
-        setDescription(result.description);
-        setPrix(result.prix);
-        setCategorie(result.categorie);
-        setType(result.type);
-        setImage(result.image);
     }
 
     // Affichage HTML
