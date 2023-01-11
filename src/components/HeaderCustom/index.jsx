@@ -89,7 +89,7 @@ function HeaderCustom({ title }) {
     )
   }
 
-  // Affichage HTML header général
+  // Affichage HTML header simple
   return (
     <header>
       <Link to="/" className="headercustom-logo">
