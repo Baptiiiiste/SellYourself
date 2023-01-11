@@ -1,19 +1,12 @@
 // Import 
 import './PageValider.css'
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useNavigate } from 'react-router-dom'
 
-
-
+// Composant qui représente l'achat d'une annonce
 function ValidationAchat({annonce}) { 
-    const displayImage = () => {
-        if(annonce.image !== undefined){
-            if(annonce.image.length === 0) return <img className="PageValider-Image" src={require('../../assets/default.png')}/>
-            else return <img className="PageValider-Image" src={annonce.image[0]}/>
-        }
-    }
-
+    // Variables
     const style = {                         
         layout: 'vertical',
         color:  'gold',
@@ -21,11 +14,19 @@ function ValidationAchat({annonce}) {
         label:  'paypal'};
 
     const navigate = useNavigate();
-        // const amount = "5";
     const amount = annonce.prix;
     const currency = "EUR";
     const connectedUser = JSON.parse(sessionStorage.getItem("user")).pseudo;
 
+    // Fonction pour afficher l'image
+    const displayImage = () => {
+        if(annonce.image !== undefined){
+            if(annonce.image.length === 0) return <img className="PageValider-Image" src={require('../../assets/default.png')}/>
+            else return <img className="PageValider-Image" src={annonce.image[0]}/>
+        }
+    }
+
+    // Affichage HTML
     return (
         <div className="PageValider">
             <p className='PageValider-Titre'>ACHAT</p>
@@ -37,7 +38,6 @@ function ValidationAchat({annonce}) {
                 </div>
             </div>
             <div className='PageValider-DivBouton'>
-                {/* <button className='PageValider-Bouton'>CONFIRMER L'ACHAT</button> */}
                 <PayPalScriptProvider options={{ "client-id": "Af6eNd93COGamQLT09xSok7j9AEc9i3_Xop6mmpaTsJQ7S0usEF5iJqfVOIHrr7kh2A3rX2qAjrZVUPc", currency: "EUR" }}>
                     <PayPalButtons
                         style={style}
@@ -53,15 +53,10 @@ function ValidationAchat({annonce}) {
                                                 currency_code: currency,
                                                 value: amount,
                                             },
-                                            // payee: {
-                                            //     email_address: "sb-43474ut23415175@business.example.com"
-                                            // //     merchant_id:
-                                            // }
                                         },
                                     ],
                                 })
                                 .then((orderId) => {
-                                    // Your code here after create the order
                                     return orderId;
                                 });
                             return orderId;

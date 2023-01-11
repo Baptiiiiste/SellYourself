@@ -6,12 +6,11 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
+// Composant qui représente le formulaire pour modifier une annonce 
 function ModifAnnonce() {
-
+    // Variables
     const navigate = useNavigate();
-
     const connectedUser = sessionStorage.getItem("user");
-
     const params = useParams();
 
     let [titre, setTitre] = useState("");
@@ -25,14 +24,13 @@ function ModifAnnonce() {
     let [actualtitre, setactualTitre] = useState("");
     let [actualdescription, setactualDescription] = useState("");
     let [actualprix, setactualPrix] = useState("");
-    let [actualcategorie, setactualCategorie] = useState("Autre");
-    let [actualtype, setactualType] = useState("Bien");
     let [actualimage, setactualImage] = useState([]);
 
     useEffect(() => {
         getAnnonce()
     }, [])
 
+    // Fonction pour convertir un fichier en base64
     const toBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -46,6 +44,7 @@ function ModifAnnonce() {
         });
     };
 
+    // Fonction pour supprimer une image
     const deleteImage = (img) => {
         const div = document.querySelector('.ModifAnnonce-LesImages');
         const buttonImage = document.getElementById(img);
@@ -56,6 +55,7 @@ function ModifAnnonce() {
         }
     }
 
+    // Fonction pour afficher le conteneur des images
     const displayImageDiv = () => {
         if (actualimage !== undefined) {
             if (actualimage.length !== 0) {
@@ -68,6 +68,7 @@ function ModifAnnonce() {
         }
     }
 
+    // Fonction pour afficher les images
     const displayImage = async () => {
         const div = document.querySelector('.ModifAnnonce-LesImages');
         const files = document.querySelector('.ModifAnnonce-Image').files;
@@ -109,6 +110,7 @@ function ModifAnnonce() {
         }
     }
 
+    // Fonction pour valider le formulaire et envoyer l'annonce en base de données
     const formulaire = async () => {
         const nbImage = image.length;
 
@@ -159,6 +161,7 @@ function ModifAnnonce() {
         }
     }
 
+    // Fonction qui récupère l'annonce
     const getAnnonce = async () => {
         let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
@@ -171,8 +174,6 @@ function ModifAnnonce() {
         setactualTitre(result.titre);
         setactualDescription(result.description);
         setactualPrix(result.prix);
-        setactualCategorie(result.categorie);
-        setactualType(result.type);
         setactualImage(result.image);
 
         setTitre(result.titre);
@@ -183,6 +184,7 @@ function ModifAnnonce() {
         setImage(result.image);
     }
 
+    // Affichage HTML
     return(
             <div className="ModifAnnonce-Input">
                 <input type="text"
