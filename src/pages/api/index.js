@@ -493,7 +493,7 @@ app.post('/api/resetPassword', async(req, resp)=>{
 
     const token = req.body.token;
 
-    const password = req.body.password;
+    const passwordGet = req.body.hashPassword;
 
 
     const newUser = await User.findOne({pseudo: pseudo});
@@ -507,7 +507,12 @@ app.post('/api/resetPassword', async(req, resp)=>{
 
     try{
         const verifySecret = Jwt.verify(token,secret);
+        await User.updateOne(
+            { pseudo: pseudo  },
+            { $set: {password: passwordGet} }
+        )
         resp.send({result:"Mot de passe modifié avec succès !"});
+        
     } catch(err) {
         resp.send({result:"Session expiré, veuillez recommencer"});
     }

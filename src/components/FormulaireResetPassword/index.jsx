@@ -50,6 +50,7 @@ function FormulaireResetPassword() {
             result = await result.json();
             alert(result.result);
             if(result.result !== "Lien invalide, veuillez réessayer" && result.result !== "Session expiré, veuillez recommencer"){
+                sessionStorage.clear();
                 navigate("/connexion");
             }
         }
