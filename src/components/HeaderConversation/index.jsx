@@ -5,14 +5,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
 
 // Composant qui représente les information sur l'annonce dans la page d'une conversation
 function HeaderConversation({ image, titre, description, id, vendu, user}) {
   // Variable
-  const param = useParams();
   const connectedUser = sessionStorage.getItem("user");
-  const nav = useNavigate();
 
   // Fonction pour afficher les images
   const displayImage = () => {
@@ -22,6 +19,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
+  // Fonction pour changer l'affichage si l'annonce est vendu
   const isVendu = async () => {
     let result = await fetch(`http://localhost:5000/api/getAchat`, {
       method: "Post",
@@ -41,6 +39,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
+  // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
     let result = await fetch(`http://localhost:5000/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
       method: "Get",
@@ -50,14 +49,18 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       }
     });
     result = await result.json();
+
     if(result.isNoted && vendu && JSON.parse(connectedUser).pseudo !== user){
       const divNote = document.getElementsByClassName("HeaderConversation-div-note")[0];
       const div = document.getElementsByClassName("HeaderConversation-div-isNoted")[0];
+
       if(divNote !== undefined && div !== undefined){
         divNote.style.display = 'none';
         div.style.display = 'block';
+
         for(var i=1; i<=result.note; i++){
           let button = document.getElementById("buttonNoted-"+i);
+
           if(button !== undefined){
             button.style.color = '#d48002'
           }
@@ -66,6 +69,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
+  // Fonction pour ajouter une note
   const addNote = async (note) => {
     await fetch(`http://localhost:5000/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
       method: "Post",
@@ -86,6 +90,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     window.location.reload(false);
   }
 
+  // Fonction d'affichage des étoiles pour la note
   const colorButton = (note) => {
     for(var i=1; i<=note; i++){
       let button = document.getElementById("button-"+i);
@@ -95,6 +100,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
+  // Fonction d'affichage des étoiles pour la note
   const deColorButton = (note) => {
     for(var i=1; i<=note; i++){
       let button = document.getElementById("button-"+i);
@@ -104,6 +110,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     }
   }
 
+  // Fonction pour supprimer une note
   const deleteNote = async () => {
     await fetch(`http://localhost:5000/api/note/delete`, {
       method: "Post",

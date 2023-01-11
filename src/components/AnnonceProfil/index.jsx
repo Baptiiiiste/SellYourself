@@ -44,15 +44,17 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner, vendu}
     // Fonction pour afficher les images
     const displayImage = () => {
         if(img_annonce !== undefined){
-            if(img_annonce.length === 0) return <img className="UneAnnonceDetaillee-image" src={require('../../assets/default.png')} alt=""/>
-            else return <img className="UneAnnonceDetaillee-image" src={img_annonce[0]}  alt=""/>
+            if(img_annonce.length === 0) return <img className="AnnonceProfil-image" src={require('../../assets/default.png')} alt=""/>
+            else return <img className="AnnonceProfil-image" src={img_annonce[0]}  alt=""/>
         }
     }
     
+    // Fonction pour aller à la page de modification de l'annonce
     const redirectToModifAd = () => {
         navigate(`/modifier/${id}`);
     }
 
+    // Fonction pour changer l'affichage si l'annonce est vendu
     const isVendu = (id) => {
         const div = document.getElementById("all" + id);
         const edit = document.getElementById("edit" + id);
@@ -66,23 +68,23 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner, vendu}
 
     // Affichage HTML
     return(
-        <div className="UneAnnonceDetaillee-all" id={"all" + id}>
-            <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
-                <p className="UneAnnonceDetaillee-titre">{titre}</p>
+        <div className="AnnonceProfil-all" id={"all" + id}>
+            <div className='AnnonceProfil-info' onClick={redirectToAd}>
+                <p className="AnnonceProfil-titre">{titre}</p>
                 <div className='UneAnnonce-descriptionImage'>
                     {displayImage()}
-                    <p className="UneAnnonceDetaillee-description">{description}</p>
+                    <p className="AnnonceProfil-description">{description}</p>
                 </div>
                 
             </div>
-            <div className='UneAnnonceDetaillee-other'>
-                <button className="UneAnnonceDetaillee-delete" onClick={deleteAd}>
-                    <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faTrashCan} />
+            <div className='AnnonceProfil-other'>
+                <button className="AnnonceProfil-delete" onClick={deleteAd}>
+                    <FontAwesomeIcon className="AnnonceProfil-icon" icon={faTrashCan} />
                 </button>
-                <button className="UneAnnonceDetaillee-edit" id={"edit" + id} onClick={redirectToModifAd}>
-                    <FontAwesomeIcon className="UneAnnonceDetaillee-icon" icon={faPen}/>
+                <button className="AnnonceProfil-edit" id={"edit" + id} onClick={redirectToModifAd}>
+                    <FontAwesomeIcon className="AnnonceProfil-icon" icon={faPen}/>
                 </button>
-                <p className="UneAnnonceDetaillee-prix">{prix} €</p>
+                <p className="AnnonceProfil-prix">{prix} €</p>
             </div>
         </div>
     )

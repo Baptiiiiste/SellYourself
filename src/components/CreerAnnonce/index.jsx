@@ -30,6 +30,7 @@ function CreerAnnonce() {
         });
     };
 
+    // Fonction pour supprimer une image
     const deleteImage = (img) => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
         const buttonImage = document.getElementById(img);

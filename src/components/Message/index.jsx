@@ -3,8 +3,12 @@ import './Message.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
+// Composant qui représente un message
 function Message({ photo, nom, prenom, text }) {
+    // Variables
     const init = nom[0].toUpperCase();
+
+    // Affichage HTML
     return(
         <div className='Message'>
             <div className='Message-vendeur'>

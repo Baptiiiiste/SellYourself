@@ -1,3 +1,4 @@
+// Import
 import './modifAnnonce.css';
 import React from 'react';
 import {categories} from '../../assets/data'
@@ -12,8 +13,6 @@ function ModifAnnonce() {
     const connectedUser = sessionStorage.getItem("user");
 
     const params = useParams();
-
-    // const [oldAnnonce, setOldAnnonce] = useState("");
 
     let [titre, setTitre] = useState("");
     let [description, setDescription] = useState("");
