@@ -1,3 +1,4 @@
+// Import
 import "./Conversation.css";
 import React from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
@@ -10,20 +11,18 @@ import { useParams } from "react-router-dom";
 
 // Page de conversation (propre à deux utilisateurs et une annonce)
 function Conversation() {
+    // Variables
+    const [annonce, setAnnonce] = useState([]);
+    const params = useParams();
 
-    // Appel de fonction pour récupérer l'annonce sujette de la conversation
     useEffect(() => {
         getAnnonce();
     }, [])
 
-    // Déclaration de la variable annonce
-    const [annonce, setAnnonce] = useState([]);
-    // Pour pouvoir récupérer un paramètre passer par l'URL
-    const params = useParams();
+    
 
-    // Fonction pour récupérer l'annonce sujette de la conversation
+    // Fonction pour récupérer l'annonce de la conversation
     const getAnnonce = async () => {
-        // Requête à l'API pour récupérer les informations d'une annonce
         let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
                 method: "Get",
                 headers: {
@@ -31,13 +30,11 @@ function Conversation() {
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                 }
             });
-        // On récupère les résultats de la requête
         result = await result.json();
-        // On met les données dans la variable annonce
         setAnnonce(result);
     }
 
-    // On return l'HTML de la page
+    // Affichage HTML 
     return (
         <div className='Conversation'>
             <LeftBar/>

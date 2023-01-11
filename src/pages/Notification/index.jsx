@@ -1,3 +1,4 @@
+// Import
 import "./Notification.css";
 import React from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
@@ -5,18 +6,18 @@ import Notification from "../../components/PageNotification";
 import LeftBar from "../../components/LeftBar";
 import {useState, useEffect} from 'react';
 
-
+// Page des notifications
 function Notifications() {
+    // Variables
     let connectedUser = sessionStorage.getItem("user");
+    const [notifs, setNotifs] = useState([]);
 
 	useEffect(() => {
 		getUserNotif();
 	}, [])
 
-    const [notifs, setNotifs] = useState([]);
-
+    // Fonction pour supprimer toutes les notifications
     const deleteAllNotifs = async () => {
-    
         await fetch(`http://localhost:5000/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
             method: "delete",
             headers: {
@@ -28,8 +29,8 @@ function Notifications() {
         window.location.reload(false);
     }
 
+    // Fonction pour récupérer les notifications d'un utilisateur
     const getUserNotif = async () => {
-        let listNotifications = [];
         let a = await fetch(`http://localhost:5000/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}`, {
             method: "Get",
             headers: {
@@ -42,6 +43,7 @@ function Notifications() {
         })
 	}
 	
+    // Affichage HTML
     return (
         <div className='Notifications'>
             <LeftBar/>

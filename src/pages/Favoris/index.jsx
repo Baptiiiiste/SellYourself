@@ -1,42 +1,24 @@
+// Import
 import "./Favoris.css";
 import React from 'react';
+import { useState, useEffect } from "react";
 import HeaderCustom from "../../components/HeaderCustom";
 import UneAnnonceDetaillee from "../../components/UneAnnonceDetaillee";
 import LeftBar from "../../components/LeftBar";
-import { useState, useEffect } from "react";
 
-/*const connectedUser = sessionStorage.getItem("user");
-
-const getUserFavs = async () => {
-    let favoris = await fetch(`http://localhost:5000/api/favoris/${JSON.parse(connectedUser).pseudo}`, {
-        method: "Get",
-        headers: {
-            'Content-Type': 'Application/json'
-        }
-    });
-    favoris = favoris.json();
-    return favoris
-}*/
-
-// Fonction de la page Favoris
+// Page Favoris
 function Favoris() {
-
-    // On récupère l'utilisateur connecté
+    // Variables
     let connectedUser = sessionStorage.getItem("user");
+    const [favoris, setAnnonces] = useState([]);
 
-    // On appel la fonction pour récupérer les favoris de l'utilisateur connecté
 	useEffect(() => {
 		getUserFavs();
 	}, [])
 
-    // Déclarations de la variable qui contiendra les annonces favorites de l'utilisateur
-    const [favoris, setAnnonces] = useState([]);
-
-    // On récupère la liste des annonces favorites dans la variables précédemment déclarée
+    // Fonction pour récupérer les favoris d'un utilisateur
     const getUserFavs = async () => {
 		let listFavs = [];
-        // On récupère une liste d'id des annonces favorites stockées dans le navigateur (session storage)
-        // et pour chaque id, on ajoute les informations de l'annonce à listFavs à l'aide de l'API
 		for(let i = 0; i < (JSON.parse(connectedUser).favoris).length; i++){
 			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).favoris[i]}`, {
 				method: "Get",
@@ -47,11 +29,10 @@ function Favoris() {
 			});
 			a = await a.json().then(a => listFavs.push(a));
 		}
-        // On met les informations stockés dans listFavs dans favoris
 		setAnnonces(listFavs)
 	}
 	
-    // Fonction utilisée pour afficher une seule annonce
+    // Fonction pour afficher un favoris
 	const displayFavoris = (item, index) => {
 		const favoris = item;
 	
@@ -67,7 +48,7 @@ function Favoris() {
             />)
     }
 
-    // retourne l'HTML de la page
+    // Affichage HTML
     return (
         <div className='Favoris'>
             <LeftBar/>

@@ -1,36 +1,25 @@
+// Import
 import "./Inscription.css"
 import React from 'react';
 import FormulaireInscription from '../../components/FormulaireInscription';
 import HeaderCustom from '../../components/HeaderCustom';
 
-function reloadPage() {
-  var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
-  // Current Time //
-  var now = Date.now();
-  // Total Process Lenght as Minutes //
-  var tenSec = 1 * 1000;
-  // End Time of Process //
-  var plusTenSec = currentDocumentTimestamp + tenSec;
-  if (now > plusTenSec) {
-    window.location.reload();
-  }
-}
-
+// Page inscription
 function Inscription() {
-
-  // useEffect(()=>{
-  //     if( window.sessionStorage )
-  //     {
-  //       if( sessionStorage.getItem('firstLoad') !== 'true')
-  //       {
-  //         sessionStorage['firstLoad'] = 'true';
-  //         window.location.reload(false);
-  //       }  
-  //     }
-  // },[])
-
+  // Fonction pour recharger la page
+  const reloadPage = () => {
+    var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+    var now = Date.now();
+    var tenSec = 1 * 1000;
+    var plusTenSec = currentDocumentTimestamp + tenSec;
+    if (now > plusTenSec) {
+      window.location.reload();
+    }
+  }
 
   reloadPage();
+
+  // Affichage HTML
   return(
     <div className="Inscription">
       <HeaderCustom title="logForm" className="Inscription-header"/>

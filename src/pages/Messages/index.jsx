@@ -1,3 +1,4 @@
+// Import
 import "./Messages.css";
 import React from 'react';
 import { Link } from "react-router-dom";
@@ -8,28 +9,11 @@ import LeftBar from "../../components/LeftBar";
 const messages = [
     {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},
     {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
 ]
 
+// Page message
 function Messages() {
+    // Affichage HTML
     return (
         <div className='Messages'>
             <LeftBar/>
