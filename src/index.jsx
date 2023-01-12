@@ -35,9 +35,9 @@ root.render(
           <Route path="/profil" element={<Profil/>} />
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
-          <Route path='/conversation/:annonce' element={<Conversation/>} />
           <Route path='/validation/:utilisateur/:annonce' element={<ValiderAchat/>} />
           <Route path='/modifier/:annonce' element={<ModifierAnnonce/>} />
+          <Route path='/chat/:annonce/:vendeur/:acheteur' element={<Conversation/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />

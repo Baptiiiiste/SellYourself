@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { bool } = require("prop-types");
 
 const userSchema = new mongoose.Schema({
     pseudo: {type: String, index: { unique: true }},
@@ -16,6 +15,7 @@ const userSchema = new mongoose.Schema({
     notifications: [],
     annonces: {type: [String] },
     favoris: [],
+    conversations: {type: [String] }
 });
 
 const annonceSchema = new mongoose.Schema({
@@ -45,11 +45,24 @@ const achatSchema = new mongoose.Schema({
     annonce: {type: String, required: true}
 });
 
+const conversationSchema = new mongoose.Schema({
+    acheteur: {type: String, required: true},
+    vendeur: {type: String, required: true},
+    annonce: {type: String, required: true},
+    messages: []
+});
+
+const messageSchema = new mongoose.Schema({
+    author: {type: String, required: true},
+    content: {type: String, required: true},
+});
 
 module.exports = {
     User: mongoose.model("users", userSchema),
     Annonce: mongoose.model("annonces", annonceSchema),
     Note: mongoose.model("notes", noteSchema),
     Notification: mongoose.model("notifications", notificationSchema),
-    Achat: mongoose.model("achats", achatSchema)
+    Achat: mongoose.model("achats", achatSchema),
+    Conversation: mongoose.model("conversations", conversationSchema),
+    Message: mongoose.model("messages", messageSchema)
 }

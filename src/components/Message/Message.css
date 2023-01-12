@@ -41,26 +41,11 @@
 }
 
 .Message-vendeur p{
-    margin: 5px;
     font-size: 24px;
     font-weight: bold;
 }
 
 .Message-button{
     height: 40px;
-    width: 40px;
-    border: 0;
-    border-radius: 500px;
-    background-color:var(--rouge);
-}
-
-.Message-button:hover{
-    background-color:var(--rougeFoncé);
-    cursor: pointer;
-}
-
-.Message-delete{
-    height: 20px;
-    width: 20px;
-    color: white;
+    width: 220px;
 }

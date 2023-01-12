@@ -2,9 +2,10 @@
 import './infoAnnonce.css'
 import Loader from '../../components/Loader/index';
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
+
 
 // Composant qui représente les infomations d'un utilisateur pour une annonce
 function Utilisateur({ pseudo, prenom, nom, note, nbNote, description, localisation, image }) {
@@ -48,6 +49,8 @@ function Annonce({ titre, description, photos }) {
     )
 }
 
+
+
 // Composant qui représente les infomations générales d'une annonce
 function InfoAnnonce() {
     // Variables
@@ -58,11 +61,32 @@ function InfoAnnonce() {
     const note = userAll[1];
     const nbNote = userAll[2];
     const connectedUser = sessionStorage.getItem("user");
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAnnonce();
         getUser();
     }, [])
+
+    const accessChat = async () => {
+        let result = await fetch(`http://localhost:5000/api/accessChat/${annonce._id}/${params.utilisateur}/${JSON.parse(connectedUser).pseudo}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
+        result = await result.json();
+        if(result.erreur){
+            return console.log(result.erreur);
+        }
+
+        if(result.user){
+            sessionStorage.removeItem("user");
+            sessionStorage.setItem("user", JSON.stringify(result.user));
+        }
+        
+        if(result.success) {
+            navigate(result.success);
+        }
+
+    }
 
     // Fonction pour récupérer une annonce
     const getAnnonce = async () => {
@@ -153,7 +177,7 @@ function InfoAnnonce() {
                 <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
                     <Link className='InfoAnnonce-Achat' to={'/validation/' + user.pseudo + "/" + annonce._id}>Acheter</Link>
-                    <Link className='InfoAnnonce-BoutonMessage' to={'/conversation/' + annonce._id}>Contacter</Link>
+                    <button className='InfoAnnonce-BoutonMessage' onClick={accessChat} >Contacter</button>
                 </div>
             </div>
             <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image} />
