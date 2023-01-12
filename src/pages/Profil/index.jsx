@@ -19,8 +19,8 @@ function Profil() {
 	// Fonction pour récupérer les annonces de l'utilisateur
     const getUserAds = async () => {
 		let listAds = [];
-		for(let i = 0; i < (JSON.parse(connectedUser).annonces).length; i++){
-			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).annonces[i]}`, {
+		for(let annonce of JSON.parse(connectedUser).annonces){
+			let a = await fetch(`http://localhost:5000/api/annonce/${annonce}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',

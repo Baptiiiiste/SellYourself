@@ -1,7 +1,7 @@
 // Import 
 import "./HeaderConversation.css"
 import React from 'react';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
@@ -58,7 +58,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
         divNote.style.display = 'none';
         div.style.display = 'block';
 
-        for(var i=1; i<=result.note; i++){
+        for(let i=1; i<=result.note; i++){
           let button = document.getElementById("buttonNoted-"+i);
 
           if(button !== undefined){
@@ -92,7 +92,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction d'affichage des étoiles pour la note
   const colorButton = (note) => {
-    for(var i=1; i<=note; i++){
+    for(let i=1; i<=note; i++){
       let button = document.getElementById("button-"+i);
       if(button !== undefined){
         button.style.color = '#d48002'
@@ -102,7 +102,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction d'affichage des étoiles pour la note
   const deColorButton = (note) => {
-    for(var i=1; i<=note; i++){
+    for(let i=1; i<=note; i++){
       let button = document.getElementById("button-"+i);
       if(button !== undefined){
         button.style.color = '#9A9797'

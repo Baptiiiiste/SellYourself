@@ -1,10 +1,9 @@
 // Import
 import "./Notification.css";
-import React from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
 import Notification from "../../components/PageNotification";
 import LeftBar from "../../components/LeftBar";
-import {useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 
 // Page des notifications
 function Notifications() {

@@ -6,12 +6,6 @@ const Jwt = require("jsonwebtoken");
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
 
-
-//const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
-
-
-
-
 // Création de l'API
 const app = express();
 app.use(express.json({limit: '25mb'}));

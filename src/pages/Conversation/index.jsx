@@ -1,12 +1,11 @@
 // Import
 import "./Conversation.css";
-import React from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
 import LeftBar from "../../components/LeftBar";
 import HeaderConversation from "../../components/HeaderConversation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import {useState, useEffect} from 'react';
+import { React, useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 
 // Page de conversation (propre à deux utilisateurs et une annonce)

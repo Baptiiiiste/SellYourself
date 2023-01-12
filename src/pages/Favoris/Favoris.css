@@ -16,10 +16,6 @@
     padding: 20px;
 }
 
-.Favoris{
-    display: flex;
-}
-
 .Favoris-annonce{
     text-decoration: none;
     color: black;

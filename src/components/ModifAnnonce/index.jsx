@@ -1,10 +1,8 @@
 // Import
 import './modifAnnonce.css';
-import React from 'react';
 import {categories} from '../../assets/data'
-import { useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 
 // Composant qui représente le formulaire pour modifier une annonce 
 function ModifAnnonce() {
@@ -24,8 +22,6 @@ function ModifAnnonce() {
     let [actualtitre, setactualTitre] = useState("");
     let [actualdescription, setactualDescription] = useState("");
     let [actualprix, setactualPrix] = useState("");
-    let [actualcategorie, setactualCategorie] = useState("Autre");
-    let [actualtype, setactualType] = useState("Bien");
     let [actualimage, setactualImage] = useState([]);
 
     useEffect(() => {
@@ -45,15 +41,12 @@ function ModifAnnonce() {
         setactualTitre(result.titre);
         setactualDescription(result.description);
         setactualPrix(result.prix);
-        setactualCategorie(result.categorie);
-        setactualType(result.type);
         setactualImage(result.image);
 
         setTitre(result.titre);
         setDescription(result.description);
         setPrix(result.prix);
         setCategorie(result.categorie);
-        console.log(result)
         setType(result.type);
         setImage(result.image);
     }
@@ -77,7 +70,7 @@ function ModifAnnonce() {
         const div = document.querySelector('.ModifAnnonce-LesImages');
         const buttonImage = document.getElementById(img);
         div.removeChild(buttonImage);
-        var index = image.indexOf(img);
+        let index = image.indexOf(img);
         if (index > -1) {
             image.splice(index, 1);
         }
@@ -107,15 +100,15 @@ function ModifAnnonce() {
             alert("Vous ne pouvez choisir plus de 5 images !")
         }
         else{
-            for (let i = 0; i<files.length; i++){
-                const extension = files[i].name.split('.').pop().toLowerCase();
-                const size = files[i].size;
+            for (let file of files){
+                const extension = file.name.split('.').pop().toLowerCase();
+                const size = file.size;
 
                 if(size > 2097152){
-                    alert(`La taille de ce fichier (${files[i].name}) est trop grand`)
+                    alert(`La taille de ce fichier (${file.name}) est trop grand`)
                 } else {
                     if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
-                        const imageBase64 = await toBase64(files[i]);
+                        const imageBase64 = await toBase64(file);
 
                         const img = document.createElement('img');
                         img.src= imageBase64;

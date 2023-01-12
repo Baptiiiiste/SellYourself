@@ -1,7 +1,6 @@
 // Import 
 import './PageValider.css'
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import { PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useNavigate } from 'react-router-dom'
 
 // Composant qui représente l'achat d'une annonce

@@ -1,10 +1,9 @@
 // Import 
 import './UneAnnonce.css'
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons'
-import { useEffect } from 'react';
+import { useEffect, React } from 'react';
 
 // Composant qui représente le vendeur
 function Vendeur({pseudo, photo, note}){

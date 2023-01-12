@@ -52,15 +52,16 @@ function CreerAnnonce() {
             image.forEach(element => {
                 lesImages.push(element)
             });
-            for (let i = 0; i<files.length; i++){
-                const extension = files[i].name.split('.').pop().toLowerCase();
-                const size = files[i].size;
+
+            for (let fichier of files){
+                const extension = fichier.name.split('.').pop().toLowerCase();
+                const size = fichier.size;
 
                 if(size > 2097152){
-                    alert(`La taille de ce fichier (${files[i].name}) est trop grand`)
+                    alert(`La taille de ce fichier (${fichier.name}) est trop grand`)
                 } else {
                     if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
-                        const imageBase64 = await toBase64(files[i]);
+                        const imageBase64 = await toBase64(fichier);
 
                         const img = document.createElement('img');
                         img.src= imageBase64;

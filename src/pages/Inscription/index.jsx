@@ -8,10 +8,10 @@ import HeaderCustom from '../../components/HeaderCustom';
 function Inscription() {
   // Fonction pour recharger la page
   const reloadPage = () => {
-    var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
-    var now = Date.now();
-    var tenSec = 1 * 1000;
-    var plusTenSec = currentDocumentTimestamp + tenSec;
+    let currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+    let now = Date.now();
+    let tenSec = 1 * 1000;
+    let plusTenSec = currentDocumentTimestamp + tenSec;
     if (now > plusTenSec) {
       window.location.reload();
     }

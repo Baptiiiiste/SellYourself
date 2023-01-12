@@ -1,7 +1,6 @@
 // Import
 import "./Favoris.css";
-import React from 'react';
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import HeaderCustom from "../../components/HeaderCustom";
 import UneAnnonceDetaillee from "../../components/UneAnnonceDetaillee";
 import LeftBar from "../../components/LeftBar";
@@ -19,8 +18,8 @@ function Favoris() {
     // Fonction pour récupérer les favoris d'un utilisateur
     const getUserFavs = async () => {
 		let listFavs = [];
-		for(let i = 0; i < (JSON.parse(connectedUser).favoris).length; i++){
-			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).favoris[i]}`, {
+		for(let fav of JSON.parse(connectedUser).favoris){
+			let a = await fetch(`http://localhost:5000/api/annonce/${fav}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',
