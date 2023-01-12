@@ -35,8 +35,13 @@ export const categories = [
     { name: "Instrument"},
     { name: "Bricolage"},
     { name: "Jardinage"},
+    { name: "Véhicule"},
 
     // Autres: 
 
     { name: "Autre"},
   ]
+
+export const URLapi = "http://localhost:5000/";
+
+export const URLsite = "http://localhost:3000/";

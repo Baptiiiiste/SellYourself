@@ -30,6 +30,13 @@ function CreerAnnonce() {
         });
     };
 
+    // Fonction pour supprimer une image
+    const deleteImage = (img) => {
+        const div = document.querySelector('.CreerAnnonce-LesImages');
+        const buttonImage = document.getElementById(img);
+        div.removeChild(buttonImage);
+    }
+
     // Fonction pour afficher les images
     const displayImage = async () => {
         const div = document.querySelector('.CreerAnnonce-LesImages');
@@ -45,21 +52,28 @@ function CreerAnnonce() {
             image.forEach(element => {
                 lesImages.push(element)
             });
-            for (let i = 0; i<files.length; i++){
-                const extension = files[i].name.split('.').pop().toLowerCase();
-                const size = files[i].size;
+
+            for (let fichier of files){
+                const extension = fichier.name.split('.').pop().toLowerCase();
+                const size = fichier.size;
 
                 if(size > 2097152){
-                    alert(`La taille de ce fichier (${files[i].name}) est trop grand`)
+                    alert(`La taille de ce fichier (${fichier.name}) est trop grand`)
                 } else {
                     if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
-                        const imageBase64 = await toBase64(files[i]);
+                        const imageBase64 = await toBase64(fichier);
 
                         const img = document.createElement('img');
                         img.src= imageBase64;
                         img.className ='CreerAnnonce-img';
                         img.alt = "";
-                        div.appendChild(img);
+
+                        const button = document.createElement('button');
+                        button.className = "CreerAnnonce-button-img";
+                        button.id = imageBase64;
+                        button.onclick = () => {deleteImage(imageBase64)};
+                        button.appendChild(img)
+                        div.appendChild(button);
 
                         lesImages.push(imageBase64);
                     } else {
@@ -75,8 +89,9 @@ function CreerAnnonce() {
     const formulaire = async () => {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/user/${JSON.parse(connectedUser).pseudo}`, {
-            method: 'Get',
+        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
+            method: 'Post',
+            body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
                 'Content-Type': 'Application/json',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -99,16 +114,16 @@ function CreerAnnonce() {
         if(description && /[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(description)){
             alert("La description est invalide");
         }
-        if(prix <0){
+        if(prix <= 0){
             alert("Le prix doit être positif");
         }
         if(categorie.length === 0){
             setCategorie('Autre');
         }
-        else if(titre && prix && nbImage > 0 && prix <= 99999){
-            let result = await fetch(`http://localhost:5000/api/publier/${JSON.parse(connectedUser).pseudo}`, {
+        else if(titre && prix && nbImage > 0 && prix <= 99999 && JSON.parse(connectedUser).paypal.length !== 0){
+            let result = await fetch(`http://localhost:5000/api/publier`, {
                 method: 'Post',
-                body: JSON.stringify({titre, description, image, prix, type, categorie}),
+                body: JSON.stringify({titre, description, image, prix, type, categorie, vendeur: JSON.parse(connectedUser).pseudo}),
                 headers: {
                     'Content-Type': 'Application/json',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`

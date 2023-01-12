@@ -1,18 +1,21 @@
+// Import
 import './validation.css';
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import Validation from '../../components/PageValider';
 import HeaderCustom from '../../components/HeaderCustom';
 
+// Page pour valider un achat
 function ValiderAchat() {
+  // Variables
+  const [annonce, setAnnonce] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
     getAnnonce();
   }, [])
 
-  const [annonce, setAnnonce] = useState([]);
-  const params = useParams();
-
+  // Fonction pour récupérer une annonce
   const getAnnonce = async () => {
       let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
 				method: "Get",
@@ -25,6 +28,7 @@ function ValiderAchat() {
       setAnnonce(result);
   }
 
+  // Affichage HTML
   return(
     <div className="Achat">
       <HeaderCustom title="valid" className="Achat-header"/>

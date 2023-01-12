@@ -95,9 +95,8 @@
     display: flex;
     justify-content: flex-end;
     font-weight: bold;
-    margin-top: 100px;
+    margin: 100px 10px 10px 10px;
     flex-direction: column;
-    margin: 10px;
     align-items: center;
 }
 

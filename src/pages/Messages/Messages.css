@@ -16,10 +16,6 @@
     padding: 20px;
 }
 
-.Messages{
-    display: flex;
-}
-
 .Messages-all{
     text-decoration: none;
     color: black;

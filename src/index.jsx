@@ -1,8 +1,9 @@
+// Import
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './index.css';
 import Home from './pages/Home/index';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Connexion from './pages/Connexion';
 import Annonce from './pages/Annonce';
 import Inscription from './pages/Inscription';
@@ -16,9 +17,11 @@ import Conversation from './pages/Conversation';
 import Erreur from './pages/404';
 import ValiderAchat from './pages/ValiderAchat';
 import Categorie from './pages/Categorie';
+import ModifierAnnonce from './pages/ModifierAnnonce';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// Création du rootage
 root.render(
   <React.StrictMode>
     <Router>
@@ -34,8 +37,9 @@ root.render(
           <Route path="/profil" element={<Profil/>} />
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
-          <Route path='/conversation/:utilisateur/:annonce' element={<Conversation/>} />
+          <Route path='/conversation/:annonce' element={<Conversation/>} />
           <Route path='/validation/:utilisateur/:annonce' element={<ValiderAchat/>} />
+          <Route path='/modifier/:annonce' element={<ModifierAnnonce/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />

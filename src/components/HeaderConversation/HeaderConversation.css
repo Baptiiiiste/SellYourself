@@ -19,7 +19,6 @@
 }
 
 .HeaderConversation-image{
-    width: 150px;
     height: 100px;
     border-radius: 10px;
     margin-right: 10px;
@@ -45,16 +44,43 @@
     overflow-wrap: break-word;
 }
 
+.HeaderConversation-div-lien{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .HeaderConversation-lien{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     padding: 10px 20px 10px 20px;
     background-color: var(--orange);
     color: white;
     border-radius: 10px;
     text-decoration: none;
+    text-align: center;
     font-weight: bold;
+    margin: 5px;
 }
 
 .HeaderConversation-lien:hover{
     background-color: var(--orangeFoncé);
     cursor: pointer;
+}
+
+.HeaderConversation-div-note{
+    width: auto;
+}
+
+.HeaderConversation-div-lien button {
+    background-color: transparent;
+    border: 0;
+    padding: 2px;
+    font-size: 20px;
+    color: var(--grisFoncé);
+}
+
+.HeaderConversation-delete{
+    margin-left: 5px;
 }

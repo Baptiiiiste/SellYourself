@@ -1,26 +1,26 @@
+// Import
 import "./Profil.css";
-import {useState} from 'react';
-
+import { useState, useEffect} from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
 import InfoUtilisateur from "../../components/InfoUtilisateur";
 import LeftBar from "../../components/LeftBar";
-import { useEffect } from "react";
 import AnnonceProfil from "../../components/AnnonceProfil";
 
-
+// Page de profil utilisateur
 function Profil() {
+	// Variables
     let connectedUser = sessionStorage.getItem("user");
+	const [annonces, setAnnonces] = useState([]);
 
 	useEffect(() => {
 		getUserAds();
 	}, [])
 
-    const [annonces, setAnnonces] = useState([]);
-
+	// Fonction pour récupérer les annonces de l'utilisateur
     const getUserAds = async () => {
 		let listAds = [];
-		for(let i = 0; i < (JSON.parse(connectedUser).annonces).length; i++){
-			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).annonces[i]}`, {
+		for(let annonce of JSON.parse(connectedUser).annonces){
+			let a = await fetch(`http://localhost:5000/api/annonce/${annonce}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',
@@ -32,6 +32,7 @@ function Profil() {
 		setAnnonces(listAds)
 	}
 	
+	// fonction pour afficher une annonce
 	const displayAnnonce = (item, index) => {
 		const annonce = item;
 	
@@ -41,12 +42,13 @@ function Profil() {
 			img_annonce={annonce.image}
 			id = {annonce._id}
 			owner = {[(JSON.parse(connectedUser).pseudo), (JSON.parse(connectedUser)._id)]}
+			vendu = {annonce.vendu}
 			key={index}
 		/>)
-	  }
+	}
 
     
-
+	// Affichage HTML
     return (
         <div className='Profil'>
             <LeftBar />

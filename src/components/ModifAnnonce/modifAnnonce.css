@@ -1,6 +1,6 @@
 @import "../../assets/variable.css";
 
-.CreerAnnonce-Input {
+.ModifAnnonce-Input {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +8,7 @@
     padding: 20px;
 }
 
-.CreerAnnonce-Titre, .CreerAnnonce-Description, .CreerAnnonce-Prix, .CreerAnnonce-Categorie {
+.ModifAnnonce-Titre, .ModifAnnonce-Description, .ModifAnnonce-Prix, .ModifAnnonce-Categorie {
     border: 0;
     border-bottom: 2px solid var(--orange);
     height: 30px;
@@ -18,11 +18,11 @@
     color: #696969
 }
 
-.CreerAnnonce-Description{
+.ModifAnnonce-Description{
     height: 80px;
 }
 
-.CreerAnnonce-BoutonSubmit {
+.ModifAnnonce-BoutonSubmit {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -30,11 +30,11 @@
     padding-right: 100px;
 }
 
-.CreerAnnonce-Image{
+.ModifAnnonce-Image{
     display: none;
 }
 
-.CreerAnnonce-LesImages{
+.ModifAnnonce-LesImages{
     display: flex;
     flex-direction: row;
     justify-content: stretch;
@@ -44,12 +44,12 @@
     margin-bottom: 30px;
 }
 
-.CreerAnnonce-LesImages img{
+.ModifAnnonce-LesImages img{
     height: 250px;
     margin: 0 15px;
 }
 
-.CreerAnnonce-Label{
+.ModifAnnonce-Label{
     border-radius: 5px;
     background-color: var(--orange);
     height: 50px;
@@ -63,13 +63,13 @@
     box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
-.CreerAnnonce-Label:hover{
+.ModifAnnonce-Label:hover{
     background: var(--orangeFoncé);
     transition: 0.3s;
     cursor: pointer;
 }
 
-.CreerAnnonce-Submit{
+.ModifAnnonce-Submit{
     font-size: 20px;
     background: var(--orange);
     color: white;
@@ -81,17 +81,17 @@
     box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
-.CreerAnnonce-Submit:hover{
+.ModifAnnonce-Submit:hover{
     background: var(--orangeFoncé);
     cursor: pointer;
     transition: 0.3s;
 }
 
-.CreerAnnonce-button-img{
+.ModifAnnonce-button-img{
     background-color: transparent;
     border: 0;
 }
 
-.CreerAnnonce-button-img:hover{
+.ModifAnnonce-button-img:hover{
     opacity: 50%;
 }

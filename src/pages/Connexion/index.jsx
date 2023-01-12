@@ -3,7 +3,9 @@ import React from 'react';
 import FormulaireConnexion from '../../components/FormulaireConnexion';
 import HeaderCustom from '../../components/HeaderCustom';
 
+// Page de connexion
 function Connexion() {
+  // Affichage HTML
   return(
     <div className="Connexion">
       <HeaderCustom title="logForm" className="Connexion-header"/>

@@ -1,21 +1,26 @@
+// Import
 import "./Conversation.css";
-import React from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
 import LeftBar from "../../components/LeftBar";
 import HeaderConversation from "../../components/HeaderConversation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import {useState, useEffect} from 'react';
+import { React, useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 
+// Page de conversation (propre à deux utilisateurs et une annonce)
 function Conversation() {
+    // Variables
+    const [annonce, setAnnonce] = useState([]);
+    const params = useParams();
+
     useEffect(() => {
         getAnnonce();
     }, [])
 
-    const [annonce, setAnnonce] = useState([]);
-    const params = useParams();
+    
 
+    // Fonction pour récupérer l'annonce de la conversation
     const getAnnonce = async () => {
         let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
                 method: "Get",
@@ -28,6 +33,7 @@ function Conversation() {
         setAnnonce(result);
     }
 
+    // Affichage HTML 
     return (
         <div className='Conversation'>
             <LeftBar/>
@@ -40,6 +46,9 @@ function Conversation() {
                         image={annonce.image}
                         titre={annonce.titre}
                         description={annonce.description}
+                        id={annonce._id}
+                        vendu={annonce.vendu}
+                        user={annonce.utilisateur}
                     />
                     <div className="Conversation-newMessage">
                         <input className="Conversation-bar" placeholder="Envoyer un message"/>

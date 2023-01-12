@@ -57,6 +57,7 @@ function InfoAnnonce() {
     const user = userAll[0];
     const note = userAll[1];
     const nbNote = userAll[2];
+    const connectedUser = sessionStorage.getItem("user");
 
     useEffect(() => {
         getAnnonce();
@@ -99,16 +100,42 @@ function InfoAnnonce() {
             }
         });
 
+        await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+            method: 'Post',
+            body: JSON.stringify({ type: "fav", content: `Votre annonce ${annonce.titre} a été liké`, destinataire: annonce.utilisateur }),
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            }
+        });
+
         result = await result.json();
 
-        if (result.erreur) {
-            return alert(result.erreur);
-        } else {
+        if (!result.erreur) {
             sessionStorage.removeItem("user");
             sessionStorage.setItem("user", JSON.stringify(result.user));
             window.location.reload(false);
         }
     }
+
+    // Fonction pour changer l'affichage si l'annonce est vendu
+    const isVendu = () => {
+        const div = document.getElementsByClassName("InfoAnnonce-isVendu")[0];
+        const achat = document.getElementsByClassName("InfoAnnonce-Achat")[0];
+        const contact = document.getElementsByClassName("InfoAnnonce-BoutonMessage")[0];
+        if(div !== undefined){
+            if(annonce.vendu){
+                achat.style.display = 'none';
+                div.style.display = 'block';
+            }
+            if(annonce.utilisateur === JSON.parse(connectedUser).pseudo){
+                achat.style.display = 'none';
+                contact.style.display = 'none';
+            }
+        }
+    }
+
+    isVendu();
 
     // Affichage HTML
     return (userAll.length === 0) ?
@@ -117,12 +144,16 @@ function InfoAnnonce() {
         )
         :
         (<div className='InfoAnnonce'>
+            <div className='InfoAnnonce-isVendu' style={{display: 'none'}}>
+                <p>L'annonce est vendue</p>
+            </div>
             <div className='InfoAnnonce-Haut'>
+                
                 <Utilisateur pseudo={user.pseudo} prenom={user.prenom} nom={user.nom} note={note} nbNote={nbNote} description={user.description} localisation={user.localisation} image={user.profilPic} />
                 <p className='InfoAnnonce-PrixAnnonce'> {annonce.prix} €</p>
                 <div className='InfoAnnonce-Boutons'>
                     <Link className='InfoAnnonce-Achat' to={'/validation/' + user.pseudo + "/" + annonce._id}>Acheter</Link>
-                    <Link className='InfoAnnonce-BoutonMessage' to={'/conversation/' + user.pseudo + "/" + annonce._id}>Contacter</Link>
+                    <Link className='InfoAnnonce-BoutonMessage' to={'/conversation/' + annonce._id}>Contacter</Link>
                 </div>
             </div>
             <Annonce titre={annonce.titre} description={annonce.description} photos={annonce.image} />

@@ -36,6 +36,7 @@ function Leftbar() {
   const logout = () => {
     sessionStorage.clear();
     navigate("/");
+    window.location.reload(false);
   }
 
   // Affichage HTML
@@ -121,18 +122,21 @@ function Leftbar() {
           </div>
         </div>
         <div className='LeftBar-menu'>
+
+        <Link className='LeftBar-Link' to="/connexion">
+            <FontAwesomeIcon icon={faUser} />
+            <p className='LeftBar-textMenu'>
+              Connexion
+            </p>
+          </Link>
+          
           <Link className='LeftBar-Link' to="/inscription">
             <FontAwesomeIcon icon={faLock} />
             <p className='LeftBar-textMenu'>
               Inscription
             </p>
           </Link>
-          <Link className='LeftBar-Link' to="/connexion">
-            <FontAwesomeIcon icon={faUser} />
-            <p className='LeftBar-textMenu'>
-              Connexion
-            </p>
-          </Link>
+          
         </div>
       </div>
     )

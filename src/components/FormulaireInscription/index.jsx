@@ -35,20 +35,22 @@ function FormulaireInscription() {
                 return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
             }
 
+            if(!/^[a-zA-Z0-9_.-]*$/.test(pseudo) || pseudo.includes(" ")){
+                return alert("Pseudo incorrecte, n'utiliser que des lettres et des chiffres, l'underscore: _, le point et le tiret");
+            }
+
             e.preventDefault();
 
             const captcha = document.querySelector('#g-recaptcha-response').value;
-
             const password = bcrypt.hashSync(passwd,salt);
-
             const profilPic = await fetch('https://api.thecatapi.com/v1/images/search',{headers: {
                 'x-api-key': 'DEMO_API_KEY'
             }})
             .then((response) => {
-            return response.json();
+                return response.json();
             })
             .then((data) => {
-            return data[0].url;
+                return data[0].url;
             });
 
             let data = await fetch(`http://localhost:5000/api/inscription`, {

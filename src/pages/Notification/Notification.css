@@ -16,10 +16,6 @@
     padding: 20px;
 }
 
-.Notifications{
-    display: flex;
-}
-
 .Notifications-deleteAll{
     border: 0px;
     border-radius: 15px;

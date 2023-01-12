@@ -36,7 +36,7 @@ function HeaderCustom({ title }) {
     }
   }
 
-  // Affichage HTML connection et inscription
+  // Affichage HTML header connexion et inscription
   if (title === "logForm") {
     return (
       <header>
@@ -53,7 +53,7 @@ function HeaderCustom({ title }) {
     )
   }
 
-  // Afrfichage HTML page validation achat
+  // Afrfichage HTML header page validation achat
   if (title === "valid") {
     return (
       <header>
@@ -70,7 +70,7 @@ function HeaderCustom({ title }) {
     )
   }
 
-  // Affichage HTML page principale
+  // Affichage HTML header page principale
   if (title === "homePage") {
     return (
       <div className='headercustom-global'>
@@ -84,22 +84,12 @@ function HeaderCustom({ title }) {
           <div className='headercustom-input'>
             <input className='headercustom-input-search' type="text" placeholder='Rechercher' onKeyDown={searchHandle} />
           </div>
-          <div className="headercustom-filter">
-            <select name="activite" id="activite" className='headercustom-leFiltre'>
-              <option value="default">Filtrer</option>
-              <option value="Cat1">Categorie 1</option>
-              <option value="Cat2">Categorie 2</option>
-              <option value="Cat3">Categorie 3</option>
-              <option value="Cat4">Categorie 4</option>
-            </select>
-          </div>
         </div>
-
       </div>
     )
   }
 
-  // Affichage HTML générale
+  // Affichage HTML header simple
   return (
     <header>
       <Link to="/" className="headercustom-logo">

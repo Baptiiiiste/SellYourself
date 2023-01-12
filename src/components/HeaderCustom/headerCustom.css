@@ -10,6 +10,8 @@ header{
     justify-content: space-between;
 }
 
+/* Logo header simple */
+
 .headercustom-logo{
     position: absolute;
     display: flex;
@@ -19,10 +21,6 @@ header{
     color: black;
 }
 
-.headercustom-point{
-    color: var(--orange);
-}
-
 .headercustom-logo img{
     width: 50px;
     height: 50px;
@@ -30,9 +28,7 @@ header{
     margin: 0 20px 0 20px;
 }
 
-.headercustom-title{
-    margin: auto;
-}
+/* Logo header page valider */
 
 .headercustom-logo2{
     display: flex;
@@ -47,6 +43,63 @@ header{
     height: 50px;
     border-radius: 50px;
     margin: 0 20px 0 20px;
+}
+
+/* Logo header principale */
+
+.headercustom-logo3{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    margin-right: 100px;
+    text-decoration: none;
+    color: black;
+
+}
+
+.headercustom-logo3 img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin: 0 20px 0 20px;
+}
+
+/* Bar de recherche */
+
+.headercustom-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    flex: 0.5;
+}
+
+.headercustom-input input{
+    width: 500px;
+    border: 1px solid var(--grisFoncé);
+    padding: 5px;
+}
+
+.headercustom-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    border-bottom: 1px solid var(--grisFoncé);
+    font-size: 0.8em;
+    height: 70px
+}
+
+/* ----------------------------------- */
+
+.headercustom-point{
+    color: var(--orange);
+}
+
+.headercustom-title{
+    margin: auto;
 }
 
 .headercustom-link{
@@ -74,73 +127,6 @@ header{
     background-color: var(--orangeFoncé);
     transition: 0.2s;
     cursor: pointer;
-}
-
-/* --------------------------------- */
-
-.headercustom-logo3{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    flex: 0.5;
-
-    text-decoration: none;
-    color: black;
-
-}
-
-.headercustom-logo3 img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    margin: 0 20px 0 20px;
-}
-
-.headercustom-input{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 0.5;
-}
-
-.headercustom-input input{
-    width: 500px;
-    border: 1px solid var(--grisFoncé);
-    padding: 5px;
-
-}
-
-.headercustom-filter{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 30px;
-    flex: 0.5;
-}
-
-.headercustom-leFiltre:hover{
-    cursor: pointer;
-}
-
-.headercustom-filter select{
-    background-color: white;
-    border: none;
-    font-size: 20px;
-}
-
-/* ----------------------------------- */
-
-
-
-
-.headercustom-bar{
-    display: flex;
-    flex-direction: row;
-    width: auto;
-    border-bottom: 1px solid var(--grisFoncé);
-    font-size: 0.8em;
-    height: 70px
 }
 
 .headercustom-global{

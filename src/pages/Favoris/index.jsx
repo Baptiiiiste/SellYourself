@@ -1,37 +1,25 @@
+// Import
 import "./Favoris.css";
-import React from 'react';
+import { React, useState, useEffect } from "react";
 import HeaderCustom from "../../components/HeaderCustom";
 import UneAnnonceDetaillee from "../../components/UneAnnonceDetaillee";
 import LeftBar from "../../components/LeftBar";
-import { useState, useEffect } from "react";
 
-const connectedUser = sessionStorage.getItem("user");
-
-const getUserFavs = async () => {
-    let favoris = await fetch(`http://localhost:5000/api/favoris/${JSON.parse(connectedUser).pseudo}`, {
-        method: "Get",
-        headers: {
-            'Content-Type': 'Application/json'
-        }
-    });
-    favoris = favoris.json();
-    return favoris
-}
-
+// Page Favoris
 function Favoris() {
-
+    // Variables
     let connectedUser = sessionStorage.getItem("user");
+    const [favoris, setAnnonces] = useState([]);
 
 	useEffect(() => {
 		getUserFavs();
 	}, [])
 
-    const [favoris, setAnnonces] = useState([]);
-
+    // Fonction pour récupérer les favoris d'un utilisateur
     const getUserFavs = async () => {
 		let listFavs = [];
-		for(let i = 0; i < (JSON.parse(connectedUser).favoris).length; i++){
-			let a = await fetch(`http://localhost:5000/api/annonce/${JSON.parse(connectedUser).favoris[i]}`, {
+		for(let fav of JSON.parse(connectedUser).favoris){
+			let a = await fetch(`http://localhost:5000/api/annonce/${fav}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',
@@ -43,6 +31,7 @@ function Favoris() {
 		setAnnonces(listFavs)
 	}
 	
+    // Fonction pour afficher un favoris
 	const displayFavoris = (item, index) => {
 		const favoris = item;
 	
@@ -53,10 +42,12 @@ function Favoris() {
             prix={favoris.prix}
             img_annonce={favoris.image}
             owner={favoris.utilisateur}
+            vendu={favoris.vendu}
             key={favoris.index}
             />)
     }
 
+    // Affichage HTML
     return (
         <div className='Favoris'>
             <LeftBar/>
