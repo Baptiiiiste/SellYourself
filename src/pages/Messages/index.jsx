@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import HeaderCustom from "../../components/HeaderCustom";
 import Message from "../../components/Message";
 import LeftBar from "../../components/LeftBar";
+import { Link } from "react-router-dom";
 
 
 function Messages() {
@@ -37,11 +38,12 @@ function Messages() {
    const displayConv = (item, index) => {
        const annonce = item;
    
-       return (<Message
+       return (<Link to={`/chat/${annonce.idAnnonce}/${annonce.vendeur}/${annonce.acheteur}`}>
+       <Message
         photo={annonce.otherPhoto}
         pseudo={annonce.otherPseudo}
         text={annonce.nomAnnonce}
-       />)
+       /></Link>)
    }
     
 

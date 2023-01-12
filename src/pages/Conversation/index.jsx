@@ -6,7 +6,7 @@ import HeaderConversation from "../../components/HeaderConversation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import {useState, useEffect} from 'react';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // Page de conversation (propre à deux utilisateurs et une annonce)
 function Conversation() {
@@ -18,8 +18,12 @@ function Conversation() {
 
     // Déclaration de la variable annonce
     const [annonce, setAnnonce] = useState([]);
+    const navigate = useNavigate();
     // Pour pouvoir récupérer un paramètre passer par l'URL
     const params = useParams();
+
+    const connectedUser = sessionStorage.getItem("user");
+
 
     // Fonction pour récupérer l'annonce sujette de la conversation
     const getAnnonce = async () => {
@@ -35,6 +39,10 @@ function Conversation() {
         result = await result.json();
         // On met les données dans la variable annonce
         setAnnonce(result);
+    }
+
+    if(JSON.parse(connectedUser).pseudo !== params.vendeur && JSON.parse(connectedUser).pseudo !== params.acheteur ) {
+        navigate(`/`);
     }
 
     // On return l'HTML de la page

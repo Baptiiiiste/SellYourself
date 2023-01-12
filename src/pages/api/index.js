@@ -612,6 +612,8 @@ app.get("/api/chat/:id/:pseudoUser", verifyToken, async (req, resp) => {
             otherPhoto: user.profilPic,
             idAnnonce: conv[0].annonce,
             nomAnnonce: annonces.titre,
+            acheteur: conv[0].acheteur,
+            vendeur: conv[0].vendeur,
         });
     }
     else{
