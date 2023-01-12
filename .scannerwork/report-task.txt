@@ -1,0 +1,6 @@
+projectKey=SellYourself-2
+serverUrl=https://codefirst.iut.uca.fr/sonar
+serverVersion=9.7.1.62043
+dashboardUrl=https://codefirst.iut.uca.fr/sonar/dashboard?id=SellYourself-2
+ceTaskId=AYWiio-I7tHuLMBkE0lY
+ceTaskUrl=https://codefirst.iut.uca.fr/sonar/api/ce/task?id=AYWiio-I7tHuLMBkE0lY
