@@ -74,7 +74,7 @@ app.post("/api/inscription", async (req, resp) => {
         result = result.toObject();
         delete result.password;
 
-
+        
 
         Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
             if(err){
@@ -87,6 +87,32 @@ app.post("/api/inscription", async (req, resp) => {
                 resp.send({user: result, authToken:token});
             }
         });
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: 'sellyourselfteam@gmail.com',
+            pass: 'obyhohtdoggzdpwl'
+            }
+        });
+        
+
+        var mailOptions = {
+            from: 'sellyourselfteam@gmail.com',
+            to: req.body.email,
+            subject: 'Bienvenue ' + req.body.pseudo + ' !',
+            text: 'Bonjour et bienvenue ' + req.body.pseudo + ' sur notre site web SellYourself ! \n\nMerci de la confiance que vous nous accordez, en espérant passer de bons moments à vos côtés.\n\nVous pourrez utiliser cette adresse email pour récupérer votre mot de passe si jamais vous l\'avez oublié.\n\nL\équipe SellYourself',
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            //console.log('Email sent: ' + info.response);
+            }
+        });
+
+        
     }
 
 })
