@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const { request } = require("http");
 const { json } = require("body-parser");
 const request2 = require('request');
+const nodemailer = require('nodemailer');
+
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
@@ -479,13 +481,38 @@ app.post("/api/forgotPwd",async(req,resp)=>{
 
         const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
 
-        console.log(link);
-        resp.send({});
-        }
-    catch(error){
+
         
-    }
-});
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: 'sellyourselfteam@gmail.com',
+            pass: 'obyhohtdoggzdpwl'
+            }
+        });
+        
+
+        var mailOptions = {
+            from: 'sellyourselfteam@gmail.com',
+            to: req.body.email,
+            subject: 'Réinitialiser votre mot de passe',
+            text: 'Bonjour, vous avez fait une requête pour réinitialiser votre mot de passe \n\nVeuillez suivre le lien suivant: \n' + link,
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            //console.log('Email sent: ' + info.response);
+            }
+        });
+
+            resp.send({});
+            }
+            catch(error){
+                
+            }
+        });
 
 app.post('/api/resetPassword', async(req, resp)=>{
 
@@ -522,6 +549,9 @@ app.post('/api/resetPassword', async(req, resp)=>{
     // }
 
 });
+
+
+
 
 
 // ---------------------------------------------------------------------------------------
