@@ -5,12 +5,20 @@ const { User, Annonce, Notification, Note, Achat } = require("./configuration/mo
 const Jwt = require("jsonwebtoken");
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
+const nodemailer = require('nodemailer');
+
+
+
+//const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
+
+
 
 // Création de l'API
 const app = express();
 app.use(express.json({limit: '25mb'}));
 app.use(cors());
 app.use(express.urlencoded({limit: '25mb', extended: false}));
+app.set("view engine","ejs");
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -521,6 +529,103 @@ app.post("/api/getAchat", verifyToken, async (req, resp) => {
     const achat = await Achat.findOne({ annonce: req.body.annonce });
     resp.send({ achat: achat });
 })
+
+
+
+// ----------------------
+
+// Forgot password
+
+// ----------------------
+
+app.post("/api/forgotPwd",async(req,resp)=>{
+    const {email} = req.body.email;
+    try{
+
+        const oldUser = await User.findOne({email: req.body.email});
+
+        if( !oldUser){
+            resp.send({result:"Adresse e-mail inconnue"});
+        }
+
+        const secret = process.env.JWTKEY + oldUser.password;
+
+        const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
+
+        const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
+
+
+        
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: 'sellyourselfteam@gmail.com',
+            pass: 'obyhohtdoggzdpwl'
+            }
+        });
+        
+
+        var mailOptions = {
+            from: 'sellyourselfteam@gmail.com',
+            to: req.body.email,
+            subject: 'Réinitialiser votre mot de passe',
+            text: 'Bonjour, vous avez fait une requête pour réinitialiser votre mot de passe \n\nVeuillez suivre le lien suivant: \n' + link,
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            //console.log('Email sent: ' + info.response);
+            }
+        });
+
+            resp.send({});
+            }
+            catch(error){
+                
+            }
+        });
+
+app.post('/api/resetPassword', async(req, resp)=>{
+
+    const pseudo = req.body.pseudo;
+
+    const token = req.body.token;
+
+    const passwordGet = req.body.hashPassword;
+
+
+    const newUser = await User.findOne({pseudo: pseudo});
+
+    if( !newUser){
+        resp.send({result:"Lien invalide, veuillez réessayer"});
+        return;
+    }
+
+    const secret = process.env.JWTKEY + newUser.password;
+
+    try{
+        const verifySecret = Jwt.verify(token,secret);
+        await User.updateOne(
+            { pseudo: pseudo  },
+            { $set: {password: passwordGet} }
+        )
+        resp.send({result:"Mot de passe modifié avec succès !"});
+        
+    } catch(err) {
+        resp.send({result:"Session expiré, veuillez recommencer"});
+    }
+
+    // if(resp.headersSent !== true){
+    //     resp.send("Done");
+    // }
+
+});
+
+
+
+
 
 // ---------------------------------------------------------------------------------------
 

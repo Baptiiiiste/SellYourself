@@ -60,6 +60,9 @@ function FormulaireConnexion() {
                 Pas encore inscrit ?
                 <Link className="FormulaireConnexion-signup" to="/inscription">S'inscrire</Link>
             </div>
+            <div className="FormulaireConnexion-password-forgot">
+                <Link className="FormulaireConnexion-signup" to="/forgotPwd">Mot de passe oublié ?</Link>
+            </div>
         </div>
     );
 }

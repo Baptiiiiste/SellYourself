@@ -1,0 +1,64 @@
+@import "../../assets/variable.css";
+
+.FormulairePwdForgot-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -35px;
+}
+
+.FormulairePwdForgot-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 0.5;
+    margin: 50px;
+    height: 400px;
+}
+
+.FormulairePwdForgot-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120%;
+}
+
+.FormulairePwdForgot-input input[type=text], input[type=password] {
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid var(--orange);
+}
+
+.FormulairePwdForgot-button{
+    border: 0px;
+    border-radius: 15px;
+    width: 150px;
+    height: 40px;
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold;
+    margin: 15px;
+    transition: 0.2s;
+    box-shadow: 4px 4px 4px var(--grisFoncé);
+}
+
+.FormulairePwdForgot-button:hover{
+    background-color:var(--orangeFoncé);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.FormulairePwdForgot-signup-div{
+    display: flex;
+    flex-direction: row;
+}
+
+.FormulairePwdForgot-signup{
+    text-decoration: none;
+    color: var(--orange);
+    margin-left: 5px;
+}

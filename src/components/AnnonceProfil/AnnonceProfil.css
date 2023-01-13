@@ -92,6 +92,7 @@
     border-radius: 500px;
     background-color:var(--vert);
     transition: 0.3s;
+    margin-top: 10px;
 }
 
 .AnnonceProfil-edit:hover{

@@ -77,7 +77,8 @@
     height: 470px;
     margin: 2%;
     border: 1px solid var(--grisFoncé);
-    box-sizing: content-box;
+    box-sizing:content-box;
+    border-radius: 15px;
 }
 
 .UneAnnonce-div-Image{
@@ -88,6 +89,7 @@
     background-color: var(--gris);
     border-bottom: 1px solid var(--grisFoncé);
     margin-bottom: 10px;
+    border-radius: 15px;
 }
 
 .UneAnnonce-img-annonce{
