@@ -1,42 +1,34 @@
+// Import
 import './FormulaireResetPassword.css'
-import { Link} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'
-import { useState } from "react"
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useState } from "react";
 import bcrypt from "bcryptjs";
 
-
-
+// Composant qui représente le formulaire pour réinitialisé le mot de passe
 function FormulaireResetPassword() {
-
+    // Variable
     const navigate = useNavigate();
-    
     const params = useParams();
-
     const [password, setPassword] = useState("");
     const [confirm_password, setConfirmPassword] = useState("");
-
     const salt = bcrypt.genSaltSync(10);
 
-
+    // Fonction pour réinitialisé le mot de passe
     const resetPassword = async () => {
 
         if(!password || !confirm_password){
             alert("Vous devez renseigner tous les champs pour réinitialiser le mot de passe.");
         }else if(password && confirm_password){
             
-
             if(password.includes(" ") || confirm_password.includes(" ")){
                 return alert("Mot de passe incorrecte, ne pas utiliser d'espace");
             }
-
 
             if(password !== confirm_password){
                 return alert("Les mots de passes ne sont pas identiques");
             }
 
             const hashPassword = bcrypt.hashSync(password,salt);
-
             const pseudo =  params.pseudo;
             const token = params.token;
         
@@ -54,11 +46,9 @@ function FormulaireResetPassword() {
                 navigate("/connexion");
             }
         }
-
-        
     }
 
-
+    // Affichage HTML
     return (
         <div className="FormulaireResetPassword-form">
             <h1>Modifier le mot de passe</h1>

@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require('cors');
+let corsOptions = {
+    origin: 'trustedwebsite.com' // Compliant
+};
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
@@ -7,16 +10,10 @@ let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
 const nodemailer = require('nodemailer');
 
-
-
-//const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
-
-
-
 // Création de l'API
 const app = express();
 app.use(express.json({limit: '25mb'}));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({limit: '25mb', extended: false}));
 app.set("view engine","ejs");
 
@@ -36,7 +33,6 @@ app.post("/api/inscription", async (req, resp) => {
         if(resp.headersSent !== true){
             resp.send({"success": false,"result": "Veuillez vérifier la captcha"});
         }
-        //resp.send({result:"Captcha invalide"});
     }
     else {
         let user = new User(req.body);
@@ -52,7 +48,6 @@ app.post("/api/inscription", async (req, resp) => {
 
         request2(verifyUrl, (err, response, body)=> {
             body = JSON.parse(body);
-            // console.log(body);
 
             // If not successful
 
@@ -60,21 +55,17 @@ app.post("/api/inscription", async (req, resp) => {
                 if(resp.headersSent !== true){
                     resp.send({"success":false, "result":"Échec de la vérification de la captcha"});
                 }
-                //resp.send({"result":"Captcha invalide"});
             }
 
             // If successful
             if(resp.headersSent !== true){
                 resp.send({"success": true, "result":"Captcha réussie"});
             }
-            //resp.send({"success": true, "msg":"Captcha passed"});
         }); 
 
 
         result = result.toObject();
         delete result.password;
-
-        
 
         Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
             if(err){
@@ -88,7 +79,10 @@ app.post("/api/inscription", async (req, resp) => {
             }
         });
 
-        var transporter = nodemailer.createTransport({
+        let transporter = nodemailer.createTransport({
+            secure: true,
+            requireTLS: true,
+            secured: true,
             service: 'gmail',
             auth: {
             user: 'sellyourselfteam@gmail.com',
@@ -97,7 +91,7 @@ app.post("/api/inscription", async (req, resp) => {
         });
         
 
-        var mailOptions = {
+        let mailOptions = {
             from: 'sellyourselfteam@gmail.com',
             to: req.body.email,
             subject: 'Bienvenue ' + req.body.pseudo + ' !',
@@ -106,9 +100,7 @@ app.post("/api/inscription", async (req, resp) => {
         
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-            console.log(error);
-            } else {
-            //console.log('Email sent: ' + info.response);
+                console.log(error);
             }
         });
 
@@ -363,7 +355,7 @@ app.post("/api/viderFav/:user", async (req, resp) => {
         user.favoris.forEach(async element => {
             const result = await Annonce.findOne({_id : element});
             if(!result){
-                resUser = await User.updateOne(
+                await User.updateOne(
                     { pseudo : req.params.user },
                     { $pull : { favoris : element } }
                 )
@@ -565,7 +557,6 @@ app.post("/api/getAchat", verifyToken, async (req, resp) => {
 // ----------------------
 
 app.post("/api/forgotPwd",async(req,resp)=>{
-    const {email} = req.body.email;
     try{
 
         const oldUser = await User.findOne({email: req.body.email});
@@ -575,14 +566,13 @@ app.post("/api/forgotPwd",async(req,resp)=>{
         }
 
         const secret = process.env.JWTKEY + oldUser.password;
-
         const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
-
         const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
 
-
-        
-        var transporter = nodemailer.createTransport({
+        let transporter = nodemailer.createTransport({
+            secure: true,
+            requireTLS: true,
+            secured: true,
             service: 'gmail',
             auth: {
             user: 'sellyourselfteam@gmail.com',
@@ -591,7 +581,7 @@ app.post("/api/forgotPwd",async(req,resp)=>{
         });
         
 
-        var mailOptions = {
+        let mailOptions = {
             from: 'sellyourselfteam@gmail.com',
             to: req.body.email,
             subject: 'Réinitialiser votre mot de passe',
@@ -601,8 +591,6 @@ app.post("/api/forgotPwd",async(req,resp)=>{
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
             console.log(error);
-            } else {
-            //console.log('Email sent: ' + info.response);
             }
         });
 
@@ -614,14 +602,9 @@ app.post("/api/forgotPwd",async(req,resp)=>{
         });
 
 app.post('/api/resetPassword', async(req, resp)=>{
-
     const pseudo = req.body.pseudo;
-
     const token = req.body.token;
-
     const passwordGet = req.body.hashPassword;
-
-
     const newUser = await User.findOne({pseudo: pseudo});
 
     if( !newUser){
@@ -632,7 +615,7 @@ app.post('/api/resetPassword', async(req, resp)=>{
     const secret = process.env.JWTKEY + newUser.password;
 
     try{
-        const verifySecret = Jwt.verify(token,secret);
+        Jwt.verify(token,secret);
         await User.updateOne(
             { pseudo: pseudo  },
             { $set: {password: passwordGet} }
@@ -642,11 +625,6 @@ app.post('/api/resetPassword', async(req, resp)=>{
     } catch(err) {
         resp.send({result:"Session expiré, veuillez recommencer"});
     }
-
-    // if(resp.headersSent !== true){
-    //     resp.send("Done");
-    // }
-
 });
 
 

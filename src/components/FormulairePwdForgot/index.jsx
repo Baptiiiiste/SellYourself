@@ -1,15 +1,15 @@
+// Import
 import './FormulairePwdForgot.css'
-import { Link} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from "react"
 
+// Composant qui représente le formulaire d'oubli de mot de passe
 function FormulairePwdForgot() {
-
+    // Variables
     const navigate = useNavigate();
-    
     const [email, setEmail] = useState("");
 
-
+    // Fonction pour envoyer un mail
     const sendMail = async () => {
         if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
             return alert("Format d'adresse e-mail invalide");
@@ -20,8 +20,6 @@ function FormulairePwdForgot() {
             crossDomain: true,
             headers:{
                 "Content-Type":"application/json"
-                // Accept: "application/json",
-                // "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({
                 email,
@@ -32,8 +30,7 @@ function FormulairePwdForgot() {
         navigate("/connexion");
     }
 
-
-
+    // Fonction de validation touche entrer
     const verifEnterKey = async(event)=>{
         if(event.key === 'Enter'){
             sendMail();
@@ -41,7 +38,7 @@ function FormulairePwdForgot() {
     
     }
 
-
+    // Affichage HTML
     return (
         <div className="FormulairePwdForgot-form">
             <h1>Mot de passe oublié ?</h1>

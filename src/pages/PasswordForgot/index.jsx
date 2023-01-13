@@ -1,9 +1,12 @@
+// Import
 import './PasswordForgot.css';
 import React from 'react';
 import FormulairePwdForgot from '../../components/FormulairePwdForgot';
 import HeaderCustom from '../../components/HeaderCustom';
 
+// Page pour mot de passe oublié
 function PwdForgot() {
+  // Affichage HTML
   return(
     <div className="PwdForgot">
       <HeaderCustom title="logForm" className="PwdForgot-header"/>
