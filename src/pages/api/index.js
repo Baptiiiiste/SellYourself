@@ -8,8 +8,6 @@ const { User, Annonce, Notification, Note, Achat, Conversation, Message } = requ
 const Jwt = require("jsonwebtoken");
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
-const { response } = require("express");
-
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
@@ -45,7 +43,7 @@ app.post("/api/inscription", async (req, resp) => {
         let result = await user.save();
 
         // Secret key for captcha 
-        const secretKey = '6LeHuQ8jAAAAAMyaXJzJrY6Vk1xS47LxEe_ptwBU';
+        const secretKey = process.env.SECRET_KEY;
 
         // Verify URL for the captcha
         const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
@@ -92,7 +90,7 @@ app.post("/api/inscription", async (req, resp) => {
             service: 'gmail',
             auth: {
             user: 'sellyourselfteam@gmail.com',
-            pass: 'obyhohtdoggzdpwl'
+            pass: process.env.MDP
             }
         });
         
@@ -101,7 +99,7 @@ app.post("/api/inscription", async (req, resp) => {
             from: 'sellyourselfteam@gmail.com',
             to: req.body.email,
             subject: 'Bienvenue ' + req.body.pseudo + ' !',
-            text: 'Bonjour et bienvenue ' + req.body.pseudo + ' sur notre site web SellYourself ! \n\nMerci de la confiance que vous nous accordez, en espérant passer de bons moments à vos côtés.\n\nVous pourrez utiliser cette adresse email pour récupérer votre mot de passe si jamais vous l\'avez oublié.\n\nL\équipe SellYourself',
+            text: 'Bonjour et bienvenue ' + req.body.pseudo + ' sur notre site web SellYourself ! \n\nMerci de la confiance que vous nous accordez, en espérant passer de bons moments à vos côtés.\n\nVous pourrez utiliser cette adresse email pour récupérer votre mot de passe si jamais vous l\'avez oublié.\n\nL\'équipe SellYourself',
         };
         
         transporter.sendMail(mailOptions, function(error, info){
