@@ -70,6 +70,7 @@ function InfoAnnonce() {
 
     const accessChat = async () => {
         let result = await fetch(`https://api.sellyourself.fr/api/accessChat/${annonce._id}/${params.utilisateur}/${JSON.parse(connectedUser).pseudo}`, {
+            method: 'GET',
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();
@@ -91,6 +92,7 @@ function InfoAnnonce() {
     // Fonction pour récupérer une annonce
     const getAnnonce = async () => {
         let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
+            method: 'GET',
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();
@@ -103,6 +105,7 @@ function InfoAnnonce() {
     // Fonction pour récupérer un utilisateur
     const getUser = async () => {
         let result = await fetch(`https://api.sellyourself.fr/api/utilisateur/${params.utilisateur}`, {
+            method: 'GET',
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();

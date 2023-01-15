@@ -42,7 +42,8 @@ function FormulaireInscription() {
 
             const captcha = document.querySelector('#g-recaptcha-response').value;
             const password = bcrypt.hashSync(passwd,salt);
-            const profilPic = await fetch('https://api.thecatapi.com/v1/images/search',{headers: {
+            const profilPic = await fetch('https://api.thecatapi.com/v1/images/search',{
+                headers: {
                 'x-api-key': 'DEMO_API_KEY'
             }})
             .then((response) => {

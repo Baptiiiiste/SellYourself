@@ -31,6 +31,7 @@ function ModifAnnonce() {
     // Fonction qui récupère l'annonce
     const getAnnonce = async () => {
         let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
+            method: 'GET',
             headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();
