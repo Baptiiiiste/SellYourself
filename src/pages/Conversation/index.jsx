@@ -5,21 +5,13 @@ import LeftBar from "../../components/LeftBar";
 import HeaderConversation from "../../components/HeaderConversation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-<<<<<<< HEAD
-import {useState, useEffect} from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import socket from '../../socket';
-=======
 import { React, useState, useEffect} from 'react';
-import { useParams } from "react-router-dom";
->>>>>>> development
 
 // Page de conversation (propre à deux utilisateurs et une annonce)
 function Conversation() {
     // Variables
-    const [annonce, setAnnonce] = useState([]);
-    const params = useParams();
-
     useEffect(() => {
         getAnnonce();
         getPrecedentMesssages();
@@ -37,7 +29,6 @@ function Conversation() {
         };
     }, []);
 
-<<<<<<< HEAD
     // Déclaration de la variable annonce
     const [annonce, setAnnonce] = useState([]);
     const [message, setMessage] = useState("");
@@ -99,11 +90,6 @@ function Conversation() {
 
 
     // Fonction pour récupérer l'annonce sujette de la conversation
-=======
-    
-
-    // Fonction pour récupérer l'annonce de la conversation
->>>>>>> development
     const getAnnonce = async () => {
         let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
                 method: "Get",
@@ -116,7 +102,6 @@ function Conversation() {
         setAnnonce(result);
     }
 
-<<<<<<< HEAD
     const getPrecedentMesssages = async () => {
         let result = await fetch(`http://localhost:5000/api/getChat/${params.annonce}/${params.vendeur}/${params.acheteur}`, {
                 method: "Get",
@@ -143,9 +128,6 @@ function Conversation() {
     }
 
     // On return l'HTML de la page
-=======
-    // Affichage HTML 
->>>>>>> development
     return (
         <div className='Conversation'>
             <LeftBar/>

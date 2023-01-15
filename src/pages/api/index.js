@@ -1,23 +1,20 @@
 const express = require("express");
 const cors = require('cors');
 let corsOptions = {
-    origin: 'trustedwebsite.com' // Compliant
+    origin: 'http://localhost:3000' // Compliant
 };
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
-<<<<<<< HEAD
 const { response } = require("express");
 
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
 
-=======
 const nodemailer = require('nodemailer');
->>>>>>> development
 
 // Création de l'API
 const app = express();
@@ -502,7 +499,7 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
         const user = await User.findOne( { pseudo: req.params.user } );
         if(user){
             vendeur.noteList.forEach(element => {
-                if(element.utilisateurId == user._id && element.annonceId == req.params.annonce){
+                if(element.utilisateurId === user._id && element.annonceId === req.params.annonce){
                     bool = true;
                     note = element.note;
                 }
@@ -522,7 +519,7 @@ app.post("/api/note/delete", verifyToken, async (req, resp) => {
     const vendeur = await User.findOne( { pseudo: req.body.vendeur } );
     if(vendeur){
         vendeur.noteList.forEach(async element => {
-            if(element.utilisateurId == req.body.user && element.annonceId == req.body.annonce){
+            if(element.utilisateurId === req.body.user && element.annonceId === req.body.annonce){
                 const resUser = await User.updateOne(
                     { pseudo : req.body.vendeur },
                     { $pull : { noteList : element } }

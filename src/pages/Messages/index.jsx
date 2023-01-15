@@ -6,17 +6,9 @@ import Message from "../../components/Message";
 import LeftBar from "../../components/LeftBar";
 import { Link } from "react-router-dom";
 
-<<<<<<< HEAD
-=======
-const messages = [
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},
-    {photo: "DefaultPP.jpeg", prenom: "John", nom: "Doe", text: "Je suis un message"},
-]
->>>>>>> development
 
 // Page message
 function Messages() {
-<<<<<<< HEAD
 
    // Utilisateur connecté
    let connectedUser = sessionStorage.getItem("user");
@@ -61,9 +53,6 @@ function Messages() {
     
 
 
-=======
-    // Affichage HTML
->>>>>>> development
     return (
         <div className='Messages'>
             <LeftBar/>
