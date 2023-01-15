@@ -4,11 +4,20 @@ let corsOptions = {
     origin: 'trustedwebsite.com' // Compliant
 };
 const bcrypt = require('bcryptjs');
-const { User, Annonce, Notification, Note, Achat } = require("./configuration/models");
+const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
+<<<<<<< HEAD
+const { response } = require("express");
+
+
+
+//const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
+
+=======
 const nodemailer = require('nodemailer');
+>>>>>>> development
 
 // Création de l'API
 const app = express();
@@ -400,7 +409,7 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
     if(newUser){
         resp.send({user: newUser});
     }else{
-        resp.send({erreur: "Erreur lors de la suppression", resUser: resUser, resNotif: resNotif});
+        resp.send({erreur: "Erreur lors de la suppression", resNotif: resNotif});
     }
 });
 
@@ -546,7 +555,151 @@ app.post("/api/achat", verifyToken, async (req, resp) => {
 app.post("/api/getAchat", verifyToken, async (req, resp) => {
     const achat = await Achat.findOne({ annonce: req.body.annonce });
     resp.send({ achat: achat });
-})
+});
+
+
+
+// ---------------------------------------------------------------------------------------
+// CHAT
+
+app.get("/api/accessChat/:annonce/:vendeur/:acheteur", verifyToken, async (req, resp) => {
+    const annonce = req.params.annonce; //id
+    const vendeur = req.params.vendeur; //pseudo
+    const acheteur = req.params.acheteur; //pseudo
+    
+    const isAlredyExisting = await Conversation.findOne({annonce: annonce, vendeur: vendeur, acheteur: acheteur});
+    if(isAlredyExisting) return resp.send({success: `/chat/${annonce}/${vendeur}/${acheteur}`});
+
+    let conv = new Conversation({vendeur, acheteur, annonce});
+    let result = await conv.save();
+
+    //acheteur
+    await User.updateOne(
+        { pseudo : acheteur },
+        { $push: { conversations: (conv._id).toString() } }
+    )
+
+    //vendeur
+    await User.updateOne(
+        { pseudo : vendeur },
+        { $push: { conversations: (conv._id).toString() } }
+    )
+
+    const user = await User.findOne({pseudo : acheteur});
+
+
+    if(result) return resp.send({success: `/chat/${annonce}/${vendeur}/${acheteur}`, user: user});
+    return resp.send({erreur: "Une erreur est survenue"});
+});
+
+app.get("/api/getChat/:annonce/:vendeur/:acheteur", verifyToken, async (req, resp) => {
+    const annonce = req.params.annonce; //id
+    const vendeur = req.params.vendeur; //pseudo
+    const acheteur = req.params.acheteur; //pseudo
+    
+    const isAlredyExisting = await Conversation.findOne({annonce: annonce, vendeur: vendeur, acheteur: acheteur});
+    if(isAlredyExisting) return resp.send({success: isAlredyExisting.messages});
+    return resp.send({erreur: "Une erreur est survenue"});
+});
+
+app.post("/api/addMessageChat", async (req, resp) => {
+    const annonce = req.body.annonce; //id
+    const vendeur = req.body.vendeur; //pseudo
+    const acheteur = req.body.acheteur; //pseudo
+    const author = req.body.author; //pseudo
+    const content = req.body.content; //text
+    
+    const isAlredyExisting = await Conversation.findOne({annonce: annonce, vendeur: vendeur, acheteur: acheteur});
+    if(isAlredyExisting){
+        let newMsg = new Message({author, content});
+        await newMsg.save();
+
+        let result = await Conversation.updateOne(
+            { _id : (isAlredyExisting._id).toString() }, 
+            { $push : { messages: newMsg } }
+        );
+        return resp.send({success:  result });
+    }
+    resp.send({erreur: "Erreur !"})
+});
+
+app.get("/api/chat/:id/:pseudoUser", verifyToken, async (req, resp) => {
+    const conv = await Conversation.find( { _id: req.params.id } )
+    if (conv.length) {
+
+        let user;
+        if(req.params.pseudoUser === conv[0].acheteur){
+            user = await User.findOne( { pseudo: conv[0].vendeur } );
+        }else{
+            user = await User.findOne( { pseudo: conv[0].acheteur } );
+        }
+        const annonces = await Annonce.findOne( { _id: conv[0].annonce} );
+
+        resp.send({
+            conv: conv[0],
+            idConv: conv[0]._id,
+            otherPseudo: user.pseudo,
+            otherPhoto: user.profilPic,
+            idAnnonce: conv[0].annonce,
+            nomAnnonce: annonces.titre,
+            acheteur: conv[0].acheteur,
+            vendeur: conv[0].vendeur,
+        });
+    }
+    else{
+        resp.send({erreur: "Aucune conversation"});
+    }
+});
+
+// SOCKET.IO
+const morgan = require("morgan");
+const http = require("http").createServer(app);
+app.use(morgan("dev"));
+const io = require("socket.io")(http, {
+    path: "/socket.io",
+    cors: {
+        origin: ["http://localhost:3000", "http://localhost:3001"],
+        methods: ["GET", "POST"],
+        allowedHeaders: ["content-type"],
+    },
+});
+
+const chat = (io) => {
+    // console.log("live chat ---> ", io.opts);
+    io.on("connection", (socket) => {
+      // console.log("socket id", socket.id);
+      socket.on("username", (username) => {
+        console.log("username", username);
+        // you can emit this user to all connected clients
+        io.emit("user joined", `${username} joined`);
+      });
+      // disconnect
+      socket.on("disconnect", () => {
+        console.log("user disconnected");
+      });
+
+    socket.on("message", (data) => {
+        io.emit("message", data);
+    });
+
+    });
+};
+
+io.use((socket, next) => {
+    // console.log("connected to SOCKET", socket.handshake); // headers, query, auth etc
+    const username = socket.handshake.auth.username; 
+    if (!username) {
+      return next(new Error("invalid username"));
+    }
+    socket.username = username;
+    console.log('socket.username in middleware', socket.username)
+    next();
+});
+
+
+chat(io);
+
+http.listen(5050)
 
 
 
@@ -653,4 +806,4 @@ function verifyToken(req, resp, next) {
 // Lancement de l'API
 app.listen(5000);
 
-module.exports = app;
+module.exports = {app};

@@ -25,9 +25,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Création du rootage
 root.render(
-  <React.StrictMode>
     <Router>
-
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/search/:categorie/:recherche" element={<Categorie/>} />
@@ -39,9 +37,9 @@ root.render(
           <Route path="/profil" element={<Profil/>} />
           <Route path="/messages" element={<Messages/>} />
           <Route path="/favoris" element={<Favoris/>} />
-          <Route path='/conversation/:annonce' element={<Conversation/>} />
           <Route path='/validation/:utilisateur/:annonce' element={<ValiderAchat/>} />
           <Route path='/modifier/:annonce' element={<ModifierAnnonce/>} />
+          <Route path='/chat/:annonce/:vendeur/:acheteur' element={<Conversation/>} />
         </Route>
         
         <Route path="/inscription" element={<Inscription/>} />
@@ -51,10 +49,7 @@ root.render(
         <Route path='/resetPassword/:pseudo/:token' element={<ResetPassword/>} />
         <Route path="/*" element={<Erreur/>} />
       </Routes>
-
     </Router>
-
-  </React.StrictMode>
 );
 
 

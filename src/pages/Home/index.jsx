@@ -9,7 +9,13 @@ import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 import Footer from '../../components/Footer';
 
+<<<<<<< HEAD
+import socket from "../../socket";
+
+
+=======
 // Page Accueil
+>>>>>>> development
 function Home() {
   // Variables
   const [annonces, setAnnonces] = useState([]);
