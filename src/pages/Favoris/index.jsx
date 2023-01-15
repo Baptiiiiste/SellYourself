@@ -19,7 +19,7 @@ function Favoris() {
     const getUserFavs = async () => {
 		let listFavs = [];
 		for(let fav of JSON.parse(connectedUser).favoris){
-			let a = await fetch(`http://localhost:5000/api/annonce/${fav}`, {
+			let a = await fetch(`https://sellyourself.fr:5000/api/annonce/${fav}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',

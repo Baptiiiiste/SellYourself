@@ -50,7 +50,7 @@ function InfoUtilisateur() {
         if(/^\s$/.test(ville)) ville = "";
         if(/^\s$/.test(paypal)) paypal = "";
 
-        let result = await fetch(`http://localhost:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser)._id}`, {
+        let result = await fetch(`https://sellyourself.fr:5000/api/utilisateur/updateUser/${JSON.parse(connectedUser)._id}`, {
             method: "Put",
             body: JSON.stringify({ nom, prenom, description, ville, paypal, email }),
             headers: {
@@ -79,7 +79,7 @@ function InfoUtilisateur() {
         }
 
         const password = bcrypt.hashSync(newPassword, salt);
-        let result = await fetch(`http://localhost:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser)._id}`, {
+        let result = await fetch(`https://sellyourself.fr:5000/api/utilisateur/updatePassword/${JSON.parse(connectedUser)._id}`, {
             method: "Post",
             body: JSON.stringify({ oldPassword, password }),
             headers: {
@@ -125,7 +125,7 @@ function InfoUtilisateur() {
                 const profilPic = await toBase64(image);
                 imgProfil.src = profilPic;
 
-                let result = await fetch(`http://localhost:5000/api/utilisateur/image/${JSON.parse(connectedUser).pseudo}`, {
+                let result = await fetch(`https://sellyourself.fr:5000/api/utilisateur/image/${JSON.parse(connectedUser).pseudo}`, {
                     method: "Put",
                     body: JSON.stringify({ profilPic }),
                     headers: {

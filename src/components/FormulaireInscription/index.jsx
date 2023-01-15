@@ -52,7 +52,7 @@ function FormulaireInscription() {
                 return data[0].url;
             });
 
-            let data = await fetch(`http://localhost:5000/api/inscription`, {
+            let data = await fetch(`https://sellyourself.fr:5000/api/inscription`, {
                 method: 'POST',
                 headers: {
                     'Accept':'application/json, text/plain, */*',

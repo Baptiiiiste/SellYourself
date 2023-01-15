@@ -42,6 +42,6 @@ export const categories = [
     { name: "Autre"},
   ]
 
-export const URLapi = "http://localhost:5000/";
+export const URLapi = "https://sellyourself.fr:5000/";
 
 export const URLsite = "http://localhost:3000/";

@@ -43,7 +43,7 @@ function Button({id, prix, titre, pseudo}){
     // Fonction pour ajouter un favoris
     const addFavoris = async () => {
         if (connectedUser!=null) {
-            let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
+            let result = await fetch(`https://sellyourself.fr:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
                 method: "Post",
                 headers: {
                     'Content-Type': 'Application/json',
@@ -51,7 +51,7 @@ function Button({id, prix, titre, pseudo}){
                 }
             });
 
-            await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+            await fetch(`https://sellyourself.fr:5000/api/utilisateur/addNotif`, {
                 method: 'Post',
                 body: JSON.stringify({ type: "fav", content: `Votre annonce ${titre} a été liké`, destinataire: pseudo }),
                 headers: {
@@ -73,7 +73,7 @@ function Button({id, prix, titre, pseudo}){
     // Fonction pour supprimer un favoris
     const delFavoris = async () => {
         if (connectedUser!=null) {
-            let result = await fetch(`http://localhost:5000/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
+            let result = await fetch(`https://sellyourself.fr:5000/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
                 method: "Delete",
                 headers: {
                     'Content-Type': 'Application/json',

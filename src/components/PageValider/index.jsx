@@ -63,7 +63,7 @@ function ValidationAchat({annonce}) {
                         
                         onApprove={async function (data, actions) {
                             return actions.order.capture().then(async function(){
-                                await fetch(`http://localhost:5000/api/achat`, {
+                                await fetch(`https://sellyourself.fr:5000/api/achat`, {
                                     method: 'Post',
                                     body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
                                     headers: {
@@ -71,7 +71,7 @@ function ValidationAchat({annonce}) {
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }
                                 });
-                                await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+                                await fetch(`https://sellyourself.fr:5000/api/utilisateur/addNotif`, {
                                     method: 'Post',
                                     body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été acheté par ${connectedUser}`, destinataire: annonce.utilisateur }),
                                     headers: {

@@ -15,7 +15,7 @@ function FormulairePwdForgot() {
             return alert("Format d'adresse e-mail invalide");
         }
         console.log(email);
-        let data = await fetch("http://localhost:5000/api/forgotPwd",{
+        let data = await fetch("https://sellyourself.fr:5000/api/forgotPwd",{
             method: "POST",
             crossDomain: true,
             headers:{
