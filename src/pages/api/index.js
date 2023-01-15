@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 let corsOptions = {
-    origin: 'http://localhost:3000' // Compliant
+    origin: 'https://sellyourself.fr/' // Compliant
 };
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
@@ -655,7 +655,7 @@ app.use(morgan("dev"));
 const io = require("socket.io")(http, {
     path: "/socket.io",
     cors: {
-        origin: ["http://localhost:3000", "http://localhost:3001"],
+        origin: ["https://sellyourself.fr/", "http://localhost:3001"],
         methods: ["GET", "POST"],
         allowedHeaders: ["content-type"],
     },
@@ -717,7 +717,7 @@ app.post("/api/forgotPwd",async(req,resp)=>{
 
         const secret = process.env.JWTKEY + oldUser.password;
         const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
-        const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
+        const link = `https://sellyourself.fr/resetPassword/${oldUser.pseudo}/${token}`;
 
         let transporter = nodemailer.createTransport({
             secure: true,

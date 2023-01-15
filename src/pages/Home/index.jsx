@@ -26,7 +26,7 @@ function Home() {
 
   // Fonction pour récupérer les annonces
   const getAnnonces = async () => {
-    let result = await fetch(`https://sellyourself.fr:5000/api/annonces`);
+    let result = await fetch(`https://api.sellyourself.fr/api/annonces`);
     result = await result.json();
     setAnnonces(result);
   }

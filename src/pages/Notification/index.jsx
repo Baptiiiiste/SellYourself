@@ -17,7 +17,7 @@ function Notifications() {
 
     // Fonction pour supprimer toutes les notifications
     const deleteAllNotifs = async () => {
-        await fetch(`https://sellyourself.fr:5000/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
+        await fetch(`https://api.sellyourself.fr/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
             method: "delete",
             headers: {
                 'Content-Type': 'Application/json',
@@ -30,7 +30,7 @@ function Notifications() {
 
     // Fonction pour récupérer les notifications d'un utilisateur
     const getUserNotif = async () => {
-        let a = await fetch(`https://sellyourself.fr:5000/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}`, {
+        let a = await fetch(`https://api.sellyourself.fr/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}`, {
             method: "Get",
             headers: {
                 'Content-Type': 'Application/json',

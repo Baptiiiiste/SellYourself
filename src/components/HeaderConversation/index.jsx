@@ -21,7 +21,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est vendu
   const isVendu = async () => {
-    let result = await fetch(`https://sellyourself.fr:5000/api/getAchat`, {
+    let result = await fetch(`https://api.sellyourself.fr/api/getAchat`, {
       method: "Post",
       body: JSON.stringify({ annonce: id }),
       headers: {
@@ -41,7 +41,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
-    let result = await fetch(`https://sellyourself.fr:5000/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
+    let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
       method: "Get",
       headers: {
         'Content-Type': 'Application/json',
@@ -71,7 +71,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour ajouter une note
   const addNote = async (note) => {
-    await fetch(`https://sellyourself.fr:5000/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
+    await fetch(`https://api.sellyourself.fr/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
       method: "Post",
       headers: {
         'Content-Type': 'Application/json',
@@ -79,7 +79,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       }
     });
 
-    await fetch(`https://sellyourself.fr:5000/api/utilisateur/addNotif`, {
+    await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
       method: 'Post',
       body: JSON.stringify({ type: "note", content: `Votre annonce ${titre} a été noté ${note}/5`, destinataire: user }),
       headers: {
@@ -112,7 +112,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour supprimer une note
   const deleteNote = async () => {
-    await fetch(`https://sellyourself.fr:5000/api/note/delete`, {
+    await fetch(`https://api.sellyourself.fr/api/note/delete`, {
       method: "Post",
       body: JSON.stringify({annonce: id, vendeur: user, user: JSON.parse(sessionStorage.getItem('user'))._id}),
       headers: {
