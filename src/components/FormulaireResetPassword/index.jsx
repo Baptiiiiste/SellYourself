@@ -36,7 +36,7 @@ function FormulaireResetPassword() {
                 method: "post",
                 body: JSON.stringify({pseudo, token, hashPassword}),
                     headers: {
-                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                         'Access-Control-Allow-Credentials':true,
                         'Access-Control-Allow-Methods':'POST, GET',
                         'Content-Type': 'Application/json'

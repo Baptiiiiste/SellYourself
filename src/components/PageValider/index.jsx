@@ -68,7 +68,7 @@ function ValidationAchat({annonce}) {
                                     body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
                                     headers: {
                                         'Content-Type': 'Application/json',
-                                        'Access-Control-Allow-Origin': '*',
+                                        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                                         'Access-Control-Allow-Credentials':true,
                                         'Access-Control-Allow-Methods':'POST, GET',
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -78,7 +78,7 @@ function ValidationAchat({annonce}) {
                                     method: 'Post',
                                     body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été acheté par ${connectedUser}`, destinataire: annonce.utilisateur }),
                                     headers: {
-                                        'Access-Control-Allow-Origin': '*',
+                                        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                                         'Access-Control-Allow-Credentials':true,
                                         'Access-Control-Allow-Methods':'POST, GET',
                                         'Content-Type': 'application/json',

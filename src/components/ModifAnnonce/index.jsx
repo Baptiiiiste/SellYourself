@@ -33,7 +33,7 @@ function ModifAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
             method: 'GET',
             headers: { 
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
@@ -144,7 +144,7 @@ function ModifAnnonce() {
             method: 'Post',
             body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 'Content-Type': 'Application/json',
@@ -179,7 +179,7 @@ function ModifAnnonce() {
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {
                     'Content-Type': 'Application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                     'Access-Control-Allow-Credentials':true,
                     'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`

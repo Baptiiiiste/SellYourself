@@ -54,7 +54,7 @@ function Conversation() {
             body: JSON.stringify({annonce: params.annonce, vendeur: params.vendeur, acheteur: params.acheteur, author: username, content: message}),
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -98,7 +98,7 @@ function Conversation() {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                     'Access-Control-Allow-Credentials':true,
                     'Access-Control-Allow-Methods':'POST, GET',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -113,7 +113,7 @@ function Conversation() {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                     'Access-Control-Allow-Credentials':true,
                     'Access-Control-Allow-Methods':'POST, GET',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
