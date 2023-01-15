@@ -94,7 +94,7 @@ function CreerAnnonce() {
             body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -129,7 +129,7 @@ function CreerAnnonce() {
                 body: JSON.stringify({titre, description, image, prix, type, categorie, vendeur: JSON.parse(connectedUser).pseudo}),
                 headers: {
                     'Content-Type': 'Application/json',
-                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
+                    'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
                     'Access-Control-Allow-Credentials':true,
                     'Access-Control-Allow-Methods':'POST, GET',
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`

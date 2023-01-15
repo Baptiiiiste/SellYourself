@@ -12,7 +12,7 @@ function Notification({type, info, owner, id}) {
         await fetch(`https://api.sellyourself.fr/api/utilisateur/deleteNotif/${owner}/${id}`, {
             method: "delete",
             headers: {
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                 'Content-Type': 'Application/json',

@@ -55,7 +55,7 @@ function Button({id, prix, titre, pseudo}){
                 method: 'Post',
                 body: JSON.stringify({ type: "fav", content: `Votre annonce ${titre} a été liké`, destinataire: pseudo }),
                 headers: {
-                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
+                    'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
                     'Access-Control-Allow-Credentials':true,
                     'Access-Control-Allow-Methods':'POST, GET',
                     'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ function Button({id, prix, titre, pseudo}){
             let result = await fetch(`https://api.sellyourself.fr/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
                 method: "Delete",
                 headers: {
-                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
+                    'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
                     'Access-Control-Allow-Credentials':true,
                     'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                     'Content-Type': 'Application/json',
