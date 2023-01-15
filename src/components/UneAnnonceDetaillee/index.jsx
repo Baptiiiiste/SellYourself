@@ -22,6 +22,9 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, 
             method: "Delete",
             headers: {
                 'Content-Type': 'Application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials':true,
+                'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
             }
         });

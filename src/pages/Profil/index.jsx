@@ -24,6 +24,9 @@ function Profil() {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Credentials':true,
+					'Access-Control-Allow-Methods':'POST, GET',
 					authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
 				}
 			});

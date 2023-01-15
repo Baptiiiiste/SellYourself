@@ -19,6 +19,9 @@ function FormulairePwdForgot() {
             method: "POST",
             crossDomain: true,
             headers:{
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials':true,
+                'Access-Control-Allow-Methods':'POST, GET',
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({

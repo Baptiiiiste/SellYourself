@@ -55,6 +55,9 @@ function InfoUtilisateur() {
             body: JSON.stringify({ nom, prenom, description, ville, paypal, email }),
             headers: {
                 'Content-Type': 'Application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials':true,
+                'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
@@ -84,6 +87,9 @@ function InfoUtilisateur() {
             body: JSON.stringify({ oldPassword, password }),
             headers: {
                 'Content-Type': 'Application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials':true,
+                'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
@@ -130,6 +136,9 @@ function InfoUtilisateur() {
                     body: JSON.stringify({ profilPic }),
                     headers: {
                         'Content-Type': 'Application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Credentials':true,
+                        'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                     }
                 });

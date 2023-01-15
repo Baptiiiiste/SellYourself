@@ -25,6 +25,9 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       method: "Post",
       body: JSON.stringify({ annonce: id }),
       headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials':true,
+        'Access-Control-Allow-Methods':'POST, GET',
         'Content-Type': 'Application/json',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
@@ -44,6 +47,9 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
       method: "Get",
       headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials':true,
+        'Access-Control-Allow-Methods':'POST, GET',
         'Content-Type': 'Application/json',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
@@ -75,6 +81,9 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       method: "Post",
       headers: {
         'Content-Type': 'Application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials':true,
+        'Access-Control-Allow-Methods':'POST, GET',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
@@ -84,6 +93,9 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       body: JSON.stringify({ type: "note", content: `Votre annonce ${titre} a été noté ${note}/5`, destinataire: user }),
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials':true,
+        'Access-Control-Allow-Methods':'POST, GET',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
@@ -117,6 +129,9 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       body: JSON.stringify({annonce: id, vendeur: user, user: JSON.parse(sessionStorage.getItem('user'))._id}),
       headers: {
         'Content-Type': 'Application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials':true,
+        'Access-Control-Allow-Methods':'POST, GET',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });

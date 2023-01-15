@@ -29,6 +29,9 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner, vendu}
             method: "Delete",
             headers: {
                 'Content-Type': 'Application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials':true,
+                'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
             }
         });
