@@ -19,7 +19,7 @@ function FormulairePwdForgot() {
             method: "POST",
             crossDomain: true,
             headers:{
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 "Content-Type":"application/json"

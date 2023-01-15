@@ -29,7 +29,7 @@ function Home() {
     let result = await fetch(`https://api.sellyourself.fr/api/annonces`,{
       method: 'GET',
       headers:{
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
         'Access-Control-Allow-Credentials':true,
         'Access-Control-Allow-Methods':'POST, GET',
       }

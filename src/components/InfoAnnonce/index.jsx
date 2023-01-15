@@ -72,7 +72,7 @@ function InfoAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/accessChat/${annonce._id}/${params.utilisateur}/${JSON.parse(connectedUser).pseudo}`, {
             method: 'GET',
             headers: { 
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
@@ -98,7 +98,7 @@ function InfoAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
             method: 'GET',
             headers: {
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                  authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
@@ -115,7 +115,7 @@ function InfoAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/utilisateur/${params.utilisateur}`, {
             method: 'GET',
             headers: { 
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
@@ -135,7 +135,7 @@ function InfoAnnonce() {
             method: "Post",
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
@@ -147,7 +147,7 @@ function InfoAnnonce() {
             body: JSON.stringify({ type: "fav", content: `Votre annonce ${annonce.titre} a été liké`, destinataire: annonce.utilisateur }),
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr/',
+                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
                 'Access-Control-Allow-Credentials':true,
                 'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
