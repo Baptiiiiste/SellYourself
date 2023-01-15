@@ -27,8 +27,7 @@ function FormulaireInscription() {
         }else if(email && passwd && pseudo){
 
             if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email)){
-                alert("Email invalide");
-                return;
+               return alert("Format d'adresse e-mail invalide");
             }
 
             if(passwd.includes(" ")){
@@ -42,10 +41,7 @@ function FormulaireInscription() {
             e.preventDefault();
 
             const captcha = document.querySelector('#g-recaptcha-response').value;
-
-
             const password = bcrypt.hashSync(passwd,salt);
-
             const profilPic = await fetch('https://api.thecatapi.com/v1/images/search',{headers: {
                 'x-api-key': 'DEMO_API_KEY'
             }})

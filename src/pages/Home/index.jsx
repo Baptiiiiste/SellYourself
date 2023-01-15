@@ -1,17 +1,23 @@
+// Import
 import './Home.css';
 import "../../assets/variable.css";
-import Loader from '../../components/Loader/index';
 import React, {useState, useEffect} from 'react';
+import Loader from '../../components/Loader/index';
 import HeaderCustom from '../../components/HeaderCustom';
 import LeftBar from '../../components/LeftBar';
 import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 import Footer from '../../components/Footer';
 
+<<<<<<< HEAD
 import socket from "../../socket";
 
 
+=======
+// Page Accueil
+>>>>>>> development
 function Home() {
+  // Variables
   const [annonces, setAnnonces] = useState([]);
   const [isOk, setIsOk] = useState(false);
 
@@ -24,12 +30,14 @@ function Home() {
       
   }, [])
 
+  // Fonction pour récupérer les annonces
   const getAnnonces = async () => {
     let result = await fetch(`http://localhost:5000/api/annonces`);
     result = await result.json();
     setAnnonces(result);
   }
 
+  // Fonction pour afficher une annonce
   const displayAnnonce = (item, index) => {
     const annonce = item[0];
     const user = item[1];
@@ -48,6 +56,7 @@ function Home() {
     />)
   }
 
+  // Fonction pour afficher les annonces
   const displayLesAnnonces = () => {
 
     if(annonces.length !== 0 && isOk){
@@ -74,6 +83,7 @@ function Home() {
     }
   }
 
+  // Affichage HTML
   return !isOk ?
     (
     <Loader/> 

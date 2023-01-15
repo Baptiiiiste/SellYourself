@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 // Composant qui représente les informations générales d'un utilisateur 
 function Footer() {
 
-    let pseudo = "Visiteur";
-    const connectedUser = sessionStorage.getItem('user');
-    
+    // Affichage HTML
     return (
         <div className='Footer'>
             <div className="Footer-Left">

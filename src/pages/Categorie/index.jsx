@@ -1,3 +1,4 @@
+// Import
 import './Categorie.css';
 import "../../assets/variable.css";
 import LoaderCategorie from '../../components/LoaderCategorie';
@@ -8,8 +9,9 @@ import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 import { useParams } from 'react-router-dom';
 
+// Page tri avec catégorie
 function Categorie() {
-
+  // Variables
   const params = useParams();
   const [annonces, setAnnonces] = useState([]);
   const categorie = params.categorie;
@@ -25,12 +27,14 @@ function Categorie() {
       
   }, [params])
 
+  // Fonction pour récupérer les annonces
   const getAnnonces = async () => {
     let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}/${recherche}`);
     result = await result.json();
     setAnnonces(result);
   }
 
+  // Fonction pour afficher une annonce
   const displayAnnonce = (item, index) => {
     const annonce = item[0];
     const user = item[1];
@@ -49,6 +53,7 @@ function Categorie() {
     />)
   }
 
+  // Fonction pour afficher les annonces
   const displayLesAnnonces = () => {
     if(annonces.length !== 0 && isOk){
       const nbAnnonces = annonces[1];
@@ -75,6 +80,7 @@ function Categorie() {
     }
   }
 
+  // Affichage HTML
   return !isOk ?
     (
     <LoaderCategorie/> 

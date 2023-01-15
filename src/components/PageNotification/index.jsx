@@ -1,16 +1,15 @@
 // Import 
 import './notif.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { faMessage, faStar, faCommentDollar, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faMessage, faStar, faCommentDollar, faHeart, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+// Composant qui représente une notification
 function Notification({type, info, owner, id}) {
 
-    // const navigate = useNavigate();
-
+    // Fonction pour supprimer une notification
     const deleteNotif = async () => {
-         await fetch(`http://localhost:5000/api/utilisateur/deleteNotif/${owner}/${id}`, {
+        await fetch(`http://localhost:5000/api/utilisateur/deleteNotif/${owner}/${id}`, {
             method: "delete",
             headers: {
                 'Content-Type': 'Application/json',
@@ -20,6 +19,7 @@ function Notification({type, info, owner, id}) {
         window.location.reload(false);
     }
 
+    // Affichage HTML notification d'un message
     if(type === "msg")
         return (
             <div className='Notification-all'>
@@ -36,6 +36,7 @@ function Notification({type, info, owner, id}) {
             </div>
         );
     
+    // Affichage HTML notification favoris
     if(type === "fav")
         return (
             <div className='Notification-all'>
@@ -52,6 +53,7 @@ function Notification({type, info, owner, id}) {
             </div>
         );
 
+    // Affichage HTML notification d'un achat
     if(type === "client")
         return (
             <div className='Notification-all'>
@@ -68,6 +70,7 @@ function Notification({type, info, owner, id}) {
             </div>
         );
 
+    // Affichage HTML notification d'une note
     if(type === "note")
         return (
             <div className='Notification-all'>

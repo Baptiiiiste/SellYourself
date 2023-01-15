@@ -1,7 +1,6 @@
 // Import 
 import './FormulaireConnexion.css'
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from "react"
 
 // Composant qui représente le fomulaire de connexion
@@ -60,6 +59,9 @@ function FormulaireConnexion() {
             <div className="FormulaireConnexion-signup-div">
                 Pas encore inscrit ?
                 <Link className="FormulaireConnexion-signup" to="/inscription">S'inscrire</Link>
+            </div>
+            <div className="FormulaireConnexion-password-forgot">
+                <Link className="FormulaireConnexion-signup" to="/forgotPwd">Mot de passe oublié ?</Link>
             </div>
         </div>
     );

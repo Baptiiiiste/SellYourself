@@ -142,7 +142,7 @@ function InfoAnnonce() {
         }
     }
 
-    
+    // Fonction pour changer l'affichage si l'annonce est vendu
     const isVendu = () => {
         const div = document.getElementsByClassName("InfoAnnonce-isVendu")[0];
         const achat = document.getElementsByClassName("InfoAnnonce-Achat")[0];

@@ -1,13 +1,15 @@
 // Import 
 import './UneAnnonce.css'
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons'
-import { useEffect } from 'react';
+import { useEffect, React } from 'react';
 
+// Composant qui représente le vendeur
 function Vendeur({pseudo, photo, note}){
+    // Variable
     let nbNote = note.length;
+
     if(nbNote === 0){
         note = "Aucune note"
     }
@@ -20,6 +22,7 @@ function Vendeur({pseudo, photo, note}){
         note = moy + "/5";
     }
 
+    // Affichage HTML
     return(
         <div className='Vendeur-all'>
             <img className='Vendeur-img' src={photo} alt=""/>
@@ -32,9 +35,12 @@ function Vendeur({pseudo, photo, note}){
     )
 }
 
+// Composant qui représente le bouton favoris
 function Button({id, prix, titre, pseudo}){
+    // Variable
     let connectedUser = sessionStorage.getItem("user");
 
+    // Fonction pour ajouter un favoris
     const addFavoris = async () => {
         if (connectedUser!=null) {
             let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${id}`, {
@@ -64,6 +70,7 @@ function Button({id, prix, titre, pseudo}){
         }
     }
 
+    // Fonction pour supprimer un favoris
     const delFavoris = async () => {
         if (connectedUser!=null) {
             let result = await fetch(`http://localhost:5000/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
@@ -82,6 +89,7 @@ function Button({id, prix, titre, pseudo}){
         }
     }
 
+    // Affichage HTML
     return (
         <div className='Contenu-other'>
             <button className='Contenu-bouton' id={'noFav'+id} onClick={addFavoris}>

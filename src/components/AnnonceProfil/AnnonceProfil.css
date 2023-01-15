@@ -1,7 +1,6 @@
 @import "../../assets/variable.css";
 
-/* ANNONCE */
-.UneAnnonceDetaillee-all{
+.AnnonceProfil-all{
     display: flex;
     flex-direction: row;
     background-color: var(--gris);
@@ -13,29 +12,29 @@
     transition: 0.3s;
 }
 
-.UneAnnonceDetaillee-info{
+.AnnonceProfil-info{
     width: 90%;
 }
 
-.UneAnnonceDetaillee-titre{
+.AnnonceProfil-titre{
     font-weight: bold;
     font-size: 20px;
     margin-top: 0;
 }
 
-.UneAnnonceDetaillee-other{
+.AnnonceProfil-other{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-.UneAnnonceDetaillee-image{
+.AnnonceProfil-image{
     height: 150px;
     max-width: 250px;
 }
 
-.UneAnnonceDetaillee-description{
+.AnnonceProfil-description{
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 20px;
@@ -54,12 +53,12 @@
     align-items: center;
 }
 
-.UneAnnonceDetaillee-prix{
+.AnnonceProfil-prix{
     font-size: 20px;
     font-weight: bold;
 }
 
-.UneAnnonceDetaillee-delete{
+.AnnonceProfil-delete{
     height: 65px;
     width: 65px;
     border: 0;
@@ -69,34 +68,34 @@
     margin-bottom: 10px;
 }
 
-.UneAnnonceDetaillee-delete:hover{
+.AnnonceProfil-delete:hover{
     background-color:var(--rougeFoncé);
     transition: 0.3s;
     cursor: pointer;
 }
 
-.UneAnnonceDetaillee-icon{
+.AnnonceProfil-icon{
     height: 30px;
     width: 30px;
     color: white;
 }
 
-.UneAnnonceDetaillee-all:hover{
+.AnnonceProfil-all:hover{
     background-color:var(--grisMoyen);
     transition: 0.3s;
 }
 
-
-.UneAnnonceDetaillee-edit{
+.AnnonceProfil-edit{
     height: 65px;
     width: 65px;
     border: 0;
     border-radius: 500px;
     background-color:var(--vert);
     transition: 0.3s;
+    margin-top: 10px;
 }
 
-.UneAnnonceDetaillee-edit:hover{
+.AnnonceProfil-edit:hover{
     background-color:var(--vertFoncé);
     transition: 0.3s;
     cursor: pointer;

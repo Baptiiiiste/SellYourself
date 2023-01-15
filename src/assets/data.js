@@ -35,6 +35,7 @@ export const categories = [
     { name: "Instrument"},
     { name: "Bricolage"},
     { name: "Jardinage"},
+    { name: "Véhicule"},
 
     // Autres: 
 

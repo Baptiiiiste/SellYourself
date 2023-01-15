@@ -1,19 +1,15 @@
+// Import
 import './modifAnnonce.css';
-import React from 'react';
 import {categories} from '../../assets/data'
-import { useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 
+// Composant qui représente le formulaire pour modifier une annonce 
 function ModifAnnonce() {
-
+    // Variables
     const navigate = useNavigate();
-
     const connectedUser = sessionStorage.getItem("user");
-
     const params = useParams();
-
-    // const [oldAnnonce, setOldAnnonce] = useState("");
 
     let [titre, setTitre] = useState("");
     let [description, setDescription] = useState("");
@@ -26,14 +22,36 @@ function ModifAnnonce() {
     let [actualtitre, setactualTitre] = useState("");
     let [actualdescription, setactualDescription] = useState("");
     let [actualprix, setactualPrix] = useState("");
-    let [actualcategorie, setactualCategorie] = useState("Autre");
-    let [actualtype, setactualType] = useState("Bien");
     let [actualimage, setactualImage] = useState([]);
 
     useEffect(() => {
         getAnnonce()
     }, [])
 
+    // Fonction qui récupère l'annonce
+    const getAnnonce = async () => {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+        });
+        result = await result.json();
+        if(result.tokenError){
+            return alert(result.tokenError);
+        }
+        setId(result._id);
+        setactualTitre(result.titre);
+        setactualDescription(result.description);
+        setactualPrix(result.prix);
+        setactualImage(result.image);
+
+        setTitre(result.titre);
+        setDescription(result.description);
+        setPrix(result.prix);
+        setCategorie(result.categorie);
+        setType(result.type);
+        setImage(result.image);
+    }
+
+    // Fonction pour convertir un fichier en base64
     const toBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -47,16 +65,18 @@ function ModifAnnonce() {
         });
     };
 
+    // Fonction pour supprimer une image
     const deleteImage = (img) => {
         const div = document.querySelector('.ModifAnnonce-LesImages');
         const buttonImage = document.getElementById(img);
         div.removeChild(buttonImage);
-        var index = image.indexOf(img);
+        let index = image.indexOf(img);
         if (index > -1) {
             image.splice(index, 1);
         }
     }
 
+    // Fonction pour afficher le conteneur des images
     const displayImageDiv = () => {
         if (actualimage !== undefined) {
             if (actualimage.length !== 0) {
@@ -69,6 +89,7 @@ function ModifAnnonce() {
         }
     }
 
+    // Fonction pour afficher les images
     const displayImage = async () => {
         const div = document.querySelector('.ModifAnnonce-LesImages');
         const files = document.querySelector('.ModifAnnonce-Image').files;
@@ -79,15 +100,15 @@ function ModifAnnonce() {
             alert("Vous ne pouvez choisir plus de 5 images !")
         }
         else{
-            for (let i = 0; i<files.length; i++){
-                const extension = files[i].name.split('.').pop().toLowerCase();
-                const size = files[i].size;
+            for (let file of files){
+                const extension = file.name.split('.').pop().toLowerCase();
+                const size = file.size;
 
                 if(size > 2097152){
-                    alert(`La taille de ce fichier (${files[i].name}) est trop grand`)
+                    alert(`La taille de ce fichier (${file.name}) est trop grand`)
                 } else {
                     if(extension === 'jpeg' || extension === 'jpg' || extension === 'png'){
-                        const imageBase64 = await toBase64(files[i]);
+                        const imageBase64 = await toBase64(file);
 
                         const img = document.createElement('img');
                         img.src= imageBase64;
@@ -110,11 +131,13 @@ function ModifAnnonce() {
         }
     }
 
+    // Fonction pour valider le formulaire et envoyer l'annonce en base de données
     const formulaire = async () => {
         const nbImage = image.length;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/user/${JSON.parse(connectedUser).pseudo}`, {
-            method: 'Get',
+        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
+            method: 'Post',
+            body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
                 'Content-Type': 'Application/json',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
@@ -160,30 +183,7 @@ function ModifAnnonce() {
         }
     }
 
-    const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
-            headers: { authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
-        });
-        result = await result.json();
-        if(result.tokenError){
-            return alert(result.tokenError);
-        }
-        setId(result._id);
-        setactualTitre(result.titre);
-        setactualDescription(result.description);
-        setactualPrix(result.prix);
-        setactualCategorie(result.categorie);
-        setactualType(result.type);
-        setactualImage(result.image);
-
-        setTitre(result.titre);
-        setDescription(result.description);
-        setPrix(result.prix);
-        setCategorie(result.categorie);
-        setType(result.type);
-        setImage(result.image);
-    }
-
+    // Affichage HTML
     return(
             <div className="ModifAnnonce-Input">
                 <input type="text"

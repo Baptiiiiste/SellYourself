@@ -1,7 +1,16 @@
 // Import 
 import './Message.css';
 
+<<<<<<< HEAD
 function Message({ photo, pseudo, text }) {
+=======
+// Composant qui représente un message
+function Message({ photo, nom, prenom, text }) {
+    // Variables
+    const init = nom[0].toUpperCase();
+
+    // Affichage HTML
+>>>>>>> development
     return(
         <div className='Message'>
             <div className='Message-vendeur'>

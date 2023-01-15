@@ -23,8 +23,8 @@ function InfoUtilisateur() {
     let [paypal, setPaypal] = useState();
     let [email, setEMail] = useState();
     let [ville, setVille] = useState();
-    const [oldPassword, setOldPassword] = useState();
-    const [newPassword, setNewPassword] = useState();
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
     // Fonction pour modifier les informations d'un utilisateur
     const updateUser = async () => {

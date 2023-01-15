@@ -1,22 +1,30 @@
 const express = require("express");
 const cors = require('cors');
+let corsOptions = {
+    origin: 'trustedwebsite.com' // Compliant
+};
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
 let ObjectId = require('mongodb').ObjectId;
 const request2 = require('request');
+<<<<<<< HEAD
 const { response } = require("express");
 
 
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
 
+=======
+const nodemailer = require('nodemailer');
+>>>>>>> development
 
 // Création de l'API
 const app = express();
 app.use(express.json({limit: '25mb'}));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({limit: '25mb', extended: false}));
+app.set("view engine","ejs");
 
 // Connexion à la BDD
 require('./configuration/connexion');
@@ -34,7 +42,6 @@ app.post("/api/inscription", async (req, resp) => {
         if(resp.headersSent !== true){
             resp.send({"success": false,"result": "Veuillez vérifier la captcha"});
         }
-        //resp.send({result:"Captcha invalide"});
     }
     else {
         let user = new User(req.body);
@@ -50,7 +57,6 @@ app.post("/api/inscription", async (req, resp) => {
 
         request2(verifyUrl, (err, response, body)=> {
             body = JSON.parse(body);
-            // console.log(body);
 
             // If not successful
 
@@ -58,21 +64,17 @@ app.post("/api/inscription", async (req, resp) => {
                 if(resp.headersSent !== true){
                     resp.send({"success":false, "result":"Échec de la vérification de la captcha"});
                 }
-                //resp.send({"result":"Captcha invalide"});
             }
 
             // If successful
             if(resp.headersSent !== true){
                 resp.send({"success": true, "result":"Captcha réussie"});
             }
-            //resp.send({"success": true, "msg":"Captcha passed"});
         }); 
 
 
         result = result.toObject();
         delete result.password;
-
-
 
         Jwt.sign({result}, process.env.JWTKEY, {expiresIn: "2h"}, (err, token) => {
             if(err){
@@ -84,8 +86,34 @@ app.post("/api/inscription", async (req, resp) => {
             if(resp.headersSent !== true){
                 resp.send({user: result, authToken:token});
             }
-               
         });
+
+        let transporter = nodemailer.createTransport({
+            secure: true,
+            requireTLS: true,
+            secured: true,
+            service: 'gmail',
+            auth: {
+            user: 'sellyourselfteam@gmail.com',
+            pass: 'obyhohtdoggzdpwl'
+            }
+        });
+        
+
+        let mailOptions = {
+            from: 'sellyourselfteam@gmail.com',
+            to: req.body.email,
+            subject: 'Bienvenue ' + req.body.pseudo + ' !',
+            text: 'Bonjour et bienvenue ' + req.body.pseudo + ' sur notre site web SellYourself ! \n\nMerci de la confiance que vous nous accordez, en espérant passer de bons moments à vos côtés.\n\nVous pourrez utiliser cette adresse email pour récupérer votre mot de passe si jamais vous l\'avez oublié.\n\nL\équipe SellYourself',
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            }
+        });
+
+        
     }
 
 })
@@ -155,7 +183,7 @@ app.post("/api/utilisateur/updatePassword/:id", verifyToken, async (req, resp) =
 // Requete new annonce
 app.post("/api/publier", verifyToken ,async (req, resp) => {
     const utilisateur = req.body.vendeur;
-    let annonce = new Annonce({utilisateur: req.body.vendeur, titre: req.body.titre, description: req.body.description, image: req.body.image, prix: req.body.prix, type: req.body.type});
+    let annonce = new Annonce({utilisateur: req.body.vendeur, titre: req.body.titre, description: req.body.description, image: req.body.image, prix: req.body.prix, type: req.body.type, categorie: req.body.categorie});
     await annonce.save();
 
     await User.updateOne(
@@ -672,6 +700,89 @@ io.use((socket, next) => {
 chat(io);
 
 http.listen(5050)
+
+
+
+// ----------------------
+
+// Forgot password
+
+// ----------------------
+
+app.post("/api/forgotPwd",async(req,resp)=>{
+    try{
+
+        const oldUser = await User.findOne({email: req.body.email});
+
+        if( !oldUser){
+            resp.send({result:"Adresse e-mail inconnue"});
+        }
+
+        const secret = process.env.JWTKEY + oldUser.password;
+        const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
+        const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
+
+        let transporter = nodemailer.createTransport({
+            secure: true,
+            requireTLS: true,
+            secured: true,
+            service: 'gmail',
+            auth: {
+            user: 'sellyourselfteam@gmail.com',
+            pass: 'obyhohtdoggzdpwl'
+            }
+        });
+        
+
+        let mailOptions = {
+            from: 'sellyourselfteam@gmail.com',
+            to: req.body.email,
+            subject: 'Réinitialiser votre mot de passe',
+            text: 'Bonjour, vous avez fait une requête pour réinitialiser votre mot de passe \n\nVeuillez suivre le lien suivant: \n' + link,
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            }
+        });
+
+            resp.send({});
+            }
+            catch(error){
+                
+            }
+        });
+
+app.post('/api/resetPassword', async(req, resp)=>{
+    const pseudo = req.body.pseudo;
+    const token = req.body.token;
+    const passwordGet = req.body.hashPassword;
+    const newUser = await User.findOne({pseudo: pseudo});
+
+    if( !newUser){
+        resp.send({result:"Lien invalide, veuillez réessayer"});
+        return;
+    }
+
+    const secret = process.env.JWTKEY + newUser.password;
+
+    try{
+        Jwt.verify(token,secret);
+        await User.updateOne(
+            { pseudo: pseudo  },
+            { $set: {password: passwordGet} }
+        )
+        resp.send({result:"Mot de passe modifié avec succès !"});
+        
+    } catch(err) {
+        resp.send({result:"Session expiré, veuillez recommencer"});
+    }
+});
+
+
+
+
 
 // ---------------------------------------------------------------------------------------
 

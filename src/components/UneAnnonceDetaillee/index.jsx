@@ -5,13 +5,16 @@ import { faTrashCan } from'@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+// Composant qui représente une annonce sur la page d'accueil
 function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, vendu}){
+    // Variable
     const navigate = useNavigate();
 
     useEffect(() => {
         isVendu(id);
     })
 
+    // Fonction pour supprimer un favoris
     const deleteAdFromFavs = async () => {
         let connectedUser = sessionStorage.getItem("user");
 
@@ -32,6 +35,7 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, 
         }
     }
 
+    // Fonction pour afficher les images
     const displayImage = () => {
         if(img_annonce !== undefined){
             if(img_annonce.length === 0) return <img className="UneAnnonceDetaillee-image" src={require('../../assets/default.png')}/>
@@ -39,10 +43,12 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, 
         }
     }
 
+    // Fonction pour aller sur l'annonce
     const redirectToAd = () => {
         navigate(`/annonce/${owner}/${id}`);
     }
 
+    // Fonction pour changer l'affichage si l'annonce est vendu
     const isVendu = (id) => {
         const div = document.getElementById(id);
         if(div !== undefined){
@@ -52,6 +58,7 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, 
         }
     }
 
+    // Affichage HTML
     return(
         <div className="UneAnnonceDetaillee-all" id={id}>
             <div className='UneAnnonceDetaillee-info' onClick={redirectToAd}>
