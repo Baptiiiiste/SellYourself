@@ -8,6 +8,7 @@ const request2 = require('request');
 const { response } = require("express");
 
 
+
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
 
 
@@ -569,7 +570,7 @@ app.get("/api/getChat/:annonce/:vendeur/:acheteur", verifyToken, async (req, res
     const acheteur = req.params.acheteur; //pseudo
     
     const isAlredyExisting = await Conversation.findOne({annonce: annonce, vendeur: vendeur, acheteur: acheteur});
-    if(!isAlredyExisting) return resp.send({success: isAlredyExisting.messages});
+    if(isAlredyExisting) return resp.send({success: isAlredyExisting.messages});
     return resp.send({erreur: "Une erreur est survenue"});
 });
 
@@ -596,15 +597,16 @@ app.post("/api/addMessageChat", async (req, resp) => {
 
 app.get("/api/chat/:id/:pseudoUser", verifyToken, async (req, resp) => {
     const conv = await Conversation.find( { _id: req.params.id } )
-    
-    let user = await User.findOne( { pseudo: conv[0].acheteur } );
-    if(req.params.pseudoUser === conv[0].acheteur){
-        user = await User.findOne( { pseudo: conv[0].vendeur } );
-    }
+    if (conv.length) {
 
-    const annonces = await Annonce.findOne( { _id: conv[0].annonce} );
+        let user;
+        if(req.params.pseudoUser === conv[0].acheteur){
+            user = await User.findOne( { pseudo: conv[0].vendeur } );
+        }else{
+            user = await User.findOne( { pseudo: conv[0].acheteur } );
+        }
+        const annonces = await Annonce.findOne( { _id: conv[0].annonce} );
 
-    if (conv.length > 0) {
         resp.send({
             conv: conv[0],
             idConv: conv[0]._id,
@@ -621,29 +623,55 @@ app.get("/api/chat/:id/:pseudoUser", verifyToken, async (req, resp) => {
     }
 });
 
-// app.get("/api/getInfoChat/:annonce/:vendeur/:acheteur", verifyToken, async (req, resp) => {
-//     const annonce = req.body.annonce; //id
-//     const vendeur = req.body.vendeur; //pseudo
-//     const acheteur = req.body.acheteur; //pseudo
+// SOCKET.IO
+const morgan = require("morgan");
+const http = require("http").createServer(app);
+app.use(morgan("dev"));
+const io = require("socket.io")(http, {
+    path: "/socket.io",
+    cors: {
+        origin: ["http://localhost:3000", "http://localhost:3001"],
+        methods: ["GET", "POST"],
+        allowedHeaders: ["content-type"],
+    },
+});
 
-//     const conv = await Conversation.findOne({annonce: annonce, vendeur: vendeur, acheteur: acheteur});
-    
-//     let user = await User.findOne( { pseudo: conv.acheteur } );
+const chat = (io) => {
+    // console.log("live chat ---> ", io.opts);
+    io.on("connection", (socket) => {
+      // console.log("socket id", socket.id);
+      socket.on("username", (username) => {
+        console.log("username", username);
+        // you can emit this user to all connected clients
+        io.emit("user joined", `${username} joined`);
+      });
+      // disconnect
+      socket.on("disconnect", () => {
+        console.log("user disconnected");
+      });
 
-//     if(req.params.vendeur === conv.vendeur){
-//         user = await User.findOne( { pseudo: conv.vendeur } );
-//     }
-//     const annonces = await Annonce.findOne( { _id: conv.annonce} );
+    socket.on("message", (data) => {
+        io.emit("message", data);
+    });
 
-//     resp.send({
-//         idConv: conv._id,
-//         otherPseudo: user.pseudo,
-//         otherPhoto: user.profilPic,
-//         idAnnonce: conv.annonce,
-//         nomAnnonce: annonces.nom,
-//     })
-// });
+    });
+};
 
+io.use((socket, next) => {
+    // console.log("connected to SOCKET", socket.handshake); // headers, query, auth etc
+    const username = socket.handshake.auth.username; 
+    if (!username) {
+      return next(new Error("invalid username"));
+    }
+    socket.username = username;
+    console.log('socket.username in middleware', socket.username)
+    next();
+});
+
+
+chat(io);
+
+http.listen(5050)
 
 // ---------------------------------------------------------------------------------------
 

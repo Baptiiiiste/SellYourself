@@ -8,6 +8,9 @@ import HeaderCategories from '../../components/HeaderCategories/index.jsx';
 import UneAnnonce from '../../components/UneAnnonce';
 import Footer from '../../components/Footer';
 
+import socket from "../../socket";
+
+
 function Home() {
   const [annonces, setAnnonces] = useState([]);
   const [isOk, setIsOk] = useState(false);
