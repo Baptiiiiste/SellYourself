@@ -12,24 +12,18 @@ function FormulaireConnexion() {
 
     // Fonction pour se connecter
     const login = async () => {
-        let fav = await fetch(`https://api.sellyourself.fr/api/viderFav/${pseudo}`, {
+        let fav = await fetch(`http://localhost:5000/api/viderFav/${pseudo}`, {
             method: 'post',
             headers: {
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET',
                 'Content-Type': 'application/json'
             }
         });
         fav = await fav.json();
 
-        let result = await fetch("https://api.sellyourself.fr/api/connexion", {
+        let result = await fetch("http://localhost:5000/api/connexion", {
             method: 'post',
             body: JSON.stringify({pseudo, password}),
             headers: {
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET',
                 'Content-Type': 'application/json'
             }
         });

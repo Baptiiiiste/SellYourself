@@ -17,13 +17,11 @@ function Notifications() {
 
     // Fonction pour supprimer toutes les notifications
     const deleteAllNotifs = async () => {
-        await fetch(`https://api.sellyourself.fr/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
+        await fetch(`http://localhost:5000/api/utilisateur/deleteAllNotif/${JSON.parse(connectedUser).pseudo}`, {
             method: "delete",
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
+
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
@@ -33,13 +31,11 @@ function Notifications() {
 
     // Fonction pour récupérer les notifications d'un utilisateur
     const getUserNotif = async () => {
-        let a = await fetch(`https://api.sellyourself.fr/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}`, {
+        let a = await fetch(`http://localhost:5000/api/utilisateur/getNotif/${JSON.parse(connectedUser).pseudo}`, {
             method: "Get",
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET',
+
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });

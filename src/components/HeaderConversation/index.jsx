@@ -21,13 +21,11 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est vendu
   const isVendu = async () => {
-    let result = await fetch(`https://api.sellyourself.fr/api/getAchat`, {
+    let result = await fetch(`http://localhost:5000/api/getAchat`, {
       method: "Post",
       body: JSON.stringify({ annonce: id }),
       headers: {
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-        'Access-Control-Allow-Credentials':true,
-        'Access-Control-Allow-Methods':'POST, GET',
+
         'Content-Type': 'Application/json',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
@@ -44,12 +42,10 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
-    let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
+    let result = await fetch(`http://localhost:5000/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
       method: "Get",
       headers: {
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-        'Access-Control-Allow-Credentials':true,
-        'Access-Control-Allow-Methods':'POST, GET',
+
         'Content-Type': 'Application/json',
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
@@ -77,25 +73,21 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour ajouter une note
   const addNote = async (note) => {
-    await fetch(`https://api.sellyourself.fr/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
+    await fetch(`http://localhost:5000/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
       method: "Post",
       headers: {
         'Content-Type': 'Application/json',
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-        'Access-Control-Allow-Credentials':true,
-        'Access-Control-Allow-Methods':'POST, GET',
+
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
 
-    await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
+    await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
       method: 'Post',
       body: JSON.stringify({ type: "note", content: `Votre annonce ${titre} a été noté ${note}/5`, destinataire: user }),
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-        'Access-Control-Allow-Credentials':true,
-        'Access-Control-Allow-Methods':'POST, GET',
+
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
@@ -124,14 +116,12 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour supprimer une note
   const deleteNote = async () => {
-    await fetch(`https://api.sellyourself.fr/api/note/delete`, {
+    await fetch(`http://localhost:5000/api/note/delete`, {
       method: "Post",
       body: JSON.stringify({annonce: id, vendeur: user, user: JSON.parse(sessionStorage.getItem('user'))._id}),
       headers: {
         'Content-Type': 'Application/json',
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-        'Access-Control-Allow-Credentials':true,
-        'Access-Control-Allow-Methods':'POST, GET',
+
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });

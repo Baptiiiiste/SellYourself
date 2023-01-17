@@ -30,12 +30,9 @@ function ModifAnnonce() {
 
     // Fonction qui récupère l'annonce
     const getAnnonce = async () => {
-        let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
             method: 'GET',
             headers: { 
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
         });
         result = await result.json();
@@ -140,13 +137,10 @@ function ModifAnnonce() {
     const formulaire = async () => {
         const nbImage = image.length;
 
-        let result = await fetch(`https://api.sellyourself.fr/api/annonce/user`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
             method: 'Post',
             body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET',
                 'Content-Type': 'Application/json',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
@@ -174,14 +168,12 @@ function ModifAnnonce() {
             setCategorie('Autre');
         }
         else if(titre && prix && nbImage > 0 && prix <= 99999){
-            let result = await fetch(`https://api.sellyourself.fr/api/annonce/edit/${id}/${JSON.parse(connectedUser).pseudo}`, {
+            let result = await fetch(`http://localhost:5000/api/annonce/edit/${id}/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Put',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {
                     'Content-Type': 'Application/json',
-                    'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                    'Access-Control-Allow-Credentials':true,
-                    'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
+
                     authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                 }
             });

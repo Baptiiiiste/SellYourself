@@ -15,13 +15,10 @@ function FormulairePwdForgot() {
             return alert("Format d'adresse e-mail invalide");
         }
         console.log(email);
-        let data = await fetch("https://api.sellyourself.fr/api/forgotPwd",{
+        let data = await fetch("http://localhost:5000/api/forgotPwd",{
             method: "POST",
             crossDomain: true,
             headers:{
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET',
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({

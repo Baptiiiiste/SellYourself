@@ -29,13 +29,8 @@ function Categorie() {
 
   // Fonction pour récupérer les annonces
   const getAnnonces = async () => {
-    let result = await fetch(`https://api.sellyourself.fr/api/annonce/search/${categorie}/${recherche}`, {
+    let result = await fetch(`http://localhost:5000/api/annonce/search/${categorie}/${recherche}`, {
       method: 'GET',
-      headers:{
-        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-        'Access-Control-Allow-Credentials':true,
-        'Access-Control-Allow-Methods':'POST, GET',
-      }
     });
     result = await result.json();
     setAnnonces(result);

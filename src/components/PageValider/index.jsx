@@ -63,24 +63,20 @@ function ValidationAchat({annonce}) {
                         
                         onApprove={async function (data, actions) {
                             return actions.order.capture().then(async function(){
-                                await fetch(`https://api.sellyourself.fr/api/achat`, {
+                                await fetch(`http://localhost:5000/api/achat`, {
                                     method: 'Post',
                                     body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
                                     headers: {
                                         'Content-Type': 'Application/json',
-                                        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                                        'Access-Control-Allow-Credentials':true,
-                                        'Access-Control-Allow-Methods':'POST, GET',
+
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }
                                 });
-                                await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
+                                await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
                                     method: 'Post',
                                     body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été acheté par ${connectedUser}`, destinataire: annonce.utilisateur }),
                                     headers: {
-                                        'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                                        'Access-Control-Allow-Credentials':true,
-                                        'Access-Control-Allow-Methods':'POST, GET',
+
                                         'Content-Type': 'application/json',
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }

@@ -25,13 +25,10 @@ function AnnonceProfil({titre, description, prix, img_annonce, id, owner, vendu}
         const valid = await window.confirm(`Vous etes sur le point de supprimer l'annonce:\n ${titre}\n Valider ?`);
         if(!valid) return;
 
-        let result = await fetch(`https://api.sellyourself.fr/api/annonce/delete/${owner[1]}/${id}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/delete/${owner[1]}/${id}`, {
             method: "Delete",
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
             }
         });

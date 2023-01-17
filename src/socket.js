@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL = "https://sellyourself.fr";
+const URL = "http://localhost:3000";
 const socket = io(URL, {
   path: "/socket.io",
   reconnection: false,

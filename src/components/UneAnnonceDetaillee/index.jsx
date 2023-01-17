@@ -18,13 +18,11 @@ function UneAnnonceDetaillee({id, titre, description, prix, img_annonce, owner, 
     const deleteAdFromFavs = async () => {
         let connectedUser = sessionStorage.getItem("user");
 
-        let result = await fetch(`https://api.sellyourself.fr/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
+        let result = await fetch(`http://localhost:5000/api/favoris/delete/${JSON.parse(connectedUser)._id}/${id}`, {
             method: "Delete",
             headers: {
                 'Content-Type': 'Application/json',
-                'Access-Control-Allow-Origin': 'https://sellyourself.fr',
-                'Access-Control-Allow-Credentials':true,
-                'Access-Control-Allow-Methods':'POST, GET, DELETE, PUT',
+
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
             }
         });
