@@ -1,7 +1,7 @@
 # 💫 Sell Yourself - Development
 Marketplace website made using MERN
 
-Preview disponible sur [sellyourself.fr](http://localhost:3000).
+Preview disponible sur [sellyourself.fr](https://sellyourself.fr).
 
 Réalisé avec MongoDB, Express, React et Node (MERN)
 

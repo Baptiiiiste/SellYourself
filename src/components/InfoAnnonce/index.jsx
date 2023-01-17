@@ -69,7 +69,7 @@ function InfoAnnonce() {
     }, [])
 
     const accessChat = async () => {
-        let result = await fetch(`http://localhost:5000/api/accessChat/${annonce._id}/${params.utilisateur}/${JSON.parse(connectedUser).pseudo}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/accessChat/${annonce._id}/${params.utilisateur}/${JSON.parse(connectedUser).pseudo}`, {
             method: 'GET',
             headers: { 
 
@@ -93,7 +93,7 @@ function InfoAnnonce() {
 
     // Fonction pour récupérer une annonce
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
             method: 'GET',
             headers: {
 
@@ -108,7 +108,7 @@ function InfoAnnonce() {
 
     // Fonction pour récupérer un utilisateur
     const getUser = async () => {
-        let result = await fetch(`http://localhost:5000/api/utilisateur/${params.utilisateur}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/utilisateur/${params.utilisateur}`, {
             method: 'GET',
             headers: { 
 
@@ -125,7 +125,7 @@ function InfoAnnonce() {
     const addFavoris = async () => {
         let connectedUser = sessionStorage.getItem("user");
 
-        let result = await fetch(`http://localhost:5000/api/favoris/add/${JSON.parse(connectedUser)._id}/${annonce._id}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/favoris/add/${JSON.parse(connectedUser)._id}/${annonce._id}`, {
             method: "Post",
             headers: {
                 'Content-Type': 'Application/json',
@@ -134,7 +134,7 @@ function InfoAnnonce() {
             }
         });
 
-        await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+        await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
             method: 'Post',
             body: JSON.stringify({ type: "fav", content: `Votre annonce ${annonce.titre} a été liké`, destinataire: annonce.utilisateur }),
             headers: {
