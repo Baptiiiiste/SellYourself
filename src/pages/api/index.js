@@ -351,7 +351,7 @@ app.get("/api/utilisateur/getNotif/:pseudo", verifyToken, async (req, resp) => {
 });
 
 // Requete de suppression favoris inexistant
-app.post("/api/viderFav/:user", verifyToken,async (req, resp) => {
+app.post("/api/viderFav/:user", async (req, resp) => {
     const user = await User.findOne({ pseudo : req.params.user });
     if(user.favoris.length === 0){
         resp.send({user: user});
