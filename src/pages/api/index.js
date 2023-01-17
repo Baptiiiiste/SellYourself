@@ -340,7 +340,7 @@ app.delete("/api/favoris/delete/:idUser/:idAnnonce", verifyToken, async (req, re
     } 
 })
 
-app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
+app.get("/api/utilisateur/getNotif/:pseudo", verifyToken, async (req, resp) => {
     let listNotifs = [];
     const user = await User.findOne({pseudo: req.params.pseudo});
     for (let i = 0; i < user.notifications.length; i++) {
@@ -351,7 +351,7 @@ app.get("/api/utilisateur/getNotif/:pseudo", async (req, resp) => {
 });
 
 // Requete de suppression favoris inexistant
-app.post("/api/viderFav/:user", async (req, resp) => {
+app.post("/api/viderFav/:user", verifyToken,async (req, resp) => {
     const user = await User.findOne({ pseudo : req.params.user });
     if(user.favoris.length === 0){
         resp.send({user: user});
@@ -392,7 +392,7 @@ app.post("/api/utilisateur/addNotif",verifyToken, async(req,resp) => {
     }
 })
 
-app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) => {
+app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", verifyToken,async (req, resp) => {
     
     let resNotif = await Notification.deleteOne( { _id : req.params.idNotif  });
     await User.updateOne(
@@ -408,7 +408,7 @@ app.delete("/api/utilisateur/deleteNotif/:pseudo/:idNotif", async (req, resp) =>
     }
 });
 
-app.delete("/api/utilisateur/deleteAllNotif/:pseudo", async (req, resp) => {
+app.delete("/api/utilisateur/deleteAllNotif/:pseudo", verifyToken,async (req, resp) => {
     let user = await User.findOne({ pseudo: req.params.pseudo })
     user.notifications.forEach(async element => {
         await Notification.deleteOne( { _id : element  });
