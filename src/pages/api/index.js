@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 let corsOptions = {
-    origin: 'https://sellyourself.fr' // Compliant
+    origin: 'sellyourself.fr' // Compliant
 };
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
@@ -650,7 +650,7 @@ app.use(morgan("dev"));
 const io = require("socket.io")(http, {
     path: "/socket.io",
     cors: {
-        origin: ["https://sellyourself.fr/"],
+        origin: "sellyourself.fr",
         methods: ["GET", "POST"],
         allowedHeaders: ["content-type"],
     },
