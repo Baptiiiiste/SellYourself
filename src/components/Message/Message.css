@@ -25,6 +25,7 @@
     -webkit-line-clamp: 1;
     overflow: hidden;
     overflow-wrap: break-word;
+    color: black;
 }
 
 .Message-contenu{
@@ -43,6 +44,7 @@
 .Message-vendeur p{
     font-size: 24px;
     font-weight: bold;
+    color: black;
 }
 
 .Message-button{
