@@ -48,31 +48,31 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
-    console.log(id, user, JSON.parse(sessionStorage.getItem('user'))._id);
-    let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user'))._id}`, {
-      method: "Get",
-      headers: {
+    if (id != undefined && user != undefined){
+      let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user'))._id}`, {
+        method: "Get",
+        headers: {
 
-        'Content-Type': 'Application/json',
-        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-      }
-    });
-    result = await result.json();
-    console.log(result);
+          'Content-Type': 'Application/json',
+          authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+        }
+      });
+      result = await result.json();
 
-    if(result.isNoted && vendu && JSON.parse(connectedUser).pseudo !== user){
-      const divNote = document.getElementsByClassName("HeaderConversation-div-note")[0];
-      const div = document.getElementsByClassName("HeaderConversation-div-isNoted")[0];
+      if(result.isNoted && vendu && JSON.parse(connectedUser).pseudo !== user){
+        const divNote = document.getElementsByClassName("HeaderConversation-div-note")[0];
+        const div = document.getElementsByClassName("HeaderConversation-div-isNoted")[0];
 
-      if(divNote !== undefined && div !== undefined){
-        divNote.style.display = 'none';
-        div.style.display = 'block';
+        if(divNote !== undefined && div !== undefined){
+          divNote.style.display = 'none';
+          div.style.display = 'block';
 
-        for(let i=1; i<=result.note; i++){
-          let button = document.getElementById("buttonNoted-"+i);
+          for(let i=1; i<=result.note; i++){
+            let button = document.getElementById("buttonNoted-"+i);
 
-          if(button !== undefined){
-            button.style.color = '#d48002'
+            if(button !== undefined){
+              button.style.color = '#d48002'
+            }
           }
         }
       }
