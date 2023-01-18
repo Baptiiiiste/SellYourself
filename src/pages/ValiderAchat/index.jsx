@@ -17,7 +17,7 @@ function ValiderAchat() {
 
   // Fonction pour récupérer une annonce
   const getAnnonce = async () => {
-      let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
+      let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',

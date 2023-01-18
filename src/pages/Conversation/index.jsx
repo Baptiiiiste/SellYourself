@@ -37,7 +37,7 @@ function Conversation() {
 
     // Fonction pour envoyer un message
     const sendMsg = async () => {
-        await fetch(`https://api.sellyourself.fr/api/addMessageChat`, {
+        await fetch(`http://localhost:5000/api/addMessageChat`, {
             method: "POST",
             body: JSON.stringify({annonce: params.annonce, vendeur: params.vendeur, acheteur: params.acheteur, author: username, content: message}),
             headers: {
@@ -74,7 +74,7 @@ function Conversation() {
 
     // Fonction pour récupérer l'annonce sujette de la conversation
     const getAnnonce = async () => {
-        let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',
@@ -88,7 +88,7 @@ function Conversation() {
 
     // Fonction pour récupérer un précédent message
     const getPrecedentMesssages = async () => {
-        let result = await fetch(`https://api.sellyourself.fr/api/getChat/${params.annonce}/${params.vendeur}/${params.acheteur}`, {
+        let result = await fetch(`http://localhost:5000/api/getChat/${params.annonce}/${params.vendeur}/${params.acheteur}`, {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',

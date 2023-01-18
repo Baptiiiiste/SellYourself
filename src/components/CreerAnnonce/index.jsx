@@ -89,7 +89,7 @@ function CreerAnnonce() {
     const formulaire = async () => {
         const nbImage = (document.querySelectorAll('.CreerAnnonce-img')).length;
 
-        let result = await fetch(`https://api.sellyourself.fr/api/annonce/user`, {
+        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
             method: 'Post',
             body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
@@ -121,7 +121,7 @@ function CreerAnnonce() {
             setCategorie('Autre');
         }
         else if(titre && prix && nbImage > 0 && prix <= 99999 && JSON.parse(connectedUser).paypal.length !== 0){
-            let result = await fetch(`https://api.sellyourself.fr/api/publier`, {
+            let result = await fetch(`http://localhost:5000/api/publier`, {
                 method: 'Post',
                 body: JSON.stringify({titre, description, image, prix, type, categorie, vendeur: JSON.parse(connectedUser).pseudo}),
                 headers: {

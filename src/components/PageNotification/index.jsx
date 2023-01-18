@@ -9,7 +9,7 @@ function Notification({type, info, owner, id}) {
 
     // Fonction pour supprimer une notification
     const deleteNotif = async () => {
-        await fetch(`https://api.sellyourself.fr/api/utilisateur/deleteNotif/${owner}/${id}`, {
+        await fetch(`http://localhost:5000/api/utilisateur/deleteNotif/${owner}/${id}`, {
             method: "delete",
             headers: {
 

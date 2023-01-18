@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 let corsOptions = {
-    origin: 'sellyourself.fr' // Compliant
+    origin: 'http://localhost:3000' // Compliant
 };
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
@@ -712,7 +712,7 @@ app.post("/api/forgotPwd",async(req,resp)=>{
 
         const secret = process.env.JWTKEY + oldUser.password;
         const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
-        const link = `https://sellyourself.fr/resetPassword/${oldUser.pseudo}/${token}`;
+        const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
 
         let transporter = nodemailer.createTransport({
             secure: true,

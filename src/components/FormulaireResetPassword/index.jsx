@@ -32,7 +32,7 @@ function FormulaireResetPassword() {
             const pseudo =  params.pseudo;
             const token = params.token;
         
-            let result = await fetch(`https://api.sellyourself.fr/api/resetPassword`, {
+            let result = await fetch(`http://localhost:5000/api/resetPassword`, {
                 method: "post",
                 body: JSON.stringify({pseudo, token, hashPassword}),
                     headers: {

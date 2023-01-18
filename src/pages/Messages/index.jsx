@@ -21,7 +21,7 @@ function Messages() {
     const getUserConv = async () => {
         let listAds = [];
         for(let i = 0; i < (JSON.parse(connectedUser).conversations).length; i++){
-            let a = await fetch(`https://api.sellyourself.fr/api/chat/${JSON.parse(connectedUser).conversations[i]}/${JSON.parse(connectedUser).pseudo}`, {
+            let a = await fetch(`http://localhost:5000/api/chat/${JSON.parse(connectedUser).conversations[i]}/${JSON.parse(connectedUser).pseudo}`, {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',
