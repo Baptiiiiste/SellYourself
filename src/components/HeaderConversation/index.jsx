@@ -12,11 +12,6 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
   // Variable
   const connectedUser = sessionStorage.getItem("user");
 
-  useEffect(() => {
-    isVendu();
-    isNoted();
-  }, []);
-
   // Fonction pour afficher les images
   const displayImage = () => {
     if (image !== undefined) {
@@ -134,6 +129,9 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     });
     window.location.reload(false);
   }
+
+  isVendu();
+  isNoted();
 
   // Affichage HTML
   return (
