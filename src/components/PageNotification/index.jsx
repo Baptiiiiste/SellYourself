@@ -26,7 +26,7 @@ function Notification({type, info, owner, id}) {
             <div className='Notification-all'>
                 <div className='Notification-right'>
                     <FontAwesomeIcon icon={faMessage} className="Notification-Image" />
-                    <Link className='Notification-text' to="/conversation">
+                    <Link className='Notification-text' to="/messages">
                         <p className="Notification-info">Vous avez reçu un nouveau message.</p>
                         <p className="Notification-messageText">{info}</p>
                     </Link>

@@ -15,7 +15,7 @@ function ValidationAchat({annonce}) {
     const navigate = useNavigate();
     const amount = annonce.prix;
     const currency = "EUR";
-    const connectedUser = JSON.parse(sessionStorage.getItem("user")).pseudo;
+    const pseudoConnectedUser = JSON.parse(sessionStorage.getItem("user")).pseudo;
 
     // Fonction pour afficher l'image
     const displayImage = () => {
@@ -65,7 +65,7 @@ function ValidationAchat({annonce}) {
                             return actions.order.capture().then(async function(){
                                 await fetch(`https://api.sellyourself.fr/api/achat`, {
                                     method: 'Post',
-                                    body: JSON.stringify({ acheteur: connectedUser, annonce: annonce._id }),
+                                    body: JSON.stringify({ acheteur: pseudoConnectedUser, annonce: annonce._id }),
                                     headers: {
                                         'Content-Type': 'Application/json',
 
@@ -74,14 +74,14 @@ function ValidationAchat({annonce}) {
                                 });
                                 await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
                                     method: 'Post',
-                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été acheté par ${connectedUser}`, destinataire: annonce.utilisateur }),
+                                    body: JSON.stringify({ type: "client", content: `Votre annonce ${annonce.titre} a été acheté par ${pseudoConnectedUser}`, destinataire: annonce.utilisateur }),
                                     headers: {
 
                                         'Content-Type': 'application/json',
                                         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
                                     }
                                 });
-                                navigate(`/conversation/${annonce._id}`);
+                                navigate(`/achat/${annonce._id}/${annonce.utilisateur}/${pseudoConnectedUser}`);
                             })
                         }}
                     />

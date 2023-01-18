@@ -494,15 +494,12 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
     let bool = false;
     let note = 0;
     if(vendeur){
-        const user = await User.findOne( { pseudo: req.params.user } );
-        if(user){
-            vendeur.noteList.forEach(element => {
-                if(element.utilisateurId === user._id && element.annonceId === req.params.annonce){
-                    bool = true;
-                    note = element.note;
-                }
-            });
-        }
+        vendeur.noteList.forEach(element => {
+            if(element.utilisateurId === req.params.user && element.annonceId === req.params.annonce){
+                bool = true;
+                note = element.note;
+            }
+        });
     }
     if(bool){
         resp.send({isNoted: true, note: note});

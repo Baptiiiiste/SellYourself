@@ -38,7 +38,7 @@ function Messages() {
     const displayConv = (item, index) => {
         const annonce = item;
         return (
-            <Link className="Message-link" to={`/chat/${annonce.idAnnonce}/${annonce.vendeur}/${annonce.acheteur}`}>
+            <Link className="Messages-link" to={`/chat/${annonce.idAnnonce}/${annonce.vendeur}/${annonce.acheteur}`}>
             <Message
                 photo={annonce.otherPhoto}
                 pseudo={annonce.otherPseudo}

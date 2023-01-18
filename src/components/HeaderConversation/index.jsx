@@ -5,11 +5,17 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 // Composant qui représente les information sur l'annonce dans la page d'une conversation
 function HeaderConversation({ image, titre, description, id, vendu, user}) {
   // Variable
   const connectedUser = sessionStorage.getItem("user");
+
+  useEffect(() => {
+    isVendu();
+    isNoted();
+  }, []);
 
   // Fonction pour afficher les images
   const displayImage = () => {
@@ -42,7 +48,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
-    let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
+    let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user'))._id}`, {
       method: "Get",
       headers: {
 
@@ -51,6 +57,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       }
     });
     result = await result.json();
+    console.log(result);
 
     if(result.isNoted && vendu && JSON.parse(connectedUser).pseudo !== user){
       const divNote = document.getElementsByClassName("HeaderConversation-div-note")[0];
@@ -77,7 +84,6 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
       method: "Post",
       headers: {
         'Content-Type': 'Application/json',
-
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
@@ -127,9 +133,6 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     });
     window.location.reload(false);
   }
-
-  isVendu();
-  isNoted();
 
   // Affichage HTML
   return (
