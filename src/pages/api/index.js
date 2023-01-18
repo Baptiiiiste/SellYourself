@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require('cors');
-let corsOptions = {
-    origin: 'sellyourself.fr' // Compliant
-};
+// let corsOptions = {
+//     origin: 'sellyourself.fr' // Compliant
+// };
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
 const Jwt = require("jsonwebtoken");
@@ -12,17 +12,25 @@ const request2 = require('request');
 
 //const verifyUrl = `http://www.google.com/recaptcha/api/siteverify?secret=${secretKey}`;
 
+
+
 const nodemailer = require('nodemailer');
 
 // Création de l'API
 const app = express();
 app.use(express.json({limit: '25mb'}));
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.use(express.urlencoded({limit: '25mb', extended: false}));
 app.set("view engine","ejs");
 
 // Connexion à la BDD
 require('./configuration/connexion');
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "sellyourself.fr/"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 // Requete d'inscription
 app.post("/api/inscription", async (req, resp) => {
