@@ -152,6 +152,11 @@
     margin: 20px;
     font-weight: bold;
     transition: 0.3s;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    background: var(--gris);
 }
 
 .InfoAnnonce-BoutonMessage:hover{
