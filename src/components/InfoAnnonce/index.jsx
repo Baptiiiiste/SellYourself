@@ -72,8 +72,8 @@ function InfoAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/accessChat/${annonce._id}/${params.utilisateur}/${JSON.parse(connectedUser).pseudo}`, {
             method: 'GET',
             headers: { 
-
-                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` 
+            }
         });
         result = await result.json();
         if(result.erreur){
@@ -86,6 +86,14 @@ function InfoAnnonce() {
         }
         
         if(result.success) {
+            await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
+                method: 'Post',
+                body: JSON.stringify({ type: "msg", content: `Vous avez une nouvelle converation avec ${connectedUser}`, destinataire: annonce.utilisateur }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                }
+            });
             navigate(result.success);
         }
 
@@ -96,8 +104,8 @@ function InfoAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
             method: 'GET',
             headers: {
-
-                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` 
+            }
         });
         result = await result.json();
         if (result.tokenError) {
@@ -111,8 +119,8 @@ function InfoAnnonce() {
         let result = await fetch(`https://api.sellyourself.fr/api/utilisateur/${params.utilisateur}`, {
             method: 'GET',
             headers: { 
-
-                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
+                authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` 
+            }
         });
         result = await result.json();
         if (result.tokenError) {
@@ -129,7 +137,6 @@ function InfoAnnonce() {
             method: "Post",
             headers: {
                 'Content-Type': 'Application/json',
-
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))} `
             }
         });
@@ -139,7 +146,6 @@ function InfoAnnonce() {
             body: JSON.stringify({ type: "fav", content: `Votre annonce ${annonce.titre} a été liké`, destinataire: annonce.utilisateur }),
             headers: {
                 'Content-Type': 'application/json',
-
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             }
         });
