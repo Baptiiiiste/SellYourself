@@ -48,6 +48,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
+    console.log(id, user, JSON.parse(sessionStorage.getItem('user'))._id);
     let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user'))._id}`, {
       method: "Get",
       headers: {
