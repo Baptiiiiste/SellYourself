@@ -145,18 +145,15 @@
 
 .InfoAnnonce-BoutonMessage{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-decoration: none;
-    color: black;
-    margin: 20px;
+    margin-top: 20px;
     font-weight: bold;
     transition: 0.3s;
-    border: none;
     padding: 10px 20px;
+    border: none;
     border-radius: 5px;
     font-size: 16px;
     background: var(--gris);
+    box-shadow: 4px 4px 4px var(--grisFoncé);
 }
 
 .InfoAnnonce-BoutonMessage:hover{
