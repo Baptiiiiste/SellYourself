@@ -5,11 +5,17 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 // Composant qui représente les information sur l'annonce dans la page d'une conversation
 function HeaderConversation({ image, titre, description, id, vendu, user}) {
   // Variable
   const connectedUser = sessionStorage.getItem("user");
+
+  useEffect(() => {
+    isVendu();
+    isNoted();
+  }, []);
 
   // Fonction pour afficher les images
   const displayImage = () => {
@@ -21,7 +27,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est vendu
   const isVendu = async () => {
-    let result = await fetch(`http://localhost:5000/api/getAchat`, {
+    let result = await fetch(`https://api.sellyourself.fr/api/getAchat`, {
       method: "Post",
       body: JSON.stringify({ annonce: id }),
       headers: {
@@ -42,29 +48,31 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour changer l'affichage si l'annonce est déjà notée
   const isNoted = async () => {
-    let result = await fetch(`http://localhost:5000/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}`, {
-      method: "Get",
-      headers: {
+    if (id != undefined && user != undefined){
+      let result = await fetch(`https://api.sellyourself.fr/api/isNoted/${id}/${user}/${JSON.parse(sessionStorage.getItem('user'))._id}`, {
+        method: "Get",
+        headers: {
 
-        'Content-Type': 'Application/json',
-        authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-      }
-    });
-    result = await result.json();
+          'Content-Type': 'Application/json',
+          authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+        }
+      });
+      result = await result.json();
 
-    if(result.isNoted && vendu && JSON.parse(connectedUser).pseudo !== user){
-      const divNote = document.getElementsByClassName("HeaderConversation-div-note")[0];
-      const div = document.getElementsByClassName("HeaderConversation-div-isNoted")[0];
+      if(result.isNoted && vendu && JSON.parse(connectedUser).pseudo !== user){
+        const divNote = document.getElementsByClassName("HeaderConversation-div-note")[0];
+        const div = document.getElementsByClassName("HeaderConversation-div-isNoted")[0];
 
-      if(divNote !== undefined && div !== undefined){
-        divNote.style.display = 'none';
-        div.style.display = 'block';
+        if(divNote !== undefined && div !== undefined){
+          divNote.style.display = 'none';
+          div.style.display = 'block';
 
-        for(let i=1; i<=result.note; i++){
-          let button = document.getElementById("buttonNoted-"+i);
+          for(let i=1; i<=result.note; i++){
+            let button = document.getElementById("buttonNoted-"+i);
 
-          if(button !== undefined){
-            button.style.color = '#d48002'
+            if(button !== undefined){
+              button.style.color = '#d48002'
+            }
           }
         }
       }
@@ -73,16 +81,15 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour ajouter une note
   const addNote = async (note) => {
-    await fetch(`http://localhost:5000/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
+    await fetch(`https://api.sellyourself.fr/api/note/${id}/${user}/${JSON.parse(sessionStorage.getItem('user')).pseudo}/${note}`, {
       method: "Post",
       headers: {
         'Content-Type': 'Application/json',
-
         authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}`
       }
     });
 
-    await fetch(`http://localhost:5000/api/utilisateur/addNotif`, {
+    await fetch(`https://api.sellyourself.fr/api/utilisateur/addNotif`, {
       method: 'Post',
       body: JSON.stringify({ type: "note", content: `Votre annonce ${titre} a été noté ${note}/5`, destinataire: user }),
       headers: {
@@ -116,7 +123,7 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
 
   // Fonction pour supprimer une note
   const deleteNote = async () => {
-    await fetch(`http://localhost:5000/api/note/delete`, {
+    await fetch(`https://api.sellyourself.fr/api/note/delete`, {
       method: "Post",
       body: JSON.stringify({annonce: id, vendeur: user, user: JSON.parse(sessionStorage.getItem('user'))._id}),
       headers: {
@@ -127,9 +134,6 @@ function HeaderConversation({ image, titre, description, id, vendu, user}) {
     });
     window.location.reload(false);
   }
-
-  isVendu();
-  isNoted();
 
   // Affichage HTML
   return (

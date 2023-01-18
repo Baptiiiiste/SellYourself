@@ -30,7 +30,7 @@ function ModifAnnonce() {
 
     // Fonction qui récupère l'annonce
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
             method: 'GET',
             headers: { 
                 authorization: `bearer ${JSON.parse(sessionStorage.getItem('token'))}` }
@@ -137,7 +137,7 @@ function ModifAnnonce() {
     const formulaire = async () => {
         const nbImage = image.length;
 
-        let result = await fetch(`http://localhost:5000/api/annonce/user`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/annonce/user`, {
             method: 'Post',
             body: JSON.stringify({pseudo: JSON.parse(connectedUser).pseudo}),
             headers: {
@@ -168,7 +168,7 @@ function ModifAnnonce() {
             setCategorie('Autre');
         }
         else if(titre && prix && nbImage > 0 && prix <= 99999){
-            let result = await fetch(`http://localhost:5000/api/annonce/edit/${id}/${JSON.parse(connectedUser).pseudo}`, {
+            let result = await fetch(`https://api.sellyourself.fr/api/annonce/edit/${id}/${JSON.parse(connectedUser).pseudo}`, {
                 method: 'Put',
                 body: JSON.stringify({titre, description, image, prix, type, categorie}),
                 headers: {

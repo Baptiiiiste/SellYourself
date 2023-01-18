@@ -9,7 +9,7 @@ function Notification({type, info, owner, id}) {
 
     // Fonction pour supprimer une notification
     const deleteNotif = async () => {
-        await fetch(`http://localhost:5000/api/utilisateur/deleteNotif/${owner}/${id}`, {
+        await fetch(`https://api.sellyourself.fr/api/utilisateur/deleteNotif/${owner}/${id}`, {
             method: "delete",
             headers: {
 
@@ -26,7 +26,7 @@ function Notification({type, info, owner, id}) {
             <div className='Notification-all'>
                 <div className='Notification-right'>
                     <FontAwesomeIcon icon={faMessage} className="Notification-Image" />
-                    <Link className='Notification-text' to="/conversation">
+                    <Link className='Notification-text' to="/messages">
                         <p className="Notification-info">Vous avez reçu un nouveau message.</p>
                         <p className="Notification-messageText">{info}</p>
                     </Link>

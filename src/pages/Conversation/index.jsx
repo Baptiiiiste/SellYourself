@@ -12,44 +12,32 @@ import { React, useState, useEffect} from 'react';
 // Page de conversation (propre à deux utilisateurs et une annonce)
 function Conversation() {
     // Variables
-    useEffect(() => {
-        getAnnonce();
-        getPrecedentMesssages();
-    }, [])
-    
-
-
     let [messages, setMessages] = useState([]);
-
-    useEffect(() => {
-        socket.on("user joined", (msg) => {});
-    
-        return () => {
-          socket.off("user joined");
-        };
-    }, []);
-
-    // Déclaration de la variable annonce
     const [annonce, setAnnonce] = useState([]);
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
-    // Pour pouvoir récupérer un paramètre passer par l'URL
     const params = useParams();
-
     const connectedUser = sessionStorage.getItem("user");
     const username = JSON.parse(connectedUser).pseudo;
-    const photo = JSON.parse(connectedUser).profilPic;
-   
     let otherUser = params.acheteur;
     if(username === otherUser) otherUser = params.vendeur;
-
-    socket.auth = { username }; // attach { object } to auth
+    socket.auth = { username };
     socket.connect();
+    
+    useEffect(() => {
+        getAnnonce();
+        getPrecedentMesssages();
 
+        socket.on("user joined", (msg) => {});
+    
+        return () => {
+            socket.off("user joined");
+        };
+    }, [])
 
-    const sendMsg = async (e) => {
-
-        let result = await fetch(`http://localhost:5000/api/addMessageChat`, {
+    // Fonction pour envoyer un message
+    const sendMsg = async () => {
+        await fetch(`https://api.sellyourself.fr/api/addMessageChat`, {
             method: "POST",
             body: JSON.stringify({annonce: params.annonce, vendeur: params.vendeur, acheteur: params.acheteur, author: username, content: message}),
             headers: {
@@ -59,16 +47,14 @@ function Conversation() {
             }
         });
 
-
         socket.emit("message", {
             id: Date.now(),
             name: username,
             message: message,
             to: otherUser,
             annonce: params.annonce,
-            //photo: photo 
-          });
-          setMessage("");
+        });
+        setMessage("");
     }
 
     socket.on("message", (data) => {
@@ -77,22 +63,18 @@ function Conversation() {
         if(data.annonce !== params.annonce) return;
 
         setMessages((previousMessages) => [
-          ...previousMessages,
-          {
-            id: data.id,
-            name: data.name,
-            message: data.message,
-            //photo: data.photo,
-          },
+            ...previousMessages,
+            {
+                id: data.id,
+                name: data.name,
+                message: data.message,
+            },
         ]);
     });
 
-    
-
-
     // Fonction pour récupérer l'annonce sujette de la conversation
     const getAnnonce = async () => {
-        let result = await fetch(`http://localhost:5000/api/annonce/${params.annonce}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/annonce/${params.annonce}`, {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',
@@ -104,8 +86,9 @@ function Conversation() {
         setAnnonce(result);
     }
 
+    // Fonction pour récupérer un précédent message
     const getPrecedentMesssages = async () => {
-        let result = await fetch(`http://localhost:5000/api/getChat/${params.annonce}/${params.vendeur}/${params.acheteur}`, {
+        let result = await fetch(`https://api.sellyourself.fr/api/getChat/${params.annonce}/${params.vendeur}/${params.acheteur}`, {
                 method: "Get",
                 headers: {
                     'Content-Type': 'Application/json',
@@ -119,8 +102,8 @@ function Conversation() {
             setMessages((previousMessages) => [
                 ...previousMessages,
                 {
-                  name: result.success[i].author,
-                  message: result.success[i].content,
+                    name: result.success[i].author,
+                    message: result.success[i].content,
                 },
             ]);
         }
@@ -130,7 +113,7 @@ function Conversation() {
         navigate(`/`);
     }
 
-    // On return l'HTML de la page
+    // Affichage HTML
     return (
         <div className='Conversation'>
             <LeftBar/>

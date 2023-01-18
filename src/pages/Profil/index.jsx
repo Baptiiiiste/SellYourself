@@ -20,7 +20,7 @@ function Profil() {
     const getUserAds = async () => {
 		let listAds = [];
 		for(let annonce of JSON.parse(connectedUser).annonces){
-			let a = await fetch(`http://localhost:5000/api/annonce/${annonce}`, {
+			let a = await fetch(`https://api.sellyourself.fr/api/annonce/${annonce}`, {
 				method: "Get",
 				headers: {
 					'Content-Type': 'Application/json',

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 let corsOptions = {
-    origin: 'http://localhost:3000' // Compliant
+    origin: 'sellyourself.fr' // Compliant
 };
 const bcrypt = require('bcryptjs');
 const { User, Annonce, Notification, Note, Achat, Conversation, Message } = require("./configuration/models");
@@ -494,15 +494,12 @@ app.get("/api/isNoted/:annonce/:vendeur/:user", verifyToken, async (req, resp) =
     let bool = false;
     let note = 0;
     if(vendeur){
-        const user = await User.findOne( { pseudo: req.params.user } );
-        if(user){
-            vendeur.noteList.forEach(element => {
-                if(element.utilisateurId === user._id && element.annonceId === req.params.annonce){
-                    bool = true;
-                    note = element.note;
-                }
-            });
-        }
+        vendeur.noteList.forEach(element => {
+            if(element.utilisateurId === req.params.user && element.annonceId === req.params.annonce){
+                bool = true;
+                note = element.note;
+            }
+        });
     }
     if(bool){
         resp.send({isNoted: true, note: note});
@@ -653,7 +650,7 @@ app.use(morgan("dev"));
 const io = require("socket.io")(http, {
     path: "/socket.io",
     cors: {
-        origin: ["http://localhost:3000/"],
+        origin: "sellyourself.fr",
         methods: ["GET", "POST"],
         allowedHeaders: ["content-type"],
     },
@@ -715,7 +712,7 @@ app.post("/api/forgotPwd",async(req,resp)=>{
 
         const secret = process.env.JWTKEY + oldUser.password;
         const token = Jwt.sign({email : oldUser.email, pseudo : oldUser.pseudo}, secret, {expiresIn:'5m'});
-        const link = `http://localhost:3000/resetPassword/${oldUser.pseudo}/${token}`;
+        const link = `https://sellyourself.fr/resetPassword/${oldUser.pseudo}/${token}`;
 
         let transporter = nodemailer.createTransport({
             secure: true,
