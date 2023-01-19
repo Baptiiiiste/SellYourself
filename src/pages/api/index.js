@@ -650,7 +650,7 @@ app.use(morgan("dev"));
 const io = require("socket.io")(http, {
     path: "/socket.io",
     cors: {
-        origin: "sellyourself.fr",
+        origin: "localhost:3000",
         methods: ["GET", "POST"],
         allowedHeaders: ["content-type"],
     },
